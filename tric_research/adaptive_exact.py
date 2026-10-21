@@ -62,15 +62,22 @@ def _components(normalized):
 
 
 def _choose_engine(size,iv,wt,override):
-    if override not in ('auto','frontier','orientation'):
-        raise ValueError('engine must be auto, frontier, or orientation')
+    if override not in ('auto','frontier','orientation','compact'):
+        raise ValueError('engine must be auto, frontier, orientation, or compact')
     r=len({tuple(q) for q,w in zip(iv,wt) if len(q)==2 and w>0})
     if r==0: return 'interval',r,0
     w=prepare_events(size,iv,wt)[5]
     if override!='auto':return override,r,w
     # Heuristic for Python implementations, not a theoretical performance bound.
     # Small r favors orientation; a single frontier pass evaluates all budgets.
-    return ('orientation' if r<=2 else 'frontier'),r,w
+    if r<=2: return 'orientation',r,w
+    # The exact compact engine is advantageous when long components have few
+    # distinct interval starts relative to the backbone length. This is a
+    # conservative Python dispatch heuristic, not a runtime guarantee.
+    distinct_starts=len({a for sig in iv for a,_ in sig})
+    if size>=40 and (distinct_starts+1)*4 <= size:
+        return 'compact',r,w
+    return 'frontier',r,w
 
 
 
@@ -140,7 +147,7 @@ def optimize_adaptive(h,intervals,weights,k,*,engine='auto',state_cap=None):
     optimum is returned regardless of the engine, barring explicit state_cap.
     """
     normalized=_validate(h,intervals,weights,k)
-    if engine not in ('auto','frontier','orientation'):
+    if engine not in ('auto','frontier','orientation','compact'):
         raise ValueError('unknown engine')
     empty_loss=sum(w for sig,w in normalized if not sig)
     groups=_components(normalized)
@@ -157,11 +164,15 @@ def optimize_adaptive(h,intervals,weights,k,*,engine='auto',state_cap=None):
         wt=[weight for _,weight in items]
         chosen_engine,r,w=_choose_engine(size,local,wt,engine)
         costs=[]
+        if chosen_engine=='compact':
+            from frontier_compact import optimize_compact_profile
+            profile,_ = optimize_compact_profile(size,local,wt,min(k,size),state_cap=state_cap)
+            costs=[(loss,tuple(lo+p for p in positions)) for loss,positions in profile]
         if chosen_engine=='frontier':
             costs=[(loss,tuple(lo+p for p in positions))
                    for loss,positions in _frontier_profile(
                        size,local,wt,min(k,size),state_cap=state_cap)]
-        for budget in range(min(k,size)+1) if chosen_engine!='frontier' else []:
+        for budget in range(min(k,size)+1) if chosen_engine not in ('frontier','compact') else []:
             if chosen_engine=='interval':
                 positions,loss=choose_path_sweep(size,[sig[0] for sig in local],budget,wt)
             else:
