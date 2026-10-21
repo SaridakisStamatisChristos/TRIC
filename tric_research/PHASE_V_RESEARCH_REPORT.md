@@ -24,7 +24,7 @@ This is the number of distinct two-piece queries whose first interval has ended 
 
 Sweep positions `p = 0,1,...,h-1`. A dynamic-programming state stores `(count, last, mask)`, where `count` is the number of chosen positions so far, `last` is the largest chosen index or `-1`, and `mask` holds, for each query j in the live frontier, whether its first interval was hit.
 
-At each position, branch on choosing or skipping the pivot, updating `count` and `last`. Process all one-piece queries ending at p: query `[a,p]` is hit iff `last >= a` at that moment. At `b_j` store the bit `last >= a_j`. At `d_j`, charge query j's weight iff both its stored bit is false **and** `last < c_j`; then retire the bit. Remove transitions that cannot meet the exact final count k. For identical state keys keep the minimum cost and a traceback predecessor.
+At each position, branch on choosing or skipping the pivot, updating `count` and `last`. Process all one-piece queries ending at p: query `[a,p]` is hit iff `last >= a` at that moment. At `b_j` store the bit `last >= a_j`. At `d_j`, charge query j's weight iff both its stored bit is false **and** `last < c_j`; then retire the bit. Live bits are assigned **recycled compact slots**, with second-end events processed before first-end events at each position. Consequently a state mask uses at most `w` bits, even if `r` is very large. Remove transitions that cannot meet the exact final count k. For identical state keys keep the minimum cost and a traceback predecessor.
 
 Always return the minimum-cost terminal state whose count equals k. Empty-signature queries contribute unavoidable loss; zero-weight signatures are dropped. Two intervals that overlap or touch are normalized to a single interval.
 
@@ -49,7 +49,7 @@ python -m unittest -q test_tric test_path_monge test_path_sweep test_backbone te
 python benchmark_frontier.py > phase5_benchmark.json
 ```
 
-The tests include: all pairs of permitted query signatures on each domain size h=1..4 and every pivot budget; 240 randomized weighted instances compared to Phase III's independent orientation exact solver *and* an enumerated subset oracle; ten separated queries constructed by the Phase III Vertex Cover reduction; 225 random directed cyclic graph instances (multiple budgets per graph) compared to direct per-pivot certificate oracles and brute-force optimum; invalid-input/state-cap conditions.
+The tests include: a 1,500-signature width-one compact-slot regression; all pairs of permitted query signatures on each domain size h=1..4 and every pivot budget; 240 randomized weighted instances compared to Phase III's independent orientation exact solver *and* an enumerated subset oracle; ten separated queries constructed by the Phase III Vertex Cover reduction; 225 random directed cyclic graph instances (multiple budgets per graph) compared to direct per-pivot certificate oracles and brute-force optimum; invalid-input/state-cap conditions.
 
 All 24 combined local unittest cases passed on Python 3.13.5. Test count is unittest method count, not the number of examined combinations.
 
@@ -59,15 +59,15 @@ The accompanying `phase5_benchmark.json` has the machine details, five raw timin
 
 | Family | r | w | Frontier (ms) | Phase III orientation (ms) | Max DP states |
 |:--|--:|--:|--:|--:|--:|
-| Separated | 4 | 1 | 0.143 | 0.508 | 29 |
-| Separated | 6 | 1 | 0.445 | 6.121 | 65 |
-| Separated | 8 | 1 | 1.096 | 50.130 | 110 |
-| Separated | 12 | 1 | 3.958 | omitted | 243 |
-| Separated | 18 | 1 | 14.193 | omitted | 540 |
-| Overlapping | 4 | 4 | 0.130 | 0.453 | 36 |
-| Overlapping | 6 | 6 | 0.830 | 5.041 | 213 |
-| Overlapping | 8 | 8 | 5.814 | 39.565 | 1,225 |
-| Overlapping | 10 | 10 | 36.932 | omitted | 6,613 |
+| Separated | 4 | 1 | 0.143 | 0.497 | 29 |
+| Separated | 6 | 1 | 0.440 | 5.842 | 65 |
+| Separated | 8 | 1 | 1.022 | 47.869 | 110 |
+| Separated | 12 | 1 | 3.948 | omitted | 243 |
+| Separated | 18 | 1 | 13.258 | omitted | 540 |
+| Overlapping | 4 | 4 | 0.132 | 0.429 | 36 |
+| Overlapping | 6 | 6 | 0.821 | 4.725 | 213 |
+| Overlapping | 8 | 8 | 5.933 | 39.283 | 1,225 |
+| Overlapping | 10 | 10 | 38.048 | omitted | 6,613 |
 
 The orientation baseline is omitted above r=8 because its exponential runtime would dominate this small exploratory benchmark. The two solvers have identical selection objectives. These synthetic examples deliberately vary w/r and cannot establish typical performance on real query traces.
 

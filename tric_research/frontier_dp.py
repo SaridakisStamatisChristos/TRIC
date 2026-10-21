@@ -50,19 +50,36 @@ def prepare_events(h, intervals, weights):
         if len(sig) == 1:
             a,b = sig[0]
             single[b].append((a,weight))
+    starts = [[] for _ in range(h)]
+    ends = [[] for _ in range(h)]
     for ident,(sig,weight) in enumerate(doubles):
         (a,b),(c,d) = sig
-        first[b].append((ident,a))
-        second[d].append((ident,c,weight))
-    # Frontier is after each position: first ended, second not yet ended.
-    pending = [0] * h
-    active = 0
+        starts[b].append((ident,a))
+        ends[d].append((ident,c,weight))
+    # Recycle Boolean slots in active-frontier order. A signature's slot is
+    # freed at its second end d; signatures starting at the same position can
+    # reuse it. Thus all state masks contain <= w bits, not r global bits.
+    free_slots = []
+    live = {}
+    next_slot = 0
+    pending = []
     max_active = 0
     for pos in range(h):
-        active += len(first[pos])
-        active -= len(second[pos])
-        max_active = max(max_active, active)
-        pending[pos] = active
+        for ident,a,weight in ends[pos]:
+            slot = live.pop(ident)
+            second[pos].append((slot,a,weight))
+            free_slots.append(slot)
+        for ident,a in starts[pos]:
+            if free_slots:
+                slot = free_slots.pop()
+            else:
+                slot = next_slot
+                next_slot += 1
+            live[ident] = slot
+            first[pos].append((slot,a))
+        pending.append(len(live))
+        max_active = max(max_active, len(live))
+    assert not live and next_slot == max_active
     return (first, second, single, fixed_loss, len(doubles), max_active, pending)
 
 
@@ -98,13 +115,13 @@ def optimize_frontier(h, intervals, weights, k, *, state_cap=None):
                     if newlast < a:
                         cost += weight
                 newbits = bits
-                for ident,a in first[pos]:
-                    if newlast >= a:
-                        newbits |= 1 << ident
-                for ident,a,weight in second[pos]:
-                    if not (newbits >> ident)&1 and newlast < a:
+                for slot,a,weight in second[pos]:
+                    if not (newbits >> slot)&1 and newlast < a:
                         cost += weight
-                    newbits &= ~(1 << ident)
+                    newbits &= ~(1 << slot)
+                for slot,a in first[pos]:
+                    if newlast >= a:
+                        newbits |= 1 << slot
                 newstate = (chosen,newlast,newbits)
                 prev = next_states.get(newstate)
                 if prev is None or cost < prev:

@@ -97,7 +97,16 @@ class TestFrontierDP(unittest.TestCase):
                     self.assertEqual(loss,min(all_losses))
 
     def test_width_and_invalid_inputs(self):
-        self.assertEqual(prepare_events(8,[((0,1),(4,5)),((2,3),(6,7))],[3,4])[5],2)
+        starts,ends,_,_,r,w,_ = prepare_events(8,[((0,1),(4,5)),((2,3),(6,7))],[3,4])
+        self.assertEqual(w,2)
+        self.assertEqual(max(slot for events in starts for slot,_ in events),1)
+        # State slots are recycled, never proportional to the number r of
+        # non-overlapping disjunctive signatures.
+        r=1500
+        many=[((4*i,4*i),(4*i+2,4*i+2)) for i in range(r)]
+        starts,ends,_,_,count,width,_=prepare_events(4*r,many,[1]*r)
+        self.assertEqual((count,width),(r,1))
+        self.assertEqual({slot for events in starts for slot,_ in events},{0})
         for args in [(4,[((0,4),)],[1],1), (4,[((0,2),)],[1],5),
                      (4,[((0,1),)],[-1],1),(4,[((0,1),)],[float('nan')],1)]:
             with self.assertRaises(ValueError):optimize_frontier(*args)
