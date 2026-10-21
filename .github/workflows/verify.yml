@@ -17,9 +17,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Test Phases I-VII exactness
+      - name: Test Phases I-VIII exactness
         working-directory: tric_research
         run: >-
           python -m unittest -q test_tric test_path_monge test_path_sweep
           test_backbone test_backbone_scc test_frontier_dp
-          test_adaptive_exact test_frontier_compact
+          test_adaptive_exact test_frontier_compact test_ordered_probe
