@@ -48,3 +48,15 @@ Phase IV extends the known-backbone optimization to **arbitrary directed graphs*
 Run: `cd tric_research && python -m unittest -q test_tric test_path_monge test_path_sweep test_backbone test_backbone_scc`.
 
 **Scientific caveat:** SCC condensation and O'Reach's supportive-vertex certificates are existing methods. This specialized exact extension is experimentally checked on small instances, but no distinct SOTA or publication-level novelty claim has been established.
+
+## Phase V — Exact optimization by frontier width
+
+Phase V adds a frontier-state exact weighted selector for one- and two-interval certificate signatures. Its worst-case exponent depends on the maximum number of simultaneously live two-interval query statuses (`w`) rather than the total number of two-interval signatures (`r`). It complements the Phase III orientation-enumeration algorithm; performance can still be exponential when `w` is large.
+
+- [Phase V research report](tric_research/PHASE_V_RESEARCH_REPORT.md)
+- [Implementation](tric_research/frontier_dp.py)
+- [Tests](tric_research/test_frontier_dp.py) · [Local benchmark](tric_research/phase5_benchmark.json)
+
+Run `cd tric_research && python -m unittest -q test_tric test_path_monge test_path_sweep test_backbone test_backbone_scc test_frontier_dp`.
+
+**Scientific caveat:** Frontier-based dynamic programming and partial multi-interval stabbing have existing literature; no publication-level novelty claim has been established. Local Python improvements against the earlier TRIC selector are not comparisons against O'Reach.
