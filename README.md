@@ -60,3 +60,15 @@ Phase V adds a frontier-state exact weighted selector for one- and two-interval 
 Run `cd tric_research && python -m unittest -q test_tric test_path_monge test_path_sweep test_backbone test_backbone_scc test_frontier_dp`.
 
 **Scientific caveat:** Frontier-based dynamic programming and partial multi-interval stabbing have existing literature; no publication-level novelty claim has been established. Local Python improvements against the earlier TRIC selector are not comparisons against O'Reach.
+
+
+## Phase VI — Exact adaptive budget-profile decomposition
+
+Phase VI groups weighted certificate queries by disjoint support hulls, computes each group's exact pivot-budget profile, and allocates the total pivot budget by min-plus convolution. It combines the existing path-sweep, orientation and frontier engines. Cyclic graphs are supported through Phase IV SCC compression.
+
+- [Phase VI research report](tric_research/PHASE_VI_RESEARCH_REPORT.md) — exactness argument, costs, limitations and prior-art boundaries
+- [Adaptive optimizer](tric_research/adaptive_exact.py) · [Tests](tric_research/test_adaptive_exact.py) · [Exploratory benchmark](tric_research/phase6_benchmark.json)
+
+Run all phase tests with `cd tric_research && python -m unittest -q test_tric test_path_monge test_path_sweep test_backbone test_backbone_scc test_frontier_dp test_adaptive_exact`.
+
+**Scientific limitation:** The decomposition and dynamic-programming operations use established techniques. No new reachability certificate, global novelty, or O'Reach superiority is claimed from this internal Python prototype.
