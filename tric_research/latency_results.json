@@ -1,0 +1,90 @@
+[
+  {
+    "family": "dag",
+    "distribution": "uniform",
+    "queries": 20000,
+    "repeats": 5,
+    "preprocessing_s": 0.035,
+    "baseline_median_s": 0.0675,
+    "tric_median_s": 0.0702,
+    "query_speedup": 0.962,
+    "estimated_breakeven_queries": null
+  },
+  {
+    "family": "dag",
+    "distribution": "hot",
+    "queries": 20000,
+    "repeats": 5,
+    "preprocessing_s": 0.0309,
+    "baseline_median_s": 0.0537,
+    "tric_median_s": 0.0351,
+    "query_speedup": 1.53,
+    "estimated_breakeven_queries": 33180
+  },
+  {
+    "family": "chain",
+    "distribution": "uniform",
+    "queries": 20000,
+    "repeats": 5,
+    "preprocessing_s": 0.0349,
+    "baseline_median_s": 0.3582,
+    "tric_median_s": 0.0656,
+    "query_speedup": 5.457,
+    "estimated_breakeven_queries": 2383
+  },
+  {
+    "family": "chain",
+    "distribution": "hot",
+    "queries": 20000,
+    "repeats": 5,
+    "preprocessing_s": 0.0318,
+    "baseline_median_s": 0.351,
+    "tric_median_s": 0.0222,
+    "query_speedup": 15.784,
+    "estimated_breakeven_queries": 1932
+  },
+  {
+    "family": "blocks",
+    "distribution": "uniform",
+    "queries": 20000,
+    "repeats": 5,
+    "preprocessing_s": 0.0301,
+    "baseline_median_s": 0.0162,
+    "tric_median_s": 0.0477,
+    "query_speedup": 0.34,
+    "estimated_breakeven_queries": null
+  },
+  {
+    "family": "blocks",
+    "distribution": "hot",
+    "queries": 20000,
+    "repeats": 5,
+    "preprocessing_s": 0.0295,
+    "baseline_median_s": 0.0164,
+    "tric_median_s": 0.0299,
+    "query_speedup": 0.55,
+    "estimated_breakeven_queries": null
+  },
+  {
+    "family": "communities",
+    "distribution": "uniform",
+    "queries": 20000,
+    "repeats": 5,
+    "preprocessing_s": 0.0376,
+    "baseline_median_s": 0.4947,
+    "tric_median_s": 0.0168,
+    "query_speedup": 29.399,
+    "estimated_breakeven_queries": 1574
+  },
+  {
+    "family": "communities",
+    "distribution": "hot",
+    "queries": 20000,
+    "repeats": 5,
+    "preprocessing_s": 0.0414,
+    "baseline_median_s": 0.566,
+    "tric_median_s": 0.0127,
+    "query_speedup": 44.602,
+    "estimated_breakeven_queries": 1497
+  }
+]

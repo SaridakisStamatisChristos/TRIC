@@ -1,0 +1,74 @@
+[
+  {
+    "family": "dag",
+    "distribution": "uniform",
+    "baseline_median_s": 0.0549,
+    "index_median_s": 0.058,
+    "speedup": 0.946,
+    "build_s": 0.0304,
+    "query_count": 20000
+  },
+  {
+    "family": "dag",
+    "distribution": "hot",
+    "baseline_median_s": 0.0588,
+    "index_median_s": 0.0625,
+    "speedup": 0.941,
+    "build_s": 0.0315,
+    "query_count": 20000
+  },
+  {
+    "family": "chain",
+    "distribution": "uniform",
+    "baseline_median_s": 0.3402,
+    "index_median_s": 0.0656,
+    "speedup": 5.188,
+    "build_s": 0.0362,
+    "query_count": 20000
+  },
+  {
+    "family": "chain",
+    "distribution": "hot",
+    "baseline_median_s": 0.349,
+    "index_median_s": 0.0482,
+    "speedup": 7.239,
+    "build_s": 0.0327,
+    "query_count": 20000
+  },
+  {
+    "family": "blocks",
+    "distribution": "uniform",
+    "baseline_median_s": 0.0147,
+    "index_median_s": 0.0472,
+    "speedup": 0.312,
+    "build_s": 0.0308,
+    "query_count": 20000
+  },
+  {
+    "family": "blocks",
+    "distribution": "hot",
+    "baseline_median_s": 0.0125,
+    "index_median_s": 0.0474,
+    "speedup": 0.264,
+    "build_s": 0.0312,
+    "query_count": 20000
+  },
+  {
+    "family": "communities",
+    "distribution": "uniform",
+    "baseline_median_s": 0.4775,
+    "index_median_s": 0.0161,
+    "speedup": 29.575,
+    "build_s": 0.0391,
+    "query_count": 20000
+  },
+  {
+    "family": "communities",
+    "distribution": "hot",
+    "baseline_median_s": 0.6264,
+    "index_median_s": 0.0307,
+    "speedup": 20.433,
+    "build_s": 0.045,
+    "query_count": 20000
+  }
+]

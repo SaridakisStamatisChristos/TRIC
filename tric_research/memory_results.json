@@ -1,0 +1,38 @@
+{
+  "n": 1200,
+  "k": 8,
+  "q": 2000,
+  "seed": 555,
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "results": {
+    "choose_path_monge": {
+      "peak_traced_bytes": 52059568,
+      "objective": 886,
+      "pivots": [
+        97,
+        191,
+        343,
+        517,
+        661,
+        830,
+        984,
+        1127
+      ]
+    },
+    "choose_path_sweep": {
+      "peak_traced_bytes": 732072,
+      "objective": 886,
+      "pivots": [
+        97,
+        191,
+        343,
+        517,
+        661,
+        830,
+        984,
+        1127
+      ]
+    }
+  }
+}

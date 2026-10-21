@@ -14,11 +14,12 @@ TRIC studies exact directed-graph reachability certificates, workload-aware pivo
 
 ## Project contents
 
-The complete research artifacts originate from `TRIC_Phase_III_Research_2026-10-21.zip` and include implementation files, tests, benchmark scripts, JSON measurements, and research reports. The repository will contain source files and reproducibility materials when the import is complete.
+The complete research artifacts originate from `TRIC_Phase_III_Research_2026-10-21.zip` and include implementation files, tests, benchmark scripts, JSON measurements, and research reports. The original source, reports, tests, and benchmark data are available in [`tric_research/`](tric_research/).
 
 ## Reproduce (Python 3.10+)
 
 ```bash
+cd tric_research
 python -m unittest -q test_tric test_path_monge test_path_sweep test_backbone
 python benchmark_optimizers.py
 python benchmark_backbone.py

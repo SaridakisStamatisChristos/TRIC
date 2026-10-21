@@ -1,0 +1,2910 @@
+{
+  "summary": [
+    {
+      "distribution": "uniform",
+      "n": 50,
+      "k": 4,
+      "queries": 150,
+      "seeds": 80,
+      "greedy_suboptimal_cases": 61,
+      "average_greedy_missed": 62.56,
+      "average_optimal_missed": 56.83,
+      "mean_absolute_saved_weight": 5.74,
+      "maximum_saved_weight": 15
+    },
+    {
+      "distribution": "clusters",
+      "n": 50,
+      "k": 4,
+      "queries": 150,
+      "seeds": 80,
+      "greedy_suboptimal_cases": 53,
+      "average_greedy_missed": 56.38,
+      "average_optimal_missed": 51.95,
+      "mean_absolute_saved_weight": 4.42,
+      "maximum_saved_weight": 28
+    }
+  ],
+  "runs": [
+    {
+      "seed": 0,
+      "distribution": "uniform",
+      "greedy_missed_weight": 63,
+      "optimal_missed_weight": 63,
+      "greedy": [
+        17,
+        30,
+        7,
+        42
+      ],
+      "optimal": [
+        7,
+        17,
+        30,
+        42
+      ]
+    },
+    {
+      "seed": 1,
+      "distribution": "uniform",
+      "greedy_missed_weight": 52,
+      "optimal_missed_weight": 52,
+      "greedy": [
+        31,
+        18,
+        42,
+        6
+      ],
+      "optimal": [
+        6,
+        18,
+        31,
+        42
+      ]
+    },
+    {
+      "seed": 2,
+      "distribution": "uniform",
+      "greedy_missed_weight": 78,
+      "optimal_missed_weight": 67,
+      "greedy": [
+        22,
+        12,
+        36,
+        4
+      ],
+      "optimal": [
+        4,
+        17,
+        26,
+        36
+      ]
+    },
+    {
+      "seed": 3,
+      "distribution": "uniform",
+      "greedy_missed_weight": 46,
+      "optimal_missed_weight": 36,
+      "greedy": [
+        23,
+        9,
+        40,
+        30
+      ],
+      "optimal": [
+        9,
+        18,
+        26,
+        40
+      ]
+    },
+    {
+      "seed": 4,
+      "distribution": "uniform",
+      "greedy_missed_weight": 71,
+      "optimal_missed_weight": 71,
+      "greedy": [
+        27,
+        10,
+        40,
+        44
+      ],
+      "optimal": [
+        10,
+        26,
+        36,
+        43
+      ]
+    },
+    {
+      "seed": 5,
+      "distribution": "uniform",
+      "greedy_missed_weight": 71,
+      "optimal_missed_weight": 59,
+      "greedy": [
+        31,
+        17,
+        38,
+        7
+      ],
+      "optimal": [
+        7,
+        17,
+        24,
+        37
+      ]
+    },
+    {
+      "seed": 6,
+      "distribution": "uniform",
+      "greedy_missed_weight": 48,
+      "optimal_missed_weight": 38,
+      "greedy": [
+        21,
+        38,
+        13,
+        45
+      ],
+      "optimal": [
+        13,
+        21,
+        32,
+        44
+      ]
+    },
+    {
+      "seed": 7,
+      "distribution": "uniform",
+      "greedy_missed_weight": 70,
+      "optimal_missed_weight": 57,
+      "greedy": [
+        24,
+        12,
+        43,
+        29
+      ],
+      "optimal": [
+        8,
+        17,
+        28,
+        43
+      ]
+    },
+    {
+      "seed": 8,
+      "distribution": "uniform",
+      "greedy_missed_weight": 70,
+      "optimal_missed_weight": 62,
+      "greedy": [
+        25,
+        11,
+        39,
+        45
+      ],
+      "optimal": [
+        12,
+        28,
+        37,
+        45
+      ]
+    },
+    {
+      "seed": 9,
+      "distribution": "uniform",
+      "greedy_missed_weight": 43,
+      "optimal_missed_weight": 36,
+      "greedy": [
+        24,
+        40,
+        10,
+        33
+      ],
+      "optimal": [
+        10,
+        24,
+        33,
+        41
+      ]
+    },
+    {
+      "seed": 10,
+      "distribution": "uniform",
+      "greedy_missed_weight": 67,
+      "optimal_missed_weight": 61,
+      "greedy": [
+        23,
+        34,
+        6,
+        41
+      ],
+      "optimal": [
+        6,
+        18,
+        33,
+        41
+      ]
+    },
+    {
+      "seed": 11,
+      "distribution": "uniform",
+      "greedy_missed_weight": 47,
+      "optimal_missed_weight": 45,
+      "greedy": [
+        25,
+        14,
+        39,
+        34
+      ],
+      "optimal": [
+        10,
+        18,
+        27,
+        39
+      ]
+    },
+    {
+      "seed": 12,
+      "distribution": "uniform",
+      "greedy_missed_weight": 74,
+      "optimal_missed_weight": 74,
+      "greedy": [
+        26,
+        40,
+        9,
+        18
+      ],
+      "optimal": [
+        9,
+        18,
+        26,
+        40
+      ]
+    },
+    {
+      "seed": 13,
+      "distribution": "uniform",
+      "greedy_missed_weight": 45,
+      "optimal_missed_weight": 38,
+      "greedy": [
+        28,
+        12,
+        43,
+        32
+      ],
+      "optimal": [
+        2,
+        12,
+        32,
+        43
+      ]
+    },
+    {
+      "seed": 14,
+      "distribution": "uniform",
+      "greedy_missed_weight": 67,
+      "optimal_missed_weight": 67,
+      "greedy": [
+        27,
+        9,
+        43,
+        21
+      ],
+      "optimal": [
+        9,
+        21,
+        27,
+        43
+      ]
+    },
+    {
+      "seed": 15,
+      "distribution": "uniform",
+      "greedy_missed_weight": 71,
+      "optimal_missed_weight": 63,
+      "greedy": [
+        24,
+        38,
+        10,
+        14
+      ],
+      "optimal": [
+        10,
+        20,
+        27,
+        38
+      ]
+    },
+    {
+      "seed": 16,
+      "distribution": "uniform",
+      "greedy_missed_weight": 53,
+      "optimal_missed_weight": 47,
+      "greedy": [
+        14,
+        31,
+        25,
+        7
+      ],
+      "optimal": [
+        7,
+        14,
+        25,
+        32
+      ]
+    },
+    {
+      "seed": 17,
+      "distribution": "uniform",
+      "greedy_missed_weight": 40,
+      "optimal_missed_weight": 38,
+      "greedy": [
+        22,
+        39,
+        15,
+        8
+      ],
+      "optimal": [
+        8,
+        15,
+        26,
+        39
+      ]
+    },
+    {
+      "seed": 18,
+      "distribution": "uniform",
+      "greedy_missed_weight": 63,
+      "optimal_missed_weight": 56,
+      "greedy": [
+        23,
+        11,
+        38,
+        7
+      ],
+      "optimal": [
+        7,
+        13,
+        24,
+        38
+      ]
+    },
+    {
+      "seed": 19,
+      "distribution": "uniform",
+      "greedy_missed_weight": 58,
+      "optimal_missed_weight": 58,
+      "greedy": [
+        24,
+        35,
+        6,
+        43
+      ],
+      "optimal": [
+        6,
+        24,
+        35,
+        43
+      ]
+    },
+    {
+      "seed": 20,
+      "distribution": "uniform",
+      "greedy_missed_weight": 64,
+      "optimal_missed_weight": 55,
+      "greedy": [
+        26,
+        14,
+        37,
+        5
+      ],
+      "optimal": [
+        5,
+        16,
+        25,
+        37
+      ]
+    },
+    {
+      "seed": 21,
+      "distribution": "uniform",
+      "greedy_missed_weight": 101,
+      "optimal_missed_weight": 94,
+      "greedy": [
+        18,
+        36,
+        8,
+        26
+      ],
+      "optimal": [
+        10,
+        20,
+        26,
+        37
+      ]
+    },
+    {
+      "seed": 22,
+      "distribution": "uniform",
+      "greedy_missed_weight": 75,
+      "optimal_missed_weight": 64,
+      "greedy": [
+        27,
+        14,
+        37,
+        4
+      ],
+      "optimal": [
+        4,
+        15,
+        22,
+        37
+      ]
+    },
+    {
+      "seed": 23,
+      "distribution": "uniform",
+      "greedy_missed_weight": 46,
+      "optimal_missed_weight": 40,
+      "greedy": [
+        22,
+        39,
+        9,
+        33
+      ],
+      "optimal": [
+        9,
+        21,
+        33,
+        39
+      ]
+    },
+    {
+      "seed": 24,
+      "distribution": "uniform",
+      "greedy_missed_weight": 69,
+      "optimal_missed_weight": 62,
+      "greedy": [
+        19,
+        33,
+        7,
+        26
+      ],
+      "optimal": [
+        7,
+        16,
+        26,
+        35
+      ]
+    },
+    {
+      "seed": 25,
+      "distribution": "uniform",
+      "greedy_missed_weight": 38,
+      "optimal_missed_weight": 38,
+      "greedy": [
+        21,
+        31,
+        9,
+        46
+      ],
+      "optimal": [
+        9,
+        21,
+        31,
+        46
+      ]
+    },
+    {
+      "seed": 26,
+      "distribution": "uniform",
+      "greedy_missed_weight": 38,
+      "optimal_missed_weight": 29,
+      "greedy": [
+        22,
+        14,
+        39,
+        5
+      ],
+      "optimal": [
+        5,
+        15,
+        25,
+        39
+      ]
+    },
+    {
+      "seed": 27,
+      "distribution": "uniform",
+      "greedy_missed_weight": 87,
+      "optimal_missed_weight": 80,
+      "greedy": [
+        24,
+        8,
+        40,
+        17
+      ],
+      "optimal": [
+        8,
+        17,
+        28,
+        40
+      ]
+    },
+    {
+      "seed": 28,
+      "distribution": "uniform",
+      "greedy_missed_weight": 46,
+      "optimal_missed_weight": 46,
+      "greedy": [
+        25,
+        9,
+        39,
+        14
+      ],
+      "optimal": [
+        9,
+        14,
+        25,
+        39
+      ]
+    },
+    {
+      "seed": 29,
+      "distribution": "uniform",
+      "greedy_missed_weight": 50,
+      "optimal_missed_weight": 45,
+      "greedy": [
+        24,
+        36,
+        8,
+        20
+      ],
+      "optimal": [
+        8,
+        22,
+        26,
+        36
+      ]
+    },
+    {
+      "seed": 30,
+      "distribution": "uniform",
+      "greedy_missed_weight": 45,
+      "optimal_missed_weight": 45,
+      "greedy": [
+        24,
+        10,
+        36,
+        4
+      ],
+      "optimal": [
+        4,
+        10,
+        24,
+        36
+      ]
+    },
+    {
+      "seed": 31,
+      "distribution": "uniform",
+      "greedy_missed_weight": 60,
+      "optimal_missed_weight": 50,
+      "greedy": [
+        24,
+        10,
+        43,
+        30
+      ],
+      "optimal": [
+        10,
+        21,
+        30,
+        43
+      ]
+    },
+    {
+      "seed": 32,
+      "distribution": "uniform",
+      "greedy_missed_weight": 75,
+      "optimal_missed_weight": 68,
+      "greedy": [
+        16,
+        40,
+        25,
+        5
+      ],
+      "optimal": [
+        5,
+        13,
+        25,
+        40
+      ]
+    },
+    {
+      "seed": 33,
+      "distribution": "uniform",
+      "greedy_missed_weight": 72,
+      "optimal_missed_weight": 64,
+      "greedy": [
+        25,
+        15,
+        39,
+        6
+      ],
+      "optimal": [
+        6,
+        16,
+        28,
+        39
+      ]
+    },
+    {
+      "seed": 34,
+      "distribution": "uniform",
+      "greedy_missed_weight": 54,
+      "optimal_missed_weight": 52,
+      "greedy": [
+        25,
+        13,
+        40,
+        4
+      ],
+      "optimal": [
+        4,
+        15,
+        25,
+        40
+      ]
+    },
+    {
+      "seed": 35,
+      "distribution": "uniform",
+      "greedy_missed_weight": 81,
+      "optimal_missed_weight": 73,
+      "greedy": [
+        23,
+        37,
+        5,
+        28
+      ],
+      "optimal": [
+        5,
+        21,
+        28,
+        37
+      ]
+    },
+    {
+      "seed": 36,
+      "distribution": "uniform",
+      "greedy_missed_weight": 59,
+      "optimal_missed_weight": 47,
+      "greedy": [
+        24,
+        10,
+        36,
+        18
+      ],
+      "optimal": [
+        8,
+        18,
+        28,
+        38
+      ]
+    },
+    {
+      "seed": 37,
+      "distribution": "uniform",
+      "greedy_missed_weight": 48,
+      "optimal_missed_weight": 48,
+      "greedy": [
+        25,
+        11,
+        40,
+        32
+      ],
+      "optimal": [
+        11,
+        25,
+        32,
+        40
+      ]
+    },
+    {
+      "seed": 38,
+      "distribution": "uniform",
+      "greedy_missed_weight": 66,
+      "optimal_missed_weight": 61,
+      "greedy": [
+        21,
+        41,
+        10,
+        32
+      ],
+      "optimal": [
+        10,
+        17,
+        26,
+        41
+      ]
+    },
+    {
+      "seed": 39,
+      "distribution": "uniform",
+      "greedy_missed_weight": 67,
+      "optimal_missed_weight": 61,
+      "greedy": [
+        28,
+        41,
+        19,
+        35
+      ],
+      "optimal": [
+        8,
+        20,
+        28,
+        41
+      ]
+    },
+    {
+      "seed": 40,
+      "distribution": "uniform",
+      "greedy_missed_weight": 64,
+      "optimal_missed_weight": 55,
+      "greedy": [
+        24,
+        7,
+        36,
+        16
+      ],
+      "optimal": [
+        7,
+        24,
+        30,
+        37
+      ]
+    },
+    {
+      "seed": 41,
+      "distribution": "uniform",
+      "greedy_missed_weight": 68,
+      "optimal_missed_weight": 64,
+      "greedy": [
+        26,
+        12,
+        39,
+        43
+      ],
+      "optimal": [
+        12,
+        19,
+        31,
+        42
+      ]
+    },
+    {
+      "seed": 42,
+      "distribution": "uniform",
+      "greedy_missed_weight": 67,
+      "optimal_missed_weight": 61,
+      "greedy": [
+        28,
+        14,
+        37,
+        5
+      ],
+      "optimal": [
+        13,
+        24,
+        33,
+        40
+      ]
+    },
+    {
+      "seed": 43,
+      "distribution": "uniform",
+      "greedy_missed_weight": 57,
+      "optimal_missed_weight": 56,
+      "greedy": [
+        30,
+        8,
+        20,
+        46
+      ],
+      "optimal": [
+        8,
+        20,
+        28,
+        39
+      ]
+    },
+    {
+      "seed": 44,
+      "distribution": "uniform",
+      "greedy_missed_weight": 87,
+      "optimal_missed_weight": 76,
+      "greedy": [
+        20,
+        34,
+        14,
+        45
+      ],
+      "optimal": [
+        14,
+        26,
+        34,
+        45
+      ]
+    },
+    {
+      "seed": 45,
+      "distribution": "uniform",
+      "greedy_missed_weight": 60,
+      "optimal_missed_weight": 52,
+      "greedy": [
+        23,
+        15,
+        35,
+        4
+      ],
+      "optimal": [
+        4,
+        15,
+        22,
+        35
+      ]
+    },
+    {
+      "seed": 46,
+      "distribution": "uniform",
+      "greedy_missed_weight": 66,
+      "optimal_missed_weight": 57,
+      "greedy": [
+        20,
+        31,
+        42,
+        5
+      ],
+      "optimal": [
+        5,
+        20,
+        30,
+        42
+      ]
+    },
+    {
+      "seed": 47,
+      "distribution": "uniform",
+      "greedy_missed_weight": 46,
+      "optimal_missed_weight": 39,
+      "greedy": [
+        30,
+        17,
+        40,
+        6
+      ],
+      "optimal": [
+        6,
+        21,
+        30,
+        40
+      ]
+    },
+    {
+      "seed": 48,
+      "distribution": "uniform",
+      "greedy_missed_weight": 69,
+      "optimal_missed_weight": 64,
+      "greedy": [
+        31,
+        12,
+        23,
+        40
+      ],
+      "optimal": [
+        12,
+        23,
+        33,
+        43
+      ]
+    },
+    {
+      "seed": 49,
+      "distribution": "uniform",
+      "greedy_missed_weight": 60,
+      "optimal_missed_weight": 46,
+      "greedy": [
+        25,
+        7,
+        42,
+        33
+      ],
+      "optimal": [
+        7,
+        18,
+        32,
+        42
+      ]
+    },
+    {
+      "seed": 50,
+      "distribution": "uniform",
+      "greedy_missed_weight": 26,
+      "optimal_missed_weight": 26,
+      "greedy": [
+        21,
+        42,
+        11,
+        31
+      ],
+      "optimal": [
+        11,
+        21,
+        31,
+        42
+      ]
+    },
+    {
+      "seed": 51,
+      "distribution": "uniform",
+      "greedy_missed_weight": 71,
+      "optimal_missed_weight": 60,
+      "greedy": [
+        24,
+        37,
+        11,
+        30
+      ],
+      "optimal": [
+        11,
+        23,
+        34,
+        44
+      ]
+    },
+    {
+      "seed": 52,
+      "distribution": "uniform",
+      "greedy_missed_weight": 57,
+      "optimal_missed_weight": 47,
+      "greedy": [
+        24,
+        43,
+        8,
+        19
+      ],
+      "optimal": [
+        8,
+        21,
+        30,
+        43
+      ]
+    },
+    {
+      "seed": 53,
+      "distribution": "uniform",
+      "greedy_missed_weight": 63,
+      "optimal_missed_weight": 54,
+      "greedy": [
+        28,
+        8,
+        42,
+        35
+      ],
+      "optimal": [
+        8,
+        23,
+        35,
+        42
+      ]
+    },
+    {
+      "seed": 54,
+      "distribution": "uniform",
+      "greedy_missed_weight": 69,
+      "optimal_missed_weight": 69,
+      "greedy": [
+        28,
+        14,
+        40,
+        7
+      ],
+      "optimal": [
+        7,
+        14,
+        28,
+        40
+      ]
+    },
+    {
+      "seed": 55,
+      "distribution": "uniform",
+      "greedy_missed_weight": 78,
+      "optimal_missed_weight": 75,
+      "greedy": [
+        22,
+        40,
+        8,
+        35
+      ],
+      "optimal": [
+        8,
+        19,
+        35,
+        40
+      ]
+    },
+    {
+      "seed": 56,
+      "distribution": "uniform",
+      "greedy_missed_weight": 69,
+      "optimal_missed_weight": 61,
+      "greedy": [
+        21,
+        33,
+        7,
+        40
+      ],
+      "optimal": [
+        5,
+        16,
+        23,
+        34
+      ]
+    },
+    {
+      "seed": 57,
+      "distribution": "uniform",
+      "greedy_missed_weight": 89,
+      "optimal_missed_weight": 76,
+      "greedy": [
+        26,
+        8,
+        34,
+        43
+      ],
+      "optimal": [
+        8,
+        20,
+        29,
+        43
+      ]
+    },
+    {
+      "seed": 58,
+      "distribution": "uniform",
+      "greedy_missed_weight": 66,
+      "optimal_missed_weight": 65,
+      "greedy": [
+        19,
+        37,
+        8,
+        29
+      ],
+      "optimal": [
+        3,
+        12,
+        22,
+        37
+      ]
+    },
+    {
+      "seed": 59,
+      "distribution": "uniform",
+      "greedy_missed_weight": 68,
+      "optimal_missed_weight": 59,
+      "greedy": [
+        19,
+        37,
+        13,
+        6
+      ],
+      "optimal": [
+        6,
+        15,
+        25,
+        37
+      ]
+    },
+    {
+      "seed": 60,
+      "distribution": "uniform",
+      "greedy_missed_weight": 98,
+      "optimal_missed_weight": 98,
+      "greedy": [
+        31,
+        12,
+        21,
+        38
+      ],
+      "optimal": [
+        12,
+        21,
+        31,
+        38
+      ]
+    },
+    {
+      "seed": 61,
+      "distribution": "uniform",
+      "greedy_missed_weight": 48,
+      "optimal_missed_weight": 43,
+      "greedy": [
+        27,
+        16,
+        40,
+        6
+      ],
+      "optimal": [
+        6,
+        17,
+        33,
+        42
+      ]
+    },
+    {
+      "seed": 62,
+      "distribution": "uniform",
+      "greedy_missed_weight": 73,
+      "optimal_missed_weight": 61,
+      "greedy": [
+        15,
+        34,
+        25,
+        42
+      ],
+      "optimal": [
+        12,
+        24,
+        36,
+        42
+      ]
+    },
+    {
+      "seed": 63,
+      "distribution": "uniform",
+      "greedy_missed_weight": 65,
+      "optimal_missed_weight": 61,
+      "greedy": [
+        26,
+        9,
+        41,
+        15
+      ],
+      "optimal": [
+        6,
+        17,
+        30,
+        41
+      ]
+    },
+    {
+      "seed": 64,
+      "distribution": "uniform",
+      "greedy_missed_weight": 63,
+      "optimal_missed_weight": 60,
+      "greedy": [
+        25,
+        6,
+        39,
+        12
+      ],
+      "optimal": [
+        6,
+        24,
+        35,
+        39
+      ]
+    },
+    {
+      "seed": 65,
+      "distribution": "uniform",
+      "greedy_missed_weight": 46,
+      "optimal_missed_weight": 46,
+      "greedy": [
+        27,
+        12,
+        38,
+        5
+      ],
+      "optimal": [
+        5,
+        12,
+        27,
+        38
+      ]
+    },
+    {
+      "seed": 66,
+      "distribution": "uniform",
+      "greedy_missed_weight": 62,
+      "optimal_missed_weight": 55,
+      "greedy": [
+        25,
+        40,
+        13,
+        33
+      ],
+      "optimal": [
+        2,
+        13,
+        27,
+        40
+      ]
+    },
+    {
+      "seed": 67,
+      "distribution": "uniform",
+      "greedy_missed_weight": 80,
+      "optimal_missed_weight": 69,
+      "greedy": [
+        20,
+        39,
+        9,
+        26
+      ],
+      "optimal": [
+        5,
+        11,
+        26,
+        39
+      ]
+    },
+    {
+      "seed": 68,
+      "distribution": "uniform",
+      "greedy_missed_weight": 66,
+      "optimal_missed_weight": 66,
+      "greedy": [
+        23,
+        8,
+        45,
+        33
+      ],
+      "optimal": [
+        8,
+        22,
+        33,
+        45
+      ]
+    },
+    {
+      "seed": 69,
+      "distribution": "uniform",
+      "greedy_missed_weight": 68,
+      "optimal_missed_weight": 63,
+      "greedy": [
+        28,
+        11,
+        43,
+        3
+      ],
+      "optimal": [
+        3,
+        13,
+        28,
+        43
+      ]
+    },
+    {
+      "seed": 70,
+      "distribution": "uniform",
+      "greedy_missed_weight": 48,
+      "optimal_missed_weight": 44,
+      "greedy": [
+        32,
+        19,
+        9,
+        40
+      ],
+      "optimal": [
+        9,
+        19,
+        30,
+        40
+      ]
+    },
+    {
+      "seed": 71,
+      "distribution": "uniform",
+      "greedy_missed_weight": 68,
+      "optimal_missed_weight": 53,
+      "greedy": [
+        23,
+        39,
+        9,
+        28
+      ],
+      "optimal": [
+        9,
+        19,
+        28,
+        39
+      ]
+    },
+    {
+      "seed": 72,
+      "distribution": "uniform",
+      "greedy_missed_weight": 54,
+      "optimal_missed_weight": 54,
+      "greedy": [
+        25,
+        37,
+        11,
+        5
+      ],
+      "optimal": [
+        5,
+        11,
+        25,
+        37
+      ]
+    },
+    {
+      "seed": 73,
+      "distribution": "uniform",
+      "greedy_missed_weight": 59,
+      "optimal_missed_weight": 53,
+      "greedy": [
+        22,
+        39,
+        10,
+        29
+      ],
+      "optimal": [
+        10,
+        21,
+        29,
+        39
+      ]
+    },
+    {
+      "seed": 74,
+      "distribution": "uniform",
+      "greedy_missed_weight": 80,
+      "optimal_missed_weight": 65,
+      "greedy": [
+        20,
+        37,
+        8,
+        27
+      ],
+      "optimal": [
+        8,
+        16,
+        27,
+        38
+      ]
+    },
+    {
+      "seed": 75,
+      "distribution": "uniform",
+      "greedy_missed_weight": 74,
+      "optimal_missed_weight": 69,
+      "greedy": [
+        19,
+        31,
+        13,
+        8
+      ],
+      "optimal": [
+        8,
+        13,
+        21,
+        31
+      ]
+    },
+    {
+      "seed": 76,
+      "distribution": "uniform",
+      "greedy_missed_weight": 43,
+      "optimal_missed_weight": 43,
+      "greedy": [
+        25,
+        41,
+        12,
+        33
+      ],
+      "optimal": [
+        12,
+        25,
+        33,
+        41
+      ]
+    },
+    {
+      "seed": 77,
+      "distribution": "uniform",
+      "greedy_missed_weight": 53,
+      "optimal_missed_weight": 53,
+      "greedy": [
+        25,
+        43,
+        11,
+        4
+      ],
+      "optimal": [
+        4,
+        11,
+        25,
+        43
+      ]
+    },
+    {
+      "seed": 78,
+      "distribution": "uniform",
+      "greedy_missed_weight": 45,
+      "optimal_missed_weight": 44,
+      "greedy": [
+        24,
+        35,
+        8,
+        14
+      ],
+      "optimal": [
+        8,
+        19,
+        27,
+        35
+      ]
+    },
+    {
+      "seed": 79,
+      "distribution": "uniform",
+      "greedy_missed_weight": 74,
+      "optimal_missed_weight": 74,
+      "greedy": [
+        26,
+        6,
+        39,
+        13
+      ],
+      "optimal": [
+        6,
+        13,
+        25,
+        39
+      ]
+    },
+    {
+      "seed": 0,
+      "distribution": "clusters",
+      "greedy_missed_weight": 65,
+      "optimal_missed_weight": 65,
+      "greedy": [
+        25,
+        31,
+        21,
+        0
+      ],
+      "optimal": [
+        0,
+        21,
+        25,
+        31
+      ]
+    },
+    {
+      "seed": 1,
+      "distribution": "clusters",
+      "greedy_missed_weight": 35,
+      "optimal_missed_weight": 27,
+      "greedy": [
+        44,
+        26,
+        47,
+        31
+      ],
+      "optimal": [
+        26,
+        43,
+        45,
+        47
+      ]
+    },
+    {
+      "seed": 2,
+      "distribution": "clusters",
+      "greedy_missed_weight": 57,
+      "optimal_missed_weight": 44,
+      "greedy": [
+        35,
+        17,
+        37,
+        23
+      ],
+      "optimal": [
+        5,
+        17,
+        23,
+        37
+      ]
+    },
+    {
+      "seed": 3,
+      "distribution": "clusters",
+      "greedy_missed_weight": 63,
+      "optimal_missed_weight": 59,
+      "greedy": [
+        25,
+        2,
+        45,
+        0
+      ],
+      "optimal": [
+        0,
+        4,
+        25,
+        45
+      ]
+    },
+    {
+      "seed": 4,
+      "distribution": "clusters",
+      "greedy_missed_weight": 68,
+      "optimal_missed_weight": 68,
+      "greedy": [
+        16,
+        43,
+        4,
+        46
+      ],
+      "optimal": [
+        4,
+        16,
+        43,
+        46
+      ]
+    },
+    {
+      "seed": 5,
+      "distribution": "clusters",
+      "greedy_missed_weight": 63,
+      "optimal_missed_weight": 60,
+      "greedy": [
+        26,
+        31,
+        19,
+        36
+      ],
+      "optimal": [
+        19,
+        26,
+        30,
+        36
+      ]
+    },
+    {
+      "seed": 6,
+      "distribution": "clusters",
+      "greedy_missed_weight": 69,
+      "optimal_missed_weight": 64,
+      "greedy": [
+        25,
+        13,
+        30,
+        22
+      ],
+      "optimal": [
+        7,
+        19,
+        25,
+        30
+      ]
+    },
+    {
+      "seed": 7,
+      "distribution": "clusters",
+      "greedy_missed_weight": 62,
+      "optimal_missed_weight": 62,
+      "greedy": [
+        20,
+        32,
+        16,
+        6
+      ],
+      "optimal": [
+        6,
+        16,
+        20,
+        32
+      ]
+    },
+    {
+      "seed": 8,
+      "distribution": "clusters",
+      "greedy_missed_weight": 67,
+      "optimal_missed_weight": 61,
+      "greedy": [
+        11,
+        44,
+        7,
+        14
+      ],
+      "optimal": [
+        7,
+        10,
+        12,
+        44
+      ]
+    },
+    {
+      "seed": 9,
+      "distribution": "clusters",
+      "greedy_missed_weight": 31,
+      "optimal_missed_weight": 31,
+      "greedy": [
+        14,
+        25,
+        0,
+        4
+      ],
+      "optimal": [
+        0,
+        4,
+        14,
+        25
+      ]
+    },
+    {
+      "seed": 10,
+      "distribution": "clusters",
+      "greedy_missed_weight": 77,
+      "optimal_missed_weight": 77,
+      "greedy": [
+        14,
+        27,
+        8,
+        21
+      ],
+      "optimal": [
+        8,
+        14,
+        21,
+        27
+      ]
+    },
+    {
+      "seed": 11,
+      "distribution": "clusters",
+      "greedy_missed_weight": 55,
+      "optimal_missed_weight": 53,
+      "greedy": [
+        20,
+        24,
+        17,
+        13
+      ],
+      "optimal": [
+        13,
+        17,
+        22,
+        28
+      ]
+    },
+    {
+      "seed": 12,
+      "distribution": "clusters",
+      "greedy_missed_weight": 35,
+      "optimal_missed_weight": 35,
+      "greedy": [
+        21,
+        13,
+        37,
+        3
+      ],
+      "optimal": [
+        3,
+        13,
+        21,
+        37
+      ]
+    },
+    {
+      "seed": 13,
+      "distribution": "clusters",
+      "greedy_missed_weight": 41,
+      "optimal_missed_weight": 41,
+      "greedy": [
+        14,
+        25,
+        8,
+        18
+      ],
+      "optimal": [
+        8,
+        14,
+        18,
+        25
+      ]
+    },
+    {
+      "seed": 14,
+      "distribution": "clusters",
+      "greedy_missed_weight": 75,
+      "optimal_missed_weight": 66,
+      "greedy": [
+        21,
+        3,
+        44,
+        0
+      ],
+      "optimal": [
+        1,
+        6,
+        22,
+        44
+      ]
+    },
+    {
+      "seed": 15,
+      "distribution": "clusters",
+      "greedy_missed_weight": 60,
+      "optimal_missed_weight": 60,
+      "greedy": [
+        24,
+        37,
+        44,
+        20
+      ],
+      "optimal": [
+        20,
+        24,
+        37,
+        44
+      ]
+    },
+    {
+      "seed": 16,
+      "distribution": "clusters",
+      "greedy_missed_weight": 51,
+      "optimal_missed_weight": 51,
+      "greedy": [
+        29,
+        35,
+        24,
+        40
+      ],
+      "optimal": [
+        24,
+        29,
+        35,
+        40
+      ]
+    },
+    {
+      "seed": 17,
+      "distribution": "clusters",
+      "greedy_missed_weight": 61,
+      "optimal_missed_weight": 54,
+      "greedy": [
+        18,
+        11,
+        46,
+        49
+      ],
+      "optimal": [
+        11,
+        17,
+        44,
+        49
+      ]
+    },
+    {
+      "seed": 18,
+      "distribution": "clusters",
+      "greedy_missed_weight": 49,
+      "optimal_missed_weight": 41,
+      "greedy": [
+        9,
+        5,
+        13,
+        3
+      ],
+      "optimal": [
+        4,
+        6,
+        9,
+        13
+      ]
+    },
+    {
+      "seed": 19,
+      "distribution": "clusters",
+      "greedy_missed_weight": 63,
+      "optimal_missed_weight": 58,
+      "greedy": [
+        10,
+        43,
+        21,
+        46
+      ],
+      "optimal": [
+        10,
+        21,
+        41,
+        46
+      ]
+    },
+    {
+      "seed": 20,
+      "distribution": "clusters",
+      "greedy_missed_weight": 78,
+      "optimal_missed_weight": 72,
+      "greedy": [
+        18,
+        29,
+        9,
+        36
+      ],
+      "optimal": [
+        8,
+        17,
+        27,
+        36
+      ]
+    },
+    {
+      "seed": 21,
+      "distribution": "clusters",
+      "greedy_missed_weight": 65,
+      "optimal_missed_weight": 53,
+      "greedy": [
+        37,
+        32,
+        45,
+        13
+      ],
+      "optimal": [
+        17,
+        33,
+        39,
+        45
+      ]
+    },
+    {
+      "seed": 22,
+      "distribution": "clusters",
+      "greedy_missed_weight": 62,
+      "optimal_missed_weight": 59,
+      "greedy": [
+        31,
+        36,
+        25,
+        14
+      ],
+      "optimal": [
+        25,
+        31,
+        35,
+        38
+      ]
+    },
+    {
+      "seed": 23,
+      "distribution": "clusters",
+      "greedy_missed_weight": 63,
+      "optimal_missed_weight": 50,
+      "greedy": [
+        23,
+        39,
+        19,
+        44
+      ],
+      "optimal": [
+        3,
+        19,
+        34,
+        42
+      ]
+    },
+    {
+      "seed": 24,
+      "distribution": "clusters",
+      "greedy_missed_weight": 55,
+      "optimal_missed_weight": 55,
+      "greedy": [
+        31,
+        39,
+        3,
+        43
+      ],
+      "optimal": [
+        1,
+        13,
+        31,
+        39
+      ]
+    },
+    {
+      "seed": 25,
+      "distribution": "clusters",
+      "greedy_missed_weight": 43,
+      "optimal_missed_weight": 43,
+      "greedy": [
+        20,
+        14,
+        26,
+        10
+      ],
+      "optimal": [
+        10,
+        14,
+        20,
+        26
+      ]
+    },
+    {
+      "seed": 26,
+      "distribution": "clusters",
+      "greedy_missed_weight": 90,
+      "optimal_missed_weight": 81,
+      "greedy": [
+        31,
+        41,
+        25,
+        0
+      ],
+      "optimal": [
+        0,
+        28,
+        32,
+        44
+      ]
+    },
+    {
+      "seed": 27,
+      "distribution": "clusters",
+      "greedy_missed_weight": 34,
+      "optimal_missed_weight": 34,
+      "greedy": [
+        15,
+        11,
+        27,
+        8
+      ],
+      "optimal": [
+        8,
+        11,
+        15,
+        27
+      ]
+    },
+    {
+      "seed": 28,
+      "distribution": "clusters",
+      "greedy_missed_weight": 40,
+      "optimal_missed_weight": 36,
+      "greedy": [
+        20,
+        29,
+        16,
+        13
+      ],
+      "optimal": [
+        14,
+        17,
+        20,
+        29
+      ]
+    },
+    {
+      "seed": 29,
+      "distribution": "clusters",
+      "greedy_missed_weight": 65,
+      "optimal_missed_weight": 65,
+      "greedy": [
+        17,
+        7,
+        41,
+        11
+      ],
+      "optimal": [
+        7,
+        11,
+        16,
+        41
+      ]
+    },
+    {
+      "seed": 30,
+      "distribution": "clusters",
+      "greedy_missed_weight": 56,
+      "optimal_missed_weight": 54,
+      "greedy": [
+        30,
+        43,
+        10,
+        49
+      ],
+      "optimal": [
+        9,
+        24,
+        41,
+        49
+      ]
+    },
+    {
+      "seed": 31,
+      "distribution": "clusters",
+      "greedy_missed_weight": 76,
+      "optimal_missed_weight": 48,
+      "greedy": [
+        29,
+        6,
+        41,
+        18
+      ],
+      "optimal": [
+        4,
+        19,
+        34,
+        43
+      ]
+    },
+    {
+      "seed": 32,
+      "distribution": "clusters",
+      "greedy_missed_weight": 58,
+      "optimal_missed_weight": 58,
+      "greedy": [
+        31,
+        7,
+        26,
+        34
+      ],
+      "optimal": [
+        7,
+        26,
+        31,
+        34
+      ]
+    },
+    {
+      "seed": 33,
+      "distribution": "clusters",
+      "greedy_missed_weight": 50,
+      "optimal_missed_weight": 48,
+      "greedy": [
+        36,
+        9,
+        24,
+        42
+      ],
+      "optimal": [
+        7,
+        19,
+        36,
+        42
+      ]
+    },
+    {
+      "seed": 34,
+      "distribution": "clusters",
+      "greedy_missed_weight": 52,
+      "optimal_missed_weight": 46,
+      "greedy": [
+        17,
+        14,
+        22,
+        15
+      ],
+      "optimal": [
+        14,
+        15,
+        18,
+        22
+      ]
+    },
+    {
+      "seed": 35,
+      "distribution": "clusters",
+      "greedy_missed_weight": 69,
+      "optimal_missed_weight": 56,
+      "greedy": [
+        23,
+        15,
+        29,
+        21
+      ],
+      "optimal": [
+        15,
+        21,
+        26,
+        44
+      ]
+    },
+    {
+      "seed": 36,
+      "distribution": "clusters",
+      "greedy_missed_weight": 53,
+      "optimal_missed_weight": 53,
+      "greedy": [
+        19,
+        39,
+        35,
+        6
+      ],
+      "optimal": [
+        6,
+        19,
+        35,
+        39
+      ]
+    },
+    {
+      "seed": 37,
+      "distribution": "clusters",
+      "greedy_missed_weight": 44,
+      "optimal_missed_weight": 38,
+      "greedy": [
+        37,
+        6,
+        40,
+        21
+      ],
+      "optimal": [
+        3,
+        10,
+        37,
+        40
+      ]
+    },
+    {
+      "seed": 38,
+      "distribution": "clusters",
+      "greedy_missed_weight": 69,
+      "optimal_missed_weight": 64,
+      "greedy": [
+        34,
+        18,
+        46,
+        0
+      ],
+      "optimal": [
+        0,
+        20,
+        34,
+        46
+      ]
+    },
+    {
+      "seed": 39,
+      "distribution": "clusters",
+      "greedy_missed_weight": 22,
+      "optimal_missed_weight": 22,
+      "greedy": [
+        30,
+        17,
+        36,
+        22
+      ],
+      "optimal": [
+        17,
+        22,
+        30,
+        36
+      ]
+    },
+    {
+      "seed": 40,
+      "distribution": "clusters",
+      "greedy_missed_weight": 44,
+      "optimal_missed_weight": 41,
+      "greedy": [
+        7,
+        27,
+        4,
+        10
+      ],
+      "optimal": [
+        4,
+        8,
+        12,
+        29
+      ]
+    },
+    {
+      "seed": 41,
+      "distribution": "clusters",
+      "greedy_missed_weight": 62,
+      "optimal_missed_weight": 61,
+      "greedy": [
+        32,
+        18,
+        37,
+        14
+      ],
+      "optimal": [
+        14,
+        19,
+        32,
+        37
+      ]
+    },
+    {
+      "seed": 42,
+      "distribution": "clusters",
+      "greedy_missed_weight": 64,
+      "optimal_missed_weight": 60,
+      "greedy": [
+        30,
+        48,
+        42,
+        1
+      ],
+      "optimal": [
+        1,
+        17,
+        42,
+        49
+      ]
+    },
+    {
+      "seed": 43,
+      "distribution": "clusters",
+      "greedy_missed_weight": 36,
+      "optimal_missed_weight": 36,
+      "greedy": [
+        18,
+        42,
+        10,
+        14
+      ],
+      "optimal": [
+        10,
+        14,
+        18,
+        42
+      ]
+    },
+    {
+      "seed": 44,
+      "distribution": "clusters",
+      "greedy_missed_weight": 62,
+      "optimal_missed_weight": 57,
+      "greedy": [
+        12,
+        38,
+        6,
+        48
+      ],
+      "optimal": [
+        8,
+        13,
+        38,
+        48
+      ]
+    },
+    {
+      "seed": 45,
+      "distribution": "clusters",
+      "greedy_missed_weight": 34,
+      "optimal_missed_weight": 28,
+      "greedy": [
+        29,
+        20,
+        35,
+        2
+      ],
+      "optimal": [
+        3,
+        26,
+        30,
+        35
+      ]
+    },
+    {
+      "seed": 46,
+      "distribution": "clusters",
+      "greedy_missed_weight": 48,
+      "optimal_missed_weight": 43,
+      "greedy": [
+        30,
+        39,
+        25,
+        6
+      ],
+      "optimal": [
+        6,
+        24,
+        28,
+        39
+      ]
+    },
+    {
+      "seed": 47,
+      "distribution": "clusters",
+      "greedy_missed_weight": 60,
+      "optimal_missed_weight": 58,
+      "greedy": [
+        29,
+        34,
+        24,
+        49
+      ],
+      "optimal": [
+        24,
+        27,
+        31,
+        44
+      ]
+    },
+    {
+      "seed": 48,
+      "distribution": "clusters",
+      "greedy_missed_weight": 46,
+      "optimal_missed_weight": 37,
+      "greedy": [
+        45,
+        13,
+        48,
+        42
+      ],
+      "optimal": [
+        9,
+        41,
+        45,
+        48
+      ]
+    },
+    {
+      "seed": 49,
+      "distribution": "clusters",
+      "greedy_missed_weight": 68,
+      "optimal_missed_weight": 61,
+      "greedy": [
+        20,
+        5,
+        29,
+        33
+      ],
+      "optimal": [
+        5,
+        14,
+        29,
+        33
+      ]
+    },
+    {
+      "seed": 50,
+      "distribution": "clusters",
+      "greedy_missed_weight": 47,
+      "optimal_missed_weight": 46,
+      "greedy": [
+        31,
+        10,
+        41,
+        26
+      ],
+      "optimal": [
+        10,
+        26,
+        33,
+        41
+      ]
+    },
+    {
+      "seed": 51,
+      "distribution": "clusters",
+      "greedy_missed_weight": 72,
+      "optimal_missed_weight": 63,
+      "greedy": [
+        16,
+        21,
+        2,
+        7
+      ],
+      "optimal": [
+        2,
+        14,
+        19,
+        24
+      ]
+    },
+    {
+      "seed": 52,
+      "distribution": "clusters",
+      "greedy_missed_weight": 50,
+      "optimal_missed_weight": 44,
+      "greedy": [
+        15,
+        33,
+        8,
+        16
+      ],
+      "optimal": [
+        8,
+        14,
+        16,
+        33
+      ]
+    },
+    {
+      "seed": 53,
+      "distribution": "clusters",
+      "greedy_missed_weight": 40,
+      "optimal_missed_weight": 40,
+      "greedy": [
+        39,
+        34,
+        44,
+        25
+      ],
+      "optimal": [
+        25,
+        34,
+        39,
+        44
+      ]
+    },
+    {
+      "seed": 54,
+      "distribution": "clusters",
+      "greedy_missed_weight": 76,
+      "optimal_missed_weight": 69,
+      "greedy": [
+        39,
+        26,
+        44,
+        48
+      ],
+      "optimal": [
+        16,
+        32,
+        43,
+        48
+      ]
+    },
+    {
+      "seed": 55,
+      "distribution": "clusters",
+      "greedy_missed_weight": 49,
+      "optimal_missed_weight": 49,
+      "greedy": [
+        24,
+        12,
+        33,
+        17
+      ],
+      "optimal": [
+        12,
+        17,
+        24,
+        33
+      ]
+    },
+    {
+      "seed": 56,
+      "distribution": "clusters",
+      "greedy_missed_weight": 59,
+      "optimal_missed_weight": 56,
+      "greedy": [
+        14,
+        41,
+        6,
+        19
+      ],
+      "optimal": [
+        6,
+        13,
+        19,
+        41
+      ]
+    },
+    {
+      "seed": 57,
+      "distribution": "clusters",
+      "greedy_missed_weight": 46,
+      "optimal_missed_weight": 37,
+      "greedy": [
+        20,
+        16,
+        24,
+        18
+      ],
+      "optimal": [
+        16,
+        19,
+        21,
+        24
+      ]
+    },
+    {
+      "seed": 58,
+      "distribution": "clusters",
+      "greedy_missed_weight": 67,
+      "optimal_missed_weight": 61,
+      "greedy": [
+        23,
+        16,
+        26,
+        14
+      ],
+      "optimal": [
+        14,
+        17,
+        23,
+        26
+      ]
+    },
+    {
+      "seed": 59,
+      "distribution": "clusters",
+      "greedy_missed_weight": 74,
+      "optimal_missed_weight": 66,
+      "greedy": [
+        30,
+        4,
+        42,
+        21
+      ],
+      "optimal": [
+        4,
+        21,
+        31,
+        42
+      ]
+    },
+    {
+      "seed": 60,
+      "distribution": "clusters",
+      "greedy_missed_weight": 39,
+      "optimal_missed_weight": 36,
+      "greedy": [
+        22,
+        38,
+        17,
+        33
+      ],
+      "optimal": [
+        17,
+        23,
+        35,
+        39
+      ]
+    },
+    {
+      "seed": 61,
+      "distribution": "clusters",
+      "greedy_missed_weight": 43,
+      "optimal_missed_weight": 43,
+      "greedy": [
+        20,
+        41,
+        9,
+        35
+      ],
+      "optimal": [
+        9,
+        20,
+        35,
+        41
+      ]
+    },
+    {
+      "seed": 62,
+      "distribution": "clusters",
+      "greedy_missed_weight": 65,
+      "optimal_missed_weight": 65,
+      "greedy": [
+        8,
+        4,
+        25,
+        0
+      ],
+      "optimal": [
+        0,
+        4,
+        8,
+        25
+      ]
+    },
+    {
+      "seed": 63,
+      "distribution": "clusters",
+      "greedy_missed_weight": 52,
+      "optimal_missed_weight": 48,
+      "greedy": [
+        39,
+        23,
+        42,
+        13
+      ],
+      "optimal": [
+        13,
+        23,
+        40,
+        42
+      ]
+    },
+    {
+      "seed": 64,
+      "distribution": "clusters",
+      "greedy_missed_weight": 63,
+      "optimal_missed_weight": 61,
+      "greedy": [
+        36,
+        46,
+        13,
+        33
+      ],
+      "optimal": [
+        13,
+        33,
+        38,
+        46
+      ]
+    },
+    {
+      "seed": 65,
+      "distribution": "clusters",
+      "greedy_missed_weight": 46,
+      "optimal_missed_weight": 45,
+      "greedy": [
+        32,
+        37,
+        16,
+        41
+      ],
+      "optimal": [
+        16,
+        32,
+        36,
+        38
+      ]
+    },
+    {
+      "seed": 66,
+      "distribution": "clusters",
+      "greedy_missed_weight": 37,
+      "optimal_missed_weight": 37,
+      "greedy": [
+        4,
+        42,
+        0,
+        6
+      ],
+      "optimal": [
+        0,
+        4,
+        6,
+        42
+      ]
+    },
+    {
+      "seed": 67,
+      "distribution": "clusters",
+      "greedy_missed_weight": 28,
+      "optimal_missed_weight": 25,
+      "greedy": [
+        15,
+        40,
+        10,
+        23
+      ],
+      "optimal": [
+        10,
+        15,
+        23,
+        41
+      ]
+    },
+    {
+      "seed": 68,
+      "distribution": "clusters",
+      "greedy_missed_weight": 67,
+      "optimal_missed_weight": 67,
+      "greedy": [
+        15,
+        44,
+        33,
+        2
+      ],
+      "optimal": [
+        2,
+        15,
+        33,
+        44
+      ]
+    },
+    {
+      "seed": 69,
+      "distribution": "clusters",
+      "greedy_missed_weight": 68,
+      "optimal_missed_weight": 68,
+      "greedy": [
+        21,
+        28,
+        17,
+        36
+      ],
+      "optimal": [
+        17,
+        21,
+        28,
+        36
+      ]
+    },
+    {
+      "seed": 70,
+      "distribution": "clusters",
+      "greedy_missed_weight": 46,
+      "optimal_missed_weight": 32,
+      "greedy": [
+        37,
+        48,
+        18,
+        43
+      ],
+      "optimal": [
+        18,
+        38,
+        46,
+        49
+      ]
+    },
+    {
+      "seed": 71,
+      "distribution": "clusters",
+      "greedy_missed_weight": 52,
+      "optimal_missed_weight": 52,
+      "greedy": [
+        30,
+        16,
+        12,
+        33
+      ],
+      "optimal": [
+        12,
+        16,
+        30,
+        33
+      ]
+    },
+    {
+      "seed": 72,
+      "distribution": "clusters",
+      "greedy_missed_weight": 62,
+      "optimal_missed_weight": 60,
+      "greedy": [
+        14,
+        43,
+        9,
+        45
+      ],
+      "optimal": [
+        9,
+        14,
+        22,
+        44
+      ]
+    },
+    {
+      "seed": 73,
+      "distribution": "clusters",
+      "greedy_missed_weight": 60,
+      "optimal_missed_weight": 59,
+      "greedy": [
+        29,
+        6,
+        41,
+        25
+      ],
+      "optimal": [
+        6,
+        25,
+        30,
+        41
+      ]
+    },
+    {
+      "seed": 74,
+      "distribution": "clusters",
+      "greedy_missed_weight": 71,
+      "optimal_missed_weight": 53,
+      "greedy": [
+        23,
+        8,
+        12,
+        38
+      ],
+      "optimal": [
+        7,
+        10,
+        21,
+        38
+      ]
+    },
+    {
+      "seed": 75,
+      "distribution": "clusters",
+      "greedy_missed_weight": 77,
+      "optimal_missed_weight": 77,
+      "greedy": [
+        12,
+        31,
+        4,
+        26
+      ],
+      "optimal": [
+        4,
+        12,
+        26,
+        31
+      ]
+    },
+    {
+      "seed": 76,
+      "distribution": "clusters",
+      "greedy_missed_weight": 79,
+      "optimal_missed_weight": 61,
+      "greedy": [
+        22,
+        45,
+        5,
+        24
+      ],
+      "optimal": [
+        3,
+        20,
+        24,
+        45
+      ]
+    },
+    {
+      "seed": 77,
+      "distribution": "clusters",
+      "greedy_missed_weight": 54,
+      "optimal_missed_weight": 38,
+      "greedy": [
+        6,
+        22,
+        0,
+        39
+      ],
+      "optimal": [
+        0,
+        4,
+        22,
+        39
+      ]
+    },
+    {
+      "seed": 78,
+      "distribution": "clusters",
+      "greedy_missed_weight": 54,
+      "optimal_missed_weight": 54,
+      "greedy": [
+        19,
+        9,
+        35,
+        5
+      ],
+      "optimal": [
+        5,
+        9,
+        18,
+        35
+      ]
+    },
+    {
+      "seed": 79,
+      "distribution": "clusters",
+      "greedy_missed_weight": 52,
+      "optimal_missed_weight": 50,
+      "greedy": [
+        11,
+        6,
+        27,
+        15
+      ],
+      "optimal": [
+        6,
+        10,
+        13,
+        27
+      ]
+    }
+  ]
+}

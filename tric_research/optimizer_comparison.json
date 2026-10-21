@@ -1,0 +1,103 @@
+{
+  "environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.41"
+  },
+  "seed": 20261021,
+  "comparisons": [
+    {
+      "n": 160,
+      "queries": 800,
+      "k": 8,
+      "repeats": 5,
+      "objective": 258,
+      "median_s": {
+        "quadratic": 0.019991,
+        "monge": 0.003333,
+        "sweep": 0.023907
+      },
+      "speedup_vs_quadratic": {
+        "quadratic": 1.0,
+        "monge": 6.0,
+        "sweep": 0.84
+      }
+    },
+    {
+      "n": 320,
+      "queries": 1600,
+      "k": 8,
+      "repeats": 5,
+      "objective": 674,
+      "median_s": {
+        "quadratic": 0.090734,
+        "monge": 0.010508,
+        "sweep": 0.062777
+      },
+      "speedup_vs_quadratic": {
+        "quadratic": 1.0,
+        "monge": 8.63,
+        "sweep": 1.45
+      }
+    },
+    {
+      "n": 640,
+      "queries": 3200,
+      "k": 8,
+      "repeats": 5,
+      "objective": 1434,
+      "median_s": {
+        "quadratic": 0.460632,
+        "monge": 0.038234,
+        "sweep": 0.155978
+      },
+      "speedup_vs_quadratic": {
+        "quadratic": 1.0,
+        "monge": 12.05,
+        "sweep": 2.95
+      }
+    },
+    {
+      "n": 960,
+      "queries": 4800,
+      "k": 8,
+      "repeats": 5,
+      "objective": 2297,
+      "median_s": {
+        "quadratic": 1.08796,
+        "monge": 0.102114,
+        "sweep": 0.250912
+      },
+      "speedup_vs_quadratic": {
+        "quadratic": 1.0,
+        "monge": 10.65,
+        "sweep": 4.34
+      }
+    }
+  ],
+  "sweep_scaling": [
+    {
+      "n": 2000,
+      "q": 2000,
+      "k": 8,
+      "repeats": 3,
+      "sweep_median_s": 0.158858,
+      "objective": 909
+    },
+    {
+      "n": 5000,
+      "q": 2000,
+      "k": 8,
+      "repeats": 3,
+      "sweep_median_s": 0.278925,
+      "objective": 899
+    },
+    {
+      "n": 10000,
+      "q": 2000,
+      "k": 8,
+      "repeats": 3,
+      "sweep_median_s": 0.492737,
+      "objective": 853
+    }
+  ]
+}

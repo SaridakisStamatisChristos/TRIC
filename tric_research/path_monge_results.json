@@ -1,0 +1,49 @@
+{
+  "environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.41"
+  },
+  "seed": 20261021,
+  "rows": [
+    {
+      "n": 160,
+      "k": 8,
+      "train_queries": 800,
+      "repeats": 3,
+      "reference_median_s": 0.020576,
+      "monge_median_s": 0.003305,
+      "speedup": 6.226,
+      "objective": 258
+    },
+    {
+      "n": 320,
+      "k": 8,
+      "train_queries": 1600,
+      "repeats": 3,
+      "reference_median_s": 0.104624,
+      "monge_median_s": 0.010661,
+      "speedup": 9.813,
+      "objective": 674
+    },
+    {
+      "n": 640,
+      "k": 8,
+      "train_queries": 3200,
+      "repeats": 3,
+      "reference_median_s": 0.519685,
+      "monge_median_s": 0.044423,
+      "speedup": 11.699,
+      "objective": 1434
+    },
+    {
+      "n": 960,
+      "k": 8,
+      "train_queries": 4800,
+      "repeats": 3,
+      "reference_median_s": 1.265072,
+      "monge_median_s": 0.098285,
+      "speedup": 12.871,
+      "objective": 2297
+    }
+  ]
+}
