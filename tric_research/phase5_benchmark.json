@@ -1,0 +1,248 @@
+{
+  "experiment": "TRIC Phase V frontier exact DP versus Phase III orientation exact DP",
+  "date": "2026-10-21",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "cpu_count": 5,
+  "repetitions": 5,
+  "warnings": [
+    "synthetic workloads only",
+    "local CPython wall-clock timings",
+    "baseline is TRIC Phase III, not O-Reach",
+    "orientation baseline omitted above r=8 to avoid impractical exponential time"
+  ],
+  "cases": [
+    {
+      "family": "separated",
+      "r": 2,
+      "h": 8,
+      "k": 1,
+      "frontier_width": 1,
+      "maximum_states": 8,
+      "uncovered_weight": 1,
+      "frontier_seconds": [
+        6.419500004994916e-05,
+        3.779500002565328e-05,
+        3.121600002486957e-05,
+        2.656900005604257e-05,
+        2.445600011924398e-05
+      ],
+      "frontier_median_seconds": 3.121600002486957e-05,
+      "orientation_seconds": [
+        4.689899969889666e-05,
+        2.6479000098333927e-05,
+        2.236299997093738e-05,
+        2.0681000023614615e-05,
+        2.078099987556925e-05
+      ],
+      "orientation_median_seconds": 2.236299997093738e-05
+    },
+    {
+      "family": "separated",
+      "r": 4,
+      "h": 16,
+      "k": 2,
+      "frontier_width": 1,
+      "maximum_states": 29,
+      "uncovered_weight": 2,
+      "frontier_seconds": [
+        0.00015748199984955136,
+        0.00016908899988266057,
+        0.00014302099998531048,
+        0.0001388050000059593,
+        0.00013500900013241335
+      ],
+      "frontier_median_seconds": 0.00014302099998531048,
+      "orientation_seconds": [
+        0.0005148889999873063,
+        0.0004971529997419566,
+        0.00047080400008781,
+        0.0005224500000622356,
+        0.0004723960000774241
+      ],
+      "orientation_median_seconds": 0.0004971529997419566
+    },
+    {
+      "family": "separated",
+      "r": 6,
+      "h": 24,
+      "k": 3,
+      "frontier_width": 1,
+      "maximum_states": 65,
+      "uncovered_weight": 3,
+      "frontier_seconds": [
+        0.0005866149999746995,
+        0.0004396479998831637,
+        0.00044437499991545337,
+        0.0004223720002300979,
+        0.0004337899999882211
+      ],
+      "frontier_median_seconds": 0.0004396479998831637,
+      "orientation_seconds": [
+        0.005939342000147008,
+        0.006916080999872065,
+        0.005841677999796957,
+        0.00576055900000938,
+        0.005770763000327861
+      ],
+      "orientation_median_seconds": 0.005841677999796957
+    },
+    {
+      "family": "separated",
+      "r": 8,
+      "h": 32,
+      "k": 4,
+      "frontier_width": 1,
+      "maximum_states": 110,
+      "uncovered_weight": 4,
+      "frontier_seconds": [
+        0.0012465369995879882,
+        0.0010075449999931152,
+        0.0010217650001322909,
+        0.0010906970001087757,
+        0.0010105990004376508
+      ],
+      "frontier_median_seconds": 0.0010217650001322909,
+      "orientation_seconds": [
+        0.047356391999983316,
+        0.04765507100000832,
+        0.04837801700023192,
+        0.047869237000213616,
+        0.04852986100013368
+      ],
+      "orientation_median_seconds": 0.047869237000213616
+    },
+    {
+      "family": "separated",
+      "r": 12,
+      "h": 48,
+      "k": 6,
+      "frontier_width": 1,
+      "maximum_states": 243,
+      "uncovered_weight": 6,
+      "frontier_seconds": [
+        0.003977882000071986,
+        0.048766970000087895,
+        0.003947677000269323,
+        0.003886967999733315,
+        0.0039207269996950345
+      ],
+      "frontier_median_seconds": 0.003947677000269323,
+      "orientation_seconds": null,
+      "orientation_median_seconds": null
+    },
+    {
+      "family": "separated",
+      "r": 18,
+      "h": 72,
+      "k": 9,
+      "frontier_width": 1,
+      "maximum_states": 540,
+      "uncovered_weight": 9,
+      "frontier_seconds": [
+        0.014677317999939987,
+        0.012581849999605765,
+        0.014473576999989746,
+        0.01325826699985555,
+        0.012898685999971349
+      ],
+      "frontier_median_seconds": 0.01325826699985555,
+      "orientation_seconds": null,
+      "orientation_median_seconds": null
+    },
+    {
+      "family": "overlapping",
+      "r": 4,
+      "h": 13,
+      "k": 2,
+      "frontier_width": 4,
+      "maximum_states": 36,
+      "uncovered_weight": 2,
+      "frontier_seconds": [
+        0.00024051400032476522,
+        0.00014039699999557342,
+        0.00013214399996286375,
+        0.00012843900003645103,
+        0.00012822899998354842
+      ],
+      "frontier_median_seconds": 0.00013214399996286375,
+      "orientation_seconds": [
+        0.0005080989999441954,
+        0.0004219620000185387,
+        0.0004292330004318501,
+        0.00041007400022863294,
+        0.0004309050000301795
+      ],
+      "orientation_median_seconds": 0.0004292330004318501
+    },
+    {
+      "family": "overlapping",
+      "r": 6,
+      "h": 19,
+      "k": 3,
+      "frontier_width": 6,
+      "maximum_states": 213,
+      "uncovered_weight": 3,
+      "frontier_seconds": [
+        0.0008210400001189555,
+        0.0008132689999911236,
+        0.0008428920000369544,
+        0.0008098640000753221,
+        0.0009116629998970893
+      ],
+      "frontier_median_seconds": 0.0008210400001189555,
+      "orientation_seconds": [
+        0.004925797999931092,
+        0.0046821689998068905,
+        0.004596913000114,
+        0.004724821999843698,
+        0.00505820299986226
+      ],
+      "orientation_median_seconds": 0.004724821999843698
+    },
+    {
+      "family": "overlapping",
+      "r": 8,
+      "h": 25,
+      "k": 4,
+      "frontier_width": 8,
+      "maximum_states": 1225,
+      "uncovered_weight": 4,
+      "frontier_seconds": [
+        0.006338821000099415,
+        0.006158945000152016,
+        0.005930178999733471,
+        0.005933153000114544,
+        0.005729351999889332
+      ],
+      "frontier_median_seconds": 0.005933153000114544,
+      "orientation_seconds": [
+        0.03904494500011424,
+        0.03901834499993129,
+        0.0399097280001115,
+        0.03935710399991876,
+        0.03928262499994162
+      ],
+      "orientation_median_seconds": 0.03928262499994162
+    },
+    {
+      "family": "overlapping",
+      "r": 10,
+      "h": 31,
+      "k": 5,
+      "frontier_width": 10,
+      "maximum_states": 6613,
+      "uncovered_weight": 5,
+      "frontier_seconds": [
+        0.03875081099977251,
+        0.036745305999829725,
+        0.04055916500010426,
+        0.038047695999921416,
+        0.037313803999950323
+      ],
+      "frontier_median_seconds": 0.038047695999921416,
+      "orientation_seconds": null,
+      "orientation_median_seconds": null
+    }
+  ]
+}
