@@ -1,0 +1,1331 @@
+{
+  "python": "3.13.5",
+  "seed": 20261021,
+  "n": 150,
+  "train_size": 550,
+  "test_size": 1300,
+  "candidates": 11,
+  "budget": 5,
+  "proxy": "probe = 1 work unit, fallback = 1 + BFS edge scans",
+  "training_and_holdout_independent": true,
+  "results": [
+    {
+      "family": "dag",
+      "trial": 0,
+      "train": "uniform",
+      "test": "uniform",
+      "graph_edges": 202,
+      "pivot_build_seconds": 4.3433999962871894e-05,
+      "ordered_selection_seconds": 0.005152272000486846,
+      "ordered_positions": [],
+      "coverage_positions": [
+        71,
+        116,
+        119,
+        96,
+        51
+      ],
+      "predicted_train_opt_cost": 2422.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 0,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 550.0,
+        "uncovered_fallback": 2422.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0009114920003412408,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 4279,
+        "test_work_proxy": 5579.0
+      },
+      "coverage": {
+        "inference_seconds": 0.0023669229994993657,
+        "errors": 0,
+        "hit_rate": 0.34076923076923077,
+        "checks": 5494,
+        "fallback_edge_scans": 3297,
+        "test_work_proxy": 9648.0
+      },
+      "bfs": {
+        "inference_seconds": 0.0009185310000248137,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 4279,
+        "test_work_proxy": 5579.0
+      }
+    },
+    {
+      "family": "dag",
+      "trial": 0,
+      "train": "hot",
+      "test": "hot",
+      "graph_edges": 202,
+      "pivot_build_seconds": 4.3433999962871894e-05,
+      "ordered_selection_seconds": 0.004974761000084982,
+      "ordered_positions": [],
+      "coverage_positions": [
+        119,
+        59,
+        111,
+        96,
+        51
+      ],
+      "predicted_train_opt_cost": 2105.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 0,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 550.0,
+        "uncovered_fallback": 2105.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0008377230005862657,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 3852,
+        "test_work_proxy": 5152.0
+      },
+      "coverage": {
+        "inference_seconds": 0.0023180919997685123,
+        "errors": 0,
+        "hit_rate": 0.3384615384615385,
+        "checks": 4962,
+        "fallback_edge_scans": 2856,
+        "test_work_proxy": 8678.0
+      },
+      "bfs": {
+        "inference_seconds": 0.0008556189995942987,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 3852,
+        "test_work_proxy": 5152.0
+      }
+    },
+    {
+      "family": "dag",
+      "trial": 0,
+      "train": "hot",
+      "test": "uniform",
+      "graph_edges": 202,
+      "pivot_build_seconds": 4.3433999962871894e-05,
+      "ordered_selection_seconds": 0.005070671999419574,
+      "ordered_positions": [],
+      "coverage_positions": [
+        119,
+        59,
+        111,
+        96,
+        51
+      ],
+      "predicted_train_opt_cost": 2105.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 0,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 550.0,
+        "uncovered_fallback": 2105.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0009083069999178406,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 4279,
+        "test_work_proxy": 5579.0
+      },
+      "coverage": {
+        "inference_seconds": 0.002570493000348506,
+        "errors": 0,
+        "hit_rate": 0.32076923076923075,
+        "checks": 5501,
+        "fallback_edge_scans": 3400,
+        "test_work_proxy": 9784.0
+      },
+      "bfs": {
+        "inference_seconds": 0.0009114610002143309,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 4279,
+        "test_work_proxy": 5579.0
+      }
+    },
+    {
+      "family": "dag",
+      "trial": 1,
+      "train": "uniform",
+      "test": "uniform",
+      "graph_edges": 206,
+      "pivot_build_seconds": 5.2737000260094646e-05,
+      "ordered_selection_seconds": 0.005255554000541451,
+      "ordered_positions": [],
+      "coverage_positions": [
+        18,
+        142,
+        134,
+        62,
+        110
+      ],
+      "predicted_train_opt_cost": 3252.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 0,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 550.0,
+        "uncovered_fallback": 3252.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0011074300000473158,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 5712,
+        "test_work_proxy": 7012.0
+      },
+      "coverage": {
+        "inference_seconds": 0.00224815799992939,
+        "errors": 0,
+        "hit_rate": 0.4169230769230769,
+        "checks": 5091,
+        "fallback_edge_scans": 3678,
+        "test_work_proxy": 9527.0
+      },
+      "bfs": {
+        "inference_seconds": 0.0011003189993061824,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 5712,
+        "test_work_proxy": 7012.0
+      }
+    },
+    {
+      "family": "dag",
+      "trial": 1,
+      "train": "hot",
+      "test": "hot",
+      "graph_edges": 206,
+      "pivot_build_seconds": 5.2737000260094646e-05,
+      "ordered_selection_seconds": 0.0055992799998421106,
+      "ordered_positions": [
+        18
+      ],
+      "coverage_positions": [
+        18,
+        110,
+        52,
+        123,
+        142
+      ],
+      "predicted_train_opt_cost": 2683.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 1,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 471.0,
+        "uncovered_fallback": 2133.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0011122669993710588,
+        "errors": 0,
+        "hit_rate": 0.13615384615384615,
+        "checks": 1300,
+        "fallback_edge_scans": 3930,
+        "test_work_proxy": 6353.0
+      },
+      "coverage": {
+        "inference_seconds": 0.0020194720000290545,
+        "errors": 0,
+        "hit_rate": 0.3669230769230769,
+        "checks": 5123,
+        "fallback_edge_scans": 2935,
+        "test_work_proxy": 8881.0
+      },
+      "bfs": {
+        "inference_seconds": 0.0012841090001529665,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 7365,
+        "test_work_proxy": 8665.0
+      }
+    },
+    {
+      "family": "dag",
+      "trial": 1,
+      "train": "hot",
+      "test": "uniform",
+      "graph_edges": 206,
+      "pivot_build_seconds": 5.2737000260094646e-05,
+      "ordered_selection_seconds": 0.005189655999856768,
+      "ordered_positions": [
+        18
+      ],
+      "coverage_positions": [
+        18,
+        110,
+        52,
+        123,
+        142
+      ],
+      "predicted_train_opt_cost": 2683.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 1,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 471.0,
+        "uncovered_fallback": 2133.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0013122210002620704,
+        "errors": 0,
+        "hit_rate": 0.13307692307692306,
+        "checks": 1300,
+        "fallback_edge_scans": 5021,
+        "test_work_proxy": 7448.0
+      },
+      "coverage": {
+        "inference_seconds": 0.002350458999899274,
+        "errors": 0,
+        "hit_rate": 0.37384615384615383,
+        "checks": 5334,
+        "fallback_edge_scans": 3947,
+        "test_work_proxy": 10095.0
+      },
+      "bfs": {
+        "inference_seconds": 0.0010783770003399695,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 5712,
+        "test_work_proxy": 7012.0
+      }
+    },
+    {
+      "family": "chain",
+      "trial": 0,
+      "train": "uniform",
+      "test": "uniform",
+      "graph_edges": 221,
+      "pivot_build_seconds": 0.00031939000018610386,
+      "ordered_selection_seconds": 0.010366716000135057,
+      "ordered_positions": [
+        95,
+        50,
+        114,
+        27,
+        73
+      ],
+      "coverage_positions": [
+        73,
+        114,
+        27,
+        95,
+        50
+      ],
+      "predicted_train_opt_cost": 8361.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 5,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 88.0,
+        "uncovered_fallback": 7097.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0059238880003249506,
+        "errors": 0,
+        "hit_rate": 0.8246153846153846,
+        "checks": 3063,
+        "fallback_edge_scans": 16221,
+        "test_work_proxy": 19512.0
+      },
+      "coverage": {
+        "inference_seconds": 0.003997542999968573,
+        "errors": 0,
+        "hit_rate": 0.8246153846153846,
+        "checks": 2986,
+        "fallback_edge_scans": 16221,
+        "test_work_proxy": 19435.0
+      },
+      "bfs": {
+        "inference_seconds": 0.013158302999727312,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 80250,
+        "test_work_proxy": 81550.0
+      }
+    },
+    {
+      "family": "chain",
+      "trial": 0,
+      "train": "hot",
+      "test": "hot",
+      "graph_edges": 221,
+      "pivot_build_seconds": 0.00031939000018610386,
+      "ordered_selection_seconds": 0.009812399999646004,
+      "ordered_positions": [
+        95,
+        64,
+        27,
+        86,
+        114
+      ],
+      "coverage_positions": [
+        95,
+        50,
+        86,
+        27,
+        114
+      ],
+      "predicted_train_opt_cost": 3563.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 5,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 99.0,
+        "uncovered_fallback": 2402.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0025939770002878504,
+        "errors": 0,
+        "hit_rate": 0.7961538461538461,
+        "checks": 2871,
+        "fallback_edge_scans": 7902,
+        "test_work_proxy": 11038.0
+      },
+      "coverage": {
+        "inference_seconds": 0.0021998269994583097,
+        "errors": 0,
+        "hit_rate": 0.7938461538461539,
+        "checks": 2857,
+        "fallback_edge_scans": 8134,
+        "test_work_proxy": 11259.0
+      },
+      "bfs": {
+        "inference_seconds": 0.009428104000107851,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 61365,
+        "test_work_proxy": 62665.0
+      }
+    },
+    {
+      "family": "chain",
+      "trial": 0,
+      "train": "hot",
+      "test": "uniform",
+      "graph_edges": 221,
+      "pivot_build_seconds": 0.00031939000018610386,
+      "ordered_selection_seconds": 0.012772957000379392,
+      "ordered_positions": [
+        95,
+        64,
+        27,
+        86,
+        114
+      ],
+      "coverage_positions": [
+        95,
+        50,
+        86,
+        27,
+        114
+      ],
+      "predicted_train_opt_cost": 3563.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 5,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 99.0,
+        "uncovered_fallback": 2402.0
+      },
+      "ordered": {
+        "inference_seconds": 0.005917137000324146,
+        "errors": 0,
+        "hit_rate": 0.8123076923076923,
+        "checks": 3111,
+        "fallback_edge_scans": 18562,
+        "test_work_proxy": 21917.0
+      },
+      "coverage": {
+        "inference_seconds": 0.00399940500028606,
+        "errors": 0,
+        "hit_rate": 0.806923076923077,
+        "checks": 3149,
+        "fallback_edge_scans": 18718,
+        "test_work_proxy": 22118.0
+      },
+      "bfs": {
+        "inference_seconds": 0.01171162400078174,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 80250,
+        "test_work_proxy": 81550.0
+      }
+    },
+    {
+      "family": "chain",
+      "trial": 1,
+      "train": "uniform",
+      "test": "uniform",
+      "graph_edges": 217,
+      "pivot_build_seconds": 0.00036686000021290965,
+      "ordered_selection_seconds": 0.009974458000215236,
+      "ordered_positions": [
+        74,
+        107,
+        26,
+        59,
+        12
+      ],
+      "coverage_positions": [
+        74,
+        123,
+        26,
+        95,
+        59
+      ],
+      "predicted_train_opt_cost": 7386.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 5,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 111.0,
+        "uncovered_fallback": 6119.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0030725410006198217,
+        "errors": 0,
+        "hit_rate": 0.8084615384615385,
+        "checks": 2939,
+        "fallback_edge_scans": 13425,
+        "test_work_proxy": 16613.0
+      },
+      "coverage": {
+        "inference_seconds": 0.003189343000485678,
+        "errors": 0,
+        "hit_rate": 0.8392307692307692,
+        "checks": 2947,
+        "fallback_edge_scans": 15570,
+        "test_work_proxy": 18726.0
+      },
+      "bfs": {
+        "inference_seconds": 0.011178319000464398,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 74437,
+        "test_work_proxy": 75737.0
+      }
+    },
+    {
+      "family": "chain",
+      "trial": 1,
+      "train": "hot",
+      "test": "hot",
+      "graph_edges": 217,
+      "pivot_build_seconds": 0.00036686000021290965,
+      "ordered_selection_seconds": 0.00961082300000271,
+      "ordered_positions": [
+        74,
+        56,
+        95,
+        107,
+        20
+      ],
+      "coverage_positions": [
+        74,
+        56,
+        95,
+        107,
+        136
+      ],
+      "predicted_train_opt_cost": 8354.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 5,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 112.0,
+        "uncovered_fallback": 7049.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0029540269997596624,
+        "errors": 0,
+        "hit_rate": 0.8207692307692308,
+        "checks": 2961,
+        "fallback_edge_scans": 13717,
+        "test_work_proxy": 16911.0
+      },
+      "coverage": {
+        "inference_seconds": 0.0030508489999192534,
+        "errors": 0,
+        "hit_rate": 0.8369230769230769,
+        "checks": 2961,
+        "fallback_edge_scans": 15544,
+        "test_work_proxy": 18717.0
+      },
+      "bfs": {
+        "inference_seconds": 0.011920600999474118,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 75692,
+        "test_work_proxy": 76992.0
+      }
+    },
+    {
+      "family": "chain",
+      "trial": 1,
+      "train": "hot",
+      "test": "uniform",
+      "graph_edges": 217,
+      "pivot_build_seconds": 0.00036686000021290965,
+      "ordered_selection_seconds": 0.009916022000652447,
+      "ordered_positions": [
+        74,
+        56,
+        95,
+        107,
+        20
+      ],
+      "coverage_positions": [
+        74,
+        56,
+        95,
+        107,
+        136
+      ],
+      "predicted_train_opt_cost": 8354.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 5,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 112.0,
+        "uncovered_fallback": 7049.0
+      },
+      "ordered": {
+        "inference_seconds": 0.003374605999852065,
+        "errors": 0,
+        "hit_rate": 0.82,
+        "checks": 3126,
+        "fallback_edge_scans": 15126,
+        "test_work_proxy": 18486.0
+      },
+      "coverage": {
+        "inference_seconds": 0.005239379999693483,
+        "errors": 0,
+        "hit_rate": 0.7923076923076923,
+        "checks": 3126,
+        "fallback_edge_scans": 26879,
+        "test_work_proxy": 30275.0
+      },
+      "bfs": {
+        "inference_seconds": 0.012814507000257436,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 74437,
+        "test_work_proxy": 75737.0
+      }
+    },
+    {
+      "family": "blocks",
+      "trial": 0,
+      "train": "uniform",
+      "test": "uniform",
+      "graph_edges": 165,
+      "pivot_build_seconds": 4.079999962414149e-05,
+      "ordered_selection_seconds": 0.005187162999391148,
+      "ordered_positions": [],
+      "coverage_positions": [
+        5,
+        55,
+        89,
+        8,
+        43
+      ],
+      "predicted_train_opt_cost": 2066.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 0,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 550.0,
+        "uncovered_fallback": 2066.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0007675389997530147,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 3222,
+        "test_work_proxy": 4522.0
+      },
+      "coverage": {
+        "inference_seconds": 0.0019499790005284012,
+        "errors": 0,
+        "hit_rate": 0.3923076923076923,
+        "checks": 5269,
+        "fallback_edge_scans": 2254,
+        "test_work_proxy": 8313.0
+      },
+      "bfs": {
+        "inference_seconds": 0.0007407200000670855,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 3222,
+        "test_work_proxy": 4522.0
+      }
+    },
+    {
+      "family": "blocks",
+      "trial": 0,
+      "train": "hot",
+      "test": "hot",
+      "graph_edges": 165,
+      "pivot_build_seconds": 4.079999962414149e-05,
+      "ordered_selection_seconds": 0.00478983899938612,
+      "ordered_positions": [],
+      "coverage_positions": [
+        89,
+        27,
+        55,
+        74,
+        5
+      ],
+      "predicted_train_opt_cost": 1635.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 0,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 550.0,
+        "uncovered_fallback": 1635.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0006336130009003682,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 2520,
+        "test_work_proxy": 3820.0
+      },
+      "coverage": {
+        "inference_seconds": 0.001528108999991673,
+        "errors": 0,
+        "hit_rate": 0.5738461538461539,
+        "checks": 4347,
+        "fallback_edge_scans": 1551,
+        "test_work_proxy": 6452.0
+      },
+      "bfs": {
+        "inference_seconds": 0.0011473779995867517,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 2520,
+        "test_work_proxy": 3820.0
+      }
+    },
+    {
+      "family": "blocks",
+      "trial": 0,
+      "train": "hot",
+      "test": "uniform",
+      "graph_edges": 165,
+      "pivot_build_seconds": 4.079999962414149e-05,
+      "ordered_selection_seconds": 0.005999317999339837,
+      "ordered_positions": [],
+      "coverage_positions": [
+        89,
+        27,
+        55,
+        74,
+        5
+      ],
+      "predicted_train_opt_cost": 1635.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 0,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 550.0,
+        "uncovered_fallback": 1635.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0007973729998411727,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 3222,
+        "test_work_proxy": 4522.0
+      },
+      "coverage": {
+        "inference_seconds": 0.001985652000257687,
+        "errors": 0,
+        "hit_rate": 0.3730769230769231,
+        "checks": 5421,
+        "fallback_edge_scans": 2199,
+        "test_work_proxy": 8435.0
+      },
+      "bfs": {
+        "inference_seconds": 0.0007340400006796699,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 3222,
+        "test_work_proxy": 4522.0
+      }
+    },
+    {
+      "family": "blocks",
+      "trial": 1,
+      "train": "uniform",
+      "test": "uniform",
+      "graph_edges": 175,
+      "pivot_build_seconds": 4.2361999476270285e-05,
+      "ordered_selection_seconds": 0.004879099999925529,
+      "ordered_positions": [],
+      "coverage_positions": [
+        144,
+        37,
+        2,
+        69,
+        109
+      ],
+      "predicted_train_opt_cost": 1952.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 0,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 550.0,
+        "uncovered_fallback": 1952.0
+      },
+      "ordered": {
+        "inference_seconds": 0.000834919000226364,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 3810,
+        "test_work_proxy": 5110.0
+      },
+      "coverage": {
+        "inference_seconds": 0.002102643999933207,
+        "errors": 0,
+        "hit_rate": 0.4076923076923077,
+        "checks": 5316,
+        "fallback_edge_scans": 2464,
+        "test_work_proxy": 8550.0
+      },
+      "bfs": {
+        "inference_seconds": 0.000796492000517901,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 3810,
+        "test_work_proxy": 5110.0
+      }
+    },
+    {
+      "family": "blocks",
+      "trial": 1,
+      "train": "hot",
+      "test": "hot",
+      "graph_edges": 175,
+      "pivot_build_seconds": 4.2361999476270285e-05,
+      "ordered_selection_seconds": 0.005354840000109107,
+      "ordered_positions": [],
+      "coverage_positions": [
+        46,
+        30,
+        144,
+        18,
+        109
+      ],
+      "predicted_train_opt_cost": 2163.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 0,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 550.0,
+        "uncovered_fallback": 2163.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0007598580004923861,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 3945,
+        "test_work_proxy": 5245.0
+      },
+      "coverage": {
+        "inference_seconds": 0.0019444709996605525,
+        "errors": 0,
+        "hit_rate": 0.47692307692307695,
+        "checks": 4694,
+        "fallback_edge_scans": 2819,
+        "test_work_proxy": 8193.0
+      },
+      "bfs": {
+        "inference_seconds": 0.0007642350001333398,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 3945,
+        "test_work_proxy": 5245.0
+      }
+    },
+    {
+      "family": "blocks",
+      "trial": 1,
+      "train": "hot",
+      "test": "uniform",
+      "graph_edges": 175,
+      "pivot_build_seconds": 4.2361999476270285e-05,
+      "ordered_selection_seconds": 0.00495303900061117,
+      "ordered_positions": [],
+      "coverage_positions": [
+        46,
+        30,
+        144,
+        18,
+        109
+      ],
+      "predicted_train_opt_cost": 2163.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 0,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 550.0,
+        "uncovered_fallback": 2163.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0008056960004978464,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 3810,
+        "test_work_proxy": 5110.0
+      },
+      "coverage": {
+        "inference_seconds": 0.0021435640001072898,
+        "errors": 0,
+        "hit_rate": 0.3415384615384615,
+        "checks": 5550,
+        "fallback_edge_scans": 2831,
+        "test_work_proxy": 9237.0
+      },
+      "bfs": {
+        "inference_seconds": 0.0008138780003719148,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 3810,
+        "test_work_proxy": 5110.0
+      }
+    },
+    {
+      "family": "communities",
+      "trial": 0,
+      "train": "uniform",
+      "test": "uniform",
+      "graph_edges": 443,
+      "pivot_build_seconds": 0.000570469000194862,
+      "ordered_selection_seconds": 0.024450832000184164,
+      "ordered_positions": [
+        63,
+        109,
+        22,
+        128
+      ],
+      "coverage_positions": [
+        63,
+        109,
+        22,
+        128,
+        27
+      ],
+      "predicted_train_opt_cost": 829.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 4,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 0.0,
+        "uncovered_fallback": 0.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0010216629998467397,
+        "errors": 0,
+        "hit_rate": 0.9976923076923077,
+        "checks": 1911,
+        "fallback_edge_scans": 497,
+        "test_work_proxy": 2411.0
+      },
+      "coverage": {
+        "inference_seconds": 0.0006974970001465408,
+        "errors": 0,
+        "hit_rate": 0.9976923076923077,
+        "checks": 1914,
+        "fallback_edge_scans": 497,
+        "test_work_proxy": 2414.0
+      },
+      "bfs": {
+        "inference_seconds": 0.019315794000249298,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 165007,
+        "test_work_proxy": 166307.0
+      }
+    },
+    {
+      "family": "communities",
+      "trial": 0,
+      "train": "hot",
+      "test": "hot",
+      "graph_edges": 443,
+      "pivot_build_seconds": 0.000570469000194862,
+      "ordered_selection_seconds": 0.012588585000230523,
+      "ordered_positions": [
+        63,
+        109,
+        22,
+        128
+      ],
+      "coverage_positions": [
+        63,
+        109,
+        22,
+        128,
+        27
+      ],
+      "predicted_train_opt_cost": 775.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 4,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 0.0,
+        "uncovered_fallback": 0.0
+      },
+      "ordered": {
+        "inference_seconds": 0.000616216999333119,
+        "errors": 0,
+        "hit_rate": 1.0,
+        "checks": 1914,
+        "fallback_edge_scans": 0,
+        "test_work_proxy": 1914.0
+      },
+      "coverage": {
+        "inference_seconds": 0.0007434540002577705,
+        "errors": 0,
+        "hit_rate": 1.0,
+        "checks": 1914,
+        "fallback_edge_scans": 0,
+        "test_work_proxy": 1914.0
+      },
+      "bfs": {
+        "inference_seconds": 0.01865281899972615,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 164640,
+        "test_work_proxy": 165940.0
+      }
+    },
+    {
+      "family": "communities",
+      "trial": 0,
+      "train": "hot",
+      "test": "uniform",
+      "graph_edges": 443,
+      "pivot_build_seconds": 0.000570469000194862,
+      "ordered_selection_seconds": 0.013441470000543632,
+      "ordered_positions": [
+        63,
+        109,
+        22,
+        128
+      ],
+      "coverage_positions": [
+        63,
+        109,
+        22,
+        128,
+        27
+      ],
+      "predicted_train_opt_cost": 775.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 4,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 0.0,
+        "uncovered_fallback": 0.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0008242830008384772,
+        "errors": 0,
+        "hit_rate": 0.9976923076923077,
+        "checks": 1911,
+        "fallback_edge_scans": 497,
+        "test_work_proxy": 2411.0
+      },
+      "coverage": {
+        "inference_seconds": 0.000778736000029312,
+        "errors": 0,
+        "hit_rate": 0.9976923076923077,
+        "checks": 1914,
+        "fallback_edge_scans": 497,
+        "test_work_proxy": 2414.0
+      },
+      "bfs": {
+        "inference_seconds": 0.018635233000168228,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 165007,
+        "test_work_proxy": 166307.0
+      }
+    },
+    {
+      "family": "communities",
+      "trial": 1,
+      "train": "uniform",
+      "test": "uniform",
+      "graph_edges": 410,
+      "pivot_build_seconds": 0.0005312619996402645,
+      "ordered_selection_seconds": 0.012137980999796127,
+      "ordered_positions": [
+        102,
+        18,
+        43,
+        146
+      ],
+      "coverage_positions": [
+        102,
+        18,
+        43,
+        146,
+        75
+      ],
+      "predicted_train_opt_cost": 3027.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 4,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 10.0,
+        "uncovered_fallback": 2226.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0008652730002722819,
+        "errors": 0,
+        "hit_rate": 0.9915384615384616,
+        "checks": 1965,
+        "fallback_edge_scans": 1879,
+        "test_work_proxy": 3855.0
+      },
+      "coverage": {
+        "inference_seconds": 0.0008987920000436134,
+        "errors": 0,
+        "hit_rate": 0.9915384615384616,
+        "checks": 1976,
+        "fallback_edge_scans": 1879,
+        "test_work_proxy": 3866.0
+      },
+      "bfs": {
+        "inference_seconds": 0.017077150000659458,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 149331,
+        "test_work_proxy": 150631.0
+      }
+    },
+    {
+      "family": "communities",
+      "trial": 1,
+      "train": "hot",
+      "test": "hot",
+      "graph_edges": 410,
+      "pivot_build_seconds": 0.0005312619996402645,
+      "ordered_selection_seconds": 0.012002252000456792,
+      "ordered_positions": [
+        43,
+        102,
+        146,
+        18
+      ],
+      "coverage_positions": [
+        43,
+        102,
+        146,
+        18,
+        75
+      ],
+      "predicted_train_opt_cost": 3319.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 4,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 7.0,
+        "uncovered_fallback": 2589.0
+      },
+      "ordered": {
+        "inference_seconds": 0.001884883999991871,
+        "errors": 0,
+        "hit_rate": 0.9838461538461538,
+        "checks": 1768,
+        "fallback_edge_scans": 7680,
+        "test_work_proxy": 9469.0
+      },
+      "coverage": {
+        "inference_seconds": 0.0014019029995324672,
+        "errors": 0,
+        "hit_rate": 0.9838461538461538,
+        "checks": 1789,
+        "fallback_edge_scans": 7680,
+        "test_work_proxy": 9490.0
+      },
+      "bfs": {
+        "inference_seconds": 0.016087594000055105,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 142747,
+        "test_work_proxy": 144047.0
+      }
+    },
+    {
+      "family": "communities",
+      "trial": 1,
+      "train": "hot",
+      "test": "uniform",
+      "graph_edges": 410,
+      "pivot_build_seconds": 0.0005312619996402645,
+      "ordered_selection_seconds": 0.01254113499999221,
+      "ordered_positions": [
+        43,
+        102,
+        146,
+        18
+      ],
+      "coverage_positions": [
+        43,
+        102,
+        146,
+        18,
+        75
+      ],
+      "predicted_train_opt_cost": 3319.0,
+      "diagnostics": {
+        "candidates": 11,
+        "queries": 550,
+        "budget": 5,
+        "selected": 4,
+        "states": 2048,
+        "relaxed_states": 562,
+        "uncovered_weight": 7.0,
+        "uncovered_fallback": 2589.0
+      },
+      "ordered": {
+        "inference_seconds": 0.0010831230001713266,
+        "errors": 0,
+        "hit_rate": 0.9915384615384616,
+        "checks": 2010,
+        "fallback_edge_scans": 1879,
+        "test_work_proxy": 3900.0
+      },
+      "coverage": {
+        "inference_seconds": 0.0010567149993221392,
+        "errors": 0,
+        "hit_rate": 0.9915384615384616,
+        "checks": 2021,
+        "fallback_edge_scans": 1879,
+        "test_work_proxy": 3911.0
+      },
+      "bfs": {
+        "inference_seconds": 0.018009041000368597,
+        "errors": 0,
+        "hit_rate": 0.0,
+        "checks": 0,
+        "fallback_edge_scans": 149331,
+        "test_work_proxy": 150631.0
+      }
+    }
+  ]
+}
