@@ -34,3 +34,17 @@ Created collaboratively in the ChatGPT TRIC research initiative.
 ## Archived phase snapshots
 
 The three original deliverable archives are preserved verbatim in [`archives/`](archives/): the Phase I prototype, Phase II research package, and Phase III research package. Browse [`tric_research/`](tric_research/) for the directly accessible source, tests, research notes, and benchmark evidence.
+
+
+## Phase IV — Exact certificates on cyclic graphs
+
+Phase IV extends the known-backbone optimization to **arbitrary directed graphs** by condensing strongly connected components (SCCs), dropping redundant same-SCC backbone pivots, and reusing Phase III's exact interval selector.
+
+- [Phase IV research report](tric_research/PHASE_IV_RESEARCH_REPORT.md) — proof arguments, complexity, literature boundaries, and limitations
+- [Phase IV usage and reproduction](tric_research/PHASE_IV_README.md)
+- [SCC backbone implementation](tric_research/backbone_scc.py)
+- [SCC correctness tests](tric_research/test_backbone_scc.py) and [benchmark evidence](tric_research/phase4_benchmark.json)
+
+Run: `cd tric_research && python -m unittest -q test_tric test_path_monge test_path_sweep test_backbone test_backbone_scc`.
+
+**Scientific caveat:** SCC condensation and O'Reach's supportive-vertex certificates are existing methods. This specialized exact extension is experimentally checked on small instances, but no distinct SOTA or publication-level novelty claim has been established.
