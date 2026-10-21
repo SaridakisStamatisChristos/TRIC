@@ -30,3 +30,7 @@ python benchmark_backbone.py
 This is an **active research project**, not a vetted production graph library or submission-ready publication. All theoretical and empirical claims must be independently checked against the cited literature and archived runs.
 
 Created collaboratively in the ChatGPT TRIC research initiative.
+
+## Archived phase snapshots
+
+The three original deliverable archives are preserved verbatim in [`archives/`](archives/): the Phase I prototype, Phase II research package, and Phase III research package. Browse [`tric_research/`](tric_research/) for the directly accessible source, tests, research notes, and benchmark evidence.
