@@ -83,9 +83,11 @@ jobs:
           set -euo pipefail
           mkdir -p research-results/data
           if [ "$DATASET" = example ]; then
+            GRAPH_ORIGIN=published
             echo "GRAPH_ORIGIN=published" >> "$GITHUB_ENV"
             cp upstream-oreach/examples/arXiv.metis research-results/data/graph.metis
           elif [[ "$DATASET" == synthetic_* ]]; then
+            GRAPH_ORIGIN=synthetic
             echo "GRAPH_ORIGIN=synthetic" >> "$GITHUB_ENV"
             family="${DATASET#synthetic_}"
             case "$family" in
@@ -97,6 +99,7 @@ jobs:
               --out research-results/data/graph.metis \
               --manifest research-results/synthetic_graph_manifest.json
           else
+            GRAPH_ORIGIN=published
             echo "GRAPH_ORIGIN=published" >> "$GITHUB_ENV"
             case "$DATASET" in
               arXiv|go_sub|pubmed_sub|delaunay_n15|kron_logn12) ;;
