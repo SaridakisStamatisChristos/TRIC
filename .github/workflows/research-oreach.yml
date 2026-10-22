@@ -26,6 +26,7 @@ on:
           - example
           - arXiv
           - go_sub
+          - pubmed_sub
           - kron_logn12
 
 permissions:
@@ -39,7 +40,7 @@ jobs:
       fail-fast: false
       matrix:
         # PRs cross-check multiple real graphs. Manual runs select just one.
-        dataset: ${{ fromJSON(github.event_name == 'workflow_dispatch' && format('["{0}"]', inputs.dataset) || '["example","go_sub","kron_logn12"]') }}
+        dataset: ${{ fromJSON(github.event_name == 'workflow_dispatch' && format('["{0}"]', inputs.dataset) || '["example","pubmed_sub","kron_logn12"]') }}
     env:
       OREACH_SHA: 78b3e326bbb021b7ee225ab605a4cdd074fa1d93
       DATASET: ${{ matrix.dataset }}
@@ -69,7 +70,7 @@ jobs:
             cp upstream-oreach/examples/arXiv.metis research-results/data/graph.metis
           else
             case "$DATASET" in
-              arXiv|go_sub|kron_logn12) ;;
+              arXiv|go_sub|pubmed_sub|kron_logn12) ;;
               *) echo "Unsupported dataset: $DATASET" >&2; exit 2 ;;
             esac
             url="https://oreach.taa.univie.ac.at/assets/data/instances/${DATASET}.tar.xz"
