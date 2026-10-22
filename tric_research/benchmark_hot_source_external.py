@@ -80,6 +80,9 @@ def run(args):
             and 0<=args.closure_cap_mib<=1024 and args.hot_cache_cap_mib>=1
             and 0<args.pivot_budget<=args.candidates<=19):
         raise ValueError("invalid benchmark parameters")
+    allow_crash = bool(getattr(args, "allow_upstream_segfault", False))
+    if allow_crash and not str(getattr(args, "dataset", "")).startswith("generated_"):
+        raise ValueError("upstream-segfault tolerance is restricted to generated_* graphs")
     out=Path(args.output_dir).resolve()
     out.mkdir(parents=True,exist_ok=True)
     graph=Path(args.graph).resolve()
@@ -117,9 +120,6 @@ def run(args):
     # upstream O'Reach process. This is NOT a valid performance measurement.
     # Only explicitly opted-in, provenance-labeled generated graphs may
     # record that single failure mode as an unavailable comparator.
-    allow_crash = bool(getattr(args, "allow_upstream_segfault", False))
-    if allow_crash and not str(getattr(args, "dataset", "")).startswith("generated_"):
-        raise ValueError("upstream-segfault tolerance is restricted to generated_* graphs")
     prior_upstream_failure = None
     for cls in CLASSES:
         queries=heldout[cls]
