@@ -15,7 +15,7 @@ MODES=("pivot_index","cache_pivot_index")
 UNAVAILABLE=("unavailable_upstream_segfault",
              "unavailable_after_upstream_segfault")
 
-def verify(summary_path,dataset,seed):
+def verify(summary_path,dataset,seed,require_external_complete=False):
     path=Path(summary_path)
     obj=json.loads(path.read_text())
     if obj.get("dataset")!=dataset or obj.get("seed")!=seed:
@@ -25,6 +25,26 @@ def verify(summary_path,dataset,seed):
     is_generated=dataset.startswith("generated_")
     if not is_generated and dataset not in {"example","kron_logn12"}:
         raise AssertionError("unknown published dataset")
+    if require_external_complete and obj.get("upstream_comparisons_complete") is not True:
+        raise AssertionError("all external comparators must be measured in the repaired matrix")
+    comparator_meta=obj.get("oreach_comparator_input",{})
+    if is_generated and require_external_complete:
+        if comparator_meta.get("mode")!="original_pinned_binary_support0_scc_quotient":
+            raise AssertionError("generated graph missing explicit nondefault comparator provenance")
+        if comparator_meta.get("upstream_support_parameter")!=0:
+            raise AssertionError("synthetic original O-Reach should avoid invalid support sampling")
+        if comparator_meta.get("original_graph_sha256")!=obj.get("graph_sha256"):
+            raise AssertionError("comparator source graph SHA disagrees with TRIC graph")
+        if comparator_meta.get("comparator_scc_nodes",0)<1:
+            raise AssertionError("missing quotient graph shape")
+        input_dir=path.parent/"oreach_compatible_graph"
+        for key,fn in (("comparator_graph_sha256","semantically_equivalent_scc_dag.metis"),
+                       ("mapping_sha256","vertex_to_scc.json")):
+            if not (input_dir/fn).is_file():
+                raise AssertionError("missing exact comparator replay input")
+            from oreach_compatible_input import digest
+            if digest(input_dir/fn)!=comparator_meta[key]:
+                raise AssertionError("comparator graph/mapping provenance hash mismatch")
     external=obj.get("upstream_comparator_per_class",{})
     if set(external)!=set(CLASSES):
         raise AssertionError("no explicit external-comparator evidence")
@@ -49,6 +69,18 @@ def verify(summary_path,dataset,seed):
         else:
             raise AssertionError(f"invalid original-comparator status: {state}")
         comp=json.loads((path.parent/cls/"comparison.json").read_text())
+        if is_generated and require_external_complete:
+            equivalence=comp.get("oreach_query_equivalence",{})
+            if equivalence.get("equivalence_verified_pairs")!=obj["query_set_size_per_class"]:
+                raise AssertionError("missing independent original vs mapped query equivalence proof")
+            if equivalence.get("positive_count")!=comp.get("positive_count"):
+                raise AssertionError("original and quotient query truth differ")
+            for key,fn in (("original_query_sha256","heldout.query.m.txt"),
+                           ("translated_query_sha256","oreach_equivalent.query.m.txt")):
+                from oreach_compatible_input import digest
+                if digest(path.parent/cls/fn)!=equivalence[key]:
+                    raise AssertionError("exact original/normalized query artifact changed")
+
         if comp["oreach_status"]["status"]!=state:
             raise AssertionError("class report and full report contradict")
         for method in ("oreach-pdfs","oreach-pbibfs"):
@@ -101,5 +133,7 @@ if __name__=="__main__":
     ap.add_argument("--summary",type=Path,required=True)
     ap.add_argument("--dataset",required=True)
     ap.add_argument("--seed",type=int,required=True)
+    ap.add_argument("--require-external-complete",action="store_true",
+                    help="Require valid measured original O-Reach result for every class")
     args=ap.parse_args()
-    verify(args.summary,args.dataset,args.seed)
+    verify(args.summary,args.dataset,args.seed,args.require_external_complete)
