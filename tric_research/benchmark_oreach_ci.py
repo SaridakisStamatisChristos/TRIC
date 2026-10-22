@@ -69,7 +69,7 @@ def write_queryfile(path, adj, queries):
     return positives
 
 
-def parse_oreach_csv(path, expected_q):
+def parse_oreach_csv(path, expected_q, expected_type=None):
     rows = []
     with open(path, newline='', encoding='utf-8') as f:
         for fields in csv.reader(f):
@@ -79,6 +79,8 @@ def parse_oreach_csv(path, expected_q):
                 raise ValueError('bad O\'Reach CSV row')
             if int(fields[3]) != expected_q:
                 raise ValueError('O\'Reach did not use our held-out query count')
+            if expected_type is not None and fields[5] != expected_type:
+                raise ValueError('O\'Reach query-class metadata disagrees with held-out stratum')
             rows.append({'algorithm':fields[7], 'init_ms':float(fields[8]),
                          'query_total_us':float(fields[9]),
                          'query_us':float(fields[9]) / expected_q})
@@ -106,7 +108,13 @@ def run(args):
     heldout = (generate_queries(adj, args.test, args.seed+2)
                if args.query_stratum == 'uniform' else
                generate_stratified_queries(adj, args.test, args.seed+2, args.query_stratum))
-    queryfile = out / 'heldout.query.m.txt'
+    # O'Reach classifies workload provenance by QUERY FILE SUFFIX alone.
+    # Accurate CSV metadata is essential when evaluating outcome strata.
+    filename = {'uniform': 'heldout.query.txt',
+                'positive': 'heldout.query.t.txt',
+                'negative': 'heldout.query.f.txt',
+                'balanced': 'heldout.query.m.txt'}[args.query_stratum]
+    queryfile = out / filename
     positives = write_queryfile(queryfile, adj, heldout)
     q_sha = hashlib.sha256(queryfile.read_bytes()).hexdigest()
     if args.query_stratum == 'positive' and positives != len(heldout):
@@ -177,7 +185,9 @@ def run(args):
         (out/f'oreach_{j}.stderr.txt').write_text(proc.stderr)
         if proc.returncode:
             raise RuntimeError(f'O\'Reach failed with code {proc.returncode}; see logs')
-        oreach_samples.extend(parse_oreach_csv(dest,len(heldout)))
+        expected_type = {'uniform': 'random', 'positive': 'true',
+                         'negative': 'false', 'balanced': 'mixed'}[args.query_stratum]
+        oreach_samples.extend(parse_oreach_csv(dest,len(heldout),expected_type))
     methods = {name: [v for v in oreach_samples if v['algorithm']==name]
                for name in ('oreach-pdfs', 'oreach-pbibfs')}
     for name in methods:
