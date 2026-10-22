@@ -26,6 +26,8 @@ on:
           - example
           - arXiv
           - go_sub
+          - pubmed_sub
+          - delaunay_n15
           - kron_logn12
 
 permissions:
@@ -35,9 +37,14 @@ jobs:
   paired-native-experiment:
     runs-on: ubuntu-24.04
     timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        # PRs cross-check multiple real graphs. Manual runs select just one.
+        dataset: ${{ fromJSON(github.event_name == 'workflow_dispatch' && format('["{0}"]', inputs.dataset) || '["example","kron_logn12"]') }}
     env:
       OREACH_SHA: 78b3e326bbb021b7ee225ab605a4cdd074fa1d93
-      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || 'example' }}
+      DATASET: ${{ matrix.dataset }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -64,7 +71,7 @@ jobs:
             cp upstream-oreach/examples/arXiv.metis research-results/data/graph.metis
           else
             case "$DATASET" in
-              arXiv|go_sub|kron_logn12) ;;
+              arXiv|go_sub|pubmed_sub|delaunay_n15|kron_logn12) ;;
               *) echo "Unsupported dataset: $DATASET" >&2; exit 2 ;;
             esac
             url="https://oreach.taa.univie.ac.at/assets/data/instances/${DATASET}.tar.xz"
@@ -128,7 +135,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: reachability-research-${{ github.run_id }}-${{ github.run_attempt }}
+          name: reachability-research-${{ matrix.dataset }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             research-results/comparison.json
             research-results/graph.sha256

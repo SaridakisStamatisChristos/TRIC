@@ -126,7 +126,15 @@ def run(args):
     compact = native_results['compact']
     compact_plain = native_results['compact_plain']
     hybrid = native_results['compact_pivots']
+    topo = native_results['compact_topo']
+    hybrid_topo = native_results['compact_pivots_topo']
     bfs_checksum = next(p['checksum'] for p in native_results['policies'] if p['name']=='BFS')
+    if topo['checksum'] != bfs_checksum or hybrid_topo['checksum'] != bfs_checksum:
+        raise AssertionError('topological fallback disagrees with independent BFS')
+    if topo['fallback_edges'] > compact_plain['fallback_edges']:
+        raise AssertionError('topological pruning scanned more edges than plain fallback')
+    if hybrid_topo['pivot_rescues'] != hybrid['pivot_rescues'] or hybrid_topo['fallback_queries'] != hybrid['fallback_queries']:
+        raise AssertionError('topological hybrid changes certificate/pivot accounting')
     if hybrid['checksum'] != bfs_checksum:
         raise AssertionError('compact + trained pivot hybrid disagrees with independent BFS')
     if compact_plain['checksum'] != bfs_checksum:
@@ -194,6 +202,9 @@ def run(args):
             'compact_ns':compact['median_ns_per_query'],
             'compact_plain_ns':compact_plain['median_ns_per_query'],
             'compact_pivots_ns':hybrid['median_ns_per_query'],
+            'compact_topo_ns':topo['median_ns_per_query'],
+            'compact_topo_fallback_edges':topo['fallback_edges'],
+            'compact_pivots_topo_ns':hybrid_topo['median_ns_per_query'],
             'compact_pivot_rescues':hybrid['pivot_rescues'],
             'compact_pivot_fallback_queries':hybrid['fallback_queries'],
             'compact_build_ms':compact['build_ms'],

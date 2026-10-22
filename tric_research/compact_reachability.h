@@ -128,7 +128,11 @@ public:
     if(topo_rank_[s]>topo_rank_[t] || !necessary(s,t))return 0;
     return -1;
   }
-  bool reaches(int source,int target,QueryStats* stats=nullptr,bool guided=true){
+  // Topological fallback pruning is sound: all arcs in the SCC DAG go from
+  // lower to higher topological rank. A vertex ranked past the target cannot
+  // reach that target. Keep plain and four-interval alternatives for ablation.
+  bool reaches(int source,int target,QueryStats* stats=nullptr,bool guided=true,
+               bool topo_prune=false){
     const int decision=certificate(source,target);
     if(decision!=-1){
       if(stats){if(decision)++stats->certified_yes;else ++stats->certified_no;}
@@ -145,7 +149,8 @@ public:
       for(int b:dag_[a]){
         if(stats)++stats->edges;
         if(b==t)return true;
-        if(seen_[b]!=epoch_ && (!guided || necessary(b,t))){
+        if(seen_[b]!=epoch_ && (!topo_prune || topo_rank_[b]<=topo_rank_[t])
+           && (!guided || necessary(b,t))){
           seen_[b]=epoch_;search_stack_.push_back(b);
         }
       }
