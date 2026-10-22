@@ -19,6 +19,8 @@ def aggregate(paths):
         baseline = policies["Ordered"]["median_ns_per_query"]
         hybrid = result["tric"]["compact_pivots"]["median_ns_per_query"]
         plain = result["tric"]["compact_plain"]["median_ns_per_query"]
+        topo = result["tric"].get("compact_topo", {})
+        hybrid_topo = result["tric"].get("compact_pivots_topo", {})
         guided = result["tric"]["compact"]["median_ns_per_query"]
         if baseline <= 0 or hybrid <= 0:
             raise ValueError("nonpositive measurement")
@@ -31,6 +33,9 @@ def aggregate(paths):
             "hybrid_ns": hybrid,
             "compact_plain_ns": plain,
             "compact_guided_ns": guided,
+            "compact_topo_ns": topo.get("median_ns_per_query"),
+            "hybrid_topo_ns": hybrid_topo.get("median_ns_per_query"),
+            "topo_pruned_fewer_edges": topo.get("fallback_edges", 0) < result["tric"]["compact_plain"]["fallback_edges"] if topo else None,
             "speedup_ordered_over_hybrid": baseline / hybrid,
             "pivot_rescues": result["tric"]["compact_pivots"]["pivot_rescues"],
             "fallback_queries": result["tric"]["compact_pivots"]["fallback_queries"],
