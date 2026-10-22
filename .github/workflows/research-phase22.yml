@@ -11,6 +11,8 @@ on:
       - 'tric_research/test_phase22_graphs.py'
       - 'tric_research/test_phase22_upstream_failure.py'
       - 'tric_research/verify_phase22_artifact.py'
+      - 'tric_research/oreach_compatible_input.py'
+      - 'tric_research/test_oreach_compatible_input.py'
       - 'tric_research/PHASE_XXII_RESEARCH_REPORT.md'
   workflow_dispatch:
 permissions:
@@ -79,15 +81,17 @@ jobs:
           uname -a >> research-results/manifest.txt
       - name: Verify independent cold-start, RSS and native exactness
         working-directory: tric_research
-        run: python -m unittest -q test_phase22_lifetime test_phase22_graphs test_phase22_upstream_failure test_hot_source_cache test_cache_indexed
+        run: python -m unittest -q test_phase22_lifetime test_phase22_graphs test_phase22_upstream_failure test_oreach_compatible_input test_hot_source_cache test_cache_indexed
       - name: Run original paired external benchmark and actual lifetime replays
         working-directory: tric_research
         run: |
-          # Only reproducibly generated topologies may report a pinned
-          # upstream SIGSEGV as 'unavailable'. Published datasets fail hard.
+          # Authentic graphs use published O-Reach default; generated
+          # graphs use verified exact SCC-DAG input and support=0 since
+          # upstream's default candidate sampler is invalid for tiny WCCs.
+          # ALL original O-Reach comparator runs are now mandatory.
           comparator_flags=()
           if [[ "$DATASET" == generated_* ]]; then
-            comparator_flags+=(--allow-upstream-segfault)
+            comparator_flags+=(--oreach-scc-compatible)
           fi
           python benchmark_phase22.py \
             --graph ../research-results/data/graph.metis \
@@ -106,7 +110,7 @@ jobs:
         run: |
           python verify_phase22_artifact.py \
             --summary ../research-results/phase22/phase22_lifetime_summary.json \
-            --dataset "$DATASET" --seed "$SEED"
+            --dataset "$DATASET" --seed "$SEED" --require-external-complete
       - name: Preserve all native measurements and provenance
         if: always()
         uses: actions/upload-artifact@v4
@@ -118,6 +122,9 @@ jobs:
             research-results/data/generated_graph_provenance.json
             research-results/dataset.sha256
             research-results/phase22/phase20_summary.json
+            research-results/phase22/oreach_compatible_graph/*.metis
+            research-results/phase22/oreach_compatible_graph/*.json
+            research-results/phase22/*/oreach_equivalent.query.m.txt
             research-results/phase22/phase22_lifetime_summary.json
             research-results/phase22/*/comparison.json
             research-results/phase22/*/native_input.txt
