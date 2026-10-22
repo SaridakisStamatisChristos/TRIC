@@ -86,7 +86,7 @@ def summarize(paths):
             "shared_construction_components_ns":{
                 "python_pivot_and_policy_training":d["offline_training_seconds_including_pivot_build"]*1e9,
                 "native_pivot_build":tric["index_build_ms"]*1e6,
-                "native_compact_build":tric["compact_build_ms"]*1e6},
+                "native_compact_build":tric["compact"]["build_ms"]*1e6},
             "baselines":{}
         }
         for arm in ARMS:
