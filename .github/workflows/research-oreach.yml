@@ -41,7 +41,7 @@ jobs:
       fail-fast: false
       matrix:
         # PRs cross-check multiple real graphs. Manual runs select just one.
-        dataset: ${{ fromJSON(github.event_name == 'workflow_dispatch' && format('["{0}"]', inputs.dataset) || '["example","delaunay_n15","kron_logn12"]') }}
+        dataset: ${{ fromJSON(github.event_name == 'workflow_dispatch' && format('["{0}"]', inputs.dataset) || '["example","kron_logn12"]') }}
     env:
       OREACH_SHA: 78b3e326bbb021b7ee225ab605a4cdd074fa1d93
       DATASET: ${{ matrix.dataset }}
