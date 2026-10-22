@@ -98,3 +98,69 @@ python -m unittest -q test_compact_reachability test_closure_index test_oreach_c
 ```
 See `.github/workflows/research-oreach.yml`; the artifact includes
 `phase14_summary.json` plus per-seed raw comparison data.
+
+## Executed pilot results (GitHub Actions, 2026-10-22)
+
+All Python 3.10 and 3.13 regression jobs passed, including the new
+bidirectional tests. Both source-specific paired-native experiment jobs passed
+on GitHub-hosted Ubuntu 24.04 runners. O'Reach was compiled from its
+previously pinned upstream SHA and run against the exact same query files.
+
+Each graph received three seeded held-out splits of 1,200 queries each;
+the native hybrid variants each received nine rotated benchmark repetitions.
+The following numbers are **native observed nanoseconds per query**, not
+predictions, cross-hardware comparisons, or precision-calibrated estimates.
+
+| Graph / seed | Topological hybrid | Bidirectional hybrid | O'Reach pDFS | Topo/Bidir ratio |
+|---|---:|---:|---:|---:|
+| arXiv / 20261022 | 438.01 | 387.54 | 300.11 | 1.1303 |
+| arXiv / 20261023 | 443.78 | 433.23 | 268.56 | 1.0244 |
+| arXiv / 20261024 | 389.76 | 319.98 | 267.35 | 1.2181 |
+| Kronecker / 20261022 | 871.57 | 96.83 | 72.27 | 9.0009 |
+| Kronecker / 20261023 | 813.82 | 94.03 | 62.78 | 8.6552 |
+| Kronecker / 20261024 | 307.28 | 65.49 | 63.14 | 4.6920 |
+
+For the **three arXiv seeds**, median of paired topo/bidir ratios = **1.1303×**.
+Medians of native per-seed method timings: topo **438.01 ns/q**,
+bidir **387.54 ns/q**, and O'Reach pDFS **268.56 ns/q**.
+
+For **three Kronecker seeds**, median paired topo/bidir ratio = **8.6552×**.
+Method medians: topo **813.82 ns/q**, bidir **94.03 ns/q**,
+and O'Reach pDFS **63.14 ns/q**. The new method remained slower
+than O'Reach in all tested seed pairs on both graphs.
+
+The reverse SCC-DAG and bidirectional buffers added **612,168 bytes** on the
+arXiv example and **828,072 bytes** on Kronecker by reported vector-capacity
+accounting. These are extra logical storage figures, **not full RSS**.
+The direct bidirectional fallback examined fewer arcs than Phase XIII's
+topological-only fallback on all observed splits. Fewer arcs do not always
+equate to proportional CPU savings (e.g., arXiv), and the observed ratios
+must not be generalized to all static directed graphs.
+
+### Source artifacts and audit trail
+
+- [Unit-test CI, run 39743725197](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39743725197) — passed.
+- [Paired-native research CI, run 39743725356](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39743725356) — both graph jobs passed.
+- [Raw arXiv benchmark artifact](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39743725356/artifacts/12409919019).
+- [Raw Kronecker benchmark artifact](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39743725356/artifacts/12409759711).
+
+The artifacts include per-seed `comparison.json`, query files,
+`phase14_summary.json`, the original O'Reach CSV, and environment provenance.
+Only two graph instances are present. A technical conclusion supported here is
+that bidirectional fallback reduces query cost **for these workloads**. An
+independent algorithmic contribution, dominance over O'Reach, publication
+readiness, and statistical generality remain unestablished.
+
+### Adversarial interpretation
+
+**Alternative explanation:** Graph/query structure—particularly the large
+number of costly unresolved queries for plain topological forward DFS on the
+Kronecker instance—could account for most of the improvement. Bidirectional
+search is known to reduce this work. This is a graph/workload phenomenon, not
+independent confirmation of algorithmic novelty.
+
+**High-value next experiment:** stratify queries into positive-only,
+negative-only and 50:50 positive/negative batches using the published O'Reach
+test distributions where accessible; replicate on much larger graphs with
+separately measured graph/label memory and build time. If improvements vanish
+on a distinct graph class, retain and explain the negative result.
