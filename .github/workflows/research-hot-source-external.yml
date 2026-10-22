@@ -1,4 +1,4 @@
-name: TRIC Phase XX paired hot-source external pilot
+name: TRIC Phase XXI exact cache-indexed external challenge
 
 on:
   pull_request:
@@ -9,6 +9,9 @@ on:
       - 'tric_research/hot_source_cache.h'
       - 'tric_research/hot_source_bench.cpp'
       - 'tric_research/PHASE_XX_RESEARCH_REPORT.md'
+      - 'tric_research/cache_indexed_bench.cpp'
+      - 'tric_research/test_cache_indexed.py'
+      - 'tric_research/PHASE_XXI_RESEARCH_REPORT.md'
   workflow_dispatch:
 
 permissions:
@@ -69,7 +72,7 @@ jobs:
           git -C upstream-oreach rev-parse HEAD >> research-results/compiler.txt
       - name: Phase XIX cache and Phase XX paired-engine exactness tests
         working-directory: tric_research
-        run: python -m unittest -q test_hot_source_cache test_hot_source_external
+        run: python -m unittest -q test_hot_source_cache test_hot_source_external test_cache_indexed
       - name: Run paired TRIC/cache/O-Reach on identical query files
         working-directory: tric_research
         run: |
@@ -86,7 +89,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: tric-phase20-${{ matrix.dataset }}-${{ github.run_id }}-${{ github.run_attempt }}
+          name: tric-phase21-${{ matrix.dataset }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             research-results/compiler.txt
             research-results/graph.sha256
@@ -95,6 +98,7 @@ jobs:
             research-results/phase20/*/comparison.json
             research-results/phase20/*/heldout.query.m.txt
             research-results/phase20/*/hot_source_native.json
+            research-results/phase20/*/cache_indexed_native.json
             research-results/phase20/*/tric_native.json
             research-results/phase20/*/oreach_*.csv
             research-results/phase20/*/oreach_*.rss_kib.txt
