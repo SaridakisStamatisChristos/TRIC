@@ -25,4 +25,4 @@ jobs:
           test_adaptive_exact test_frontier_compact test_ordered_probe
           test_native_benchmark test_oreach_ci test_closure_index
           test_compact_reachability test_stratified_queries test_phase18_amortization
-          test_hot_source_cache test_hot_source_external test_cache_indexed test_phase22_lifetime test_phase22_graphs test_phase22_upstream_failure test_oreach_compatible_input
+          test_hot_source_cache test_hot_source_external test_cache_indexed test_phase22_lifetime test_phase22_graphs test_phase22_upstream_failure test_phase23_training test_phase23_admission test_oreach_compatible_input
