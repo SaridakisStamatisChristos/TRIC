@@ -114,7 +114,7 @@ def replay_pair(exe,payload,factor,sources,cap,out,replications=2,timeout=300):
     return summary
 
 
-def measure_oreach_pdfs_lifetime(binary,graph,queryfile,seed,factor,dest,timeout=300):
+def measure_oreach_pdfs_lifetime(binary,graph,queryfile,seed,factor,dest,timeout=300,support_args=()):
     """Original O'Reach with only pDFS enabled. Not resource-equivalent."""
     source=Path(queryfile).read_bytes()
     if not source or factor<1:
@@ -128,7 +128,7 @@ def measure_oreach_pdfs_lifetime(binary,graph,queryfile,seed,factor,dest,timeout
     cmd=["/usr/bin/time","-f","%M","-o",str(rss),
         str(Path(binary).resolve()),str(Path(graph).resolve()),
         "--seed",str(seed),"--queries",str(query_path),
-        "--pdfs","--output",str(output)]
+        *support_args,"--pdfs","--output",str(output)]
     t0=time.perf_counter_ns()
     proc=subprocess.run(cmd,capture_output=True,text=True,timeout=timeout)
     elapsed=time.perf_counter_ns()-t0
@@ -194,8 +194,9 @@ def run(args):
         if upstream_state["status"] == "measured":
             for factor in args.replay_factors:
                 factor_results[str(factor)]["original_oreach_pdfs_fresh_process"]=measure_oreach_pdfs_lifetime(
-                    args.oreach_binary,args.graph,out/cls/"heldout.query.m.txt",
-                    args.seed,factor,out/cls/f"oreach_lifetime_factor_{factor}",args.timeout)
+                    args.oreach_binary,comparison["oreach_graph_path"],comparison["oreach_queryfile_path"],
+                    args.seed,factor,out/cls/f"oreach_lifetime_factor_{factor}",
+                    args.timeout,comparison["oreach_support_args"])
         else:
             # Do not re-invoke an upstream executable known to SIGSEGV.
             # Mark every horizon unavailable, never invent/init/copy timing.
@@ -220,6 +221,8 @@ def run(args):
        "graph_edges":base["graph_edges"],
        "upstream_oreach_git_sha":base["oreach_commit"],
        "training_sha256":base["training_sha256"],
+       "oreach_comparator_input":base["oreach_comparator_input"],
+       "oreach_default_configuration":base["oreach_config_is_default"],
        "upstream_comparator_per_class":{
            cls:base["classes"][cls]["oreach_status"] for cls in previous.CLASSES},
        "upstream_comparisons_complete":all(
@@ -232,7 +235,7 @@ def run(args):
        "replayed_query_sets_not_independent":True,
        "python_pivot_fit_ns":base["classes"]["matched_hot"]["pivot_fit_ns"],
        "hosted_runner_noise_warning":True,
-       "comparative_scope":"Fresh TRIC parse+index build+actual replay calls; Python fitting separately; fresh OReach pdfs-only process wall/RSS + reported init/query; unlike process time boundaries and deployment systems",
+       "comparative_scope":"TRIC original graph vs identical original heldout truth; generated-family O-Reach support0 on exact SCC-DAG equivalent graph and mapped queries, NOT default raw-graph O-Reach; SCC conversion build time and memory separately disclosed, not in upstream process wall",
        "compiler_command":command,
        "classes":results,
        "underlying_phase21_summary":str(out/"phase20_summary.json")
