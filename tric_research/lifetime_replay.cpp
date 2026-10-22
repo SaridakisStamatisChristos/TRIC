@@ -67,7 +67,8 @@ int main(int argc,char** argv){
       "usage: lifetime <pivot_index|cache_pivot_index> <replay_factor> <max_sources> <cap_bytes>");
   const std::string mode=argv[1];
   const bool with_cache=mode=="cache_pivot_index";
-  if(!with_cache && mode!="pivot_index")
+  const bool adaptive=mode=="adaptive_cache_pivot_index";
+  if(!with_cache && !adaptive && mode!="pivot_index")
     throw std::invalid_argument("invalid mode");
   const auto factor=std::stoull(argv[2]);
   const auto max_sources=std::stoull(argv[3]);
@@ -129,13 +130,59 @@ int main(int argc,char** argv){
   const auto cache_end=Clock::now();
   if(cache.retained_bytes()>cap_bytes)
     throw std::runtime_error("cache cap exceeded");
+  // Only training SOURCE frequencies and the observed sources of the
+  // FIRST 256 live queries are used for admission. No heldout truth,
+  // future sample, target, or trial timing influences the decision.
+  const auto total_calls=factor*static_cast<unsigned long long>(qcount);
+  constexpr std::uint64_t minimum_horizon=50000ULL;
+  constexpr std::uint64_t prefix_size=256ULL;
+  constexpr std::uint64_t minimum_match_percent=60ULL;
+  std::vector<unsigned char> eligible_sources;
+  if(adaptive) {
+    eligible_sources.assign(graph.size(),0);
+    const auto words=(graph.size()+63)/64;
+    const auto row_bytes=words*sizeof(std::uint64_t);
+    const auto metadata=graph.size()*sizeof(int);
+    if(max_sources && cap_bytes>=metadata && words>0){
+      const auto allowed=std::min<std::size_t>(max_sources,
+          (cap_bytes-metadata)/(row_bytes+sizeof(int)));
+      std::vector<unsigned> freq(graph.size(),0);
+      for(const auto& q:training)++freq[q.first];
+      std::vector<int> order;
+      for(int source=0;source<n;++source)
+        if(freq[source]>=3)order.push_back(source);
+      std::sort(order.begin(),order.end(),[&](int a,int b){
+        if(freq[a]!=freq[b])return freq[a]>freq[b];
+        return a<b;
+      });
+      if(order.size()>allowed)order.resize(allowed);
+      for(int source:order)eligible_sources[source]=1;
+    }
+  }
+  bool admission_decided=false,admission_enabled=false;
+  std::uint64_t admission_queries=0,admission_potential_hits=0;
   std::uint64_t checksum=0xCBF29CE484222325ULL;
   std::uint64_t hits=0;
   for(unsigned long long epoch=0;epoch<factor;++epoch){
     for(int id=0;id<qcount;++id){
       const auto [s,t]=queries[id];
+      if(adaptive && !admission_decided) {
+        admission_potential_hits+=eligible_sources[s]!=0;
+        ++admission_queries;
+        if(admission_queries>=prefix_size) {
+          admission_decided=true;
+          if(total_calls>=minimum_horizon &&
+             admission_potential_hits*100 >=
+                 minimum_match_percent*admission_queries) {
+            cache=HotSourceCache(graph,training,
+                   static_cast<std::size_t>(max_sources),
+                   static_cast<std::size_t>(cap_bytes),3);
+            admission_enabled=cache.rows()>0;
+          }
+        }
+      }
       bool answer=false,done=false;
-      if(with_cache){
+      if(with_cache || admission_enabled){
         done=cache.lookup(s,t,answer);
         hits+=done;
       }
@@ -156,7 +203,7 @@ int main(int argc,char** argv){
   // queries); never mix expensive graph DFS oracle into full-index timing.
   for(const auto& q:queries){
     const auto [s,t]=q;
-    bool ans=false,found=with_cache&&cache.lookup(s,t,ans);
+    bool ans=false,found=(with_cache || admission_enabled)&&cache.lookup(s,t,ans);
     if(!found){
       int decision=index.certificate(s,t);
       if(decision==-1)for(int pid:selected){
@@ -174,6 +221,9 @@ int main(int argc,char** argv){
     <<",\"unique_queries\":"<<qcount<<",\"factor\":"<<factor
     <<",\"actual_query_calls\":"<<factor*static_cast<unsigned long long>(qcount)
     <<",\"training_pairs\":"<<ntrain<<",\"cache_hits\":"<<hits
+    <<",\"adaptive_admitted\":"<<(admission_enabled?"true":"false")
+    <<",\"admission_prefix_queries\":"<<admission_queries
+    <<",\"admission_potential_hits\":"<<admission_potential_hits
     <<",\"cache_rows\":"<<cache.rows()
     <<",\"retained_cache_bytes\":"<<cache.retained_bytes()
     <<",\"index_label_bytes\":"<<index.labels_bytes()
