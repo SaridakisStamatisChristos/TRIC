@@ -232,6 +232,16 @@ def run(args):
                 "times":times,"oreach_raw_csv_rows":oreach_raw,
                 "claim_limit":"Identical heldout queries but different index budgets and separate timed process runs; source skew is synthetic on authentic graph topology; per-query O'Reach output not independently exported"}
         by_class[cls]=result
+        index_base=times["pivot_index"]["median_ns_per_query"]
+        index_fast=times["cache_pivot_index"]["median_ns_per_query"]
+        cache_extra_build=indexed["cache_build_ns"]
+        result["incremental_cache_model"]={
+            "extra_cache_build_ns":cache_extra_build,
+            "query_ns_saved":index_base-index_fast,
+            "strict_break_even_queries":(
+                math.floor(cache_extra_build/(index_base-index_fast))+1
+                if index_base>index_fast else None),
+            "description":"Algebraic, not a real long-horizon replay; holds only if fixed query medians remain representative"}
         (directory/"comparison.json").write_text(json.dumps(result,indent=2)+"\n")
         print(json.dumps({"class":cls,"seed":args.seed,"graph":graph.name,
             "positive":positives,"cache_hits":cached["hits"],
@@ -249,7 +259,7 @@ def run(args):
         "train":args.train,"test_per_class":args.test,
         "hot_probability":0.8,"hot_cache_cap_mib":args.hot_cache_cap_mib,
         "pivot_budget":args.pivot_budget,
-        "omp_memory_match":False,
+        "matched_resource_budgets":False,
         "native_compile_seconds":compile_seconds,
         "native_compile_cmd":build_cmd,"cache_compile_cmd":cache_compile_cmd,
         "cache_indexed_compile_cmd":indexed_compile_cmd,
