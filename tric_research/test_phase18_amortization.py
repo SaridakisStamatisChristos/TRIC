@@ -26,7 +26,7 @@ def record(stratum,seed,graph_sha="abc",fit=6000000,base_bidir=180,base_topo=220
         "compact_pivots_topo":{
             "checksum":truth,"median_ns_per_query":base_topo,**shared},
         "policies":[{"name":"BFS","checksum":truth}],
-        "index_build_ms":0.3,"compact_build_ms":0.2
+        "index_build_ms":0.3,"compact":{"build_ms":0.2}
     }
     return{
         "graph_sha256":graph_sha,"graph_origin":"synthetic",
