@@ -58,6 +58,17 @@ class LifetimeReplayTests(unittest.TestCase):
             run_fresh(self.exe,b"bad", "pivot_index",1,2,2048,
                       self.root/"bad")
 
+    def test_zero_order_is_valid_not_missing_policy(self):
+        adj,_=build_graph(6,[(0,1),(1,2)])
+        queries=[(s,t) for s in range(6) for t in range(6)]
+        train=[(0,1)]*5
+        raw=serialize_native(adj,[0,1],
+            {"BFS":[],"Ordered":[]},queries,train)
+        pair=replay_pair(self.exe,raw,2,1,2048,
+                         self.root/"zero_order",replications=1)
+        self.assertEqual(pair["pivot_index"]["actual_query_calls"],72)
+        self.assertTrue(pair["cache_pivot_index"]["checksum_verified"])
+
     def test_zero_cache_budget(self):
         row=run_fresh(self.exe,self.raw,"cache_pivot_index",1,2,0,
                       self.root/"refusal")
