@@ -124,7 +124,10 @@ def run(args):
     native_results = json.loads(native.stdout)
     closure = native_results['closure']
     compact = native_results['compact']
+    compact_plain = native_results['compact_plain']
     bfs_checksum = next(p['checksum'] for p in native_results['policies'] if p['name']=='BFS')
+    if compact_plain['checksum'] != bfs_checksum:
+        raise AssertionError('plain fallback compact index disagrees with independent BFS')
     if compact['checksum'] != bfs_checksum:
         raise AssertionError('compact index disagrees with independent BFS')
     if sum(compact[key] for key in ('certified_yes','certified_no','fallback_queries')) != len(heldout):
@@ -186,9 +189,13 @@ def run(args):
             'closure_matrix_bytes':closure['index_matrix_bytes'],
             'closure_onepass_ns':closure.get('median_onepass_ns_per_query'),
             'compact_ns':compact['median_ns_per_query'],
+            'compact_plain_ns':compact_plain['median_ns_per_query'],
             'compact_build_ms':compact['build_ms'],
             'compact_label_bytes':compact['labels_bytes'],
-            'compact_certificate_fraction':(compact['certified_yes']+compact['certified_no'])/len(heldout)},indent=2))
+            'compact_certificate_fraction':(compact['certified_yes']+compact['certified_no'])/len(heldout),
+            'compact_fallback_queries':compact['fallback_queries'],
+            'compact_fallback_edges':compact['fallback_edges'],
+            'compact_plain_fallback_edges':compact_plain['fallback_edges']},indent=2))
 
 
 def parser():
