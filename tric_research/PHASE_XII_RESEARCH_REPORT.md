@@ -82,5 +82,56 @@ and runs exactly the same workload for TRIC and O'Reach.
 - No claim of novelty for known SCC/interval algorithms.
 - Larger graphs and a matched-memory baseline remain necessary for a paper.
 
-Status is preliminary until attached GitHub CI evidence for the exact PR commit
-has been inspected.
+## Execution record (GitHub Actions, 2026-10-22)
+
+Three held-out train/test seeds on the SAME bundled arXiv directed graph
+(6,000 vertices, 66,707 arcs; 1,200 test queries per seed). Seven native
+C++ policy repetitions and five O'Reach repetitions per seed.
+
+| Seed | TRIC ordered (ns/q) | Compact+trained pivots (ns/q) | Compact plain (ns/q) | O'Reach pDFS (ns/q) | Pivot rescues | Hybrid fallback |
+|---|---:|---:|---:|---:|---:|---:|
+| 20261022 | 9462.68 | 4685.45 | 7267.46 | 246.59 | 254 | 231 |
+| 20261023 | 9676.11 | 4421.26 | 6369.89 | 227.84 | 228 | 258 |
+| 20261024 | 9617.87 | 4530.39 | 6678.12 | 216.49 | 232 | 248 |
+
+On each split, the compact certificate alone decides around 59.5–60.0% of
+test queries. Pivots rescue an additional 228–254 otherwise undecided
+queries. Three of three paired comparisons favor the compact+pivot
+method against the previous ordered-only TRIC baseline. Median of the three
+*paired per-seed speedup ratios* is 2.12297x. The test matrix passed on
+Python 3.10 and 3.13, and the paired-native CI research job passed all
+60 tests. This is narrow, internal algorithm-engineering evidence.
+
+### Negative result retained
+The original four-permutation guided-search implementation initially
+certified only 26.3% of test queries and measured around 41,271 ns/q,
+far slower than the original TRIC ordered method (~10,805 ns/q).
+Adding a topological-order negative test raised certificate coverage to
+59.6%, but guided DFS still measured 16,232 ns/q vs 6,626 ns/q for
+ordinary SCC-DAG DFS in that interim run. Additional reachability bounds
+may reduce the number of scanned edges while increasing total CPU time.
+The production candidate should prefer the measured plain fallback
+rather than automatically turning on guided DFS.
+
+### Remaining performance gap and limitations
+Even the improved hybrid (~4,421–4,685 ns/q) remained roughly
+19–21x slower than O'Reach pDFS (~216–247 ns/q) on the example graph.
+The 128-pass hot-cache closure microbenchmark is not directly comparable
+to this one-pass timing. The experiment does not establish matched memory,
+build/training amortization, workload diversity, dedicated-machine timing,
+or publication novelty. Interval pruning is known GRAIL/PReaCH prior art.
+
+**Evidence:** [GitHub CI research run](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39724775200)
+and [raw zip artifact](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39724775200/artifacts/12402971500).
+Aggregate record: \`research-results/phase12_summary.json\` inside the CI artifact.
+Earlier failure and corrective runs:
+[initial compact](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39723808075),
+[topological/plain fallback](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39724162784).
+
+## Publication decision
+NOT READY for an algorithmic novelty or SOTA claim.
+The compelling result is an exactly validated **combination of known
+positive/negative certificates and trained pivot selection** with measured
+CPU gains over our old TRIC baseline. A next phase needs diverse published
+graphs, matched resource envelopes, replicated timings on controlled
+hardware, and a rigorous isolation of any original contribution.
