@@ -10,6 +10,7 @@ on:
       - 'tric_research/closure_index.h'
       - 'tric_research/compact_reachability.h'
       - 'tric_research/test_compact_reachability.py'
+      - 'tric_research/summarize_phase12.py'
       - 'tric_research/test_closure_index.py'
       - 'tric_research/benchmark_native.py'
       - 'tric_research/ordered_probe.py'
@@ -106,6 +107,23 @@ jobs:
             --candidates 11 --budget 5 \
             --tric-repetitions 7 --oreach-repetitions 5 \
             --closure-cap-mib 64
+          for seed in 20261023 20261024; do
+            mkdir -p "../research-results/seeds/$seed"
+            python benchmark_oreach_ci.py \
+              --graph ../research-results/data/graph.metis \
+              --oreach-binary ../upstream-oreach/build/reachability \
+              --oreach-git-sha "$OREACH_SHA" \
+              --output-dir "../research-results/seeds/$seed" \
+              --train 500 --test 1200 --seed "$seed" \
+              --candidates 11 --budget 5 \
+              --tric-repetitions 7 --oreach-repetitions 5 \
+              --closure-cap-mib 64
+          done
+          python summarize_phase12.py \
+            ../research-results/comparison.json \
+            ../research-results/seeds/20261023/comparison.json \
+            ../research-results/seeds/20261024/comparison.json \
+            --out ../research-results/phase12_summary.json
       - name: Publish raw results and provenance
         if: always()
         uses: actions/upload-artifact@v4
@@ -122,5 +140,7 @@ jobs:
             research-results/oreach_*.csv
             research-results/oreach_*.stdout.txt
             research-results/oreach_*.stderr.txt
+            research-results/phase12_summary.json
+            research-results/seeds/**
           if-no-files-found: warn
           retention-days: 30
