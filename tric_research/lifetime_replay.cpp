@@ -92,6 +92,7 @@ int main(int argc,char** argv){
   if(!(std::cin>>policies)||policies<1||policies>32)
     throw std::invalid_argument("invalid policy count");
   std::vector<int> selected;
+  bool found_ordered=false;
   for(int i=0;i<policies;++i) {
     std::string name;int count;
     if(!(std::cin>>name>>count)||count<0||count>c)
@@ -99,9 +100,9 @@ int main(int argc,char** argv){
     std::vector<int> ids(count);
     for(int& id:ids)if(!(std::cin>>id)||id<0||id>=c)
       throw std::invalid_argument("bad pivot ID");
-    if(name=="Ordered")selected=std::move(ids);
+    if(name=="Ordered"){selected=std::move(ids);found_ordered=true;}
   }
-  if(selected.empty())throw std::invalid_argument("missing nonempty Ordered policy");
+  if(!found_ordered)throw std::invalid_argument("missing Ordered policy");
   std::vector<Pair> queries(qcount);
   for(auto& q:queries)if(!(std::cin>>q.first>>q.second)
       ||q.first<0||q.first>=n||q.second<0||q.second>=n)
