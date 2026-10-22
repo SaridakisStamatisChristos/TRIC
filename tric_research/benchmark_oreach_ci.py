@@ -105,6 +105,10 @@ def run(args):
     # Degree-based candidates, without looking at held-out query outcomes.
     vertices = sorted(range(n), key=lambda u: (-len(adj[u])-len(rev[u]),u))[:args.candidates]
     training = generate_queries(adj, args.train, args.seed+1)
+    # Stable fingerprint of the actual selector-fitting inputs, independent
+    # of its timing/order or of heldout query distribution.
+    training_fingerprint = hashlib.sha256(
+        json.dumps(training, separators=(',', ':')).encode('ascii')).hexdigest()
     heldout = (generate_queries(adj, args.test, args.seed+2)
                if args.query_stratum == 'uniform' else
                generate_stratified_queries(adj, args.test, args.seed+2, args.query_stratum))
@@ -231,6 +235,9 @@ def run(args):
                   if args.query_stratum != 'uniform' else
                   'independent uniform source and target sampling'),
               'candidate_vertices':vertices,'pivot_budget':args.budget,
+              'seed':args.seed,
+              'selector_training_queries_sha256':training_fingerprint,
+              'selector_training_count':len(training),
               'selected_orders':policies,
               'offline_training_seconds_including_pivot_build':training_seconds,
               'tric_compile_seconds':compile_seconds,'tric_compile_cmd':command,
