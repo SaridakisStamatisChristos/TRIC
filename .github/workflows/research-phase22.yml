@@ -108,5 +108,8 @@ jobs:
             research-results/phase22/*/oreach_*.rss_kib.txt
             research-results/phase22/*/lifetime_factor_*/*/result.json
             research-results/phase22/*/lifetime_factor_*/*/maxrss_kib.txt
+            research-results/phase22/*/oreach_lifetime_factor_*/result.json
+            research-results/phase22/*/oreach_lifetime_factor_*/upstream_pdfsonly.csv
+            research-results/phase22/*/oreach_lifetime_factor_*/upstream_peak_rss_kib.txt
           if-no-files-found: warn
           retention-days: 30
