@@ -64,11 +64,26 @@ They are deterministic **stress-test structures**, using seed
 20261022, one-based directed METIS output and SHA256-provenance
 manifest `synthetic_graph_manifest.json`.
 
-The same unmodified O'Reach SHA-pinned executable is run against each
-synthetic source graph, with an identical query file for both algorithms.
-No SOTA or real-world graph replication claim follows from this.
-Potential deterministic dependence between synthetic graph generator
-families should not be disguised as independent graph-source evidence.
+**Protocol deviation recorded after execution failure:** Initial PR CI
+run [39763094174](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39763094174)
+attempted the unmodified SHA-pinned upstream O'Reach on all three synthetic
+families. It exited with process code **-11 (SIGSEGV)** on these small,
+sparse instances. The arXiv published run independently reached the
+summarizer and exposed an unrelated `compact.build_ms` schema error,
+which was corrected and regression-tested. O'Reach behavior on small
+synthetic graphs is an **unresolved baseline compatibility defect**,
+not evidence of algorithmic superiority. We have NOT isolated its root
+cause and do not claim that O'Reach generally fails for these graph classes.
+
+The revised protocol **does not produce synthetic O'Reach timings**:
+those three source jobs are explicitly tagged `TRIC-only` and perform
+all four independently oracle-checked query classes. Comparisons against
+O'Reach remain **mandatory** for the two original published graph
+sources. The CI workflow and per-seed comparison JSON expose
+`oreach_benchmark_status` and an empty baseline map on synthetic jobs.
+A synthetic-only CI success must never be narrated as a successful
+external O'Reach comparison. Full synthetic-vs-O'Reach comparison remains
+UNRESOLVED, not silently replaced.
 
 ## Falsification and evidence gates
 
@@ -103,9 +118,12 @@ families should not be disguised as independent graph-source evidence.
 - `test_phase18_amortization.py` — adversarial checks for arithmetic,
   impossible/mismatched graphs, false strata, invalid query hash,
   broken pivot accounting, and deterministic graph serialization.
-- Existing `research-oreach.yml` — **five source-graph jobs**,
-  each comparing the pinned original upstream O'Reach and TRIC
-  with 12 heldout sets (4 classes × 3 seeds).
+- Existing `research-oreach.yml` — **five source-graph jobs**:
+  two published source jobs require pinned upstream O'Reach execution;
+  three synthetic stress jobs run TRIC only, explicitly omitting all
+  O'Reach comparisons after the observed upstream SIGSEGV.
+  Each attempts 12 independently oracle-checked heldout sets
+  (4 classes × 3 seeds).
 - Existing `verify.yml` — Python 3.10 and 3.13 all research tests.
 
 **Default:** retain Phase XIV plain bidirectional and Phase XIII
