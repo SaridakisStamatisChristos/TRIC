@@ -47,7 +47,7 @@ jobs:
           git clone --quiet https://github.com/o-reach/O-Reach.git upstream-oreach
           git -C upstream-oreach checkout --detach "$OREACH_SHA"
           test "$(git -C upstream-oreach rev-parse HEAD)" = "$OREACH_SHA"
-          cmake -S upstream-oreach -B upstream-oreach/build -DCMAKE_BUILD_TYPE=Release
+          cmake -S upstream-oreach -B upstream-oreach/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-include cstdint"
           cmake --build upstream-oreach/build --parallel 2
           test -x upstream-oreach/build/reachability
       - name: Select dataset and record source checksum
