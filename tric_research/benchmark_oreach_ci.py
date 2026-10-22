@@ -231,6 +231,9 @@ def run(args):
                   if args.query_stratum != 'uniform' else
                   'independent uniform source and target sampling'),
               'candidate_vertices':vertices,'pivot_budget':args.budget,
+              'training_count':len(training),'seed':args.seed,
+              'training_query_seed':args.seed+1,'heldout_query_seed':args.seed+2,
+              'graph_origin':args.graph_origin,
               'selected_orders':policies,
               'offline_training_seconds_including_pivot_build':training_seconds,
               'tric_compile_seconds':compile_seconds,'tric_compile_cmd':command,
@@ -290,6 +293,7 @@ def parser():
     p.add_argument('--output-dir',required=True)
     p.add_argument('--train',type=int,default=500)
     p.add_argument('--test',type=int,default=1200)
+    p.add_argument('--graph-origin',choices=('published','synthetic'),default='published')
     p.add_argument('--query-stratum',choices=('uniform','positive','negative','balanced'),
                    default='uniform')
     p.add_argument('--seed',type=int,default=20261022)
