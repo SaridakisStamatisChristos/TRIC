@@ -89,5 +89,90 @@ Run `python -m unittest -q test_compact_reachability test_stratified_queries tes
 in `tric_research`, and inspect `.github/workflows/research-oreach.yml`
 for the full two-graph training/heldout matrix.
 
-**Evidence state at commit:** implementation and protocol specified;
-empirical claims withheld pending CI.
+**Evidence state:** exactness and paired tests verified by GitHub CI.
+A narrowly positive outcome-conditioned latency effect was observed;
+the general unconditional "selector beats both baselines" hypothesis
+was not supported.
+
+## Executed two-graph pilot (GitHub Actions 2026-10-22)
+
+At code SHA `8a01f7744e92a697c2e3b2ed1b4f6bf2de1a4c4a`:
+- [Expanded Python 3.10 + 3.13 CI run 39753430214](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39753430214) — success for both versions.
+- [O'Reach paired research CI run 39753430016](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39753430016) — success on both original data sources.
+- [Original arXiv example artifact](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39753430016/artifacts/12414691945).
+- [Published Kronecker artifact](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39753430016/artifacts/12413779481).
+
+**Interpretation:** ratios below are medians across **three paired
+seed-specific ratios** of the preceding original method's measured native
+query latency divided by the new learned selector latency, **including
+online dispatch**. >1 means selector faster; <1 means original wins.
+
+| Source graph | Query class | Old bidir / selector | Old topo / selector | Selector beats bidir (seeds) |
+|---|---|---:|---:|---:|
+| arXiv | uniform | 1.0358× | 1.1368× | 2/3 |
+| arXiv | positive | 0.9943× | 1.6122× | 1/3 |
+| arXiv | negative | **1.1457×** | **0.8471×** | 3/3 |
+| arXiv | balanced | 1.0496× | 1.2421× | 3/3 |
+| Kronecker | uniform | **0.9663×** | 7.8789× | 1/3 |
+| Kronecker | positive | 1.0214× | 9.6355× | 3/3 |
+| Kronecker | negative | **1.0901×** | 1.2053× | 2/3 |
+| Kronecker | balanced | 1.0024× | 8.7502× | 2/3 |
+
+The method improves the *negative vs bidirectional baseline* on both
+graphs' three-seed medians. It nevertheless remains **worse than the
+topological-only fallback on arXiv negative-only queries** (0.8471×).
+On Kronecker uniform queries it regresses vs the original bidirectional
+baseline. There is **no unconditional superiority** even in these two
+pilot datasets and no novelty claim.
+
+### Selected policy and training reproducibility
+
+Training candidate IDs are fixed in source:
+0 = always topo, 1 = always bidir, 2 = topo if source outdegree <=1,
+3 = topo if target indegree <=1, 4 = topo if sum of those degrees <=2,
+5 = topo if topological rank gap <=C/8,
+6 = topo if gap <=C/2, 7 = topo if gap >=C/2,
+8 = topo if sum of degrees >=8.
+
+All twelve Kronecker runs (4 strata × 3 splits) selected policy **4**.
+arXiv selection varied by seed/stratum—most often policy 3,
+sometimes 4 or 5—**even though the uniform training query pairs for a
+given seed are identical across the heldout classes**. That variation
+is a practical warning that train-batch timing noise, system load and
+cache state can affect fitted policies on hosted runners. Do not claim
+an invariant learned decision boundary.
+
+The observed **incremental offline selector fitting cost** was about
+6.1–9.0 milliseconds for arXiv, and about 4.4–13.1 milliseconds
+for Kronecker. This excludes the existing Python pivot-training time
+and SCC index-building time; it is **not included in reported query-only
+ns/q**. It must be paid once per offline fit and amortized over
+many future queries; on a mere 1,200 heldout queries it overwhelmingly
+dominates the measured nanosecond-level query savings.
+
+For instance, 6,000,000 ns additional offline training divided by
+40 ns/query benefit requires **150,000 future similarly distributed
+queries** merely to break even, excluding additional common build
+costs. This is an *illustrative ratio*, not a measured throughput
+forecast: fit time and query savings vary across seeds and workloads.
+Where the selector is slower, it does not break even against that
+baseline.
+
+### Evidence and recommendation
+
+**PASS:** exactness regression, independent BFS oracle, training/heldout
+separation, per-method identical pivot/certificate fallback counts,
+and both external graph/stratum CI jobs.
+
+**TENTATIVE:** a low-cost online classifier may reduce negative-query
+latency while preserving positive-query throughput in some workloads.
+
+**NO-GO:** unconditional adoption in core code, low-volume query
+workloads, cross-graph superiority over original O'Reach, publication
+readiness, or original algorithmic novelty.
+
+**Next discriminating experiment:** many more independent real graph
+families, separately controlled target-positive rates, policy stability
+on dedicated hardware, *end-to-end amortized workload throughput*
+including the selector fit and index-building overhead, and
+better source/target feature calibration with clear data budgets.
