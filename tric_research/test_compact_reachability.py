@@ -1,0 +1,92 @@
+"""Phase XII compact reachability exactness and memory-regime regression tests."""
+import itertools
+import json
+import random
+import subprocess
+import tempfile
+import unittest
+from pathlib import Path
+from test_closure_index import make_input
+
+ROOT = Path(__file__).resolve().parent
+
+
+class CompactNativeTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = tempfile.TemporaryDirectory()
+        cls.binary = Path(cls.tmp.name) / "native"
+        subprocess.run([
+            "g++", "-std=c++17", "-O2", "-DNDEBUG", "-Wall", "-Wextra",
+            "-pedantic", "-o", str(cls.binary), str(ROOT / "native_query_bench.cpp")
+        ], check=True)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def execute(self, adj, queries, closure_cap=0):
+        proc = subprocess.run([str(self.binary), "3", str(closure_cap)],
+                              input=make_input(adj, queries), capture_output=True,
+                              check=True, timeout=50)
+        out = json.loads(proc.stdout)
+        compact = out["compact"]
+        self.assertEqual(compact["checksum"], out["policies"][0]["checksum"])
+        self.assertEqual(sum(compact[k] for k in
+                             ("certified_yes", "certified_no", "fallback_queries")), len(queries))
+        self.assertEqual(compact["dimensions"], 4)
+        self.assertEqual(len(compact["samples_ns_per_query"]), 3)
+        return out
+
+    def test_exhaustive_three_vertex_graphs(self):
+        n = 3
+        pairs = [(i, j) for i in range(n) for j in range(n) if i != j]
+        queries = list(itertools.product(range(n), repeat=2))
+        for mask in range(1 << len(pairs)):
+            adj = [[] for _ in range(n)]
+            for bit, (s, t) in enumerate(pairs):
+                if mask >> bit & 1:
+                    adj[s].append(t)
+            out = self.execute(adj, queries, 0)
+            self.assertFalse(out["closure"]["available"])
+
+    def test_random_cyclic_graphs(self):
+        rng = random.Random(20261022)
+        for n in (6, 18, 70, 120):
+            for p in (0.02, 0.15, 0.75):
+                adj = [[v for v in range(n) if u != v and rng.random() < p]
+                       for u in range(n)]
+                queries = [(rng.randrange(n), rng.randrange(n)) for _ in range(100)]
+                self.execute(adj, queries, 0)
+
+    def test_long_chain_no_recursive_stack(self):
+        n = 4096
+        adj = [[i + 1] if i + 1 < n else [] for i in range(n)]
+        queries = [(0, n - 1), (n - 1, 0), (31, 30), (31, 32), (400, 400)]
+        data = self.execute(adj, queries, 0)["compact"]
+        self.assertEqual(data["fallback_queries"], 0)
+        self.assertEqual(data["certified_yes"], 3)
+        self.assertEqual(data["certified_no"], 2)
+
+    def test_complex_scc_and_isolated_vertices(self):
+        n = 55
+        adj = [[(i + 1) % 45] if i < 45 else [] for i in range(n)]
+        queries = [(0, 44), (44, 0), (46, 45), (45, 46),
+                   (50, 50), (50, 49), (49, 50)]
+        out = self.execute(adj, queries, 1)
+        self.assertEqual(out["compact"]["components"], 11)
+        self.assertEqual(out["closure"]["checksum"], out["compact"]["checksum"])
+
+    def test_dense_dag_nontrivial_negative_cases(self):
+        n = 120
+        adj = [[j for j in range(i + 1, n) if (j - i) < 9]
+               for i in range(n)]
+        queries = [(i, j) for i in range(0, n, 4)
+                   for j in (0, min(n-1, i+20), n-1)]
+        data = self.execute(adj, queries, 0)["compact"]
+        self.assertGreater(data["certified_no"], 0)
+        self.assertEqual(data["fallback_queries"], 0)
+
+
+if __name__ == "__main__":
+    unittest.main()
