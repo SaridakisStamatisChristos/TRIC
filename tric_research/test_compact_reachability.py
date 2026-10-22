@@ -33,6 +33,8 @@ class CompactNativeTests(unittest.TestCase):
         compact = out["compact"]
         self.assertEqual(compact["checksum"], out["policies"][0]["checksum"])
         self.assertEqual(out["compact_plain"]["checksum"], compact["checksum"])
+        self.assertEqual(out["compact_pivots"]["checksum"], compact["checksum"])
+        self.assertGreaterEqual(out["compact_pivots"]["pivot_rescues"], 0)
         self.assertEqual(len(out["compact_plain"]["samples_ns_per_query"]), 3)
         self.assertEqual(sum(compact[k] for k in
                              ("certified_yes", "certified_no", "fallback_queries")), len(queries))
