@@ -1,0 +1,39 @@
+name: TRIC Phase XIX hot-source research
+on:
+  pull_request:
+    paths:
+      - 'tric_research/hot_source_cache.h'
+      - 'tric_research/hot_source_bench.cpp'
+      - 'tric_research/benchmark_hot_source_cache.py'
+      - 'tric_research/test_hot_source_cache.py'
+      - 'tric_research/PHASE_XIX_RESEARCH_REPORT.md'
+      - '.github/workflows/research-hot-sources.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synthetic-source-shift:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Confirm compiler and checkout
+        run: |
+          git rev-parse HEAD
+          g++ --version | head -n 1
+      - name: Run independent exactness and budget regressions
+        working-directory: tric_research
+        run: python -m unittest -q test_hot_source_cache
+      - name: Run three-seed controlled source-shift experiment
+        working-directory: tric_research
+        run: |
+          python benchmark_hot_source_cache.py --seeds 3 \
+            --output ../research-results/phase19_hotset_results.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tric-phase19-hot-source-evidence
+          path: research-results/phase19_hotset_results.json
+          if-no-files-found: warn
