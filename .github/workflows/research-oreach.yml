@@ -7,6 +7,8 @@ on:
       - 'tric_research/benchmark_oreach_ci.py'
       - 'tric_research/test_oreach_ci.py'
       - 'tric_research/native_query_bench.cpp'
+      - 'tric_research/closure_index.h'
+      - 'tric_research/test_closure_index.py'
       - 'tric_research/benchmark_native.py'
       - 'tric_research/ordered_probe.py'
       - 'tric_research/tric.py'
@@ -87,7 +89,7 @@ jobs:
           python -m unittest -q
           test_tric test_path_monge test_path_sweep test_backbone test_backbone_scc
           test_frontier_dp test_adaptive_exact test_frontier_compact
-          test_ordered_probe test_native_benchmark test_oreach_ci
+          test_ordered_probe test_native_benchmark test_oreach_ci test_closure_index
       - name: Run paired native experiment
         working-directory: tric_research
         shell: bash
@@ -100,7 +102,8 @@ jobs:
             --output-dir ../research-results \
             --train 500 --test 1200 --seed 20261022 \
             --candidates 11 --budget 5 \
-            --tric-repetitions 7 --oreach-repetitions 5
+            --tric-repetitions 7 --oreach-repetitions 5 \
+            --closure-cap-mib 64
       - name: Publish raw results and provenance
         if: always()
         uses: actions/upload-artifact@v4

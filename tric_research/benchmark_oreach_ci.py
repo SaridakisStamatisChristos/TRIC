@@ -88,6 +88,8 @@ def parse_oreach_csv(path, expected_q):
 
 
 def run(args):
+    if not 0 <= args.closure_cap_mib <= 1024:
+        raise ValueError('closure cap must be in [0,1024] MiB')
     out = Path(args.output_dir).resolve()
     out.mkdir(parents=True, exist_ok=True)
     graph = Path(args.graph).resolve()
@@ -116,10 +118,15 @@ def run(args):
     exe, compile_seconds, command = build_executable(out, args.compiler, args.optimization)
     native_input = out / 'tric_native_input.txt'
     native_input.write_bytes(serialize_native(adj, vertices, policies, heldout))
-    native = subprocess.run([str(exe), str(args.tric_repetitions)],
+    native = subprocess.run([str(exe), str(args.tric_repetitions), str(args.closure_cap_mib)],
                             input=native_input.read_bytes(), capture_output=True,
                             check=True, timeout=args.timeout)
     native_results = json.loads(native.stdout)
+    closure = native_results['closure']
+    if closure['available'] and closure['checksum'] != next(p['checksum'] for p in native_results['policies'] if p['name']=='BFS'):
+        raise AssertionError('closure checksum disagrees with independently checked BFS')
+    if closure['index_matrix_bytes'] > args.closure_cap_mib * 1024 * 1024:
+        raise AssertionError('closure exceeded matrix memory cap')
     (out/'tric_native.json').write_text(json.dumps(native_results,indent=2)+'\n')
     oreach_samples=[]
     for j in range(args.oreach_repetitions):
@@ -145,7 +152,7 @@ def run(args):
                 'samples_ns_per_query':[1000*v['query_us'] for v in values]}
              for name, values in methods.items()}
     result = {'protocol':'TRIC-OReach paired native execution pilot',
-              'claim_boundary':'Different indexing methods/budgets; OReach individual answers not audited by this driver; runner timings are noisy',
+              'claim_boundary':'Different indexing methods/budgets; SCC closure matrix is quadratic in component count; OReach individual answers not audited by this driver; runner timings are noisy',
               'source_git_sha':args.oreach_git_sha,'graph':str(graph),
               'graph_sha256':hashlib.sha256(graph.read_bytes()).hexdigest(),
               'n':n, 'edges':sum(map(len,adj)),
@@ -166,7 +173,11 @@ def run(args):
     print(json.dumps({'n':n,'edges':result['edges'],'heldout':len(heldout),
             'ordered_ns':next(p['median_ns_per_query'] for p in native_results['policies'] if p['name']=='Ordered'),
             'oreach_pdfs_ns':stats['oreach-pdfs']['median_ns_per_query'],
-            'oreach_pbibfs_ns':stats['oreach-pbibfs']['median_ns_per_query']},indent=2))
+            'oreach_pbibfs_ns':stats['oreach-pbibfs']['median_ns_per_query'],
+            'closure_available':closure['available'],
+            'closure_ns':closure.get('median_ns_per_query'),
+            'closure_build_ms':closure['build_ms'],
+            'closure_matrix_bytes':closure['index_matrix_bytes']},indent=2))
 
 
 def parser():
@@ -183,6 +194,7 @@ def parser():
     p.add_argument('--oreach-repetitions',type=int,default=5)
     p.add_argument('--tric-repetitions',type=int,default=7)
     p.add_argument('--timeout',type=int,default=240)
+    p.add_argument('--closure-cap-mib',type=int,default=64)
     p.add_argument('--compiler',default='g++')
     p.add_argument('--optimization',default='-O3')
     return p

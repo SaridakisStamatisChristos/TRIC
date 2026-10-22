@@ -14,6 +14,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include "closure_index.h"
 using Clock=std::chrono::steady_clock;
 using Graph=std::vector<std::vector<int>>;
 struct Policy {std::string name; std::vector<int> order;};
@@ -120,11 +121,29 @@ int main(int argc,char **argv){
     Search oracle_search(graph);std::vector<uint8_t> truth(qcount);
     uint64_t oracle_edges=0;
     for(int i=0;i<qcount;i++)truth[i]=oracle_search.query(queries[i].first,queries[i].second,oracle_edges);
+    // Additional exact index: memory-capped SCC transitive closure, NOT a
+    // matched-memory O'Reach comparison.
+    std::size_t cap_mib=64;
+    if(argc>2){
+      unsigned long long x=std::stoull(argv[2]);
+      if(x>1024)throw std::runtime_error("invalid closure cap MiB");
+      cap_mib=static_cast<std::size_t>(x);
+    }
+    auto c0=Clock::now();
+    BoundedClosure closure(graph,cap_mib*1024*1024);
+    auto c1=Clock::now();
+    const double closure_build_ms=std::chrono::duration<double,std::milli>(c1-c0).count();
+    std::vector<double> closure_samples;
+    uint64_t closure_checksum=0;
     std::vector<std::vector<double>> samples(numpol);
     std::vector<Counter> counters(numpol);
     std::vector<int> query_order(qcount);std::iota(query_order.begin(),query_order.end(),0);
     // Separate untimed warmup; rotate benchmark policy execution order per repetition.
     for(int pi=0;pi<numpol;pi++)(void)run(graph,pivots,policies[pi],queries,query_order,truth);
+    // Differential validation against the independent DFS/BFS oracle.
+    if(closure.built())for(int i=0;i<qcount;++i)
+      if(closure.reaches(queries[i].first,queries[i].second)!=bool(truth[i]))
+        throw std::runtime_error("closure mismatch with independent DFS oracle at query "+std::to_string(i));
     for(int rep=0;rep<reps;rep++){
       std::mt19937_64 rng(0x9e3779b97f4a7c15ULL+static_cast<uint64_t>(rep));
       std::shuffle(query_order.begin(),query_order.end(),rng);
@@ -135,6 +154,21 @@ int main(int argc,char **argv){
         auto t1=Clock::now();
         samples[pi].push_back(std::chrono::duration<double,std::nano>(t1-t0).count()/qcount);
         counters[pi]=result;
+      }
+      if(closure.built()){
+        auto t0=Clock::now();
+        uint64_t sum=0;
+        constexpr int batches=128; // suppress timer overhead at nanosecond scale
+        for(int batch=0;batch<batches;++batch){
+          sum=0;
+          for(int id:query_order){
+            const bool answer=closure.reaches(queries[id].first,queries[id].second);
+            sum=(sum*0x100000001b3ULL)^(static_cast<uint64_t>(id)*4ULL+static_cast<unsigned>(answer));
+          }
+        }
+        auto t1=Clock::now();
+        closure_samples.push_back(std::chrono::duration<double,std::nano>(t1-t0).count()/(qcount*batches));
+        closure_checksum=sum;
       }
     }
     std::cout<<std::fixed<<std::setprecision(7);
@@ -152,7 +186,23 @@ int main(int argc,char **argv){
       for(size_t j=0;j<samples[i].size();j++){if(j)std::cout<<',';std::cout<<samples[i][j];}
       std::cout<<"]}";
     }
-    std::cout<<"]}\n";
+    std::cout<<"],\"closure\":{\"available\":"<<(closure.built()?"true":"false")
+             <<",\"components\":"<<closure.components()
+             <<",\"index_matrix_bytes\":"<<closure.matrix_bytes()
+             <<",\"cap_mib\":"<<cap_mib
+             <<",\"build_ms\":"<<closure_build_ms
+             <<",\"timed_query_repeats\":128";
+    if(closure.built()){
+      std::cout<<",\"median_ns_per_query\":"<<median(closure_samples)
+               <<",\"checksum\":"<<closure_checksum
+               <<",\"samples_ns_per_query\":[";
+      for(std::size_t j=0;j<closure_samples.size();++j){
+        if(j)std::cout<<',';
+        std::cout<<closure_samples[j];
+      }
+      std::cout<<']';
+    }
+    std::cout<<"}}\n";
     return 0;
   }catch(const std::exception &e){std::cerr<<e.what()<<'\n';return 2;}
 }
