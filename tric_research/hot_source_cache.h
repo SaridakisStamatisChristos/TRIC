@@ -53,7 +53,9 @@ public:
     });
     if(candidates.size()>permitted)candidates.resize(permitted);
     if(candidates.empty())return;
-    source_ids_=std::move(candidates);
+    // Copy only selected IDs: a resized candidates vector can retain spare
+    // capacity and silently violate the nominal byte cap.
+    source_ids_.assign(candidates.begin(),candidates.end());
     source_to_row_.assign(graph.size(),-1);
     rows_.assign(source_ids_.size()*words_,0);
     std::vector<int> stack;
