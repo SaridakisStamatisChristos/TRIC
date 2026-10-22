@@ -9,6 +9,8 @@ on:
       - 'tric_research/test_phase22_lifetime.py'
       - 'tric_research/phase22_graphs.py'
       - 'tric_research/test_phase22_graphs.py'
+      - 'tric_research/test_phase22_upstream_failure.py'
+      - 'tric_research/verify_phase22_artifact.py'
       - 'tric_research/PHASE_XXII_RESEARCH_REPORT.md'
   workflow_dispatch:
 permissions:
@@ -77,10 +79,16 @@ jobs:
           uname -a >> research-results/manifest.txt
       - name: Verify independent cold-start, RSS and native exactness
         working-directory: tric_research
-        run: python -m unittest -q test_phase22_lifetime test_phase22_graphs test_hot_source_cache test_cache_indexed
+        run: python -m unittest -q test_phase22_lifetime test_phase22_graphs test_phase22_upstream_failure test_hot_source_cache test_cache_indexed
       - name: Run original paired external benchmark and actual lifetime replays
         working-directory: tric_research
         run: |
+          # Only reproducibly generated topologies may report a pinned
+          # upstream SIGSEGV as 'unavailable'. Published datasets fail hard.
+          comparator_flags=()
+          if [[ "$DATASET" == generated_* ]]; then
+            comparator_flags+=(--allow-upstream-segfault)
+          fi
           python benchmark_phase22.py \
             --graph ../research-results/data/graph.metis \
             --oreach-binary ../upstream-oreach/build/reachability \
@@ -91,7 +99,14 @@ jobs:
             --hot-cache-cap-mib 2 --candidates 11 --pivot-budget 5 \
             --tric-repetitions 15 --oreach-repetitions 5 \
             --closure-cap-mib 0 --replay-factors 1 50 \
-            --lifetime-repetitions 2 --timeout 300
+            --lifetime-repetitions 2 --timeout 300 \
+            "${comparator_flags[@]}"
+      - name: Audit exact native results and external-comparator availability
+        working-directory: tric_research
+        run: |
+          python verify_phase22_artifact.py \
+            --summary ../research-results/phase22/phase22_lifetime_summary.json \
+            --dataset "$DATASET" --seed "$SEED"
       - name: Preserve all native measurements and provenance
         if: always()
         uses: actions/upload-artifact@v4
@@ -111,11 +126,15 @@ jobs:
             research-results/phase22/*/hot_source_native.json
             research-results/phase22/*/tric_native.json
             research-results/phase22/*/oreach_*.csv
+            research-results/phase22/*/oreach_*.stdout.txt
+            research-results/phase22/*/oreach_*.stderr.txt
+            research-results/phase22/*/oreach_unavailable.json
             research-results/phase22/*/oreach_*.rss_kib.txt
             research-results/phase22/*/lifetime_factor_*/*/result.json
             research-results/phase22/*/lifetime_factor_*/*/maxrss_kib.txt
             research-results/phase22/*/oreach_lifetime_factor_*/result.json
             research-results/phase22/*/oreach_lifetime_factor_*/upstream_pdfsonly.csv
             research-results/phase22/*/oreach_lifetime_factor_*/upstream_peak_rss_kib.txt
+            research-results/phase22/*/oreach_lifetime_factor_*/upstream_stderr.txt
           if-no-files-found: warn
           retention-days: 30
