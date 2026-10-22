@@ -104,6 +104,14 @@ def run(args):
     native_exe,compile_seconds,build_cmd=build_executable(out,args.compiler,args.optimization)
     cache_exe,cache_compile_cmd=compile_cache_binary(
         out,args.compiler,args.optimization)
+    # Phase XXI: the new arm composes the existing exact cache with
+    # the same TRIC compact, ordered pivot and bidirectional algorithms.
+    indexed_exe=out/"phase21_cache_indexed_bench"
+    indexed_compile_cmd=[
+        args.compiler,"-std=c++17",args.optimization,"-DNDEBUG",
+        "-Wall","-Wextra","-Wpedantic",
+        str(ROOT/"cache_indexed_bench.cpp"),"-o",str(indexed_exe)]
+    subprocess.run(indexed_compile_cmd,check=True,capture_output=True,text=True)
     by_class={}
     for cls in CLASSES:
         queries=heldout[cls]
@@ -127,6 +135,24 @@ def run(args):
                                    input=native_bytes,capture_output=True,
                                    check=True,timeout=args.timeout)
         native=json.loads(native_proc.stdout)
+        hybrid_proc=subprocess.run([
+            str(indexed_exe),"16",str(args.hot_sources),
+            str(args.hot_cache_cap_mib*1024*1024)],
+            input=native_bytes,capture_output=True,check=True,timeout=args.timeout)
+        indexed=json.loads(hybrid_proc.stdout)
+        if indexed["queries"]!=len(queries) or indexed["training"]!=len(train):
+            raise AssertionError("Phase XXI cache+index input mismatch")
+        if indexed["cache_hits"]!=cached["hits"]:
+            raise AssertionError("Phase XXI cache hit accounting changed")
+        if indexed["oracle_positive_count"]!=positives:
+            raise AssertionError("Phase XXI standalone BFS truth count mismatch")
+        if indexed["cache_retained_bytes"]>indexed["cache_cap_bytes"]:
+            raise AssertionError("Phase XXI cache exceeds memory cap")
+        if len({v["checksum"] for v in indexed["modes"].values()})!=1:
+            raise AssertionError("Phase XXI ablation has mismatched answer checksums")
+        for key,value in indexed["modes"].items():
+            if len(value["samples_ns_per_query"])!=16:
+                raise AssertionError(f"Phase XXI unbalanced rotation {key}")
         reference=next(p["checksum"] for p in native["policies"] if p["name"]=="BFS")
         keys=["compact_pivots_bidir","compact_pivots_topo","compact_pivots_selector"]
         for key in keys:
@@ -165,6 +191,12 @@ def run(args):
             times[key]={"median_ns_per_query":check_times(
                 key,native[key]["median_ns_per_query"]),
                 "samples_ns_per_query":native[key]["samples_ns_per_query"]}
+        # The within-executable pairs below share the exact same TRIC
+        # preprocessing, candidate pivots and graph buffers.
+        for key,value in indexed["modes"].items():
+            times[key]={"median_ns_per_query":check_times(
+                key,value["median_ns_per_query"]),
+                "samples_ns_per_query":value["samples_ns_per_query"]}
         times["hot_source_cache"]={"median_ns_per_query":check_times(
                 "hot_source_cache",cached["cached_ns_per_query"]),
                 "samples_ns_per_query":cached["cache_samples"]}
@@ -173,6 +205,7 @@ def run(args):
                 "samples_ns_per_query":cached["baseline_samples"]}
         (directory/"tric_native.json").write_text(json.dumps(native,indent=2)+"\n")
         (directory/"hot_source_native.json").write_text(json.dumps(cached,indent=2)+"\n")
+        (directory/"cache_indexed_native.json").write_text(json.dumps(indexed,indent=2)+"\n")
         # Store only immutable arguments, raw per-query input SHA256 and
         # class-specific controls; never blend separate graph families.
         result={"class":cls, "seed":args.seed, "graph":graph.name,
@@ -184,6 +217,10 @@ def run(args):
                 "cache_hits":cached["hits"],"cache_rows":cached["cache_rows"],
                 "cache_retained_bytes":cached["retained_bytes"],
                 "cache_build_ns":cached["build_ns"],
+                "cache_indexed_build_ns":indexed["cache_build_ns"],
+                "cache_indexed_retained_bytes":indexed["cache_retained_bytes"],
+                "cache_indexed_pivot_build_ns":indexed["pivot_build_ns"],
+                "cache_indexed_compact_build_ns":indexed["compact_build_ns"],
                 "pivot_fit_ns":pivot_fit_ns,
                 "tric_pivot_build_ms":native["index_build_ms"],
                 "tric_compact_build_ms":native["compact"]["build_ms"],
@@ -195,12 +232,24 @@ def run(args):
                 "times":times,"oreach_raw_csv_rows":oreach_raw,
                 "claim_limit":"Identical heldout queries but different index budgets and separate timed process runs; source skew is synthetic on authentic graph topology; per-query O'Reach output not independently exported"}
         by_class[cls]=result
+        index_base=times["pivot_index"]["median_ns_per_query"]
+        index_fast=times["cache_pivot_index"]["median_ns_per_query"]
+        cache_extra_build=indexed["cache_build_ns"]
+        result["incremental_cache_model"]={
+            "extra_cache_build_ns":cache_extra_build,
+            "query_ns_saved":index_base-index_fast,
+            "strict_break_even_queries":(
+                math.floor(cache_extra_build/(index_base-index_fast))+1
+                if index_base>index_fast else None),
+            "description":"Algebraic, not a real long-horizon replay; holds only if fixed query medians remain representative"}
         (directory/"comparison.json").write_text(json.dumps(result,indent=2)+"\n")
         print(json.dumps({"class":cls,"seed":args.seed,"graph":graph.name,
             "positive":positives,"cache_hits":cached["hits"],
             "cache_ns":times["hot_source_cache"]["median_ns_per_query"],
             "tric_bidir_ns":times["compact_pivots_bidir"]["median_ns_per_query"],
-            "oreach_pdfs_ns":times["oreach-pdfs"]["median_ns_per_query"]}))
+            "oreach_pdfs_ns":times["oreach-pdfs"]["median_ns_per_query"],
+            "cache_indexed_ns":times["cache_pivot_index"]["median_ns_per_query"],
+            "index_control_ns":times["pivot_index"]["median_ns_per_query"]}))
     result={"phase":"XX","state":"EXECUTED PILOT, not global SOTA",
         "graph_sha256":hashlib.sha256(graph.read_bytes()).hexdigest(),
         "oreach_commit":args.oreach_git_sha,
@@ -210,9 +259,10 @@ def run(args):
         "train":args.train,"test_per_class":args.test,
         "hot_probability":0.8,"hot_cache_cap_mib":args.hot_cache_cap_mib,
         "pivot_budget":args.pivot_budget,
-        "omp_memory_match":False,
+        "matched_resource_budgets":False,
         "native_compile_seconds":compile_seconds,
         "native_compile_cmd":build_cmd,"cache_compile_cmd":cache_compile_cmd,
+        "cache_indexed_compile_cmd":indexed_compile_cmd,
         "environment":{"python":sys.version,"platform":platform.platform()},
         "classes":by_class}
     (out/"phase20_summary.json").write_text(json.dumps(result,indent=2)+"\n")
