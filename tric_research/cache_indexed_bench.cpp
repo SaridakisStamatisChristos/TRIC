@@ -100,6 +100,7 @@ int main(int argc,char** argv) {
     int np;
     if(!(std::cin>>np)||np<1||np>32)throw std::invalid_argument("invalid policy count");
     std::vector<int> ordered;
+    bool found_ordered=false;
     for(int i=0;i<np;++i){
       std::string name;int length;
       if(!(std::cin>>name>>length)||length<0||length>c)
@@ -107,9 +108,9 @@ int main(int argc,char** argv) {
       std::vector<int> ids(length);
       for(int& id:ids)if(!(std::cin>>id)||id<0||id>=c)
         throw std::invalid_argument("invalid policy pivot index");
-      if(name=="Ordered")ordered=std::move(ids);
+      if(name=="Ordered"){ordered=std::move(ids);found_ordered=true;}
     }
-    if(ordered.empty())throw std::invalid_argument("trained Ordered pivot policy is empty");
+    if(!found_ordered)throw std::invalid_argument("missing trained Ordered pivot policy");
     std::vector<Pair> test(qcount);
     for(auto& q:test)if(!(std::cin>>q.first>>q.second)
        ||q.first<0||q.first>=n||q.second<0||q.second>=n)

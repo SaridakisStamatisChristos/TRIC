@@ -1,0 +1,147 @@
+name: TRIC Phase XXII multi-graph lifetime replication
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/research-phase22.yml'
+      - 'tric_research/lifetime_replay.cpp'
+      - 'tric_research/benchmark_phase22.py'
+      - 'tric_research/benchmark_hot_source_external.py'
+      - 'tric_research/test_phase22_lifetime.py'
+      - 'tric_research/phase22_graphs.py'
+      - 'tric_research/test_phase22_graphs.py'
+      - 'tric_research/test_phase22_upstream_failure.py'
+      - 'tric_research/verify_phase22_artifact.py'
+      - 'tric_research/oreach_compatible_input.py'
+      - 'tric_research/test_oreach_compatible_input.py'
+      - 'tric_research/PHASE_XXII_RESEARCH_REPORT.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  replication:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        dataset: [example, kron_logn12, generated_dag, generated_blocks, generated_communities]
+        seed: [20261022, 20261023, 20261024]
+    env:
+      OREACH_SHA: 78b3e326bbb021b7ee225ab605a4cdd074fa1d93
+      DATASET: ${{ matrix.dataset }}
+      SEED: ${{ matrix.seed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install exact upstream O-Reach build requirements
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libboost-dev cmake g++ xz-utils time
+      - name: Compile pinned original O-Reach
+        run: |
+          set -euo pipefail
+          git clone --quiet https://github.com/o-reach/O-Reach.git upstream-oreach
+          git -C upstream-oreach checkout --detach "$OREACH_SHA"
+          test "$(git -C upstream-oreach rev-parse HEAD)" = "$OREACH_SHA"
+          cmake -S upstream-oreach -B upstream-oreach/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-include cstdint"
+          cmake --build upstream-oreach/build --parallel 2
+          test -x upstream-oreach/build/reachability
+      - name: Load and hash original published graph
+        run: |
+          set -euo pipefail
+          mkdir -p research-results/data
+          if [ "$DATASET" = example ]; then
+            cp upstream-oreach/examples/arXiv.metis research-results/data/graph.metis
+          elif [[ "$DATASET" == generated_* ]]; then
+            python tric_research/phase22_graphs.py \
+              --family "$DATASET" --output research-results/data/graph.metis
+          else
+            case "$DATASET" in
+              kron_logn12) ;;
+              *) echo "unsupported dataset" >&2; exit 2 ;;
+            esac
+            url="https://oreach.taa.univie.ac.at/assets/data/instances/${DATASET}.tar.xz"
+            curl --fail --location --retry 2 --connect-timeout 20 --max-time 180 \
+              "$url" --output research-results/dataset.tar.xz
+            sha256sum research-results/dataset.tar.xz > research-results/dataset.sha256
+            mkdir -p research-results/unpacked
+            tar -xJf research-results/dataset.tar.xz -C research-results/unpacked
+            mapfile -t graphs < <(find research-results/unpacked -type f -name '*.metis' | sort)
+            test "${#graphs[@]}" -eq 1
+            cp "${graphs[0]}" research-results/data/graph.metis
+          fi
+          sha256sum research-results/data/graph.metis > research-results/graph.sha256
+          git rev-parse HEAD > research-results/manifest.txt
+          git -C upstream-oreach rev-parse HEAD >> research-results/manifest.txt
+          g++ --version | head -1 >> research-results/manifest.txt
+          python --version >> research-results/manifest.txt
+          uname -a >> research-results/manifest.txt
+      - name: Verify independent cold-start, RSS and native exactness
+        working-directory: tric_research
+        run: python -m unittest -q test_phase22_lifetime test_phase22_graphs test_phase22_upstream_failure test_oreach_compatible_input test_hot_source_cache test_cache_indexed
+      - name: Run original paired external benchmark and actual lifetime replays
+        working-directory: tric_research
+        run: |
+          # Authentic graphs use published O-Reach default; generated
+          # graphs use verified exact SCC-DAG input and support=0 since
+          # upstream's default candidate sampler is invalid for tiny WCCs.
+          # ALL original O-Reach comparator runs are now mandatory.
+          comparator_flags=()
+          if [[ "$DATASET" == generated_* ]]; then
+            comparator_flags+=(--oreach-scc-compatible)
+          fi
+          python benchmark_phase22.py \
+            --graph ../research-results/data/graph.metis \
+            --oreach-binary ../upstream-oreach/build/reachability \
+            --oreach-git-sha "$OREACH_SHA" \
+            --output-dir ../research-results/phase22 \
+            --dataset "$DATASET" --seed "$SEED" \
+            --train 500 --test 2400 --hot-sources 8 \
+            --hot-cache-cap-mib 2 --candidates 11 --pivot-budget 5 \
+            --tric-repetitions 15 --oreach-repetitions 5 \
+            --closure-cap-mib 0 --replay-factors 1 50 \
+            --lifetime-repetitions 2 --timeout 300 \
+            "${comparator_flags[@]}"
+      - name: Audit exact native results and external-comparator availability
+        working-directory: tric_research
+        run: |
+          python verify_phase22_artifact.py \
+            --summary ../research-results/phase22/phase22_lifetime_summary.json \
+            --dataset "$DATASET" --seed "$SEED" --require-external-complete
+      - name: Preserve all native measurements and provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase22-${{ matrix.dataset }}-seed${{ matrix.seed }}-run${{ github.run_id }}
+          path: |
+            research-results/manifest.txt
+            research-results/graph.sha256
+            research-results/data/generated_graph_provenance.json
+            research-results/dataset.sha256
+            research-results/phase22/phase20_summary.json
+            research-results/phase22/oreach_compatible_graph/*.metis
+            research-results/phase22/oreach_compatible_graph/*.json
+            research-results/phase22/*/oreach_equivalent.query.m.txt
+            research-results/phase22/phase22_lifetime_summary.json
+            research-results/phase22/*/comparison.json
+            research-results/phase22/*/native_input.txt
+            research-results/phase22/*/heldout.query.m.txt
+            research-results/phase22/*/cache_indexed_native.json
+            research-results/phase22/*/hot_source_native.json
+            research-results/phase22/*/tric_native.json
+            research-results/phase22/*/oreach_*.csv
+            research-results/phase22/*/oreach_*.stdout.txt
+            research-results/phase22/*/oreach_*.stderr.txt
+            research-results/phase22/*/oreach_unavailable.json
+            research-results/phase22/*/oreach_*.rss_kib.txt
+            research-results/phase22/*/lifetime_factor_*/*/result.json
+            research-results/phase22/*/lifetime_factor_*/*/maxrss_kib.txt
+            research-results/phase22/*/oreach_lifetime_factor_*/result.json
+            research-results/phase22/*/oreach_lifetime_factor_*/upstream_pdfsonly.csv
+            research-results/phase22/*/oreach_lifetime_factor_*/upstream_peak_rss_kib.txt
+            research-results/phase22/*/oreach_lifetime_factor_*/upstream_stderr.txt
+          if-no-files-found: warn
+          retention-days: 30
