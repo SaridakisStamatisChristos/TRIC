@@ -1,6 +1,7 @@
 // Phase XXIII: exact native extraction of legacy Python pivot hit masks
 // and early_reachable DFS fallback edge counts. C++17 training-only tool.
 // Does NOT consume heldout pairs, decisions, or query labels.
+#include <algorithm>
 #include <chrono>
 #include <cstdint>
 #include <iomanip>
