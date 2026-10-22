@@ -89,11 +89,15 @@ static double median(std::vector<double> a){
   auto mid=a.size()/2;
   return a.size()%2 ? a[mid] : (a[mid-1]+a[mid])/2;
 }
+#include "lifetime_replay.h"
 int main(int argc,char **argv){
   try{
+    const bool lifetime=argc>3 && std::string(argv[3])=="--lifetime";
+    if(argc>3 && !lifetime)throw std::runtime_error("unknown benchmark mode");
     int reps=7;
     if(argc>1) reps=std::stoi(argv[1]);
     if(reps<3||reps>24)throw std::runtime_error("reps must be in [3,24]");
+    if(lifetime && reps%3)throw std::runtime_error("lifetime reps must be divisible by three");
     int n,m,c,qcount;
     if(!(std::cin>>n>>m>>c>>qcount) || n<1 || m<0 || c<0 || qcount<1 || n>2000000)throw std::runtime_error("invalid graph input header");
     Graph graph(n),reverse(n);
@@ -135,7 +139,18 @@ int main(int argc,char **argv){
     // Independent BFS reachability ground truth; no certificate is trusted as oracle.
     Search oracle_search(graph);std::vector<uint8_t> truth(qcount);
     uint64_t oracle_edges=0;
-    for(int i=0;i<qcount;i++)truth[i]=oracle_search.query(queries[i].first,queries[i].second,oracle_edges);
+    if(lifetime){
+      // One independent full graph traversal per distinct source; retain
+      // only one row of truth bits at a time, never a timed lookup index.
+      std::vector<std::vector<int>> by_source(n);
+      for(int i=0;i<qcount;++i)by_source[queries[i].first].push_back(i);
+      for(int s=0;s<n;++s)if(!by_source[s].empty()){
+        const auto bits=reaches(graph,s);
+        for(int i:by_source[s])truth[i]=has(bits,queries[i].second);
+      }
+    }else{
+      for(int i=0;i<qcount;i++)truth[i]=oracle_search.query(queries[i].first,queries[i].second,oracle_edges);
+    }
     // Additional exact index: memory-capped SCC transitive closure, NOT a
     // matched-memory O'Reach comparison.
     std::size_t cap_mib=64;
@@ -224,6 +239,13 @@ int main(int argc,char **argv){
           Clock::now()-start_training).count();
     }
     std::vector<int> query_order(qcount);std::iota(query_order.begin(),query_order.end(),0);
+    if(lifetime){
+      if(selector_train.empty())throw std::runtime_error("lifetime requires train-only pairs");
+      emit_lifetime_replay(compact,pivots,*trained,queries,truth,reps,
+                           selected_policy,selector_training_ns,selector_train.size(),
+                           build_ms,compact_build_ms);
+      return 0;
+    }
     // Separate untimed warmup; rotate benchmark policy execution order per repetition.
     for(int pi=0;pi<numpol;pi++)(void)run(graph,pivots,policies[pi],queries,query_order,truth);
     // Differential validation against the independent DFS/BFS oracle.

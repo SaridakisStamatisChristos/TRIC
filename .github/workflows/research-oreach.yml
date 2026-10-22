@@ -7,6 +7,7 @@ on:
       - 'tric_research/benchmark_oreach_ci.py'
       - 'tric_research/test_oreach_ci.py'
       - 'tric_research/native_query_bench.cpp'
+      - 'tric_research/lifetime_replay.h'
       - 'tric_research/closure_index.h'
       - 'tric_research/compact_reachability.h'
       - 'tric_research/test_compact_reachability.py'
