@@ -139,11 +139,11 @@ int main(int argc,char **argv){
     CompactReachability compact(graph);
     auto k1=Clock::now();
     const double compact_build_ms=std::chrono::duration<double,std::milli>(k1-k0).count();
-    std::vector<double> compact_samples, compact_plain_samples, compact_topo_samples, hybrid_samples, hybrid_topo_samples, closure_onepass_samples;
+    std::vector<double> compact_samples, compact_plain_samples, compact_topo_samples, compact_bidir_samples, hybrid_samples, hybrid_topo_samples, hybrid_bidir_samples, closure_onepass_samples;
     std::vector<double> closure_samples;
-    uint64_t compact_checksum=0, compact_plain_checksum=0, compact_topo_checksum=0, hybrid_checksum=0, hybrid_topo_checksum=0;
+    uint64_t compact_checksum=0, compact_plain_checksum=0, compact_topo_checksum=0, compact_bidir_checksum=0, hybrid_checksum=0, hybrid_topo_checksum=0, hybrid_bidir_checksum=0;
     uint64_t hybrid_pivot_rescues=0, hybrid_fallback_queries=0, hybrid_probe_count=0;
-    CompactReachability::QueryStats compact_stats, compact_plain_stats, compact_topo_stats;
+    CompactReachability::QueryStats compact_stats, compact_plain_stats, compact_topo_stats, compact_bidir_stats;
     uint64_t closure_checksum=0;
     std::vector<std::vector<double>> samples(numpol);
     std::vector<Counter> counters(numpol);
@@ -214,28 +214,48 @@ int main(int argc,char **argv){
         if(sum!=compact_checksum)throw std::runtime_error("topological compact mismatch");
       }
       {
-        // Paired, alternating A/B order prevents a fixed warm-cache advantage.
-        // Both methods execute the same oracle/certificate/pivot work.
+        // Bidirectional fallback ablation with independently recorded scan work.
+        CompactReachability::QueryStats st;
+        uint64_t sum=0;
+        auto t0=Clock::now();
+        for(int id:query_order){
+          const bool answer=compact.reaches_bidirectional(
+              queries[id].first,queries[id].second,&st);
+          sum=(sum*0x100000001b3ULL)
+               ^(static_cast<uint64_t>(id)*4ULL+static_cast<unsigned>(answer));
+        }
+        auto t1=Clock::now();
+        compact_bidir_samples.push_back(std::chrono::duration<double,std::nano>(t1-t0).count()/qcount);
+        compact_bidir_checksum=sum;
+        compact_bidir_stats=st;
+        if(sum!=compact_checksum)throw std::runtime_error("bidirectional compact mismatch");
+      }
+      {
+        // Three-way rotation preserves the previous methods as controls.
+        // With nine CI repetitions every method occupies each position equally.
         struct HybridResult {
           double ns=0;
           uint64_t checksum=0, rescues=0, fallbacks=0, probes=0;
         };
-        const auto measure_hybrid=[&](bool use_topo){
+        const auto measure_hybrid=[&](int fallback_mode){
           HybridResult result;
           auto t0=Clock::now();
           for(int id:query_order){
-            const int s=queries[id].first,t=queries[id].second;
-            int decision=compact.certificate(s,t);
+            const int source=queries[id].first,target=queries[id].second;
+            int decision=compact.certificate(source,target);
             if(decision==-1){
               for(int p:trained->order){
                 ++result.probes;
-                int outcome=certify(pivots.at(p),s,t);
+                int outcome=certify(pivots.at(p),source,target);
                 if(outcome!=-1){decision=outcome;++result.rescues;break;}
               }
             }
             if(decision==-1){
               ++result.fallbacks;
-              decision=compact.reaches(s,t,nullptr,false,use_topo)?1:0;
+              const bool hit=(fallback_mode==2)
+                  ?compact.reaches_bidirectional(source,target)
+                  :compact.reaches(source,target,nullptr,false,fallback_mode==1);
+              decision=hit?1:0;
             }
             result.checksum=(result.checksum*0x100000001b3ULL)
                 ^(static_cast<uint64_t>(id)*4ULL+static_cast<unsigned>(decision));
@@ -244,19 +264,26 @@ int main(int argc,char **argv){
           result.ns=std::chrono::duration<double,std::nano>(t1-t0).count()/qcount;
           return result;
         };
-        HybridResult plain, topo;
-        if(rep%2){topo=measure_hybrid(true);plain=measure_hybrid(false);}
-        else{plain=measure_hybrid(false);topo=measure_hybrid(true);}
+        std::array<HybridResult,3> ablations;
+        for(int offset=0;offset<3;++offset){
+          const int mode=(rep+offset)%3;
+          ablations[mode]=measure_hybrid(mode);
+        }
+        const auto &plain=ablations[0],&topo=ablations[1],&bidir=ablations[2];
         hybrid_samples.push_back(plain.ns);
         hybrid_topo_samples.push_back(topo.ns);
+        hybrid_bidir_samples.push_back(bidir.ns);
         hybrid_checksum=plain.checksum;hybrid_topo_checksum=topo.checksum;
+        hybrid_bidir_checksum=bidir.checksum;
         hybrid_pivot_rescues=plain.rescues;
         hybrid_fallback_queries=plain.fallbacks;
         hybrid_probe_count=plain.probes;
         if(plain.checksum!=compact_checksum || topo.checksum!=compact_checksum
-           || plain.rescues!=topo.rescues || plain.fallbacks!=topo.fallbacks
-           || plain.probes!=topo.probes)
-          throw std::runtime_error("paired topological hybrid mismatch");
+           || bidir.checksum!=compact_checksum
+           || plain.rescues!=topo.rescues || plain.rescues!=bidir.rescues
+           || plain.fallbacks!=topo.fallbacks || plain.fallbacks!=bidir.fallbacks
+           || plain.probes!=topo.probes || plain.probes!=bidir.probes)
+          throw std::runtime_error("three-way hybrid correctness/accounting mismatch");
       }
       if(closure.built()){
         uint64_t onepass_checksum=0;
@@ -335,6 +362,18 @@ int main(int argc,char **argv){
       if(j)std::cout<<',';
       std::cout<<compact_topo_samples[j];
     }
+    std::cout<<"]},\"compact_bidir\":{\"median_ns_per_query\":"<<median(compact_bidir_samples)
+             <<",\"certified_yes\":"<<compact_bidir_stats.certified_yes
+             <<",\"certified_no\":"<<compact_bidir_stats.certified_no
+             <<",\"fallback_queries\":"<<compact_bidir_stats.fallback
+             <<",\"fallback_edges\":"<<compact_bidir_stats.edges
+             <<",\"extra_storage_bytes\":"<<compact.bidirectional_extra_bytes()
+             <<",\"checksum\":"<<compact_bidir_checksum
+             <<",\"samples_ns_per_query\":[";
+    for(std::size_t j=0;j<compact_bidir_samples.size();++j){
+      if(j)std::cout<<',';
+      std::cout<<compact_bidir_samples[j];
+    }
     std::cout<<"]},\"compact_pivots\":{\"policy\":\""<<trained->name
              <<"\",\"median_ns_per_query\":"<<median(hybrid_samples)
              <<",\"pivot_rescues\":"<<hybrid_pivot_rescues
@@ -356,6 +395,17 @@ int main(int argc,char **argv){
     for(std::size_t j=0;j<hybrid_topo_samples.size();++j){
       if(j)std::cout<<',';
       std::cout<<hybrid_topo_samples[j];
+    }
+    std::cout<<"]},\"compact_pivots_bidir\":{\"policy\":\""<<trained->name
+             <<"\",\"median_ns_per_query\":"<<median(hybrid_bidir_samples)
+             <<",\"pivot_rescues\":"<<hybrid_pivot_rescues
+             <<",\"pivot_probes\":"<<hybrid_probe_count
+             <<",\"fallback_queries\":"<<hybrid_fallback_queries
+             <<",\"checksum\":"<<hybrid_bidir_checksum
+             <<",\"samples_ns_per_query\":[";
+    for(std::size_t j=0;j<hybrid_bidir_samples.size();++j){
+      if(j)std::cout<<',';
+      std::cout<<hybrid_bidir_samples[j];
     }
     std::cout<<"]},\"closure\":{\"available\":"<<(closure.built()?"true":"false")
              <<",\"components\":"<<closure.components()
