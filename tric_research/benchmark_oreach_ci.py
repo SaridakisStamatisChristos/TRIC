@@ -134,7 +134,7 @@ def run(args):
     policies = {'BFS':[], 'Control':[], 'Greedy':greedy, 'Ordered':ordered}
     exe, compile_seconds, command = build_executable(out, args.compiler, args.optimization)
     native_input = out / 'tric_native_input.txt'
-    native_input.write_bytes(serialize_native(adj, vertices, policies, heldout))
+    native_input.write_bytes(serialize_native(adj, vertices, policies, heldout, training))
     native = subprocess.run([str(exe), str(args.tric_repetitions), str(args.closure_cap_mib)],
                             input=native_input.read_bytes(), capture_output=True,
                             check=True, timeout=args.timeout)
@@ -149,6 +149,7 @@ def run(args):
     hybrid_bidir = native_results['compact_pivots_bidir']
     bidir_intervals = native_results['compact_bidir_intervals']
     hybrid_bidir_intervals = native_results['compact_pivots_bidir_intervals']
+    hybrid_selector = native_results['compact_pivots_selector']
     bfs_checksum = next(p['checksum'] for p in native_results['policies'] if p['name']=='BFS')
     if topo['checksum'] != bfs_checksum or hybrid_topo['checksum'] != bfs_checksum:
         raise AssertionError('topological fallback disagrees with independent BFS')
@@ -171,6 +172,13 @@ def run(args):
     if any(hybrid_bidir_intervals[key] != hybrid_bidir[key] for key in
            ('pivot_probes', 'pivot_rescues', 'fallback_queries')):
         raise AssertionError('interval-pruned hybrid changes pivot work')
+    if hybrid_selector['checksum'] != bfs_checksum:
+        raise AssertionError('trained fallback selector violates independent BFS oracle')
+    if any(hybrid_selector[k] != hybrid_bidir[k] for k in
+           ('pivot_probes','pivot_rescues','fallback_queries')):
+        raise AssertionError('selector changes pivot/certificate work')
+    if hybrid_selector['training_queries'] != len(training):
+        raise AssertionError('selector did not use the supplied independent training set')
     if hybrid['checksum'] != bfs_checksum:
         raise AssertionError('compact + trained pivot hybrid disagrees with independent BFS')
     if compact_plain['checksum'] != bfs_checksum:
@@ -259,6 +267,11 @@ def run(args):
             'compact_bidir_intervals_fallback_edges':bidir_intervals['fallback_edges'],
             'compact_bidir_intervals_rejections':bidir_intervals['interval_rejections'],
             'compact_pivots_bidir_intervals_ns':hybrid_bidir_intervals['median_ns_per_query'],
+            'compact_pivots_selector_ns':hybrid_selector['median_ns_per_query'],
+            'selector_training_policy':hybrid_selector['policy_id'],
+            'selector_training_ns':hybrid_selector['training_ns'],
+            'selector_fallback_topo':hybrid_selector['topological_fallbacks'],
+            'selector_fallback_bidir':hybrid_selector['bidirectional_fallbacks'],
             'compact_pivot_rescues':hybrid['pivot_rescues'],
             'compact_pivot_fallback_queries':hybrid['fallback_queries'],
             'compact_build_ms':compact['build_ms'],

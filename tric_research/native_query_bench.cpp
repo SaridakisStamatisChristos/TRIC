@@ -115,6 +115,18 @@ int main(int argc,char **argv){
     }
     std::vector<std::pair<int,int>> queries(qcount);
     for(auto& v:queries){if(!(std::cin>>v.first>>v.second)||v.first<0||v.second<0||v.first>=n||v.second>=n)throw std::runtime_error("bad test query");}
+    // Optional trailer: TRAINING pairs, never heldout truth labels. Missing
+    // trailer is supported for backward-compatible native test inputs.
+    int ntrain=0;
+    if(!(std::cin>>ntrain)){
+      if(!std::cin.eof())throw std::runtime_error("bad selector training header");
+      std::cin.clear();
+    }
+    if(ntrain<0 || ntrain>100000)throw std::runtime_error("bad selector train count");
+    std::vector<std::pair<int,int>> selector_train(ntrain);
+    for(auto& v:selector_train)
+      if(!(std::cin>>v.first>>v.second)||v.first<0||v.second<0||v.first>=n||v.second>=n)
+        throw std::runtime_error("bad selector training pair");
     auto build_start=Clock::now();
     std::vector<Pivot> pivots;
     for(int v:pivot_vertices) pivots.push_back(Pivot{reaches(graph,v),reaches(reverse,v)});
@@ -141,16 +153,76 @@ int main(int argc,char **argv){
     CompactReachability compact(graph);
     auto k1=Clock::now();
     const double compact_build_ms=std::chrono::duration<double,std::milli>(k1-k0).count();
-    std::vector<double> compact_samples, compact_plain_samples, compact_topo_samples, compact_bidir_samples, compact_bidir_intervals_samples, hybrid_samples, hybrid_topo_samples, hybrid_bidir_samples, hybrid_bidir_intervals_samples, closure_onepass_samples;
+    std::vector<double> compact_samples, compact_plain_samples, compact_topo_samples, compact_bidir_samples, compact_bidir_intervals_samples, hybrid_samples, hybrid_topo_samples, hybrid_bidir_samples, hybrid_bidir_intervals_samples, hybrid_selector_samples, closure_onepass_samples;
     std::vector<double> closure_samples;
-    uint64_t compact_checksum=0, compact_plain_checksum=0, compact_topo_checksum=0, compact_bidir_checksum=0, compact_bidir_intervals_checksum=0, hybrid_checksum=0, hybrid_topo_checksum=0, hybrid_bidir_checksum=0, hybrid_bidir_intervals_checksum=0;
-    uint64_t hybrid_pivot_rescues=0, hybrid_fallback_queries=0, hybrid_probe_count=0;
+    uint64_t compact_checksum=0, compact_plain_checksum=0, compact_topo_checksum=0, compact_bidir_checksum=0, compact_bidir_intervals_checksum=0, hybrid_checksum=0, hybrid_topo_checksum=0, hybrid_bidir_checksum=0, hybrid_bidir_intervals_checksum=0, hybrid_selector_checksum=0;
+    uint64_t hybrid_pivot_rescues=0, hybrid_fallback_queries=0, hybrid_probe_count=0, selector_topo_fallbacks=0, selector_bidir_fallbacks=0;
     CompactReachability::QueryStats compact_stats, compact_plain_stats, compact_topo_stats, compact_bidir_stats, compact_bidir_intervals_stats;
     uint64_t closure_checksum=0;
     std::vector<std::vector<double>> samples(numpol);
     std::vector<Counter> counters(numpol);
     const Policy* trained=&policies[0];
     for(const auto& p:policies)if(p.name=="Ordered"){trained=&p;break;}
+    // Phase XVII: fit a small O(1) selector on train-only pairs.
+    // The independent heldout query list is NEVER consulted by this fit.
+    // Every candidate includes full certificate, pivot and dispatch costs.
+    int selected_policy=1; // bidirectional default without explicit training
+    double selector_training_ns=0;
+    std::array<double,9> selector_training_medians{};
+    if(!selector_train.empty()){
+      Search training_oracle(graph);
+      std::vector<uint8_t> training_truth(selector_train.size());
+      std::uint64_t oracle_train_edges=0;
+      for(std::size_t i=0;i<selector_train.size();++i)
+        training_truth[i]=training_oracle.query(selector_train[i].first,
+                                               selector_train[i].second,oracle_train_edges);
+      const auto start_training=Clock::now();
+      std::array<std::vector<double>,9> policy_samples;
+      std::vector<int> training_order(selector_train.size());
+      std::iota(training_order.begin(),training_order.end(),0);
+      for(int rep=0;rep<9;++rep){
+        std::mt19937_64 shuffle_gen(0xabcdef123987ULL+static_cast<uint64_t>(rep));
+        std::shuffle(training_order.begin(),training_order.end(),shuffle_gen);
+        for(int off=0;off<9;++off){
+          const int policy=(rep+off)%9; // nine-way balanced order
+          std::uint64_t sum=0;
+          auto t0=Clock::now();
+          for(int id:training_order){
+            const int source=selector_train[id].first,target=selector_train[id].second;
+            int decision=compact.certificate(source,target);
+            if(decision==-1)for(int p:trained->order){
+              int cert=certify(pivots.at(p),source,target);
+              if(cert!=-1){decision=cert;break;}
+            }
+            if(decision==-1){
+              const bool use_topo=compact.select_topological(source,target,policy);
+              decision=(use_topo?compact.reaches(source,target,nullptr,false,true)
+                                :compact.reaches_bidirectional(source,target))?1:0;
+            }
+            if(decision!=training_truth[id])
+              throw std::runtime_error("selector training answer mismatch");
+            sum=(sum*0x100000001b3ULL)
+                ^(static_cast<uint64_t>(id)*4ULL+static_cast<unsigned>(decision));
+          }
+          auto t1=Clock::now();
+          policy_samples[policy].push_back(
+              std::chrono::duration<double,std::nano>(t1-t0).count()/selector_train.size());
+          // Keep a visible effect preventing the correctness checksum from
+          // being compiled out; the train data never sets heldout checksum.
+          if(sum==0 && !selector_train.empty() && training_truth[0]>1)
+            throw std::runtime_error("impossible training checksum state");
+        }
+      }
+      double best=std::numeric_limits<double>::infinity();
+      for(int p=0;p<9;++p){
+        selector_training_medians[p]=median(policy_samples[p]);
+        if(selector_training_medians[p]<best){
+          best=selector_training_medians[p];selected_policy=p;
+        }
+      }
+      selector_training_ns=std::chrono::duration<double,std::nano>(
+          Clock::now()-start_training).count();
+    }
     std::vector<int> query_order(qcount);std::iota(query_order.begin(),query_order.end(),0);
     // Separate untimed warmup; rotate benchmark policy execution order per repetition.
     for(int pi=0;pi<numpol;pi++)(void)run(graph,pivots,policies[pi],queries,query_order,truth);
@@ -252,11 +324,11 @@ int main(int argc,char **argv){
           throw std::runtime_error("interval-pruned bidirectional oracle mismatch");
       }
       {
-        // Four modes, 12 repetitions: equal position exposure (3 each).
+        // Five modes, 15 repetitions: equal position exposure (3 each).
         // All hybrid methods use identical certificates and trained pivots.
         struct HybridResult {
           double ns=0;
-          uint64_t checksum=0, rescues=0, fallbacks=0, probes=0;
+          uint64_t checksum=0, rescues=0, fallbacks=0, probes=0, topo_fallbacks=0, bidir_fallbacks=0;
         };
         const auto measure_hybrid=[&](int fallback_mode){
           HybridResult result;
@@ -273,9 +345,19 @@ int main(int argc,char **argv){
             }
             if(decision==-1){
               ++result.fallbacks;
-              const bool hit=(fallback_mode>=2)
-                  ?compact.reaches_bidirectional(source,target,nullptr,fallback_mode==3)
-                  :compact.reaches(source,target,nullptr,false,fallback_mode==1);
+              const bool use_topo=(fallback_mode==4)
+                  ?compact.select_topological(source,target,selected_policy)
+                  :fallback_mode==1;
+              const bool hit=(fallback_mode==4)
+                  ?(use_topo ?compact.reaches(source,target,nullptr,false,true)
+                             :compact.reaches_bidirectional(source,target))
+                  :(fallback_mode>=2
+                    ?compact.reaches_bidirectional(source,target,nullptr,fallback_mode==3)
+                    :compact.reaches(source,target,nullptr,false,fallback_mode==1));
+              if(fallback_mode==4){
+                if(use_topo)++result.topo_fallbacks;
+                else ++result.bidir_fallbacks;
+              }
               decision=hit?1:0;
             }
             result.checksum=(result.checksum*0x100000001b3ULL)
@@ -285,17 +367,21 @@ int main(int argc,char **argv){
           result.ns=std::chrono::duration<double,std::nano>(t1-t0).count()/qcount;
           return result;
         };
-        std::array<HybridResult,4> ablations;
-        for(int offset=0;offset<4;++offset){
-          const int mode=(rep+offset)%4;
+        std::array<HybridResult,5> ablations;
+        for(int offset=0;offset<5;++offset){
+          const int mode=(rep+offset)%5;
           ablations[mode]=measure_hybrid(mode);
         }
         const auto &plain=ablations[0],&topo=ablations[1],&bidir=ablations[2],
-                   &intervals=ablations[3];
+                   &intervals=ablations[3],&selector=ablations[4];
         hybrid_samples.push_back(plain.ns);
         hybrid_topo_samples.push_back(topo.ns);
         hybrid_bidir_samples.push_back(bidir.ns);
         hybrid_bidir_intervals_samples.push_back(intervals.ns);
+        hybrid_selector_samples.push_back(selector.ns);
+        selector_topo_fallbacks=selector.topo_fallbacks;
+        selector_bidir_fallbacks=selector.bidir_fallbacks;
+        hybrid_selector_checksum=selector.checksum;
         hybrid_checksum=plain.checksum;hybrid_topo_checksum=topo.checksum;
         hybrid_bidir_checksum=bidir.checksum;
         hybrid_bidir_intervals_checksum=intervals.checksum;
@@ -304,10 +390,12 @@ int main(int argc,char **argv){
         hybrid_probe_count=plain.probes;
         if(plain.checksum!=compact_checksum || topo.checksum!=compact_checksum
            || bidir.checksum!=compact_checksum || intervals.checksum!=compact_checksum
-           || plain.rescues!=topo.rescues || plain.rescues!=bidir.rescues || plain.rescues!=intervals.rescues
-           || plain.fallbacks!=topo.fallbacks || plain.fallbacks!=bidir.fallbacks || plain.fallbacks!=intervals.fallbacks
-           || plain.probes!=topo.probes || plain.probes!=bidir.probes || plain.probes!=intervals.probes)
-          throw std::runtime_error("four-way hybrid correctness/accounting mismatch");
+           || selector.checksum!=compact_checksum
+           || plain.rescues!=topo.rescues || plain.rescues!=bidir.rescues || plain.rescues!=intervals.rescues || plain.rescues!=selector.rescues
+           || plain.fallbacks!=topo.fallbacks || plain.fallbacks!=bidir.fallbacks || plain.fallbacks!=intervals.fallbacks || plain.fallbacks!=selector.fallbacks
+           || plain.probes!=topo.probes || plain.probes!=bidir.probes || plain.probes!=intervals.probes || plain.probes!=selector.probes
+           || selector.topo_fallbacks+selector.bidir_fallbacks!=selector.fallbacks)
+          throw std::runtime_error("five-way hybrid correctness/accounting mismatch");
       }
       if(closure.built()){
         uint64_t onepass_checksum=0;
@@ -454,6 +542,26 @@ int main(int argc,char **argv){
     for(std::size_t j=0;j<hybrid_bidir_intervals_samples.size();++j){
       if(j)std::cout<<',';
       std::cout<<hybrid_bidir_intervals_samples[j];
+    }
+    std::cout<<"]},\"compact_pivots_selector\":{\"median_ns_per_query\":"<<median(hybrid_selector_samples)
+             <<",\"training_queries\":"<<selector_train.size()
+             <<",\"training_ns\":"<<selector_training_ns
+             <<",\"policy_id\":"<<selected_policy
+             <<",\"topological_fallbacks\":"<<selector_topo_fallbacks
+             <<",\"bidirectional_fallbacks\":"<<selector_bidir_fallbacks
+             <<",\"pivot_rescues\":"<<hybrid_pivot_rescues
+             <<",\"pivot_probes\":"<<hybrid_probe_count
+             <<",\"fallback_queries\":"<<hybrid_fallback_queries
+             <<",\"checksum\":"<<hybrid_selector_checksum
+             <<",\"training_policy_medians_ns_per_query\":[";
+    for(std::size_t j=0;j<selector_training_medians.size();++j){
+      if(j)std::cout<<',';
+      std::cout<<selector_training_medians[j];
+    }
+    std::cout<<"],\"samples_ns_per_query\":[";
+    for(std::size_t j=0;j<hybrid_selector_samples.size();++j){
+      if(j)std::cout<<',';
+      std::cout<<hybrid_selector_samples[j];
     }
     std::cout<<"]},\"closure\":{\"available\":"<<(closure.built()?"true":"false")
              <<",\"components\":"<<closure.components()

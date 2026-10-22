@@ -34,6 +34,27 @@ private:
   }
 public:
   int components() const {return components_;}
+  // O(1) outcome-blind dispatch rules using only existing static DAG metadata.
+  // 0 and 1 are unconditional controls; the rest are candidate selectors.
+  // Return true => use topological-only fallback; false => bidirectional.
+  bool select_topological(int source,int target,int policy) const {
+    if(policy==0)return true;
+    if(policy==1)return false;
+    const int a=component_.at(source),b=component_.at(target);
+    const int out=static_cast<int>(dag_[a].size());
+    const int in=static_cast<int>(reverse_dag_[b].size());
+    const int gap=topo_rank_[b]-topo_rank_[a];
+    switch(policy){
+      case 2:return out<=1;
+      case 3:return in<=1;
+      case 4:return out+in<=2;
+      case 5:return gap<=components_/8;
+      case 6:return gap<=components_/2;
+      case 7:return gap>=components_/2;
+      case 8:return out+in>=8;
+      default:throw std::invalid_argument("unsupported selector policy");
+    }
+  }
   std::size_t labels_bytes() const {
     return static_cast<std::size_t>(components_)*dimensions*3*sizeof(int)
            +static_cast<std::size_t>(components_)*4*sizeof(int)

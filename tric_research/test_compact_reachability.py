@@ -48,6 +48,16 @@ class CompactNativeTests(unittest.TestCase):
         self.assertEqual(out["compact_pivots_topo"]["checksum"], compact["checksum"])
         self.assertEqual(out["compact_pivots_bidir"]["checksum"], compact["checksum"])
         self.assertEqual(out["compact_pivots_bidir_intervals"]["checksum"], compact["checksum"])
+        self.assertEqual(out["compact_pivots_selector"]["checksum"], compact["checksum"])
+        self.assertEqual(out["compact_pivots_selector"]["training_queries"], 0)
+        self.assertEqual(out["compact_pivots_selector"]["policy_id"], 1)
+        self.assertEqual(out["compact_pivots_selector"]["fallback_queries"],
+                         out["compact_pivots_bidir"]["fallback_queries"])
+        self.assertEqual(out["compact_pivots_selector"]["pivot_probes"],
+                         out["compact_pivots_bidir"]["pivot_probes"])
+        self.assertEqual(out["compact_pivots_selector"]["topological_fallbacks"] +
+                         out["compact_pivots_selector"]["bidirectional_fallbacks"],
+                         out["compact_pivots_selector"]["fallback_queries"])
         self.assertEqual(out["compact_pivots_bidir_intervals"]["pivot_rescues"],
                          out["compact_pivots_bidir"]["pivot_rescues"])
         self.assertEqual(out["compact_pivots_bidir_intervals"]["pivot_probes"],
@@ -156,6 +166,46 @@ class CompactNativeTests(unittest.TestCase):
         out = self.execute(adj,queries,0)
         self.assertEqual(out["compact_pivots_bidir_intervals"]["checksum"],
                          out["compact_pivots_bidir"]["checksum"])
+
+    def test_train_only_selector_queries(self):
+        # Native executable's optional train-only suffix must not alter the
+        # held-out query file or correctness checksum.
+        rng = random.Random(171717)
+        n=110
+        adj=[[i+1] if i+1<n else [] for i in range(n)]
+        for i in range(0,n-7,9):
+            adj[i].append(i+7)
+        for i in range(0,n-3,13):
+            adj[i].append(i+3)
+        heldout=[(rng.randrange(n),rng.randrange(n)) for _ in range(150)]
+        training=[(rng.randrange(n),rng.randrange(n)) for _ in range(200)]
+        input_data=make_input(adj,heldout)
+        trailer=(str(len(training))+"\n"+
+                 "".join(f"{u} {v}\n" for u,v in training)).encode()
+        out=json.loads(subprocess.run(
+            [str(self.binary),"5","0"],input=input_data+trailer,
+            capture_output=True,check=True,timeout=50).stdout)
+        selector=out["compact_pivots_selector"]
+        self.assertEqual(selector["training_queries"],200)
+        self.assertGreaterEqual(selector["policy_id"],0)
+        self.assertLessEqual(selector["policy_id"],8)
+        self.assertEqual(selector["checksum"],out["policies"][0]["checksum"])
+        self.assertEqual(selector["pivot_probes"],
+                         out["compact_pivots_bidir"]["pivot_probes"])
+        self.assertEqual(selector["topological_fallbacks"]+
+                         selector["bidirectional_fallbacks"],
+                         selector["fallback_queries"])
+        self.assertEqual(len(selector["samples_ns_per_query"]),5)
+        self.assertEqual(len(selector["training_policy_medians_ns_per_query"]),9)
+
+    def test_train_only_selector_bad_input(self):
+        adj=[[1],[]]
+        heldout=[(0,1),(1,0)]
+        data=make_input(adj,heldout)+b"1\n2 0\n"
+        proc=subprocess.run([str(self.binary),"3","0"],input=data,
+                            capture_output=True,timeout=30)
+        self.assertNotEqual(proc.returncode,0)
+        self.assertIn(b"bad selector training pair",proc.stderr)
 
     def test_dense_dag_nontrivial_negative_cases(self):
         n = 120
