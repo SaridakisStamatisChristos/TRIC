@@ -35,6 +35,10 @@ class CompactNativeTests(unittest.TestCase):
         self.assertEqual(out["compact_plain"]["checksum"], compact["checksum"])
         self.assertEqual(out["compact_topo"]["checksum"], compact["checksum"])
         self.assertEqual(out["compact_bidir"]["checksum"], compact["checksum"])
+        self.assertEqual(out["compact_bidir_intervals"]["checksum"], compact["checksum"])
+        self.assertEqual(out["compact_bidir_intervals"]["fallback_queries"],
+                         out["compact_bidir"]["fallback_queries"])
+        self.assertGreaterEqual(out["compact_bidir_intervals"]["interval_rejections"], 0)
         self.assertEqual(out["compact_bidir"]["fallback_queries"],
                          out["compact_topo"]["fallback_queries"])
         self.assertGreater(out["compact_bidir"]["extra_storage_bytes"], 0)
@@ -43,6 +47,13 @@ class CompactNativeTests(unittest.TestCase):
         self.assertEqual(out["compact_pivots"]["checksum"], compact["checksum"])
         self.assertEqual(out["compact_pivots_topo"]["checksum"], compact["checksum"])
         self.assertEqual(out["compact_pivots_bidir"]["checksum"], compact["checksum"])
+        self.assertEqual(out["compact_pivots_bidir_intervals"]["checksum"], compact["checksum"])
+        self.assertEqual(out["compact_pivots_bidir_intervals"]["pivot_rescues"],
+                         out["compact_pivots_bidir"]["pivot_rescues"])
+        self.assertEqual(out["compact_pivots_bidir_intervals"]["pivot_probes"],
+                         out["compact_pivots_bidir"]["pivot_probes"])
+        self.assertEqual(out["compact_pivots_bidir_intervals"]["fallback_queries"],
+                         out["compact_pivots_bidir"]["fallback_queries"])
         self.assertEqual(out["compact_pivots_bidir"]["pivot_probes"],
                          out["compact_pivots_topo"]["pivot_probes"])
         self.assertEqual(out["compact_pivots_bidir"]["pivot_rescues"],
@@ -57,6 +68,8 @@ class CompactNativeTests(unittest.TestCase):
         self.assertEqual(len(out["compact_plain"]["samples_ns_per_query"]), 3)
         self.assertEqual(len(out["compact_topo"]["samples_ns_per_query"]), 3)
         self.assertEqual(len(out["compact_bidir"]["samples_ns_per_query"]), 3)
+        self.assertEqual(len(out["compact_bidir_intervals"]["samples_ns_per_query"]), 3)
+        self.assertEqual(len(out["compact_pivots_bidir_intervals"]["samples_ns_per_query"]), 3)
         self.assertEqual(len(out["compact_pivots_bidir"]["samples_ns_per_query"]), 3)
         self.assertEqual(len(out["compact_pivots_topo"]["samples_ns_per_query"]), 3)
         self.assertEqual(sum(compact[k] for k in
@@ -129,6 +142,20 @@ class CompactNativeTests(unittest.TestCase):
         out = self.execute(adj, queries, 0)
         self.assertEqual(out["compact_bidir"]["checksum"],
                          out["compact_plain"]["checksum"])
+
+    def test_two_sided_pruning_branching_nonreachability(self):
+        # Most sampled negative pairs share topological order but are
+        # disconnected by branch identity. Oracle detects false positives.
+        n = 96
+        adj = [[] for _ in range(n)]
+        for i in range(n - 12):
+            for stride in (3,6,9):
+                if i+stride < n and i%3 == (i+stride)%3:
+                    adj[i].append(i+stride)
+        queries = [(u,v) for u in range(0,n,5) for v in range(0,n,7)]
+        out = self.execute(adj,queries,0)
+        self.assertEqual(out["compact_pivots_bidir_intervals"]["checksum"],
+                         out["compact_pivots_bidir"]["checksum"])
 
     def test_dense_dag_nontrivial_negative_cases(self):
         n = 120

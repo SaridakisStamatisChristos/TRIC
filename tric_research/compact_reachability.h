@@ -18,7 +18,7 @@ class CompactReachability {
 public:
   static constexpr int dimensions = 4;
   struct QueryStats {
-    std::uint64_t certified_yes=0, certified_no=0, fallback=0, edges=0;
+    std::uint64_t certified_yes=0, certified_no=0, fallback=0, edges=0, interval_rejections=0;
   };
 private:
   std::vector<int> component_, entry_, exit_, topo_rank_, seen_;
@@ -147,7 +147,8 @@ public:
   // rank bounds. This is established graph-search engineering, not novelty.
   // Positive answer iff forward and reverse searches meet. On either-side
   // exhaustion, no path exists. Counts all examined arcs across both sides.
-  bool reaches_bidirectional(int source,int target,QueryStats* stats=nullptr){
+  bool reaches_bidirectional(int source,int target,QueryStats* stats=nullptr,
+                             bool two_sided_intervals=false){
     const int decision=certificate(source,target);
     if(decision!=-1){
       if(stats){if(decision)++stats->certified_yes;else ++stats->certified_no;}
@@ -176,6 +177,14 @@ public:
         if(stats)++stats->edges;
         if(forward && topo_rank_[v]>topo_rank_[t])continue;
         if(!forward && topo_rank_[v]<topo_rank_[s])continue;
+        // Necessary (never sufficient) interval tests, using the existing
+        // four-dimensional label table; no new index labels are created.
+        // Forward candidate v must be able to reach t; backward candidate
+        // v must itself be reachable from s. Test AFTER topological pruning.
+        if(two_sided_intervals && (forward ? !necessary(v,t) : !necessary(s,v))){
+          if(stats)++stats->interval_rejections;
+          continue;
+        }
         if(other_seen[v]==bidir_epoch_)return true;
         if(own_seen[v]!=bidir_epoch_){
           own_seen[v]=bidir_epoch_;

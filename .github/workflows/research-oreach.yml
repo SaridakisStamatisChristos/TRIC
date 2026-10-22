@@ -13,6 +13,7 @@ on:
       - 'tric_research/summarize_phase12.py'
       - 'tric_research/summarize_phase14.py'
       - 'tric_research/summarize_phase15.py'
+      - 'tric_research/summarize_phase16.py'
       - 'tric_research/stratified_queries.py'
       - 'tric_research/test_stratified_queries.py'
       - 'tric_research/test_closure_index.py'
@@ -116,7 +117,7 @@ jobs:
             --output-dir ../research-results \
             --train 500 --test 1200 --seed 20261022 \
             --candidates 11 --budget 5 \
-            --tric-repetitions 9 --oreach-repetitions 5 \
+            --tric-repetitions 12 --oreach-repetitions 5 \
             --closure-cap-mib 64
           for seed in 20261023 20261024; do
             mkdir -p "../research-results/seeds/$seed"
@@ -127,7 +128,7 @@ jobs:
               --output-dir "../research-results/seeds/$seed" \
               --train 500 --test 1200 --seed "$seed" \
               --candidates 11 --budget 5 \
-              --tric-repetitions 9 --oreach-repetitions 5 \
+              --tric-repetitions 12 --oreach-repetitions 5 \
               --closure-cap-mib 64
           done
           python summarize_phase12.py \
@@ -155,7 +156,7 @@ jobs:
                 --query-stratum "$stratum" \
                 --train 500 --test 1200 --seed "$seed" \
                 --candidates 11 --budget 5 \
-                --tric-repetitions 9 --oreach-repetitions 5 \
+                --tric-repetitions 12 --oreach-repetitions 5 \
                 --closure-cap-mib 64
             done
           done
@@ -165,6 +166,12 @@ jobs:
             ../research-results/seeds/20261024/comparison.json \
             ../research-results/strata/*/*/comparison.json \
             --out ../research-results/phase15_summary.json
+          python summarize_phase16.py \
+            ../research-results/comparison.json \
+            ../research-results/seeds/20261023/comparison.json \
+            ../research-results/seeds/20261024/comparison.json \
+            ../research-results/strata/*/*/comparison.json \
+            --out ../research-results/phase16_summary.json
       - name: Publish raw results and provenance
         if: always()
         uses: actions/upload-artifact@v4
@@ -184,6 +191,7 @@ jobs:
             research-results/phase12_summary.json
             research-results/phase14_summary.json
             research-results/phase15_summary.json
+            research-results/phase16_summary.json
             research-results/strata/**
             research-results/seeds/**
           if-no-files-found: warn
