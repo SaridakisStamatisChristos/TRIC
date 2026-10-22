@@ -67,3 +67,62 @@ Standalone test: `cd tric_research && python -m unittest -q test_phase22_lifetim
 ## Dataset availability audit and experimental amendment
 
 Original matrix run https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39796683330 recorded an HTTP 404 while downloading go_sub from the authors' advertised instance URL; external checks showed pubmed_sub and delaunay_n15 also returned 404. Those jobs remain failed instead of being relabeled successes or silently fed different inputs. On this subsequent code revision, the planned 5×3 replication is **2 authentic + 3 generated** families, with the original dataset list preserved here as an unexecuted/failed acquisition plan. Generated graphs are frozen to a separate deterministic graph seed so the three query seeds do not inadvertently change their topology. Publication/generalization gate therefore stays NO-GO without more real sources.
+
+## Phase XXII comparator crash isolation — 2026-10-22
+
+The all-runner CI at head 86af2ab69fb4050bb4142c8513a9fe42fef11dac
+completed its 15 jobs with **9 successful and 6 failures**. All six
+failures were in the two deterministic generated graph families
+`generated_blocks` and `generated_communities`; the pinned,
+unmodified original O'Reach executable returned code **139** (SIGSEGV)
+on the *first* mixed workload, repetition zero, after the native
+TRIC comparators and independent C++ oracle had succeeded.
+
+Classification: verified **external comparator process crash**,
+not a proven underlying root cause in upstream source. The byte-valid
+generated METIS file itself is not independently proven acceptable to
+every upstream O'Reach algorithm. Do not infer original O'Reach's
+incorrect answers or infer that TRIC beats a process that crashes.
+Upstream remains SHA-pinned and unmodified.
+
+Evidence: https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39799773321
+
+### Repair and scoped experiment contract
+
+* On `generated_dag`, `generated_blocks`, and
+  `generated_communities` **only**, explicit
+  `--allow-upstream-segfault` authorizes catching **return code 139
+  or -11** from the original comparator. Unsupported errors (including
+  timeouts, bad/missing CSV, differing query count, invalid checksum,
+  other exit codes) remain failures. Authentic arXiv and Kronecker
+  cannot enable the tolerance; their original external results must
+  be complete, or CI fails.
+* The crash is preserved in a class-specific
+  `oreach_unavailable.json` with return code, signal, graph/query
+  hashes, repetition and stdout/stderr file paths. Any previously
+  collected partial method samples are **discarded**, never pooled
+  into a median. Subsequent classes record `unavailable_after...\
+  rather than silently rerunning the known-crashing binary.
+* The complete native cache/pivot-index and independent correctness
+  tests continue through **both measured query horizons**, full
+  build+query cost and peak-RSS checks. The Phase XXII lifetime runner
+  records the original pDFS-only process as `unavailable` and
+  `actual_calls: 0` on those generated graph families, *not* a
+  zero-time external win.
+* A separate artifact auditor validates all graph/seed/classes/horizons,
+  exact positive resource/timing values, true replay counts, equality
+  and oracle-check labels, and per-class external-completeness
+  consistency. A synthetic job with unavailable original O'Reach can
+  finish successfully only when all TRIC checks pass. GitHub logs
+  emit a visible warning explicitly stating that the external
+  comparator is **UNAVAILABLE, NOT PASSED**.
+* CI regression with a deliberately exiting fake upstream command
+  proves that synthetic code-139 is classified as unavailable; code 42
+  must fail, and authentic graphs cannot request the exception.
+
+No algorithm default/production promotion, no upstream source patch
+and no change to the previously established scientific claim boundary.
+A passing 15-job matrix **does not imply 15 successful original-O'Reach
+external comparisons**. For valid external superiority comparisons
+use only those real original-O'Reach methods actually measured.
+
