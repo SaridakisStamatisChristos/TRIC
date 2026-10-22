@@ -42,7 +42,7 @@ public:
     if(words_>std::numeric_limits<std::size_t>::max()/sizeof(std::uint64_t))
       throw std::overflow_error("cache row size overflow");
     const std::size_t row_bytes=words_*sizeof(std::uint64_t);
-    const std::size_t permitted=std::min(max_sources,(cap_bytes-metadata)/row_bytes);
+    const std::size_t permitted=std::min(max_sources,(cap_bytes-metadata)/(row_bytes+sizeof(int)));
     if(!permitted)return;
     std::vector<int> candidates;
     for(int s=0;s<vertices_;++s)
