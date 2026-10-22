@@ -15,6 +15,9 @@ on:
       - 'tric_research/summarize_phase15.py'
       - 'tric_research/summarize_phase16.py'
       - 'tric_research/summarize_phase17.py'
+      - 'tric_research/summarize_phase18.py'
+      - 'tric_research/phase18_synthetic_graphs.py'
+      - 'tric_research/test_phase18_amortization.py'
       - 'tric_research/stratified_queries.py'
       - 'tric_research/test_stratified_queries.py'
       - 'tric_research/test_closure_index.py'
@@ -35,6 +38,9 @@ on:
           - pubmed_sub
           - delaunay_n15
           - kron_logn12
+          - synthetic_chain
+          - synthetic_blocks
+          - synthetic_communities
 
 permissions:
   contents: read
@@ -47,7 +53,7 @@ jobs:
       fail-fast: false
       matrix:
         # PRs cross-check multiple real graphs. Manual runs select just one.
-        dataset: ${{ fromJSON(github.event_name == 'workflow_dispatch' && format('["{0}"]', inputs.dataset) || '["example","kron_logn12"]') }}
+        dataset: ${{ fromJSON(github.event_name == 'workflow_dispatch' && format('["{0}"]', inputs.dataset) || '["example","kron_logn12","synthetic_chain","synthetic_blocks","synthetic_communities"]') }}
     env:
       OREACH_SHA: 78b3e326bbb021b7ee225ab605a4cdd074fa1d93
       DATASET: ${{ matrix.dataset }}
@@ -74,8 +80,21 @@ jobs:
           set -euo pipefail
           mkdir -p research-results/data
           if [ "$DATASET" = example ]; then
+            echo "GRAPH_ORIGIN=published" >> "$GITHUB_ENV"
             cp upstream-oreach/examples/arXiv.metis research-results/data/graph.metis
+          elif [[ "$DATASET" == synthetic_* ]]; then
+            echo "GRAPH_ORIGIN=synthetic" >> "$GITHUB_ENV"
+            family="${DATASET#synthetic_}"
+            case "$family" in
+              chain|blocks|communities) ;;
+              *) echo "Unsupported synthetic family: $family" >&2; exit 2 ;;
+            esac
+            python tric_research/phase18_synthetic_graphs.py \
+              --family "$family" --vertices 720 --seed 20261022 \
+              --out research-results/data/graph.metis \
+              --manifest research-results/synthetic_graph_manifest.json
           else
+            echo "GRAPH_ORIGIN=published" >> "$GITHUB_ENV"
             case "$DATASET" in
               arXiv|go_sub|pubmed_sub|delaunay_n15|kron_logn12) ;;
               *) echo "Unsupported dataset: $DATASET" >&2; exit 2 ;;
@@ -105,7 +124,7 @@ jobs:
           python -m unittest -q
           test_tric test_path_monge test_path_sweep test_backbone test_backbone_scc
           test_frontier_dp test_adaptive_exact test_frontier_compact
-          test_ordered_probe test_native_benchmark test_oreach_ci test_closure_index test_compact_reachability test_stratified_queries
+          test_ordered_probe test_native_benchmark test_oreach_ci test_closure_index test_compact_reachability test_stratified_queries test_phase18_amortization
       - name: Run paired native experiment
         working-directory: tric_research
         shell: bash
@@ -115,6 +134,7 @@ jobs:
             --graph ../research-results/data/graph.metis \
             --oreach-binary ../upstream-oreach/build/reachability \
             --oreach-git-sha "$OREACH_SHA" \
+            --graph-origin "$GRAPH_ORIGIN" \
             --output-dir ../research-results \
             --train 500 --test 1200 --seed 20261022 \
             --candidates 11 --budget 5 \
@@ -126,6 +146,7 @@ jobs:
               --graph ../research-results/data/graph.metis \
               --oreach-binary ../upstream-oreach/build/reachability \
               --oreach-git-sha "$OREACH_SHA" \
+            --graph-origin "$GRAPH_ORIGIN" \
               --output-dir "../research-results/seeds/$seed" \
               --train 500 --test 1200 --seed "$seed" \
               --candidates 11 --budget 5 \
@@ -153,6 +174,7 @@ jobs:
                 --graph ../research-results/data/graph.metis \
                 --oreach-binary ../upstream-oreach/build/reachability \
                 --oreach-git-sha "$OREACH_SHA" \
+            --graph-origin "$GRAPH_ORIGIN" \
                 --output-dir "$output" \
                 --query-stratum "$stratum" \
                 --train 500 --test 1200 --seed "$seed" \
@@ -179,6 +201,12 @@ jobs:
             ../research-results/seeds/20261024/comparison.json \
             ../research-results/strata/*/*/comparison.json \
             --out ../research-results/phase17_summary.json
+          python summarize_phase18.py \
+            ../research-results/comparison.json \
+            ../research-results/seeds/20261023/comparison.json \
+            ../research-results/seeds/20261024/comparison.json \
+            ../research-results/strata/*/*/comparison.json \
+            --out ../research-results/phase18_summary.json
       - name: Publish raw results and provenance
         if: always()
         uses: actions/upload-artifact@v4
@@ -200,6 +228,8 @@ jobs:
             research-results/phase15_summary.json
             research-results/phase16_summary.json
             research-results/phase17_summary.json
+            research-results/phase18_summary.json
+            research-results/synthetic_graph_manifest.json
             research-results/strata/**
             research-results/seeds/**
           if-no-files-found: warn
