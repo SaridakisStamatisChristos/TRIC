@@ -123,6 +123,18 @@ def run(args):
                             check=True, timeout=args.timeout)
     native_results = json.loads(native.stdout)
     closure = native_results['closure']
+    compact = native_results['compact']
+    compact_plain = native_results['compact_plain']
+    hybrid = native_results['compact_pivots']
+    bfs_checksum = next(p['checksum'] for p in native_results['policies'] if p['name']=='BFS')
+    if hybrid['checksum'] != bfs_checksum:
+        raise AssertionError('compact + trained pivot hybrid disagrees with independent BFS')
+    if compact_plain['checksum'] != bfs_checksum:
+        raise AssertionError('plain fallback compact index disagrees with independent BFS')
+    if compact['checksum'] != bfs_checksum:
+        raise AssertionError('compact index disagrees with independent BFS')
+    if sum(compact[key] for key in ('certified_yes','certified_no','fallback_queries')) != len(heldout):
+        raise AssertionError('compact query accounting incomplete')
     if closure['available'] and closure['checksum'] != next(p['checksum'] for p in native_results['policies'] if p['name']=='BFS'):
         raise AssertionError('closure checksum disagrees with independently checked BFS')
     if closure['index_matrix_bytes'] > args.closure_cap_mib * 1024 * 1024:
@@ -152,7 +164,7 @@ def run(args):
                 'samples_ns_per_query':[1000*v['query_us'] for v in values]}
              for name, values in methods.items()}
     result = {'protocol':'TRIC-OReach paired native execution pilot',
-              'claim_boundary':'Different indexing methods/budgets; SCC closure matrix is quadratic in component count; OReach individual answers not audited by this driver; runner timings are noisy',
+              'claim_boundary':'Different indexing methods and memory budgets; compact interval labels are established prior art (GRAIL/PReaCH); closure uses quadratic matrix space; OReach individual answers not independently audited; hosted runner timing is noisy',
               'source_git_sha':args.oreach_git_sha,'graph':str(graph),
               'graph_sha256':hashlib.sha256(graph.read_bytes()).hexdigest(),
               'n':n, 'edges':sum(map(len,adj)),
@@ -177,7 +189,19 @@ def run(args):
             'closure_available':closure['available'],
             'closure_ns':closure.get('median_ns_per_query'),
             'closure_build_ms':closure['build_ms'],
-            'closure_matrix_bytes':closure['index_matrix_bytes']},indent=2))
+            'closure_matrix_bytes':closure['index_matrix_bytes'],
+            'closure_onepass_ns':closure.get('median_onepass_ns_per_query'),
+            'compact_ns':compact['median_ns_per_query'],
+            'compact_plain_ns':compact_plain['median_ns_per_query'],
+            'compact_pivots_ns':hybrid['median_ns_per_query'],
+            'compact_pivot_rescues':hybrid['pivot_rescues'],
+            'compact_pivot_fallback_queries':hybrid['fallback_queries'],
+            'compact_build_ms':compact['build_ms'],
+            'compact_label_bytes':compact['labels_bytes'],
+            'compact_certificate_fraction':(compact['certified_yes']+compact['certified_no'])/len(heldout),
+            'compact_fallback_queries':compact['fallback_queries'],
+            'compact_fallback_edges':compact['fallback_edges'],
+            'compact_plain_fallback_edges':compact_plain['fallback_edges']},indent=2))
 
 
 def parser():
