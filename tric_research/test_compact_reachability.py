@@ -48,6 +48,16 @@ class CompactNativeTests(unittest.TestCase):
         self.assertEqual(out["compact_pivots_topo"]["checksum"], compact["checksum"])
         self.assertEqual(out["compact_pivots_bidir"]["checksum"], compact["checksum"])
         self.assertEqual(out["compact_pivots_bidir_intervals"]["checksum"], compact["checksum"])
+        self.assertEqual(out["compact_pivots_selector"]["checksum"], compact["checksum"])
+        self.assertEqual(out["compact_pivots_selector"]["training_queries"], 0)
+        self.assertEqual(out["compact_pivots_selector"]["policy_id"], 1)
+        self.assertEqual(out["compact_pivots_selector"]["fallback_queries"],
+                         out["compact_pivots_bidir"]["fallback_queries"])
+        self.assertEqual(out["compact_pivots_selector"]["pivot_probes"],
+                         out["compact_pivots_bidir"]["pivot_probes"])
+        self.assertEqual(out["compact_pivots_selector"]["topological_fallbacks"] +
+                         out["compact_pivots_selector"]["bidirectional_fallbacks"],
+                         out["compact_pivots_selector"]["fallback_queries"])
         self.assertEqual(out["compact_pivots_bidir_intervals"]["pivot_rescues"],
                          out["compact_pivots_bidir"]["pivot_rescues"])
         self.assertEqual(out["compact_pivots_bidir_intervals"]["pivot_probes"],
