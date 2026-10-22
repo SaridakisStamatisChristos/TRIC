@@ -51,7 +51,7 @@ from benchmark-result counters.
 
 ## Phase XIII dataset matrix
 The PR benchmark runs the bundled arXiv example (6,000 vertices, 66,707 arcs)
-and attempts the authors' published `go_sub` (6,793 vertices, 13,361 arcs)
+and attempts the authors' published `pubmed_sub` (9,000 vertices, 40,028 arcs)
 and `kron_logn12` (4,096 vertices, 116,952 arcs), using official
 O'Reach download links and explicit failures if inaccessible. For each
 dataset, the same three deterministic train/test seeds drive TRIC and
@@ -75,8 +75,13 @@ but the training and Python graph representation may become a bottleneck.
 - TRIC has an independent native oracle; the upstream O'Reach executable
   reports aggregate CSV metrics, so its per-query answers are not independently
   re-audited here.
-- The dataset downloads may fail. Such failures invalidate the graph-specific
-  result; never substitute another graph silently.
+- The first Phase XIII matrix run showed that the authors' published `go_sub`
+  archive URL returned HTTP 404 in CI on 2026-10-22. `go_sub` is therefore
+  excluded from the default PR qualification matrix (still selectable manually).
+  Its graph-specific result is **blocked**, not a successful benchmark.
+  `pubmed_sub` is a separately declared new candidate to check, not a
+  substitute claimed to be `go_sub`. Any further download failure remains a
+  source availability error; do not silently replace input data.
 - These changes test engineering trade-offs. Neither a mathematical novelty
   claim nor a cross-system superiority claim is authorized by this phase.
 
