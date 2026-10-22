@@ -121,16 +121,20 @@ public:
     seen_.assign(components_,0);
     search_stack_.reserve(components_);
   }
-  bool reaches(int source,int target,QueryStats* stats=nullptr,bool guided=true){
+  // 1=True, 0=False, -1=undecided. Both decisive cases are sound.
+  int certificate(int source,int target) const {
     const int s=component_.at(source),t=component_.at(target);
-    if(s==t || (entry_[s]<=entry_[t] && exit_[t]<=exit_[s])){
-      if(stats)++stats->certified_yes;
-      return true;
+    if(s==t || (entry_[s]<=entry_[t] && exit_[t]<=exit_[s]))return 1;
+    if(topo_rank_[s]>topo_rank_[t] || !necessary(s,t))return 0;
+    return -1;
+  }
+  bool reaches(int source,int target,QueryStats* stats=nullptr,bool guided=true){
+    const int decision=certificate(source,target);
+    if(decision!=-1){
+      if(stats){if(decision)++stats->certified_yes;else ++stats->certified_no;}
+      return decision!=0;
     }
-    if(topo_rank_[s]>topo_rank_[t] || !necessary(s,t)){
-      if(stats)++stats->certified_no;
-      return false;
-    }
+    const int s=component_.at(source),t=component_.at(target);
     if(stats)++stats->fallback;
     if(epoch_==std::numeric_limits<int>::max()){
       std::fill(seen_.begin(),seen_.end(),0);epoch_=0;
