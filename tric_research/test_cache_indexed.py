@@ -26,7 +26,7 @@ def run_case(exe,adj,ids,train,queries,hot=2,cap=1024*1024):
     methods={"BFS":[],"Ordered":list(range(len(ids)))}
     raw=serialize_native(adj,ids,methods,queries,train)
     p=subprocess.run([str(exe),"16",str(hot),str(cap)],
-                     input=raw,capture_output=True,text=True,timeout=20)
+                     input=raw,capture_output=True,timeout=20)
     if p.returncode:
         raise AssertionError(f"compiled phase-XXI failed: {p.stderr}")
     data=json.loads(p.stdout)
