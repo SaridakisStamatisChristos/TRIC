@@ -7,6 +7,9 @@ on:
       - 'tric_research/phase23_training.py'
       - 'tric_research/benchmark_phase23.py'
       - 'tric_research/test_phase23_training.py'
+      - 'tric_research/phase23_admission.py'
+      - 'tric_research/test_phase23_admission.py'
+      - 'tric_research/lifetime_replay.cpp'
       - 'tric_research/PHASE_XXIII_RESEARCH_REPORT.md'
   workflow_dispatch:
 permissions:
@@ -25,7 +28,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Native/legacy independently validated training parity
         working-directory: tric_research
-        run: python -m unittest -q test_phase23_training test_ordered_probe test_cache_indexed
+        run: python -m unittest -q test_phase23_training test_phase23_admission test_ordered_probe test_cache_indexed test_phase22_lifetime
   benchmark:
     runs-on: ubuntu-24.04
     timeout-minutes: 35
