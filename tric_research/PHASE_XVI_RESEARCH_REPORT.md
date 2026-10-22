@@ -109,6 +109,77 @@ Run the pre-existing `.github/workflows/research-oreach.yml` for native
 O'Reach comparison and inspect each workflow artifact's
 `phase16_summary.json`, `comparison.json`, query files and SHA hashes.
 
-**Evidence state before CI:** implementation proposed and code committed,
-not yet empirically verified. The report will be amended with actual
-per-stratum results, including negative results.
+**Evidence state:** exactness and benchmark execution verified by CI.
+The proposed **unconditional performance optimization was refuted** on most
+of the benchmarked classes. The interval-pruned method remains a research
+ablation, not a recommended replacement.
+
+## Executed pilot — CI run 39750761518 (source SHA `6030ca3927cd8c5d053368ec084192086e53ebe4`)
+
+The unit suite ran on Python 3.10 and 3.13, including all prior
+reachability regressions and new adversarial tests:
+[unit CI run 39750761486](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39750761486),
+both successful.
+
+The paired pinned O'Reach benchmark completed on both published-graph jobs:
+[paired native CI run 39750761518](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39750761518).
+All 24 three-seed/stratum graph/split experiments completed with no checksum
+or probe-accounting errors. This is the **first run** of the modified code.
+
+The following times are median per-seed native nanoseconds/query, and
+ratio is the *median of the three paired unpruned/pruned* ratios.
+Ratio <1 means **interval pruning is slower**.
+
+| Graph | Stratum | Old bidir hybrid ns/q | Pruned hybrid ns/q | Median old/pruned | Pruned wins |
+|---|---|---:|---:|---:|---:|
+| arXiv | uniform | 415.70 | 426.15 | **0.9755** | **0/3** |
+| arXiv | positive | 577.69 | 710.08 | **0.8197** | **0/3** |
+| arXiv | negative | 359.36 | 361.42 | **0.9552** | **0/3** |
+| arXiv | balanced | 554.68 | 626.62 | **0.8852** | **0/3** |
+| Kronecker | uniform | 71.29 | 85.40 | **0.8349** | **0/3** |
+| Kronecker | positive | 218.04 | 288.11 | **0.7568** | **0/3** |
+| Kronecker | negative | 21.73 | 18.17 | 1.1961 | 3/3 |
+| Kronecker | balanced | 138.33 | 182.38 | **0.7632** | **0/3** |
+
+All values compare the same graph, seed, class and CPU job; the query
+pairs, pivot order, certificate behavior, and oracle checksum match exactly.
+
+### Important mechanism counterevidence
+
+Interval pruning **does** cut candidates, but CPU overhead dominates.
+For example, arXiv uniform queries rejected a median 5,605 neighbors,
+reducing median directly scanned arcs from 128,391 to 116,734, while
+hybrid timing still became slower (415.70 → 426.15 ns/query).
+For arXiv positive-only, median interval rejections were 16,180; timing
+regressed from 577.69 to 710.08 ns/query. Kronecker positive-only
+saw median 2,526 interval rejections with 218.04 → 288.11 ns/query.
+
+The **sole measured positive** is Kronecker negative-only, with the new
+method at 18.17 vs 21.73 ns/query. However, both variants scanned a
+median of **4,380 arcs** across this class and the interval filter
+rejected only a median of **four neighbors**. Therefore, the apparent
+~20% speed gain is **not convincingly attributable to useful pruning**;
+microbenchmark noise, instruction layout, cache, or compiler effects are
+credible alternatives. Reproduce on dedicated hardware before promoting.
+
+### Evidence disposition
+
+- **Correctness/CI evidence:** PASS within disclosed test scope.
+- **Universal replacement of Phase XIV bidirectional fallback:** REJECTED.
+- **Potential negative-only, resource-aware dispatch optimization:** UNRESOLVED;
+  method selection cannot use oracle truth labels or other information
+  unavailable before the query.
+- **Original algorithmic invention / general SOTA claim:** NO-GO.
+- **Publication-grade evidence:** NO-GO (two small graphs, nonuniform
+  class sampling, unmatched index/RSS costs and non-dedicated CI timing).
+
+Raw artifacts:
+[arXiv experiment](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39750761518/artifacts/12413199329)
+and [Kronecker experiment](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39750761518/artifacts/12413826178)
+preserve `phase16_summary.json`, hashes, per-seed `comparison.json`,
+query files and O'Reach CSV.
+
+**Recommended next falsification:** rather than adding still more
+per-edge interval checks, evaluate a *query-visible, outcome-blind*
+fallback selection policy with its cost included in timing, plus more
+independent graphs and index size/RSS matching.
