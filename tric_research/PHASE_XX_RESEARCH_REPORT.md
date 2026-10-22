@@ -109,3 +109,56 @@ Execute the full experiments rather than extrapolating million-query claims.
 Append observed results and negative cases after the CI jobs finish.
 
 This remains a draft, unmerged evidence branch.
+
+## Executed Phase XX pilot — observed results at head dcf2f163e090a98ebe78a7cfa9d8034fad89ff13
+
+Verified on 2026-10-22:
+- Python 3.10/3.13 full research CI: successful, 86 tests per version.
+  https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39787587185
+- Authentic, pinned O'Reach two-graph paired comparison CI: BOTH graph jobs successful.
+  https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39787587262
+- Same exact 2400 heldout source-target pairs **within each graph/stratum**
+  for native cache, native TRIC, and original O'Reach; no heldout
+  truth-label input into the cache trainer.
+
+### Observed query-only nanoseconds/query
+
+| Graph | Workload | Cache+DFS | TRIC pivot+bidir | O'Reach pDFS | Cache hits |
+|---|---|---:|---:|---:|---:|
+| arXiv example | matched hot | 1,979.99 | 162.19 | 137.07 | 1973/2400 |
+| arXiv example | uniform | 10,871.16 | 310.86 | 176.33 | 4/2400 |
+| arXiv example | shifted hot | 6,369.25 | 254.85 | 84.41 | 0/2400 |
+| Kronecker | matched hot | 6,460.34 | 94.58 | 61.12 | 1904/2400 |
+| Kronecker | uniform | 28,427.36 | 75.94 | 71.47 | 4/2400 |
+| Kronecker | shifted hot | 27,600.84 | 106.94 | 63.06 | 2/2400 |
+
+Read each number as the unpooled method median within the declared native
+repetitions on a shared CI runner, not as a general benchmark distribution.
+Both external graph jobs have only one independent seed each. No statistical
+uncertainty estimate is justified across graph families.
+
+### Falsification result
+
+The Phase XIX source-hotset cache *without a strong fallback* loses by more
+than an order of magnitude against original compiled O'Reach and TRIC
+indexed variants, even when 79-82% of queries hit. That is because the
+remaining 18-21% fall back to expensive unindexed DFS. The previous
+synthetic 1.6-2.7x improvement was only against plain DFS and cannot
+be promoted to an external superiority claim.
+
+The next design should test **cache lookup followed by the existing exact
+TRIC indexed certificate/pivot/bidirectional fallback**, in a single compiled
+native query loop. This preserves correctness by composition; it may or may
+not improve query time and will add cache memory and construction cost.
+Falsify that idea with the same published graph/query pairs and independent
+native correctness checks before considering a default.
+
+### Auditor verdict (post execution)
+
+- Correctness within exact measured CI scope: PASS.
+- Artifacts/provenance at this head: present; inspect raw Artifacts for full
+  samples, resource/cost fields, upstream CSV and heldout query file.
+- Phase XIX cache vs optimized indexed fallback / O'Reach: **REJECTED**
+  for all six pilot workloads, no selective cherry-picking.
+- New algorithmic novelty / broadly SOTA / publication-ready: **NO-GO**.
+- Realistic matched-budget end-to-end superiority: UNKNOWN.
