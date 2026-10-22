@@ -19,6 +19,7 @@ from pathlib import Path
 from benchmark_native import build_executable, serialize_native
 from ordered_probe import greedy_coverage_order, hit_masks_for_pivots, optimize_ordered
 from tric import make_pivot, early_reachable
+from stratified_queries import generate_stratified_queries
 
 
 def read_metis(path):
@@ -68,7 +69,7 @@ def write_queryfile(path, adj, queries):
     return positives
 
 
-def parse_oreach_csv(path, expected_q):
+def parse_oreach_csv(path, expected_q, expected_type=None):
     rows = []
     with open(path, newline='', encoding='utf-8') as f:
         for fields in csv.reader(f):
@@ -78,6 +79,8 @@ def parse_oreach_csv(path, expected_q):
                 raise ValueError('bad O\'Reach CSV row')
             if int(fields[3]) != expected_q:
                 raise ValueError('O\'Reach did not use our held-out query count')
+            if expected_type is not None and fields[5] != expected_type:
+                raise ValueError('O\'Reach query-class metadata disagrees with held-out stratum')
             rows.append({'algorithm':fields[7], 'init_ms':float(fields[8]),
                          'query_total_us':float(fields[9]),
                          'query_us':float(fields[9]) / expected_q})
@@ -102,10 +105,24 @@ def run(args):
     # Degree-based candidates, without looking at held-out query outcomes.
     vertices = sorted(range(n), key=lambda u: (-len(adj[u])-len(rev[u]),u))[:args.candidates]
     training = generate_queries(adj, args.train, args.seed+1)
-    heldout = generate_queries(adj, args.test, args.seed+2)
-    queryfile = out / 'heldout.query.m.txt'
+    heldout = (generate_queries(adj, args.test, args.seed+2)
+               if args.query_stratum == 'uniform' else
+               generate_stratified_queries(adj, args.test, args.seed+2, args.query_stratum))
+    # O'Reach classifies workload provenance by QUERY FILE SUFFIX alone.
+    # Accurate CSV metadata is essential when evaluating outcome strata.
+    filename = {'uniform': 'heldout.query.txt',
+                'positive': 'heldout.query.t.txt',
+                'negative': 'heldout.query.f.txt',
+                'balanced': 'heldout.query.m.txt'}[args.query_stratum]
+    queryfile = out / filename
     positives = write_queryfile(queryfile, adj, heldout)
     q_sha = hashlib.sha256(queryfile.read_bytes()).hexdigest()
+    if args.query_stratum == 'positive' and positives != len(heldout):
+        raise AssertionError('positive stratum contains unreachable queries')
+    if args.query_stratum == 'negative' and positives != 0:
+        raise AssertionError('negative stratum contains reachable queries')
+    if args.query_stratum == 'balanced' and positives != len(heldout)//2:
+        raise AssertionError('balanced stratum is not 50:50')
     t0 = time.perf_counter()
     pivots = [make_pivot(adj, rev, v) for v in vertices]
     hits = hit_masks_for_pivots(pivots, training)
@@ -168,7 +185,9 @@ def run(args):
         (out/f'oreach_{j}.stderr.txt').write_text(proc.stderr)
         if proc.returncode:
             raise RuntimeError(f'O\'Reach failed with code {proc.returncode}; see logs')
-        oreach_samples.extend(parse_oreach_csv(dest,len(heldout)))
+        expected_type = {'uniform': 'random', 'positive': 'true',
+                         'negative': 'false', 'balanced': 'mixed'}[args.query_stratum]
+        oreach_samples.extend(parse_oreach_csv(dest,len(heldout),expected_type))
     methods = {name: [v for v in oreach_samples if v['algorithm']==name]
                for name in ('oreach-pdfs', 'oreach-pbibfs')}
     for name in methods:
@@ -186,6 +205,12 @@ def run(args):
               'n':n, 'edges':sum(map(len,adj)),
               'query_file_sha256':q_sha,'test_count':len(heldout),
               'heldout_positive_count':positives,
+              'query_stratum':args.query_stratum,
+              'query_stratum_sampler':(
+                  'independently BFS-derived; source-uniform over eligible sources; '
+                  'target-uniform among non-self qualifying endpoints'
+                  if args.query_stratum != 'uniform' else
+                  'independent uniform source and target sampling'),
               'candidate_vertices':vertices,'pivot_budget':args.budget,
               'selected_orders':policies,
               'offline_training_seconds_including_pivot_build':training_seconds,
@@ -201,6 +226,8 @@ def run(args):
     print(json.dumps({'n':n,'edges':result['edges'],'heldout':len(heldout),
             'ordered_ns':next(p['median_ns_per_query'] for p in native_results['policies'] if p['name']=='Ordered'),
             'oreach_pdfs_ns':stats['oreach-pdfs']['median_ns_per_query'],
+            'query_stratum':args.query_stratum,
+            'heldout_positive_count':positives,
             'oreach_pbibfs_ns':stats['oreach-pbibfs']['median_ns_per_query'],
             'closure_available':closure['available'],
             'closure_ns':closure.get('median_ns_per_query'),
@@ -235,6 +262,8 @@ def parser():
     p.add_argument('--output-dir',required=True)
     p.add_argument('--train',type=int,default=500)
     p.add_argument('--test',type=int,default=1200)
+    p.add_argument('--query-stratum',choices=('uniform','positive','negative','balanced'),
+                   default='uniform')
     p.add_argument('--seed',type=int,default=20261022)
     p.add_argument('--candidates',type=int,default=11)
     p.add_argument('--budget',type=int,default=5)

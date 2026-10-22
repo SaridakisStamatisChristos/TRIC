@@ -30,6 +30,9 @@ class BenchmarkProtocolTests(unittest.TestCase):
             self.assertEqual(len(x),2)
             self.assertEqual(x[0]['query_us'],4)
             with self.assertRaises(ValueError):parse_oreach_csv(p,9)
+            self.assertEqual(len(parse_oreach_csv(p,10,'mixed')),2)
+            with self.assertRaisesRegex(ValueError,"query-class metadata"):
+                parse_oreach_csv(p,10,'true')
     def test_bad_metis_header_or_edge_count(self):
         with tempfile.TemporaryDirectory() as d:
             p=Path(d)/'bad.metis'
