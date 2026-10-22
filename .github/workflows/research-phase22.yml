@@ -7,6 +7,8 @@ on:
       - 'tric_research/benchmark_phase22.py'
       - 'tric_research/benchmark_hot_source_external.py'
       - 'tric_research/test_phase22_lifetime.py'
+      - 'tric_research/phase22_graphs.py'
+      - 'tric_research/test_phase22_graphs.py'
       - 'tric_research/PHASE_XXII_RESEARCH_REPORT.md'
   workflow_dispatch:
 permissions:
@@ -19,7 +21,7 @@ jobs:
       fail-fast: false
       max-parallel: 8
       matrix:
-        dataset: [example, kron_logn12, go_sub, pubmed_sub, delaunay_n15]
+        dataset: [example, kron_logn12, generated_dag, generated_blocks, generated_communities]
         seed: [20261022, 20261023, 20261024]
     env:
       OREACH_SHA: 78b3e326bbb021b7ee225ab605a4cdd074fa1d93
@@ -49,9 +51,12 @@ jobs:
           mkdir -p research-results/data
           if [ "$DATASET" = example ]; then
             cp upstream-oreach/examples/arXiv.metis research-results/data/graph.metis
+          elif [[ "$DATASET" == generated_* ]]; then
+            python tric_research/phase22_graphs.py \
+              --family "$DATASET" --output research-results/data/graph.metis
           else
             case "$DATASET" in
-              kron_logn12|go_sub|pubmed_sub|delaunay_n15) ;;
+              kron_logn12) ;;
               *) echo "unsupported dataset" >&2; exit 2 ;;
             esac
             url="https://oreach.taa.univie.ac.at/assets/data/instances/${DATASET}.tar.xz"
@@ -72,7 +77,7 @@ jobs:
           uname -a >> research-results/manifest.txt
       - name: Verify independent cold-start, RSS and native exactness
         working-directory: tric_research
-        run: python -m unittest -q test_phase22_lifetime test_hot_source_cache test_cache_indexed
+        run: python -m unittest -q test_phase22_lifetime test_phase22_graphs test_hot_source_cache test_cache_indexed
       - name: Run original paired external benchmark and actual lifetime replays
         working-directory: tric_research
         run: |
@@ -95,6 +100,7 @@ jobs:
           path: |
             research-results/manifest.txt
             research-results/graph.sha256
+            research-results/data/generated_graph_provenance.json
             research-results/dataset.sha256
             research-results/phase22/phase20_summary.json
             research-results/phase22/phase22_lifetime_summary.json
