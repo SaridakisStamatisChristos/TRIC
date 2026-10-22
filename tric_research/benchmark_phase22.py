@@ -190,10 +190,26 @@ def run(args):
               "indexed_rss_kib":cell["pivot_index"]["median_maxrss_kib"],
               "cached_rss_kib":cell["cache_pivot_index"]["median_maxrss_kib"]}),
               flush=True)
-        for factor in args.replay_factors:
-            factor_results[str(factor)]["original_oreach_pdfs_fresh_process"]=measure_oreach_pdfs_lifetime(
-                args.oreach_binary,args.graph,out/cls/"heldout.query.m.txt",
-                args.seed,factor,out/cls/f"oreach_lifetime_factor_{factor}",args.timeout)
+        upstream_state=comparison["oreach_status"]
+        if upstream_state["status"] == "measured":
+            for factor in args.replay_factors:
+                factor_results[str(factor)]["original_oreach_pdfs_fresh_process"]=measure_oreach_pdfs_lifetime(
+                    args.oreach_binary,args.graph,out/cls/"heldout.query.m.txt",
+                    args.seed,factor,out/cls/f"oreach_lifetime_factor_{factor}",args.timeout)
+        else:
+            # Do not re-invoke an upstream executable known to SIGSEGV.
+            # Mark every horizon unavailable, never invent/init/copy timing.
+            for factor in args.replay_factors:
+                factor_results[str(factor)]["original_oreach_pdfs_fresh_process"]={
+                    "status": "unavailable_upstream_segfault",
+                    "actual_calls": 0,
+                    "valid_comparisons": 0,
+                    "reason": "Original upstream comparator segfaulted or was skipped after SIGSEGV",
+                    "source_status": upstream_state,
+                }
+            print(json.dumps({"dataset":args.dataset,"seed":args.seed,
+                "class":cls,"external_full_lifetime":"unavailable_upstream_segfault",
+                "valid_external_comparisons":0}),flush=True)
         results[cls]=factor_results
     report={
        "phase":"XXII",
@@ -204,6 +220,11 @@ def run(args):
        "graph_edges":base["graph_edges"],
        "upstream_oreach_git_sha":base["oreach_commit"],
        "training_sha256":base["training_sha256"],
+       "upstream_comparator_per_class":{
+           cls:base["classes"][cls]["oreach_status"] for cls in previous.CLASSES},
+       "upstream_comparisons_complete":all(
+           base["classes"][cls]["oreach_status"]["status"]=="measured"
+           for cls in previous.CLASSES),
        "three_classes":list(previous.CLASSES),
        "factors":args.replay_factors,
        "lifetime_repetitions":args.lifetime_repetitions,
