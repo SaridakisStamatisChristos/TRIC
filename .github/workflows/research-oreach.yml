@@ -64,10 +64,12 @@ jobs:
         with:
           python-version: '3.13'
       - name: Install O-Reach dependencies
+        if: ${{ !startsWith(matrix.dataset, 'synthetic_') }}
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends libboost-dev cmake g++ xz-utils
       - name: Compile pinned original O-Reach
+        if: ${{ !startsWith(matrix.dataset, 'synthetic_') }}
         run: |
           git clone --quiet https://github.com/o-reach/O-Reach.git upstream-oreach
           git -C upstream-oreach checkout --detach "$OREACH_SHA"
@@ -118,7 +120,11 @@ jobs:
           g++ --version | head -1 > research-results/compiler.txt
           python --version >> research-results/compiler.txt
           uname -a >> research-results/compiler.txt
-          git -C upstream-oreach rev-parse HEAD >> research-results/compiler.txt
+          if [ "$GRAPH_ORIGIN" = published ]; then
+            git -C upstream-oreach rev-parse HEAD >> research-results/compiler.txt
+          else
+            echo "O-Reach intentionally not installed (TRIC-only synthetic graph)" >> research-results/compiler.txt
+          fi
       - name: Verify benchmark protocol and original TRIC suite
         working-directory: tric_research
         run: >-
