@@ -22,10 +22,11 @@ public:
   };
 private:
   std::vector<int> component_, entry_, exit_, topo_rank_, seen_;
-  std::vector<std::vector<int>> dag_;
+  std::vector<std::vector<int>> dag_,reverse_dag_;
   std::array<std::vector<int>,dimensions> rank_,low_,high_;
-  std::vector<int> search_stack_;
-  int components_=0, epoch_=0;
+  std::vector<int> search_stack_, forward_seen_, backward_seen_;
+  std::vector<int> forward_queue_, backward_queue_;
+  int components_=0, epoch_=0, bidir_epoch_=0;
   bool necessary(int a,int b) const {
     for(int d=0;d<dimensions;++d)
       if(rank_[d][b]<low_[d][a] || rank_[d][b]>high_[d][a])return false;
@@ -37,6 +38,15 @@ public:
     return static_cast<std::size_t>(components_)*dimensions*3*sizeof(int)
            +static_cast<std::size_t>(components_)*4*sizeof(int)
            +component_.size()*sizeof(int);
+  }
+  // Byte estimate for materialized bidirectional-only buffers and arcs.
+  // Excludes allocator metadata/fragmentation and the shared forward DAG.
+  std::size_t bidirectional_extra_bytes() const {
+    std::size_t total=reverse_dag_.capacity()*sizeof(std::vector<int>);
+    for(const auto& row:reverse_dag_)total+=row.capacity()*sizeof(int);
+    total+=(forward_seen_.capacity()+backward_seen_.capacity()
+           +forward_queue_.capacity()+backward_queue_.capacity())*sizeof(int);
+    return total;
   }
   template<class Graph>
   explicit CompactReachability(const Graph& graph){
@@ -70,10 +80,11 @@ public:
       ++components_;
     }
     dag_.resize(components_);
+    reverse_dag_.resize(components_);
     std::vector<int> indegree(components_,0);
     for(int u=0;u<n;++u)for(int v:graph[u]){
       int a=component_[u],b=component_[v];
-      if(a!=b){dag_[a].push_back(b);++indegree[b];}
+      if(a!=b){dag_[a].push_back(b);reverse_dag_[b].push_back(a);++indegree[b];}
     }
     std::queue<int> ready;
     for(int c=0;c<components_;++c)if(!indegree[c])ready.push(c);
@@ -120,6 +131,10 @@ public:
     }
     seen_.assign(components_,0);
     search_stack_.reserve(components_);
+    forward_seen_.assign(components_,0);
+    backward_seen_.assign(components_,0);
+    forward_queue_.reserve(components_);
+    backward_queue_.reserve(components_);
   }
   // 1=True, 0=False, -1=undecided. Both decisive cases are sound.
   int certificate(int source,int target) const {
@@ -128,6 +143,49 @@ public:
     if(topo_rank_[s]>topo_rank_[t] || !necessary(s,t))return 0;
     return -1;
   }
+  // Exact bidirectional search on SCC condensation with safe topological
+  // rank bounds. This is established graph-search engineering, not novelty.
+  // Positive answer iff forward and reverse searches meet. On either-side
+  // exhaustion, no path exists. Counts all examined arcs across both sides.
+  bool reaches_bidirectional(int source,int target,QueryStats* stats=nullptr){
+    const int decision=certificate(source,target);
+    if(decision!=-1){
+      if(stats){if(decision)++stats->certified_yes;else ++stats->certified_no;}
+      return decision!=0;
+    }
+    if(stats)++stats->fallback;
+    const int s=component_.at(source),t=component_.at(target);
+    if(bidir_epoch_==std::numeric_limits<int>::max()){
+      std::fill(forward_seen_.begin(),forward_seen_.end(),0);
+      std::fill(backward_seen_.begin(),backward_seen_.end(),0);
+      bidir_epoch_=0;
+    }
+    ++bidir_epoch_;
+    forward_queue_.clear();backward_queue_.clear();
+    forward_queue_.push_back(s);backward_queue_.push_back(t);
+    forward_seen_[s]=bidir_epoch_;backward_seen_[t]=bidir_epoch_;
+    std::size_t fhead=0,bhead=0;
+    while(fhead<forward_queue_.size() && bhead<backward_queue_.size()){
+      const bool forward=forward_queue_.size()-fhead<=backward_queue_.size()-bhead;
+      const int u=forward?forward_queue_[fhead++]:backward_queue_[bhead++];
+      const auto& adj=forward?dag_[u]:reverse_dag_[u];
+      auto& own_seen=forward?forward_seen_:backward_seen_;
+      const auto& other_seen=forward?backward_seen_:forward_seen_;
+      auto& own_queue=forward?forward_queue_:backward_queue_;
+      for(int v:adj){
+        if(stats)++stats->edges;
+        if(forward && topo_rank_[v]>topo_rank_[t])continue;
+        if(!forward && topo_rank_[v]<topo_rank_[s])continue;
+        if(other_seen[v]==bidir_epoch_)return true;
+        if(own_seen[v]!=bidir_epoch_){
+          own_seen[v]=bidir_epoch_;
+          own_queue.push_back(v);
+        }
+      }
+    }
+    return false;
+  }
+
   // Topological fallback pruning is sound: all arcs in the SCC DAG go from
   // lower to higher topological rank. A vertex ranked past the target cannot
   // reach that target. Keep plain and four-interval alternatives for ablation.
