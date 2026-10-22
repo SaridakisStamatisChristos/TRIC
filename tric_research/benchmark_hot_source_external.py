@@ -129,6 +129,7 @@ def run(args):
         # of 50:50 true/false outcomes; actual truth count is measured.
         queryfile=directory/"heldout.query.m.txt"
         positives=write_queryfile(queryfile,adj,queries)
+        q_sha=hashlib.sha256(queryfile.read_bytes()).hexdigest()
         input_data=native_input(adj,train,queries,
                                 args.hot_sources,args.hot_cache_cap_mib*1024*1024)
         cache_proc=subprocess.run([str(cache_exe)],input=input_data,
@@ -258,7 +259,7 @@ def run(args):
         # class-specific controls; never blend separate graph families.
         result={"class":cls, "seed":args.seed, "graph":graph.name,
                 "train_sha256":train_hash, "heldout_sha256":fingerprint_pairs(queries),
-                "query_file_sha256":hashlib.sha256(queryfile.read_bytes()).hexdigest(),
+                "query_file_sha256":q_sha,
                 "source_hot_train":hot, "source_hot_shifted":shifted,
                 "training_count":len(train),"heldout_count":len(queries),
                 "positive_count":positives,
