@@ -37,6 +37,14 @@ def summarize(paths):
             origin=d["graph_origin"]
         elif origin!=d["graph_origin"]:
             raise ValueError("mixed provenance for a supposedly identical graph")
+        if origin=="synthetic":
+            if (d.get("oreach_benchmark_status")!="NOT_RUN_SYNTHETIC_UPSTREAM_CRASH"
+                    or d.get("oreach") or d.get("oreach_raw_rows")):
+                raise AssertionError("synthetic TRIC-only stress must never masquerade as O-Reach paired evidence")
+        elif (d.get("oreach_benchmark_status")!="EXECUTED_ORIGINAL_SHA_PINNED"
+              or not all(k in d.get("oreach",{}) for k in
+                         ("oreach-pdfs","oreach-pbibfs"))):
+            raise AssertionError("published graph is missing original O-Reach baseline results")
         if sha is None:
             sha=graph
         if sha!=graph:
