@@ -19,6 +19,7 @@ from pathlib import Path
 from benchmark_native import build_executable, serialize_native
 from ordered_probe import greedy_coverage_order, hit_masks_for_pivots, optimize_ordered
 from tric import make_pivot, early_reachable
+from stratified_queries import generate_stratified_queries
 
 
 def read_metis(path):
@@ -102,10 +103,18 @@ def run(args):
     # Degree-based candidates, without looking at held-out query outcomes.
     vertices = sorted(range(n), key=lambda u: (-len(adj[u])-len(rev[u]),u))[:args.candidates]
     training = generate_queries(adj, args.train, args.seed+1)
-    heldout = generate_queries(adj, args.test, args.seed+2)
+    heldout = (generate_queries(adj, args.test, args.seed+2)
+               if args.query_stratum == 'uniform' else
+               generate_stratified_queries(adj, args.test, args.seed+2, args.query_stratum))
     queryfile = out / 'heldout.query.m.txt'
     positives = write_queryfile(queryfile, adj, heldout)
     q_sha = hashlib.sha256(queryfile.read_bytes()).hexdigest()
+    if args.query_stratum == 'positive' and positives != len(heldout):
+        raise AssertionError('positive stratum contains unreachable queries')
+    if args.query_stratum == 'negative' and positives != 0:
+        raise AssertionError('negative stratum contains reachable queries')
+    if args.query_stratum == 'balanced' and positives != len(heldout)//2:
+        raise AssertionError('balanced stratum is not 50:50')
     t0 = time.perf_counter()
     pivots = [make_pivot(adj, rev, v) for v in vertices]
     hits = hit_masks_for_pivots(pivots, training)
@@ -186,6 +195,12 @@ def run(args):
               'n':n, 'edges':sum(map(len,adj)),
               'query_file_sha256':q_sha,'test_count':len(heldout),
               'heldout_positive_count':positives,
+              'query_stratum':args.query_stratum,
+              'query_stratum_sampler':(
+                  'independently BFS-derived; source-uniform over eligible sources; '
+                  'target-uniform among non-self qualifying endpoints'
+                  if args.query_stratum != 'uniform' else
+                  'independent uniform source and target sampling'),
               'candidate_vertices':vertices,'pivot_budget':args.budget,
               'selected_orders':policies,
               'offline_training_seconds_including_pivot_build':training_seconds,
@@ -201,6 +216,8 @@ def run(args):
     print(json.dumps({'n':n,'edges':result['edges'],'heldout':len(heldout),
             'ordered_ns':next(p['median_ns_per_query'] for p in native_results['policies'] if p['name']=='Ordered'),
             'oreach_pdfs_ns':stats['oreach-pdfs']['median_ns_per_query'],
+            'query_stratum':args.query_stratum,
+            'heldout_positive_count':positives,
             'oreach_pbibfs_ns':stats['oreach-pbibfs']['median_ns_per_query'],
             'closure_available':closure['available'],
             'closure_ns':closure.get('median_ns_per_query'),
@@ -235,6 +252,8 @@ def parser():
     p.add_argument('--output-dir',required=True)
     p.add_argument('--train',type=int,default=500)
     p.add_argument('--test',type=int,default=1200)
+    p.add_argument('--query-stratum',choices=('uniform','positive','negative','balanced'),
+                   default='uniform')
     p.add_argument('--seed',type=int,default=20261022)
     p.add_argument('--candidates',type=int,default=11)
     p.add_argument('--budget',type=int,default=5)
