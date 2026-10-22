@@ -86,3 +86,31 @@ Reproduce: `cd tric_research && python -m unittest -q test_hot_source_cache && p
 **P3 — Paper candidates:** separately audit the Phase III graph-specific Vertex Cover reduction and the VI–VII frontier/active-start formulation for *theoretical* novelty. Do not conflate the publishability of those exact optimization problems with index performance.
 
 **Current decision:** **GO** for Phase XIX controlled experiment; **NO-GO** for mainline default, original novelty, commercial-grade fast-index positioning, universal winner, or submission claim.
+
+## 8. Executed Phase XIX native pilot, 2026-10-22
+
+Commit `e51fe9377582a8d9dc8675ac2a3517040f3649d4` passed both
+[the research test matrix](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39784801783)
+and [the dedicated source-skew benchmark](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39784801920).
+The latter uploaded the [raw JSON samples artifact](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39784801920/artifacts/12428397081).
+The C++ exhaustive test initially exposed an **actual retained-memory cap violation** from a resized but over-capacity `source_ids_` vector; a commit corrected the allocation accounting before passing these CI gates. Failed runs remain in Actions history.
+
+**Experimental contract:** three seeded synthetic DAGs of 600 vertices (same graph generator family, so not independent real-world graph replications); 500 train-only pairs each, 4,000 heldout queries per class, 8 candidate hot sources, cap 64 KiB, 14 position-balanced timed native repetitions. Matched/shifted classes use 80%-concentrated source sampling. Both arms are exact; independent BFS oracle asserts correctness.
+
+| Seed | matched hot: DFS/cache | uniform: DFS/cache | disjoint shifted hot: DFS/cache | cached matched answers |
+|---|---:|---:|---:|---:|
+| 20261022 | 1.575× | 1.010× | 1.094× | 3217/4000 |
+| 20261023 | 2.674× | 1.017× | 1.007× | 3222/4000 |
+| 20261024 | 2.312× | 1.013× | 1.002× | 3232/4000 |
+
+The source-hotset hypothesis survives **only** the intended matched source-reuse class. Uniform and shifted-source results reveal missing generality. Notably a 1.094× shifted reading arose with just **12/4000 hits**; its magnitude is inconsistent with material speedup from cache hits alone and highlights run-to-run/timing artifacts rather than robust acceleration.
+
+Calculated strict **incremental** break-even (based on native measured cache build cost and per-query medians; no actual long replay):
+- matched hot: 98, 85 and 83 queries;
+- uniform: 1,233, 1,489 and 1,725;
+- shifted: 551, 8,851 and 22,088; the 551 estimate is particularly untrustworthy given the sparse-hit observation.
+
+These break-even values do **not** include experimental training-sample construction, original TRIC preprocessing, graph loading or any competitor's index costs; the data justify only a narrow within-harness conditional projection.
+
+**Disposition:** PASS narrow test and synthetic pilot; **NO-GO** external superiority or overall SOTA; require same-pair published-graph benchmark against compiled original O'Reach and existing TRIC indexed variants, matched resource accounting, additional source-distribution drift, fixed dedicated hardware and wall-time replay.
+
