@@ -103,6 +103,8 @@ class Phase18Tests(unittest.TestCase):
                 with self.assertRaises((ValueError,AssertionError)):
                     summarize(self.save(folder,rows))
         reject(lambda r:r[0].update({"graph_sha256":"different"}))
+        reject(lambda r:r[0].update({"graph_origin":"unverified"}))
+        reject(lambda r:r[0].update({"graph_origin":"published"}))
         reject(lambda r:r[0].update({"query_file_sha256":r[1]["query_file_sha256"]}))
         reject(lambda r:r[0].update({"training_count":499}))
         reject(lambda r:r[0].update({"heldout_positive_count":500}))
