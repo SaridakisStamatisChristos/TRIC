@@ -1,0 +1,3327 @@
+{
+  "protocol": "Phase XIX executed warm-index uniform batches; within-TRIC only",
+  "graph_sha256": "f81f2b31f90f6873360b89f6af1963e165f6912cf407fd5f45bebcf9ed55fa22",
+  "vertices": 4096,
+  "edges": 116952,
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+    "compile_command": [
+      "g++",
+      "-std=c++17",
+      "-O3",
+      "-DNDEBUG",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-o",
+      "/workspace/scratch/bd29c69155de/phase19-kron/native_query_bench",
+      "/workspace/scratch/bd29c69155de/TRIC/tric_research/native_query_bench.cpp"
+    ],
+    "compile_seconds": 3.132265261999919,
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "source_sha256": {
+      "native_query_bench.cpp": "ebdfe4d91771ba20dac413b48c3717766836bb7de42cbc6becb9dd157861fba6",
+      "lifetime_replay.h": "b2accdea255446a81bf00cb7451ecd41104beb2f25ebe7b384b346c6bd369007",
+      "compact_reachability.h": "7327f364b2dc82349b407f370d6fec5cb414b414ddf02ef03db8751a58e60748",
+      "closure_index.h": "d710d8290644e3b0fd59c9b3574d35c22560fcd584cb729f0ecbaca7ace0dddd",
+      "benchmark_lifetime.py": "6fe56d1b9c783f8069ac9139234ba969d1e11c3f96ac9194b293260de5485687",
+      "benchmark_native.py": "c5df95d131e2036fc20ea0b84e85e54d818e8d0537bfd05e3f2cad70a5510dee",
+      "benchmark_oreach_ci.py": "97f2eeee3f9cf3c04ffc7e94399ec87fe60d7350062a94d5d295385284c12688",
+      "ordered_probe.py": "e1e97fa5087cab364bc1631ef812a7d2c4ac2aa281f05685e7ef21f054f7bbe9",
+      "tric.py": "1f00f783dcda038bcd7e66bf4a9471dbfdc84835dc342b22a80870cc097a63bd"
+    }
+  },
+  "sampling": "uniform pairs with replacement; independent PRNG streams, natural overlap allowed",
+  "cache_regime": "full per-method batch warmup; no cache flushing or dedicated hardware guarantee",
+  "cost_scope": "measured selector fit + measured query batch; excludes shared preparations, oracle, I/O and warmup",
+  "config": {
+    "graph": "/workspace/scratch/bd29c69155de/graphs/kron_g500-simple-logn12.metis/kron_g500-simple-logn12.metis",
+    "output_dir": "/workspace/scratch/bd29c69155de/phase19-kron",
+    "queries": 1000000,
+    "train": 500,
+    "candidates": 11,
+    "budget": 5,
+    "seeds": [
+      20261022,
+      20261023,
+      20261024
+    ],
+    "repetitions": 9,
+    "compiler": "g++",
+    "timeout": 1200
+  },
+  "cases": [
+    {
+      "seed": 20261022,
+      "candidate_vertices": [
+        3154,
+        3377,
+        415,
+        691,
+        1704,
+        3590,
+        225,
+        1433,
+        2927,
+        27,
+        1313
+      ],
+      "ordered_pivots": [
+        4,
+        3,
+        9,
+        10,
+        2
+      ],
+      "training_pairs_sha256": "dc553ffa7c9dda208b5351d8d9f4795084ae4e3ff12f93e0539bc782b2fa225e",
+      "heldout_pairs_sha256": "d09ab967ced0341611883f63317679a9c5db3fa35d1bd1640627a7ae99ef4d1d",
+      "input_sha256": "85c3da1e77de63b123731f44e6a52029494365185ba1647f83cac1af89d71875",
+      "unique_heldout_pairs": 970833,
+      "heldout_occurrences_also_in_training": 33,
+      "python_pivot_preparation_seconds": 1.143547625999986,
+      "native_process_wall_seconds": 22.029623032000018,
+      "raw": {
+        "schema": "tric-phase19-warm-batches-v1",
+        "queries": 1000000,
+        "training_queries": 500,
+        "training_ns": 10991991,
+        "policy_id": 4,
+        "repetitions": 9,
+        "oracle_positive_count": 274758,
+        "pivot_build_ms": 1.833939,
+        "compact_build_ms": 4.20156,
+        "verified_answers_per_method": 1000000,
+        "batches": [
+          {
+            "queries": 1200,
+            "rep": 0,
+            "first_mode": "topo",
+            "expected_checksum": 1505944003510781928,
+            "topo": {
+              "total_ns": 787933,
+              "checksum": 1505944003510781928,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "bidir": {
+              "total_ns": 71456,
+              "checksum": 1505944003510781928,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "selector": {
+              "total_ns": 63645,
+              "checksum": 1505944003510781928,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 1,
+            "first_mode": "bidir",
+            "expected_checksum": 3444561419217818388,
+            "topo": {
+              "total_ns": 772470,
+              "checksum": 3444561419217818388,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "bidir": {
+              "total_ns": 63815,
+              "checksum": 3444561419217818388,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "selector": {
+              "total_ns": 60970,
+              "checksum": 3444561419217818388,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 2,
+            "first_mode": "selector",
+            "expected_checksum": 13113292050464178504,
+            "topo": {
+              "total_ns": 760421,
+              "checksum": 13113292050464178504,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "bidir": {
+              "total_ns": 70755,
+              "checksum": 13113292050464178504,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "selector": {
+              "total_ns": 75863,
+              "checksum": 13113292050464178504,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 3,
+            "first_mode": "topo",
+            "expected_checksum": 13145911791481983116,
+            "topo": {
+              "total_ns": 804397,
+              "checksum": 13145911791481983116,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "bidir": {
+              "total_ns": 66740,
+              "checksum": 13145911791481983116,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "selector": {
+              "total_ns": 63114,
+              "checksum": 13145911791481983116,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 4,
+            "first_mode": "bidir",
+            "expected_checksum": 9388033932481403164,
+            "topo": {
+              "total_ns": 759360,
+              "checksum": 9388033932481403164,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "bidir": {
+              "total_ns": 63514,
+              "checksum": 9388033932481403164,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "selector": {
+              "total_ns": 60180,
+              "checksum": 9388033932481403164,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 5,
+            "first_mode": "selector",
+            "expected_checksum": 9937471104236067860,
+            "topo": {
+              "total_ns": 3634026,
+              "checksum": 9937471104236067860,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "bidir": {
+              "total_ns": 79808,
+              "checksum": 9937471104236067860,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "selector": {
+              "total_ns": 88411,
+              "checksum": 9937471104236067860,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 6,
+            "first_mode": "topo",
+            "expected_checksum": 6051661726720104642,
+            "topo": {
+              "total_ns": 791848,
+              "checksum": 6051661726720104642,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "bidir": {
+              "total_ns": 542707,
+              "checksum": 6051661726720104642,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "selector": {
+              "total_ns": 75552,
+              "checksum": 6051661726720104642,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 7,
+            "first_mode": "bidir",
+            "expected_checksum": 3832504992977618944,
+            "topo": {
+              "total_ns": 817326,
+              "checksum": 3832504992977618944,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "bidir": {
+              "total_ns": 62583,
+              "checksum": 3832504992977618944,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "selector": {
+              "total_ns": 60289,
+              "checksum": 3832504992977618944,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 8,
+            "first_mode": "selector",
+            "expected_checksum": 15345663910830153164,
+            "topo": {
+              "total_ns": 830585,
+              "checksum": 15345663910830153164,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "bidir": {
+              "total_ns": 71727,
+              "checksum": 15345663910830153164,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            },
+            "selector": {
+              "total_ns": 73729,
+              "checksum": 15345663910830153164,
+              "probes": 1519,
+              "rescues": 215,
+              "fallbacks": 244
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 0,
+            "first_mode": "topo",
+            "expected_checksum": 9547437291209903424,
+            "topo": {
+              "total_ns": 6352270,
+              "checksum": 9547437291209903424,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "bidir": {
+              "total_ns": 781523,
+              "checksum": 9547437291209903424,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "selector": {
+              "total_ns": 1028049,
+              "checksum": 9547437291209903424,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 1,
+            "first_mode": "bidir",
+            "expected_checksum": 10216028213073371276,
+            "topo": {
+              "total_ns": 6891442,
+              "checksum": 10216028213073371276,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "bidir": {
+              "total_ns": 733762,
+              "checksum": 10216028213073371276,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "selector": {
+              "total_ns": 698859,
+              "checksum": 10216028213073371276,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 2,
+            "first_mode": "selector",
+            "expected_checksum": 6909197941104496428,
+            "topo": {
+              "total_ns": 6871733,
+              "checksum": 6909197941104496428,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "bidir": {
+              "total_ns": 827712,
+              "checksum": 6909197941104496428,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "selector": {
+              "total_ns": 851396,
+              "checksum": 6909197941104496428,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 3,
+            "first_mode": "topo",
+            "expected_checksum": 8484063549966302318,
+            "topo": {
+              "total_ns": 7086503,
+              "checksum": 8484063549966302318,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "bidir": {
+              "total_ns": 795543,
+              "checksum": 8484063549966302318,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "selector": {
+              "total_ns": 764638,
+              "checksum": 8484063549966302318,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 4,
+            "first_mode": "bidir",
+            "expected_checksum": 12928938486211641276,
+            "topo": {
+              "total_ns": 6411477,
+              "checksum": 12928938486211641276,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "bidir": {
+              "total_ns": 736205,
+              "checksum": 12928938486211641276,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "selector": {
+              "total_ns": 850165,
+              "checksum": 12928938486211641276,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 5,
+            "first_mode": "selector",
+            "expected_checksum": 8646373341037358202,
+            "topo": {
+              "total_ns": 6687288,
+              "checksum": 8646373341037358202,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "bidir": {
+              "total_ns": 970033,
+              "checksum": 8646373341037358202,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "selector": {
+              "total_ns": 744337,
+              "checksum": 8646373341037358202,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 6,
+            "first_mode": "topo",
+            "expected_checksum": 18231449264491291850,
+            "topo": {
+              "total_ns": 6292491,
+              "checksum": 18231449264491291850,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "bidir": {
+              "total_ns": 721143,
+              "checksum": 18231449264491291850,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "selector": {
+              "total_ns": 881972,
+              "checksum": 18231449264491291850,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 7,
+            "first_mode": "bidir",
+            "expected_checksum": 3892994435127523348,
+            "topo": {
+              "total_ns": 6526789,
+              "checksum": 3892994435127523348,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "bidir": {
+              "total_ns": 721143,
+              "checksum": 3892994435127523348,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "selector": {
+              "total_ns": 680282,
+              "checksum": 3892994435127523348,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 8,
+            "first_mode": "selector",
+            "expected_checksum": 9761808025810889976,
+            "topo": {
+              "total_ns": 6828868,
+              "checksum": 9761808025810889976,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "bidir": {
+              "total_ns": 749685,
+              "checksum": 9761808025810889976,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            },
+            "selector": {
+              "total_ns": 722005,
+              "checksum": 9761808025810889976,
+              "probes": 12180,
+              "rescues": 1900,
+              "fallbacks": 1895
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 0,
+            "first_mode": "topo",
+            "expected_checksum": 6616918851961492812,
+            "topo": {
+              "total_ns": 68860570,
+              "checksum": 6616918851961492812,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "bidir": {
+              "total_ns": 9145336,
+              "checksum": 6616918851961492812,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "selector": {
+              "total_ns": 8567285,
+              "checksum": 6616918851961492812,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 1,
+            "first_mode": "bidir",
+            "expected_checksum": 18194431762215960546,
+            "topo": {
+              "total_ns": 77276200,
+              "checksum": 18194431762215960546,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "bidir": {
+              "total_ns": 8218587,
+              "checksum": 18194431762215960546,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "selector": {
+              "total_ns": 8824157,
+              "checksum": 18194431762215960546,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 2,
+            "first_mode": "selector",
+            "expected_checksum": 7970255261992693200,
+            "topo": {
+              "total_ns": 79245399,
+              "checksum": 7970255261992693200,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "bidir": {
+              "total_ns": 8709096,
+              "checksum": 7970255261992693200,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "selector": {
+              "total_ns": 10666919,
+              "checksum": 7970255261992693200,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 3,
+            "first_mode": "topo",
+            "expected_checksum": 16308062099080079368,
+            "topo": {
+              "total_ns": 86608933,
+              "checksum": 16308062099080079368,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "bidir": {
+              "total_ns": 10805025,
+              "checksum": 16308062099080079368,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "selector": {
+              "total_ns": 10814037,
+              "checksum": 16308062099080079368,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 4,
+            "first_mode": "bidir",
+            "expected_checksum": 15843701750292093438,
+            "topo": {
+              "total_ns": 81262089,
+              "checksum": 15843701750292093438,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "bidir": {
+              "total_ns": 9742233,
+              "checksum": 15843701750292093438,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "selector": {
+              "total_ns": 9387135,
+              "checksum": 15843701750292093438,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 5,
+            "first_mode": "selector",
+            "expected_checksum": 14233259721225740356,
+            "topo": {
+              "total_ns": 73282460,
+              "checksum": 14233259721225740356,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "bidir": {
+              "total_ns": 7904729,
+              "checksum": 14233259721225740356,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "selector": {
+              "total_ns": 8397552,
+              "checksum": 14233259721225740356,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 6,
+            "first_mode": "topo",
+            "expected_checksum": 1626983186164829298,
+            "topo": {
+              "total_ns": 77130803,
+              "checksum": 1626983186164829298,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "bidir": {
+              "total_ns": 8161181,
+              "checksum": 1626983186164829298,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "selector": {
+              "total_ns": 8628546,
+              "checksum": 1626983186164829298,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 7,
+            "first_mode": "bidir",
+            "expected_checksum": 8254021889058382132,
+            "topo": {
+              "total_ns": 77258804,
+              "checksum": 8254021889058382132,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "bidir": {
+              "total_ns": 8179999,
+              "checksum": 8254021889058382132,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "selector": {
+              "total_ns": 9812798,
+              "checksum": 8254021889058382132,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 8,
+            "first_mode": "selector",
+            "expected_checksum": 1003428571018831042,
+            "topo": {
+              "total_ns": 82111463,
+              "checksum": 1003428571018831042,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "bidir": {
+              "total_ns": 9860699,
+              "checksum": 1003428571018831042,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            },
+            "selector": {
+              "total_ns": 8112128,
+              "checksum": 1003428571018831042,
+              "probes": 126580,
+              "rescues": 19293,
+              "fallbacks": 19760
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 0,
+            "first_mode": "topo",
+            "expected_checksum": 6852537662632309688,
+            "topo": {
+              "total_ns": 765428168,
+              "checksum": 6852537662632309688,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "bidir": {
+              "total_ns": 111640662,
+              "checksum": 6852537662632309688,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "selector": {
+              "total_ns": 122797760,
+              "checksum": 6852537662632309688,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 1,
+            "first_mode": "bidir",
+            "expected_checksum": 11549943606046817300,
+            "topo": {
+              "total_ns": 725472266,
+              "checksum": 11549943606046817300,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "bidir": {
+              "total_ns": 138581495,
+              "checksum": 11549943606046817300,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "selector": {
+              "total_ns": 118413437,
+              "checksum": 11549943606046817300,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 2,
+            "first_mode": "selector",
+            "expected_checksum": 5127645068579145332,
+            "topo": {
+              "total_ns": 773661756,
+              "checksum": 5127645068579145332,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "bidir": {
+              "total_ns": 110014643,
+              "checksum": 5127645068579145332,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "selector": {
+              "total_ns": 131162393,
+              "checksum": 5127645068579145332,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 3,
+            "first_mode": "topo",
+            "expected_checksum": 2228929160311086780,
+            "topo": {
+              "total_ns": 765824800,
+              "checksum": 2228929160311086780,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "bidir": {
+              "total_ns": 130358896,
+              "checksum": 2228929160311086780,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "selector": {
+              "total_ns": 127776164,
+              "checksum": 2228929160311086780,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 4,
+            "first_mode": "bidir",
+            "expected_checksum": 10680280607064022188,
+            "topo": {
+              "total_ns": 785104159,
+              "checksum": 10680280607064022188,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "bidir": {
+              "total_ns": 113154733,
+              "checksum": 10680280607064022188,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "selector": {
+              "total_ns": 143886997,
+              "checksum": 10680280607064022188,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 5,
+            "first_mode": "selector",
+            "expected_checksum": 10530886275392757104,
+            "topo": {
+              "total_ns": 767759714,
+              "checksum": 10530886275392757104,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "bidir": {
+              "total_ns": 121409166,
+              "checksum": 10530886275392757104,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "selector": {
+              "total_ns": 124398474,
+              "checksum": 10530886275392757104,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 6,
+            "first_mode": "topo",
+            "expected_checksum": 8808840497643877910,
+            "topo": {
+              "total_ns": 746866688,
+              "checksum": 8808840497643877910,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "bidir": {
+              "total_ns": 110417330,
+              "checksum": 8808840497643877910,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "selector": {
+              "total_ns": 129084209,
+              "checksum": 8808840497643877910,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 7,
+            "first_mode": "bidir",
+            "expected_checksum": 2098692025586177256,
+            "topo": {
+              "total_ns": 799672678,
+              "checksum": 2098692025586177256,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "bidir": {
+              "total_ns": 129325249,
+              "checksum": 2098692025586177256,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "selector": {
+              "total_ns": 109607296,
+              "checksum": 2098692025586177256,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 8,
+            "first_mode": "selector",
+            "expected_checksum": 6879221391794297176,
+            "topo": {
+              "total_ns": 761404018,
+              "checksum": 6879221391794297176,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "bidir": {
+              "total_ns": 119932359,
+              "checksum": 6879221391794297176,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            },
+            "selector": {
+              "total_ns": 164497145,
+              "checksum": 6879221391794297176,
+              "probes": 1247152,
+              "rescues": 193015,
+              "fallbacks": 194486
+            }
+          }
+        ]
+      },
+      "summary": [
+        {
+          "queries": 1200,
+          "measured_repetitions": 9,
+          "topo": {
+            "median_baseline_batch_ns": 791848,
+            "median_selector_batch_ns": 63645,
+            "median_paired_query_savings_ns": 724288,
+            "median_paired_net_savings_after_fit_ns": -10267703,
+            "paired_net_wins_after_fit": 0
+          },
+          "bidir": {
+            "median_baseline_batch_ns": 70755,
+            "median_selector_batch_ns": 63645,
+            "median_paired_query_savings_ns": 2845,
+            "median_paired_net_savings_after_fit_ns": -10989146,
+            "paired_net_wins_after_fit": 0
+          }
+        },
+        {
+          "queries": 10000,
+          "measured_repetitions": 9,
+          "topo": {
+            "median_baseline_batch_ns": 6687288,
+            "median_selector_batch_ns": 764638,
+            "median_paired_query_savings_ns": 5942951,
+            "median_paired_net_savings_after_fit_ns": -5049040,
+            "paired_net_wins_after_fit": 0
+          },
+          "bidir": {
+            "median_baseline_batch_ns": 749685,
+            "median_selector_batch_ns": 764638,
+            "median_paired_query_savings_ns": 27680,
+            "median_paired_net_savings_after_fit_ns": -10964311,
+            "paired_net_wins_after_fit": 0
+          }
+        },
+        {
+          "queries": 100000,
+          "measured_repetitions": 9,
+          "topo": {
+            "median_baseline_batch_ns": 77276200,
+            "median_selector_batch_ns": 8824157,
+            "median_paired_query_savings_ns": 68502257,
+            "median_paired_net_savings_after_fit_ns": 57510266,
+            "paired_net_wins_after_fit": 9
+          },
+          "bidir": {
+            "median_baseline_batch_ns": 8709096,
+            "median_selector_batch_ns": 8824157,
+            "median_paired_query_savings_ns": -467365,
+            "median_paired_net_savings_after_fit_ns": -11459356,
+            "paired_net_wins_after_fit": 0
+          }
+        },
+        {
+          "queries": 1000000,
+          "measured_repetitions": 9,
+          "topo": {
+            "median_baseline_batch_ns": 765824800,
+            "median_selector_batch_ns": 127776164,
+            "median_paired_query_savings_ns": 641217162,
+            "median_paired_net_savings_after_fit_ns": 630225171,
+            "paired_net_wins_after_fit": 9
+          },
+          "bidir": {
+            "median_baseline_batch_ns": 119932359,
+            "median_selector_batch_ns": 127776164,
+            "median_paired_query_savings_ns": -11157098,
+            "median_paired_net_savings_after_fit_ns": -22149089,
+            "paired_net_wins_after_fit": 2
+          }
+        }
+      ]
+    },
+    {
+      "seed": 20261023,
+      "candidate_vertices": [
+        3154,
+        3377,
+        415,
+        691,
+        1704,
+        3590,
+        225,
+        1433,
+        2927,
+        27,
+        1313
+      ],
+      "ordered_pivots": [
+        4,
+        3,
+        10,
+        9,
+        2
+      ],
+      "training_pairs_sha256": "52eabb4954d038a5b5c358342bae025db0960f8d8b3010622086fe35c1613bed",
+      "heldout_pairs_sha256": "aed9c6ca95067a93114750796b12ae2b1c2000a5d8640f374d3ab3c47e753d35",
+      "input_sha256": "a5b39b18c2f1842467578996577b621c4d5858f436abf857a4ac2a3b090be2d8",
+      "unique_heldout_pairs": 970719,
+      "heldout_occurrences_also_in_training": 31,
+      "python_pivot_preparation_seconds": 0.9544920220000677,
+      "native_process_wall_seconds": 23.343335135000075,
+      "raw": {
+        "schema": "tric-phase19-warm-batches-v1",
+        "queries": 1000000,
+        "training_queries": 500,
+        "training_ns": 11719717,
+        "policy_id": 4,
+        "repetitions": 9,
+        "oracle_positive_count": 274489,
+        "pivot_build_ms": 1.794981,
+        "compact_build_ms": 4.271445,
+        "verified_answers_per_method": 1000000,
+        "batches": [
+          {
+            "queries": 1200,
+            "rep": 0,
+            "first_mode": "topo",
+            "expected_checksum": 5626180869923705411,
+            "topo": {
+              "total_ns": 954040,
+              "checksum": 5626180869923705411,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "bidir": {
+              "total_ns": 107900,
+              "checksum": 5626180869923705411,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "selector": {
+              "total_ns": 62473,
+              "checksum": 5626180869923705411,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 1,
+            "first_mode": "bidir",
+            "expected_checksum": 5670785014802509135,
+            "topo": {
+              "total_ns": 837736,
+              "checksum": 5670785014802509135,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "bidir": {
+              "total_ns": 62052,
+              "checksum": 5670785014802509135,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "selector": {
+              "total_ns": 57606,
+              "checksum": 5670785014802509135,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 2,
+            "first_mode": "selector",
+            "expected_checksum": 11752472473287225419,
+            "topo": {
+              "total_ns": 861221,
+              "checksum": 11752472473287225419,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "bidir": {
+              "total_ns": 70605,
+              "checksum": 11752472473287225419,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "selector": {
+              "total_ns": 127840,
+              "checksum": 11752472473287225419,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 3,
+            "first_mode": "topo",
+            "expected_checksum": 8282522662969929615,
+            "topo": {
+              "total_ns": 721122,
+              "checksum": 8282522662969929615,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "bidir": {
+              "total_ns": 76544,
+              "checksum": 8282522662969929615,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "selector": {
+              "total_ns": 59939,
+              "checksum": 8282522662969929615,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 4,
+            "first_mode": "bidir",
+            "expected_checksum": 2383225206291720705,
+            "topo": {
+              "total_ns": 927020,
+              "checksum": 2383225206291720705,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "bidir": {
+              "total_ns": 67992,
+              "checksum": 2383225206291720705,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "selector": {
+              "total_ns": 59028,
+              "checksum": 2383225206291720705,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 5,
+            "first_mode": "selector",
+            "expected_checksum": 1478237115095287557,
+            "topo": {
+              "total_ns": 983173,
+              "checksum": 1478237115095287557,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "bidir": {
+              "total_ns": 76744,
+              "checksum": 1478237115095287557,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "selector": {
+              "total_ns": 71566,
+              "checksum": 1478237115095287557,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 6,
+            "first_mode": "topo",
+            "expected_checksum": 8158757452315372929,
+            "topo": {
+              "total_ns": 800310,
+              "checksum": 8158757452315372929,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "bidir": {
+              "total_ns": 68452,
+              "checksum": 8158757452315372929,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "selector": {
+              "total_ns": 89243,
+              "checksum": 8158757452315372929,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 7,
+            "first_mode": "bidir",
+            "expected_checksum": 4738047453308447805,
+            "topo": {
+              "total_ns": 984085,
+              "checksum": 4738047453308447805,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "bidir": {
+              "total_ns": 61992,
+              "checksum": 4738047453308447805,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "selector": {
+              "total_ns": 52989,
+              "checksum": 4738047453308447805,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 8,
+            "first_mode": "selector",
+            "expected_checksum": 14466750039192818533,
+            "topo": {
+              "total_ns": 739590,
+              "checksum": 14466750039192818533,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "bidir": {
+              "total_ns": 91777,
+              "checksum": 14466750039192818533,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            },
+            "selector": {
+              "total_ns": 86589,
+              "checksum": 14466750039192818533,
+              "probes": 1405,
+              "rescues": 218,
+              "fallbacks": 224
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 0,
+            "first_mode": "topo",
+            "expected_checksum": 5218838322644046567,
+            "topo": {
+              "total_ns": 7330527,
+              "checksum": 5218838322644046567,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "bidir": {
+              "total_ns": 915772,
+              "checksum": 5218838322644046567,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "selector": {
+              "total_ns": 988441,
+              "checksum": 5218838322644046567,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 1,
+            "first_mode": "bidir",
+            "expected_checksum": 9342006273929602183,
+            "topo": {
+              "total_ns": 7644113,
+              "checksum": 9342006273929602183,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "bidir": {
+              "total_ns": 753671,
+              "checksum": 9342006273929602183,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "selector": {
+              "total_ns": 976963,
+              "checksum": 9342006273929602183,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 2,
+            "first_mode": "selector",
+            "expected_checksum": 15915700366281681127,
+            "topo": {
+              "total_ns": 8618903,
+              "checksum": 15915700366281681127,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "bidir": {
+              "total_ns": 877936,
+              "checksum": 15915700366281681127,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "selector": {
+              "total_ns": 760892,
+              "checksum": 15915700366281681127,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 3,
+            "first_mode": "topo",
+            "expected_checksum": 3207169630216930813,
+            "topo": {
+              "total_ns": 7500484,
+              "checksum": 3207169630216930813,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "bidir": {
+              "total_ns": 836805,
+              "checksum": 3207169630216930813,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "selector": {
+              "total_ns": 1539550,
+              "checksum": 3207169630216930813,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 4,
+            "first_mode": "bidir",
+            "expected_checksum": 14886358665258009123,
+            "topo": {
+              "total_ns": 7725094,
+              "checksum": 14886358665258009123,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "bidir": {
+              "total_ns": 983764,
+              "checksum": 14886358665258009123,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "selector": {
+              "total_ns": 1248637,
+              "checksum": 14886358665258009123,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 5,
+            "first_mode": "selector",
+            "expected_checksum": 15789201518180382887,
+            "topo": {
+              "total_ns": 7400351,
+              "checksum": 15789201518180382887,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "bidir": {
+              "total_ns": 896274,
+              "checksum": 15789201518180382887,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "selector": {
+              "total_ns": 926809,
+              "checksum": 15789201518180382887,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 6,
+            "first_mode": "topo",
+            "expected_checksum": 13967732654295659563,
+            "topo": {
+              "total_ns": 8778170,
+              "checksum": 13967732654295659563,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "bidir": {
+              "total_ns": 977865,
+              "checksum": 13967732654295659563,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "selector": {
+              "total_ns": 1037965,
+              "checksum": 13967732654295659563,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 7,
+            "first_mode": "bidir",
+            "expected_checksum": 5822924947409114713,
+            "topo": {
+              "total_ns": 8717149,
+              "checksum": 5822924947409114713,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "bidir": {
+              "total_ns": 950044,
+              "checksum": 5822924947409114713,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "selector": {
+              "total_ns": 908452,
+              "checksum": 5822924947409114713,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 8,
+            "first_mode": "selector",
+            "expected_checksum": 13026179682190156831,
+            "topo": {
+              "total_ns": 7611824,
+              "checksum": 13026179682190156831,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "bidir": {
+              "total_ns": 1106416,
+              "checksum": 13026179682190156831,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            },
+            "selector": {
+              "total_ns": 1071043,
+              "checksum": 13026179682190156831,
+              "probes": 12176,
+              "rescues": 1918,
+              "fallbacks": 1918
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 0,
+            "first_mode": "topo",
+            "expected_checksum": 17665352336010300271,
+            "topo": {
+              "total_ns": 84738061,
+              "checksum": 17665352336010300271,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "bidir": {
+              "total_ns": 9850246,
+              "checksum": 17665352336010300271,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "selector": {
+              "total_ns": 8922429,
+              "checksum": 17665352336010300271,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 1,
+            "first_mode": "bidir",
+            "expected_checksum": 6145676219951853275,
+            "topo": {
+              "total_ns": 83565494,
+              "checksum": 6145676219951853275,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "bidir": {
+              "total_ns": 9510464,
+              "checksum": 6145676219951853275,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "selector": {
+              "total_ns": 9791738,
+              "checksum": 6145676219951853275,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 2,
+            "first_mode": "selector",
+            "expected_checksum": 16304514265076485301,
+            "topo": {
+              "total_ns": 79252884,
+              "checksum": 16304514265076485301,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "bidir": {
+              "total_ns": 8106740,
+              "checksum": 16304514265076485301,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "selector": {
+              "total_ns": 8163416,
+              "checksum": 16304514265076485301,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 3,
+            "first_mode": "topo",
+            "expected_checksum": 2450102601485627537,
+            "topo": {
+              "total_ns": 78909006,
+              "checksum": 2450102601485627537,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "bidir": {
+              "total_ns": 8334404,
+              "checksum": 2450102601485627537,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "selector": {
+              "total_ns": 9439125,
+              "checksum": 2450102601485627537,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 4,
+            "first_mode": "bidir",
+            "expected_checksum": 8954952249639665631,
+            "topo": {
+              "total_ns": 88373885,
+              "checksum": 8954952249639665631,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "bidir": {
+              "total_ns": 8111227,
+              "checksum": 8954952249639665631,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "selector": {
+              "total_ns": 9216000,
+              "checksum": 8954952249639665631,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 5,
+            "first_mode": "selector",
+            "expected_checksum": 4060613861499844413,
+            "topo": {
+              "total_ns": 75022307,
+              "checksum": 4060613861499844413,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "bidir": {
+              "total_ns": 9140015,
+              "checksum": 4060613861499844413,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "selector": {
+              "total_ns": 8679853,
+              "checksum": 4060613861499844413,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 6,
+            "first_mode": "topo",
+            "expected_checksum": 9848427574675209457,
+            "topo": {
+              "total_ns": 74691248,
+              "checksum": 9848427574675209457,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "bidir": {
+              "total_ns": 10586292,
+              "checksum": 9848427574675209457,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "selector": {
+              "total_ns": 8745973,
+              "checksum": 9848427574675209457,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 7,
+            "first_mode": "bidir",
+            "expected_checksum": 1003458467536692565,
+            "topo": {
+              "total_ns": 89668438,
+              "checksum": 1003458467536692565,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "bidir": {
+              "total_ns": 9723003,
+              "checksum": 1003458467536692565,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "selector": {
+              "total_ns": 9902843,
+              "checksum": 1003458467536692565,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 8,
+            "first_mode": "selector",
+            "expected_checksum": 1663000322210559381,
+            "topo": {
+              "total_ns": 77695611,
+              "checksum": 1663000322210559381,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "bidir": {
+              "total_ns": 9476562,
+              "checksum": 1663000322210559381,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            },
+            "selector": {
+              "total_ns": 8796248,
+              "checksum": 1663000322210559381,
+              "probes": 122385,
+              "rescues": 19377,
+              "fallbacks": 19222
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 0,
+            "first_mode": "topo",
+            "expected_checksum": 5008707092298294911,
+            "topo": {
+              "total_ns": 816028600,
+              "checksum": 5008707092298294911,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "bidir": {
+              "total_ns": 114426078,
+              "checksum": 5008707092298294911,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "selector": {
+              "total_ns": 167390640,
+              "checksum": 5008707092298294911,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 1,
+            "first_mode": "bidir",
+            "expected_checksum": 2074863730914831477,
+            "topo": {
+              "total_ns": 891879919,
+              "checksum": 2074863730914831477,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "bidir": {
+              "total_ns": 139925250,
+              "checksum": 2074863730914831477,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "selector": {
+              "total_ns": 117921355,
+              "checksum": 2074863730914831477,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 2,
+            "first_mode": "selector",
+            "expected_checksum": 14751094637156416165,
+            "topo": {
+              "total_ns": 859656646,
+              "checksum": 14751094637156416165,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "bidir": {
+              "total_ns": 132200920,
+              "checksum": 14751094637156416165,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "selector": {
+              "total_ns": 116454861,
+              "checksum": 14751094637156416165,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 3,
+            "first_mode": "topo",
+            "expected_checksum": 37866521232261019,
+            "topo": {
+              "total_ns": 843473237,
+              "checksum": 37866521232261019,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "bidir": {
+              "total_ns": 136836704,
+              "checksum": 37866521232261019,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "selector": {
+              "total_ns": 114851824,
+              "checksum": 37866521232261019,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 4,
+            "first_mode": "bidir",
+            "expected_checksum": 16738705971442313717,
+            "topo": {
+              "total_ns": 751553880,
+              "checksum": 16738705971442313717,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "bidir": {
+              "total_ns": 118458074,
+              "checksum": 16738705971442313717,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "selector": {
+              "total_ns": 139796551,
+              "checksum": 16738705971442313717,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 5,
+            "first_mode": "selector",
+            "expected_checksum": 7678207838935632739,
+            "topo": {
+              "total_ns": 753439418,
+              "checksum": 7678207838935632739,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "bidir": {
+              "total_ns": 147052623,
+              "checksum": 7678207838935632739,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "selector": {
+              "total_ns": 113907006,
+              "checksum": 7678207838935632739,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 6,
+            "first_mode": "topo",
+            "expected_checksum": 5964379247849499759,
+            "topo": {
+              "total_ns": 735569552,
+              "checksum": 5964379247849499759,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "bidir": {
+              "total_ns": 112446353,
+              "checksum": 5964379247849499759,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "selector": {
+              "total_ns": 142665552,
+              "checksum": 5964379247849499759,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 7,
+            "first_mode": "bidir",
+            "expected_checksum": 5000438048318952325,
+            "topo": {
+              "total_ns": 863548475,
+              "checksum": 5000438048318952325,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "bidir": {
+              "total_ns": 125373441,
+              "checksum": 5000438048318952325,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "selector": {
+              "total_ns": 120506223,
+              "checksum": 5000438048318952325,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 8,
+            "first_mode": "selector",
+            "expected_checksum": 6416679352915029803,
+            "topo": {
+              "total_ns": 858725441,
+              "checksum": 6416679352915029803,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "bidir": {
+              "total_ns": 146791755,
+              "checksum": 6416679352915029803,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            },
+            "selector": {
+              "total_ns": 127678058,
+              "checksum": 6416679352915029803,
+              "probes": 1236677,
+              "rescues": 192949,
+              "fallbacks": 194983
+            }
+          }
+        ]
+      },
+      "summary": [
+        {
+          "queries": 1200,
+          "measured_repetitions": 9,
+          "topo": {
+            "median_baseline_batch_ns": 861221,
+            "median_selector_batch_ns": 62473,
+            "median_paired_query_savings_ns": 780130,
+            "median_paired_net_savings_after_fit_ns": -10939587,
+            "paired_net_wins_after_fit": 0
+          },
+          "bidir": {
+            "median_baseline_batch_ns": 70605,
+            "median_selector_batch_ns": 62473,
+            "median_paired_query_savings_ns": 5188,
+            "median_paired_net_savings_after_fit_ns": -11714529,
+            "paired_net_wins_after_fit": 0
+          }
+        },
+        {
+          "queries": 10000,
+          "measured_repetitions": 9,
+          "topo": {
+            "median_baseline_batch_ns": 7644113,
+            "median_selector_batch_ns": 988441,
+            "median_paired_query_savings_ns": 6540781,
+            "median_paired_net_savings_after_fit_ns": -5178936,
+            "paired_net_wins_after_fit": 0
+          },
+          "bidir": {
+            "median_baseline_batch_ns": 915772,
+            "median_selector_batch_ns": 988441,
+            "median_paired_query_savings_ns": -60100,
+            "median_paired_net_savings_after_fit_ns": -11779817,
+            "paired_net_wins_after_fit": 0
+          }
+        },
+        {
+          "queries": 100000,
+          "measured_repetitions": 9,
+          "topo": {
+            "median_baseline_batch_ns": 79252884,
+            "median_selector_batch_ns": 8922429,
+            "median_paired_query_savings_ns": 71089468,
+            "median_paired_net_savings_after_fit_ns": 59369751,
+            "paired_net_wins_after_fit": 9
+          },
+          "bidir": {
+            "median_baseline_batch_ns": 9476562,
+            "median_selector_batch_ns": 8922429,
+            "median_paired_query_savings_ns": -56676,
+            "median_paired_net_savings_after_fit_ns": -11776393,
+            "paired_net_wins_after_fit": 0
+          }
+        },
+        {
+          "queries": 1000000,
+          "measured_repetitions": 9,
+          "topo": {
+            "median_baseline_batch_ns": 843473237,
+            "median_selector_batch_ns": 120506223,
+            "median_paired_query_savings_ns": 728621413,
+            "median_paired_net_savings_after_fit_ns": 716901696,
+            "paired_net_wins_after_fit": 9
+          },
+          "bidir": {
+            "median_baseline_batch_ns": 132200920,
+            "median_selector_batch_ns": 120506223,
+            "median_paired_query_savings_ns": 15746059,
+            "median_paired_net_savings_after_fit_ns": 4026342,
+            "paired_net_wins_after_fit": 5
+          }
+        }
+      ]
+    },
+    {
+      "seed": 20261024,
+      "candidate_vertices": [
+        3154,
+        3377,
+        415,
+        691,
+        1704,
+        3590,
+        225,
+        1433,
+        2927,
+        27,
+        1313
+      ],
+      "ordered_pivots": [
+        8,
+        3,
+        4,
+        10,
+        9
+      ],
+      "training_pairs_sha256": "c750ed4ce018013a4f87b111d963d66e09fd9602d6ee6dec1f5b1850f9e4d102",
+      "heldout_pairs_sha256": "4b662659b7569f525ec6aac142ec53d986824524178d86cfe578647f36b019f1",
+      "input_sha256": "bb128e7e3f1bc80d6d6bd0e91270e7830af97ff82259a73ab68e4968e05d95bd",
+      "unique_heldout_pairs": 970707,
+      "heldout_occurrences_also_in_training": 25,
+      "python_pivot_preparation_seconds": 1.062109362000001,
+      "native_process_wall_seconds": 12.13396233900005,
+      "raw": {
+        "schema": "tric-phase19-warm-batches-v1",
+        "queries": 1000000,
+        "training_queries": 500,
+        "training_ns": 6147107,
+        "policy_id": 4,
+        "repetitions": 9,
+        "oracle_positive_count": 274559,
+        "pivot_build_ms": 2.016613,
+        "compact_build_ms": 4.806638,
+        "verified_answers_per_method": 1000000,
+        "batches": [
+          {
+            "queries": 1200,
+            "rep": 0,
+            "first_mode": "topo",
+            "expected_checksum": 12649888271084112712,
+            "topo": {
+              "total_ns": 245906,
+              "checksum": 12649888271084112712,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "bidir": {
+              "total_ns": 42193,
+              "checksum": 12649888271084112712,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "selector": {
+              "total_ns": 37566,
+              "checksum": 12649888271084112712,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 1,
+            "first_mode": "bidir",
+            "expected_checksum": 5313795693905632584,
+            "topo": {
+              "total_ns": 237724,
+              "checksum": 5313795693905632584,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "bidir": {
+              "total_ns": 39599,
+              "checksum": 5313795693905632584,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "selector": {
+              "total_ns": 35052,
+              "checksum": 5313795693905632584,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 2,
+            "first_mode": "selector",
+            "expected_checksum": 11553472540402540070,
+            "topo": {
+              "total_ns": 208160,
+              "checksum": 11553472540402540070,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "bidir": {
+              "total_ns": 38007,
+              "checksum": 11553472540402540070,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "selector": {
+              "total_ns": 38838,
+              "checksum": 11553472540402540070,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 3,
+            "first_mode": "topo",
+            "expected_checksum": 13642160476153867320,
+            "topo": {
+              "total_ns": 210753,
+              "checksum": 13642160476153867320,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "bidir": {
+              "total_ns": 39188,
+              "checksum": 13642160476153867320,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "selector": {
+              "total_ns": 35412,
+              "checksum": 13642160476153867320,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 4,
+            "first_mode": "bidir",
+            "expected_checksum": 17253538855716479936,
+            "topo": {
+              "total_ns": 236222,
+              "checksum": 17253538855716479936,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "bidir": {
+              "total_ns": 39909,
+              "checksum": 17253538855716479936,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "selector": {
+              "total_ns": 35032,
+              "checksum": 17253538855716479936,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 5,
+            "first_mode": "selector",
+            "expected_checksum": 6400796356886663424,
+            "topo": {
+              "total_ns": 231794,
+              "checksum": 6400796356886663424,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "bidir": {
+              "total_ns": 38707,
+              "checksum": 6400796356886663424,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "selector": {
+              "total_ns": 42063,
+              "checksum": 6400796356886663424,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 6,
+            "first_mode": "topo",
+            "expected_checksum": 15021940546773139578,
+            "topo": {
+              "total_ns": 225956,
+              "checksum": 15021940546773139578,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "bidir": {
+              "total_ns": 39989,
+              "checksum": 15021940546773139578,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "selector": {
+              "total_ns": 35343,
+              "checksum": 15021940546773139578,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 7,
+            "first_mode": "bidir",
+            "expected_checksum": 12776540765674546634,
+            "topo": {
+              "total_ns": 228560,
+              "checksum": 12776540765674546634,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "bidir": {
+              "total_ns": 39719,
+              "checksum": 12776540765674546634,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "selector": {
+              "total_ns": 35673,
+              "checksum": 12776540765674546634,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            }
+          },
+          {
+            "queries": 1200,
+            "rep": 8,
+            "first_mode": "selector",
+            "expected_checksum": 4204448305315597884,
+            "topo": {
+              "total_ns": 208270,
+              "checksum": 4204448305315597884,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "bidir": {
+              "total_ns": 37736,
+              "checksum": 4204448305315597884,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            },
+            "selector": {
+              "total_ns": 41923,
+              "checksum": 4204448305315597884,
+              "probes": 1374,
+              "rescues": 309,
+              "fallbacks": 162
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 0,
+            "first_mode": "topo",
+            "expected_checksum": 18223293336149422809,
+            "topo": {
+              "total_ns": 2615463,
+              "checksum": 18223293336149422809,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "bidir": {
+              "total_ns": 790086,
+              "checksum": 18223293336149422809,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "selector": {
+              "total_ns": 516840,
+              "checksum": 18223293336149422809,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 1,
+            "first_mode": "bidir",
+            "expected_checksum": 15371285528718588911,
+            "topo": {
+              "total_ns": 2969358,
+              "checksum": 15371285528718588911,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "bidir": {
+              "total_ns": 534145,
+              "checksum": 15371285528718588911,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "selector": {
+              "total_ns": 538631,
+              "checksum": 15371285528718588911,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 2,
+            "first_mode": "selector",
+            "expected_checksum": 15991239567627568471,
+            "topo": {
+              "total_ns": 2624676,
+              "checksum": 15991239567627568471,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "bidir": {
+              "total_ns": 559833,
+              "checksum": 15991239567627568471,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "selector": {
+              "total_ns": 552392,
+              "checksum": 15991239567627568471,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 3,
+            "first_mode": "topo",
+            "expected_checksum": 15020735107770161313,
+            "topo": {
+              "total_ns": 2556575,
+              "checksum": 15020735107770161313,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "bidir": {
+              "total_ns": 565291,
+              "checksum": 15020735107770161313,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "selector": {
+              "total_ns": 509989,
+              "checksum": 15020735107770161313,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 4,
+            "first_mode": "bidir",
+            "expected_checksum": 16738909093782548391,
+            "topo": {
+              "total_ns": 2747939,
+              "checksum": 16738909093782548391,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "bidir": {
+              "total_ns": 565442,
+              "checksum": 16738909093782548391,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "selector": {
+              "total_ns": 592452,
+              "checksum": 16738909093782548391,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 5,
+            "first_mode": "selector",
+            "expected_checksum": 1535641241134996149,
+            "topo": {
+              "total_ns": 2982689,
+              "checksum": 1535641241134996149,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "bidir": {
+              "total_ns": 589788,
+              "checksum": 1535641241134996149,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "selector": {
+              "total_ns": 782384,
+              "checksum": 1535641241134996149,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 6,
+            "first_mode": "topo",
+            "expected_checksum": 12615915397938260981,
+            "topo": {
+              "total_ns": 2693459,
+              "checksum": 12615915397938260981,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "bidir": {
+              "total_ns": 572763,
+              "checksum": 12615915397938260981,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "selector": {
+              "total_ns": 527365,
+              "checksum": 12615915397938260981,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 7,
+            "first_mode": "bidir",
+            "expected_checksum": 4169200235635856353,
+            "topo": {
+              "total_ns": 2534672,
+              "checksum": 4169200235635856353,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "bidir": {
+              "total_ns": 554235,
+              "checksum": 4169200235635856353,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "selector": {
+              "total_ns": 517661,
+              "checksum": 4169200235635856353,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            }
+          },
+          {
+            "queries": 10000,
+            "rep": 8,
+            "first_mode": "selector",
+            "expected_checksum": 2120492291497122353,
+            "topo": {
+              "total_ns": 2740899,
+              "checksum": 2120492291497122353,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "bidir": {
+              "total_ns": 557229,
+              "checksum": 2120492291497122353,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            },
+            "selector": {
+              "total_ns": 608015,
+              "checksum": 2120492291497122353,
+              "probes": 11174,
+              "rescues": 2512,
+              "fallbacks": 1334
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 0,
+            "first_mode": "topo",
+            "expected_checksum": 18074962530159733953,
+            "topo": {
+              "total_ns": 28205725,
+              "checksum": 18074962530159733953,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "bidir": {
+              "total_ns": 7293985,
+              "checksum": 18074962530159733953,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "selector": {
+              "total_ns": 7763664,
+              "checksum": 18074962530159733953,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 1,
+            "first_mode": "bidir",
+            "expected_checksum": 12179728276087639651,
+            "topo": {
+              "total_ns": 28007651,
+              "checksum": 12179728276087639651,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "bidir": {
+              "total_ns": 6052317,
+              "checksum": 12179728276087639651,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "selector": {
+              "total_ns": 6494656,
+              "checksum": 12179728276087639651,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 2,
+            "first_mode": "selector",
+            "expected_checksum": 17329942227375344111,
+            "topo": {
+              "total_ns": 35644406,
+              "checksum": 17329942227375344111,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "bidir": {
+              "total_ns": 6573261,
+              "checksum": 17329942227375344111,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "selector": {
+              "total_ns": 6287287,
+              "checksum": 17329942227375344111,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 3,
+            "first_mode": "topo",
+            "expected_checksum": 18189055662145065445,
+            "topo": {
+              "total_ns": 28565610,
+              "checksum": 18189055662145065445,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "bidir": {
+              "total_ns": 7525108,
+              "checksum": 18189055662145065445,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "selector": {
+              "total_ns": 6934741,
+              "checksum": 18189055662145065445,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 4,
+            "first_mode": "bidir",
+            "expected_checksum": 11582198916237356077,
+            "topo": {
+              "total_ns": 30789200,
+              "checksum": 11582198916237356077,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "bidir": {
+              "total_ns": 7668322,
+              "checksum": 11582198916237356077,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "selector": {
+              "total_ns": 6409820,
+              "checksum": 11582198916237356077,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 5,
+            "first_mode": "selector",
+            "expected_checksum": 15771677187214946555,
+            "topo": {
+              "total_ns": 31286535,
+              "checksum": 15771677187214946555,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "bidir": {
+              "total_ns": 7076381,
+              "checksum": 15771677187214946555,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "selector": {
+              "total_ns": 8118838,
+              "checksum": 15771677187214946555,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 6,
+            "first_mode": "topo",
+            "expected_checksum": 16696219962407033477,
+            "topo": {
+              "total_ns": 26600967,
+              "checksum": 16696219962407033477,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "bidir": {
+              "total_ns": 6356009,
+              "checksum": 16696219962407033477,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "selector": {
+              "total_ns": 6989602,
+              "checksum": 16696219962407033477,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 7,
+            "first_mode": "bidir",
+            "expected_checksum": 6793787975853750025,
+            "topo": {
+              "total_ns": 30205291,
+              "checksum": 6793787975853750025,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "bidir": {
+              "total_ns": 6195841,
+              "checksum": 6793787975853750025,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "selector": {
+              "total_ns": 6544499,
+              "checksum": 6793787975853750025,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            }
+          },
+          {
+            "queries": 100000,
+            "rep": 8,
+            "first_mode": "selector",
+            "expected_checksum": 15883357070606423653,
+            "topo": {
+              "total_ns": 26594097,
+              "checksum": 15883357070606423653,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "bidir": {
+              "total_ns": 10328120,
+              "checksum": 15883357070606423653,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            },
+            "selector": {
+              "total_ns": 6788683,
+              "checksum": 15883357070606423653,
+              "probes": 113477,
+              "rescues": 25427,
+              "fallbacks": 13452
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 0,
+            "first_mode": "topo",
+            "expected_checksum": 3102970622376489779,
+            "topo": {
+              "total_ns": 329685771,
+              "checksum": 3102970622376489779,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "bidir": {
+              "total_ns": 141522355,
+              "checksum": 3102970622376489779,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "selector": {
+              "total_ns": 92310065,
+              "checksum": 3102970622376489779,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 1,
+            "first_mode": "bidir",
+            "expected_checksum": 17012561017351727067,
+            "topo": {
+              "total_ns": 381153980,
+              "checksum": 17012561017351727067,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "bidir": {
+              "total_ns": 96661380,
+              "checksum": 17012561017351727067,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "selector": {
+              "total_ns": 90484257,
+              "checksum": 17012561017351727067,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 2,
+            "first_mode": "selector",
+            "expected_checksum": 4757283811796823299,
+            "topo": {
+              "total_ns": 358685545,
+              "checksum": 4757283811796823299,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "bidir": {
+              "total_ns": 94818420,
+              "checksum": 4757283811796823299,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "selector": {
+              "total_ns": 99209374,
+              "checksum": 4757283811796823299,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 3,
+            "first_mode": "topo",
+            "expected_checksum": 17976226661350419499,
+            "topo": {
+              "total_ns": 353187643,
+              "checksum": 17976226661350419499,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "bidir": {
+              "total_ns": 92717010,
+              "checksum": 17976226661350419499,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "selector": {
+              "total_ns": 86713842,
+              "checksum": 17976226661350419499,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 4,
+            "first_mode": "bidir",
+            "expected_checksum": 4587112703052503769,
+            "topo": {
+              "total_ns": 364843591,
+              "checksum": 4587112703052503769,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "bidir": {
+              "total_ns": 99330941,
+              "checksum": 4587112703052503769,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "selector": {
+              "total_ns": 106927041,
+              "checksum": 4587112703052503769,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 5,
+            "first_mode": "selector",
+            "expected_checksum": 1676370610716135677,
+            "topo": {
+              "total_ns": 369167804,
+              "checksum": 1676370610716135677,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "bidir": {
+              "total_ns": 105879160,
+              "checksum": 1676370610716135677,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "selector": {
+              "total_ns": 113656012,
+              "checksum": 1676370610716135677,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 6,
+            "first_mode": "topo",
+            "expected_checksum": 17593056647849793897,
+            "topo": {
+              "total_ns": 331725028,
+              "checksum": 17593056647849793897,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "bidir": {
+              "total_ns": 85587880,
+              "checksum": 17593056647849793897,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "selector": {
+              "total_ns": 87417635,
+              "checksum": 17593056647849793897,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 7,
+            "first_mode": "bidir",
+            "expected_checksum": 9485289887527020995,
+            "topo": {
+              "total_ns": 345236857,
+              "checksum": 9485289887527020995,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "bidir": {
+              "total_ns": 87251948,
+              "checksum": 9485289887527020995,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "selector": {
+              "total_ns": 90801210,
+              "checksum": 9485289887527020995,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            }
+          },
+          {
+            "queries": 1000000,
+            "rep": 8,
+            "first_mode": "selector",
+            "expected_checksum": 9120455229271635187,
+            "topo": {
+              "total_ns": 340084669,
+              "checksum": 9120455229271635187,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "bidir": {
+              "total_ns": 105182824,
+              "checksum": 9120455229271635187,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            },
+            "selector": {
+              "total_ns": 90181447,
+              "checksum": 9120455229271635187,
+              "probes": 1129650,
+              "rescues": 253658,
+              "fallbacks": 134013
+            }
+          }
+        ]
+      },
+      "summary": [
+        {
+          "queries": 1200,
+          "measured_repetitions": 9,
+          "topo": {
+            "median_baseline_batch_ns": 228560,
+            "median_selector_batch_ns": 35673,
+            "median_paired_query_savings_ns": 190613,
+            "median_paired_net_savings_after_fit_ns": -5956494,
+            "paired_net_wins_after_fit": 0
+          },
+          "bidir": {
+            "median_baseline_batch_ns": 39599,
+            "median_selector_batch_ns": 35673,
+            "median_paired_query_savings_ns": 4046,
+            "median_paired_net_savings_after_fit_ns": -6143061,
+            "paired_net_wins_after_fit": 0
+          }
+        },
+        {
+          "queries": 10000,
+          "measured_repetitions": 9,
+          "topo": {
+            "median_baseline_batch_ns": 2693459,
+            "median_selector_batch_ns": 538631,
+            "median_paired_query_savings_ns": 2132884,
+            "median_paired_net_savings_after_fit_ns": -4014223,
+            "paired_net_wins_after_fit": 0
+          },
+          "bidir": {
+            "median_baseline_batch_ns": 565291,
+            "median_selector_batch_ns": 538631,
+            "median_paired_query_savings_ns": 7441,
+            "median_paired_net_savings_after_fit_ns": -6139666,
+            "paired_net_wins_after_fit": 0
+          }
+        },
+        {
+          "queries": 100000,
+          "measured_repetitions": 9,
+          "topo": {
+            "median_baseline_batch_ns": 28565610,
+            "median_selector_batch_ns": 6788683,
+            "median_paired_query_savings_ns": 21630869,
+            "median_paired_net_savings_after_fit_ns": 15483762,
+            "paired_net_wins_after_fit": 9
+          },
+          "bidir": {
+            "median_baseline_batch_ns": 7076381,
+            "median_selector_batch_ns": 6788683,
+            "median_paired_query_savings_ns": -348658,
+            "median_paired_net_savings_after_fit_ns": -6495765,
+            "paired_net_wins_after_fit": 0
+          }
+        },
+        {
+          "queries": 1000000,
+          "measured_repetitions": 9,
+          "topo": {
+            "median_baseline_batch_ns": 353187643,
+            "median_selector_batch_ns": 90801210,
+            "median_paired_query_savings_ns": 255511792,
+            "median_paired_net_savings_after_fit_ns": 249364685,
+            "paired_net_wins_after_fit": 9
+          },
+          "bidir": {
+            "median_baseline_batch_ns": 96661380,
+            "median_selector_batch_ns": 90801210,
+            "median_paired_query_savings_ns": -1829755,
+            "median_paired_net_savings_after_fit_ns": -7976862,
+            "paired_net_wins_after_fit": 3
+          }
+        }
+      ]
+    }
+  ]
+}

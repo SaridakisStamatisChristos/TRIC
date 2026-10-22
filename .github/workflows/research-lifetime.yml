@@ -1,0 +1,71 @@
+name: TRIC measured query lifetime
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/research-lifetime.yml'
+      - 'tric_research/benchmark_lifetime.py'
+      - 'tric_research/lifetime_replay.h'
+      - 'tric_research/native_query_bench.cpp'
+      - 'tric_research/compact_reachability.h'
+      - 'tric_research/closure_index.h'
+      - 'tric_research/benchmark_native.py'
+      - 'tric_research/benchmark_oreach_ci.py'
+      - 'tric_research/ordered_probe.py'
+      - 'tric_research/tric.py'
+      - 'tric_research/test_lifetime_replay.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  warm-batches:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        dataset: [arxiv, kron]
+    env:
+      DATASET: ${{ matrix.dataset }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Obtain pinned graph (O-Reach algorithm is not benchmarked here)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p lifetime-results
+          if [ "$DATASET" = arxiv ]; then
+            git clone --quiet https://github.com/o-reach/O-Reach.git upstream
+            git -C upstream checkout --detach 78b3e326bbb021b7ee225ab605a4cdd074fa1d93
+            cp upstream/examples/arXiv.metis lifetime-results/graph.metis
+            expected=12a89444586f2eaca16dc17951a999efca2b879f87f566b8c3f67714bc2b3ab2
+          else
+            curl --fail --location --retry 2 --connect-timeout 20 --max-time 180 \
+              https://oreach.taa.univie.ac.at/assets/data/instances/kron_logn12.tar.xz \
+              -o lifetime-results/source.tar.xz
+            echo 'fce81156429ea01c218f837cdc94c9879a890ee38320e6a829b3240c5769a2ae  lifetime-results/source.tar.xz' | sha256sum -c -
+            tar -xOJf lifetime-results/source.tar.xz \
+              kron_g500-simple-logn12.metis/kron_g500-simple-logn12.metis > lifetime-results/graph.metis
+            expected=f81f2b31f90f6873360b89f6af1963e165f6912cf407fd5f45bebcf9ed55fa22
+          fi
+          echo "$expected  lifetime-results/graph.metis" | sha256sum -c -
+          git rev-parse HEAD > lifetime-results/source_commit.txt
+          lscpu > lifetime-results/cpu.txt
+      - name: Replay 1 million sampled queries per seed with frozen policy
+        working-directory: tric_research
+        run: >-
+          python benchmark_lifetime.py
+          --graph ../lifetime-results/graph.metis
+          --output-dir ../lifetime-results
+          --queries 1000000 --train 500 --candidates 11 --budget 5
+          --seeds 20261022 20261023 20261024 --repetitions 9
+      - name: Retain raw measurements and exact inputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lifetime-${{ matrix.dataset }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: lifetime-results/
+          retention-days: 30
+          if-no-files-found: error
