@@ -12,6 +12,9 @@ on:
       - 'tric_research/test_compact_reachability.py'
       - 'tric_research/summarize_phase12.py'
       - 'tric_research/summarize_phase14.py'
+      - 'tric_research/summarize_phase15.py'
+      - 'tric_research/stratified_queries.py'
+      - 'tric_research/test_stratified_queries.py'
       - 'tric_research/test_closure_index.py'
       - 'tric_research/benchmark_native.py'
       - 'tric_research/ordered_probe.py'
@@ -100,7 +103,7 @@ jobs:
           python -m unittest -q
           test_tric test_path_monge test_path_sweep test_backbone test_backbone_scc
           test_frontier_dp test_adaptive_exact test_frontier_compact
-          test_ordered_probe test_native_benchmark test_oreach_ci test_closure_index test_compact_reachability
+          test_ordered_probe test_native_benchmark test_oreach_ci test_closure_index test_compact_reachability test_stratified_queries
       - name: Run paired native experiment
         working-directory: tric_research
         shell: bash
@@ -137,6 +140,31 @@ jobs:
             ../research-results/seeds/20261023/comparison.json \
             ../research-results/seeds/20261024/comparison.json \
             --out ../research-results/phase14_summary.json
+          # Target heldout-only query classes. The same uniform training and
+          # candidate policy are used for every class, avoiding class leakage.
+          # Per-class O'Reach receives exactly the TRIC query file.
+          for stratum in positive negative balanced; do
+            for seed in 20261022 20261023 20261024; do
+              output="../research-results/strata/$stratum/$seed"
+              mkdir -p "$output"
+              python benchmark_oreach_ci.py \
+                --graph ../research-results/data/graph.metis \
+                --oreach-binary ../upstream-oreach/build/reachability \
+                --oreach-git-sha "$OREACH_SHA" \
+                --output-dir "$output" \
+                --query-stratum "$stratum" \
+                --train 500 --test 1200 --seed "$seed" \
+                --candidates 11 --budget 5 \
+                --tric-repetitions 9 --oreach-repetitions 5 \
+                --closure-cap-mib 64
+            done
+          done
+          python summarize_phase15.py \
+            ../research-results/comparison.json \
+            ../research-results/seeds/20261023/comparison.json \
+            ../research-results/seeds/20261024/comparison.json \
+            ../research-results/strata/*/*/comparison.json \
+            --out ../research-results/phase15_summary.json
       - name: Publish raw results and provenance
         if: always()
         uses: actions/upload-artifact@v4
@@ -155,6 +183,8 @@ jobs:
             research-results/oreach_*.stderr.txt
             research-results/phase12_summary.json
             research-results/phase14_summary.json
+            research-results/phase15_summary.json
+            research-results/strata/**
             research-results/seeds/**
           if-no-files-found: warn
           retention-days: 30
