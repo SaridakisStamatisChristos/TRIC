@@ -113,6 +113,14 @@ def run(args):
         str(ROOT/"cache_indexed_bench.cpp"),"-o",str(indexed_exe)]
     subprocess.run(indexed_compile_cmd,check=True,capture_output=True,text=True)
     by_class={}
+    # A synthetic graph can trigger a segfault in the unchanged, pinned
+    # upstream O'Reach process. This is NOT a valid performance measurement.
+    # Only explicitly opted-in, provenance-labeled generated graphs may
+    # record that single failure mode as an unavailable comparator.
+    allow_crash = bool(getattr(args, "allow_upstream_segfault", False))
+    if allow_crash and not str(getattr(args, "dataset", "")).startswith("generated_"):
+        raise ValueError("upstream-segfault tolerance is restricted to generated_* graphs")
+    prior_upstream_failure = None
     for cls in CLASSES:
         queries=heldout[cls]
         directory=out/cls
@@ -164,31 +172,69 @@ def run(args):
             raise AssertionError("TRIC did not execute our test pairs")
         rss_values=[]
         oreach_raw=[]
+        upstream_failure = None
+        upstream_attempts = 0
         if not Path(args.oreach_binary).is_file():
             raise FileNotFoundError("pinned O'Reach binary missing")
-        for rep in range(args.oreach_repetitions):
-            csv_path=directory/f"oreach_{rep}.csv"
-            rss_path=directory/f"oreach_{rep}.rss_kib.txt"
-            cmd=["/usr/bin/time","-f","%M","-o",str(rss_path),
-                 str(Path(args.oreach_binary).resolve()),
-                 str(graph),"--seed",str(args.seed),"--queries",str(queryfile),
-                 "--pbibfs","--pdfs","--output",str(csv_path)]
-            proc=subprocess.run(cmd,capture_output=True,text=True,
-                                timeout=args.timeout)
-            (directory/f"oreach_{rep}.stderr.txt").write_text(proc.stderr)
-            (directory/f"oreach_{rep}.stdout.txt").write_text(proc.stdout)
-            if proc.returncode:
-                raise RuntimeError(f"pinned O'Reach failed {cls}/{rep}: {proc.returncode}")
-            rows=parse_oreach_csv(csv_path,len(queries),"mixed")
-            oreach_raw+=rows
-            rss_values.append(int(rss_path.read_text().strip()))
+        if prior_upstream_failure is not None:
+            upstream_failure = {
+                "status": "unavailable_after_upstream_segfault",
+                "reason": "Skipped additional O'Reach invocations after previously recorded SIGSEGV",
+                "trigger": prior_upstream_failure,
+                "attempts": 0,
+                "valid_comparisons": 0,
+            }
+        else:
+            for rep in range(args.oreach_repetitions):
+                csv_path=directory/f"oreach_{rep}.csv"
+                rss_path=directory/f"oreach_{rep}.rss_kib.txt"
+                cmd=["/usr/bin/time","-f","%M","-o",str(rss_path),
+                     str(Path(args.oreach_binary).resolve()),
+                     str(graph),"--seed",str(args.seed),"--queries",str(queryfile),
+                     "--pbibfs","--pdfs","--output",str(csv_path)]
+                proc=subprocess.run(cmd,capture_output=True,text=True,timeout=args.timeout)
+                upstream_attempts += 1
+                (directory/f"oreach_{rep}.stderr.txt").write_text(proc.stderr)
+                (directory/f"oreach_{rep}.stdout.txt").write_text(proc.stdout)
+                if proc.returncode:
+                    if allow_crash and proc.returncode in (139, -11):
+                        upstream_failure = {
+                            "status": "unavailable_upstream_segfault",
+                            "reason": "Pinned original O-Reach crashed; no external timing may be inferred",
+                            "returncode": proc.returncode, "signal": 11,
+                            "query_class": cls, "repetition": rep,
+                            "command": cmd, "graph_sha256": hashlib.sha256(graph.read_bytes()).hexdigest(),
+                            "query_file_sha256": q_sha,
+                            "stderr_file": f"oreach_{rep}.stderr.txt",
+                            "stdout_file": f"oreach_{rep}.stdout.txt",
+                            "attempts": upstream_attempts, "valid_comparisons": 0,
+                        }
+                        prior_upstream_failure = upstream_failure
+                        oreach_raw.clear()
+                        rss_values.clear()
+                        break
+                    raise RuntimeError(f"pinned O'Reach failed {cls}/{rep}: {proc.returncode}")
+                rows=parse_oreach_csv(csv_path,len(queries),"mixed")
+                oreach_raw+=rows
+                rss_values.append(int(rss_path.read_text().strip()))
         times={}
-        for method in ("oreach-pdfs","oreach-pbibfs"):
-            values=[r["query_us"]*1000 for r in oreach_raw if r["algorithm"]==method]
-            if len(values)!=args.oreach_repetitions:
-                raise ValueError("O'Reach incomplete method repetitions")
-            times[method]={"median_ns_per_query":check_times(
-                method,statistics.median(values)),"samples_ns_per_query":values}
+        if upstream_failure is None:
+            for method in ("oreach-pdfs","oreach-pbibfs"):
+                values=[row["query_us"]*1000 for row in oreach_raw if row["algorithm"]==method]
+                if len(values)!=args.oreach_repetitions:
+                    raise ValueError("O'Reach incomplete method repetitions")
+                times[method]={"median_ns_per_query":check_times(
+                    method,statistics.median(values)), "samples_ns_per_query": values}
+            oreach_status={"status":"measured", "attempts": upstream_attempts,
+                           "valid_comparisons":args.oreach_repetitions}
+        else:
+            # An aborted upstream run is never reported as a win or a zero
+            # elapsed time. Core TRIC exactness and lifecycle remain required.
+            oreach_status=upstream_failure
+            (directory/"oreach_unavailable.json").write_text(
+                json.dumps(oreach_status,indent=2)+"\n")
+            print(json.dumps({"class":cls, "external_comparator":oreach_status["status"],
+                              "external_valid_comparisons":0}),flush=True)
         for key in keys:
             times[key]={"median_ns_per_query":check_times(
                 key,native[key]["median_ns_per_query"]),
@@ -228,9 +274,11 @@ def run(args):
                 "tric_compact_build_ms":native["compact"]["build_ms"],
                 "tric_index_labels_bytes":native["compact"]["labels_bytes"],
                 "tric_bidir_extra_bytes":native["compact_bidir"]["extra_storage_bytes"],
-                "oreach_median_init_ms":statistics.median(
-                    [r["init_ms"] for r in oreach_raw if r["algorithm"]=="oreach-pdfs"]),
+                "oreach_median_init_ms":(
+                    statistics.median([r["init_ms"] for r in oreach_raw if r["algorithm"]=="oreach-pdfs"])
+                    if upstream_failure is None else None),
                 "oreach_process_maxrss_kib":rss_values,
+                "oreach_status":oreach_status,
                 "times":times,"oreach_raw_csv_rows":oreach_raw,
                 "claim_limit":"Identical heldout queries but different index budgets and separate timed process runs; source skew is synthetic on authentic graph topology; per-query O'Reach output not independently exported"}
         by_class[cls]=result
@@ -249,7 +297,8 @@ def run(args):
             "positive":positives,"cache_hits":cached["hits"],
             "cache_ns":times["hot_source_cache"]["median_ns_per_query"],
             "tric_bidir_ns":times["compact_pivots_bidir"]["median_ns_per_query"],
-            "oreach_pdfs_ns":times["oreach-pdfs"]["median_ns_per_query"],
+            "oreach_pdfs_ns":times["oreach-pdfs"]["median_ns_per_query"] if upstream_failure is None else None,
+            "oreach_status":oreach_status["status"],
             "cache_indexed_ns":times["cache_pivot_index"]["median_ns_per_query"],
             "index_control_ns":times["pivot_index"]["median_ns_per_query"]}))
     result={"phase":"XX","state":"EXECUTED PILOT, not global SOTA",
@@ -289,6 +338,8 @@ def parser():
     p.add_argument("--optimization",default="-O3")
     p.add_argument("--compiler",default="g++")
     p.add_argument("--timeout",type=int,default=300)
+    p.add_argument("--allow-upstream-segfault",action="store_true",
+                   help="Only for explicitly labeled generated_* graph families: preserve and mark original O-Reach SIGSEGV as unavailable (not a measurement)")
     return p
 
 if __name__=="__main__":
