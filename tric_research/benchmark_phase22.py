@@ -11,6 +11,7 @@ Replays repeat the same frozen heldout set; they are not new IID samples.
 from __future__ import annotations
 
 import hashlib
+import csv
 import json
 import math
 import statistics
@@ -112,6 +113,50 @@ def replay_pair(exe,payload,factor,sources,cap,out,replications=2,timeout=300):
     summary["cache_wins_full_native_lifecycle"]=accelerated<base
     return summary
 
+
+def measure_oreach_pdfs_lifetime(binary,graph,queryfile,seed,factor,dest,timeout=300):
+    """Original O'Reach with only pDFS enabled. Not resource-equivalent."""
+    source=Path(queryfile).read_bytes()
+    if not source or factor<1:
+        raise ValueError("invalid upstream replay input")
+    dest=Path(dest);dest.mkdir(parents=True,exist_ok=True)
+    n=sum(bool(x.strip()) for x in source.splitlines())
+    query_path=dest/"replayed.query.m.txt"
+    query_path.write_bytes(source*factor)
+    output=dest/"upstream_pdfsonly.csv"
+    rss=dest/"upstream_peak_rss_kib.txt"
+    cmd=["/usr/bin/time","-f","%M","-o",str(rss),
+        str(Path(binary).resolve()),str(Path(graph).resolve()),
+        "--seed",str(seed),"--queries",str(query_path),
+        "--pdfs","--output",str(output)]
+    t0=time.perf_counter_ns()
+    proc=subprocess.run(cmd,capture_output=True,text=True,timeout=timeout)
+    elapsed=time.perf_counter_ns()-t0
+    (dest/"upstream_stderr.txt").write_text(proc.stderr)
+    if proc.returncode:
+        raise RuntimeError(f"upstream pDFS lifetime failed: {proc.stderr[-1000:]}")
+    rows=[]
+    with output.open(newline="",encoding="utf-8") as stream:
+        for fields in csv.reader(stream):
+            if fields and not fields[0].startswith("%"):
+                if len(fields)<10 or int(fields[3])!=n*factor:
+                    raise AssertionError("OReach replay query count mismatch")
+                if fields[7]=="oreach-pdfs":
+                    rows.append(fields)
+    if len(rows)!=1:
+        raise AssertionError("upstream did not report exactly one pDFS row")
+    fields=rows[0]
+    result={"actual_calls":n*factor,"factor":factor,
+            "source_query_file_sha256":hashlib.sha256(source).hexdigest(),
+            "replicated_query_file_sha256":hashlib.sha256(query_path.read_bytes()).hexdigest(),
+            "full_external_process_wall_ns":elapsed,
+            "maxrss_kib":int(rss.read_text().strip()),
+            "reported_oreach_init_ms":float(fields[8]),
+            "reported_oreach_query_total_us":float(fields[9]),
+            "semantics":"fresh original upstream pDFS-only process; includes file/output I/O unlike internal TRIC phase22 native clock"}
+    (dest/"result.json").write_text(json.dumps(result,indent=2)+"\n")
+    return result
+
 def run(args):
     if not args.replay_factors or min(args.replay_factors)<1 or max(args.replay_factors)>1000:
         raise ValueError("invalid replay factors")
@@ -145,6 +190,10 @@ def run(args):
               "indexed_rss_kib":cell["pivot_index"]["median_maxrss_kib"],
               "cached_rss_kib":cell["cache_pivot_index"]["median_maxrss_kib"]}),
               flush=True)
+        for factor in args.replay_factors:
+            factor_results[str(factor)]["original_oreach_pdfs_fresh_process"]=measure_oreach_pdfs_lifetime(
+                args.oreach_binary,args.graph,out/cls/"heldout.query.m.txt",
+                args.seed,factor,out/cls/f"oreach_lifetime_factor_{factor}",args.timeout)
         results[cls]=factor_results
     report={
        "phase":"XXII",
@@ -162,7 +211,7 @@ def run(args):
        "replayed_query_sets_not_independent":True,
        "python_pivot_fit_ns":base["classes"]["matched_hot"]["pivot_fit_ns"],
        "hosted_runner_noise_warning":True,
-       "comparative_scope":"Full native input parse+index build+actual repeated query calls; Python fit separately; OReach upstream init/query and RSS separately; not unified whole-product time or matched RSS",
+       "comparative_scope":"Fresh TRIC parse+index build+actual replay calls; Python fitting separately; fresh OReach pdfs-only process wall/RSS + reported init/query; unlike process time boundaries and deployment systems",
        "compiler_command":command,
        "classes":results,
        "underlying_phase21_summary":str(out/"phase20_summary.json")
