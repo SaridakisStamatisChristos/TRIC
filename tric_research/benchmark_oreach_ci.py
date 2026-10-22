@@ -125,7 +125,10 @@ def run(args):
     closure = native_results['closure']
     compact = native_results['compact']
     compact_plain = native_results['compact_plain']
+    hybrid = native_results['compact_pivots']
     bfs_checksum = next(p['checksum'] for p in native_results['policies'] if p['name']=='BFS')
+    if hybrid['checksum'] != bfs_checksum:
+        raise AssertionError('compact + trained pivot hybrid disagrees with independent BFS')
     if compact_plain['checksum'] != bfs_checksum:
         raise AssertionError('plain fallback compact index disagrees with independent BFS')
     if compact['checksum'] != bfs_checksum:
@@ -190,6 +193,9 @@ def run(args):
             'closure_onepass_ns':closure.get('median_onepass_ns_per_query'),
             'compact_ns':compact['median_ns_per_query'],
             'compact_plain_ns':compact_plain['median_ns_per_query'],
+            'compact_pivots_ns':hybrid['median_ns_per_query'],
+            'compact_pivot_rescues':hybrid['pivot_rescues'],
+            'compact_pivot_fallback_queries':hybrid['fallback_queries'],
             'compact_build_ms':compact['build_ms'],
             'compact_label_bytes':compact['labels_bytes'],
             'compact_certificate_fraction':(compact['certified_yes']+compact['certified_no'])/len(heldout),
