@@ -30,6 +30,8 @@ def record(stratum,seed,graph_sha="abc",fit=6000000,base_bidir=180,base_topo=220
     }
     return{
         "graph_sha256":graph_sha,"graph_origin":"synthetic",
+        "oreach_benchmark_status":"NOT_RUN_SYNTHETIC_UPSTREAM_CRASH",
+        "oreach":{},"oreach_raw_rows":[],
         "query_file_sha256":sha,"query_stratum":stratum,
         "seed":seed,"test_count":n,"heldout_positive_count":positive,
         "training_count":500,"offline_training_seconds_including_pivot_build":0.009,
@@ -105,6 +107,9 @@ class Phase18Tests(unittest.TestCase):
         reject(lambda r:r[0].update({"graph_sha256":"different"}))
         reject(lambda r:r[0].update({"graph_origin":"unverified"}))
         reject(lambda r:r[0].update({"graph_origin":"published"}))
+        reject(lambda r:r[0].update({"oreach_benchmark_status":"EXECUTED_ORIGINAL_SHA_PINNED"}))
+        reject(lambda r:r[0].update({"oreach":{"oreach-pdfs":{"median_ns_per_query":123}}}))
+        reject(lambda r:r[0].update({"oreach_raw_rows":[{"algorithm":"oreach-pdfs"}]}))
         reject(lambda r:r[0].update({"query_file_sha256":r[1]["query_file_sha256"]}))
         reject(lambda r:r[0].update({"training_count":499}))
         reject(lambda r:r[0].update({"heldout_positive_count":500}))
