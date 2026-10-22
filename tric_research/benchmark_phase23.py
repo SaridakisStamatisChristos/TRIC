@@ -82,7 +82,7 @@ def run(args):
         policy_admission[cls]=compare_admission(
             cold_runner,raw,args.hot_sources,
             args.hot_cache_cap_mib*1024*1024,
-            out/cls/"admission",args.timeout,replications=2)
+            out/cls/"admission",args.timeout,replications=3)
         query_comparisons[cls]={
           "training_hash":hashlib.sha256(str(train).encode()).hexdigest(),
           "heldout_hash":hashlib.sha256(str(qs).encode()).hexdigest(),
