@@ -177,7 +177,7 @@ jobs:
             research-results/archive_members.txt
             research-results/compiler.txt
             research-results/tric_native.json
-            research-results/heldout.query.m.txt
+            research-results/heldout.query*.txt
             research-results/oreach_*.csv
             research-results/oreach_*.stdout.txt
             research-results/oreach_*.stderr.txt
