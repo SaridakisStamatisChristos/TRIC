@@ -50,13 +50,15 @@ from benchmark-result counters.
    changing its algorithms or query file.
 
 ## Phase XIII dataset matrix
-The PR benchmark runs the bundled arXiv example (6,000 vertices, 66,707 arcs)
-and attempts the authors' published `pubmed_sub` (9,000 vertices, 40,028 arcs)
-and `kron_logn12` (4,096 vertices, 116,952 arcs), using official
-O'Reach download links and explicit failures if inaccessible. For each
-dataset, the same three deterministic train/test seeds drive TRIC and
-O'Reach. Only a **within-dataset** paired ratio is meaningful; do not
+The PR benchmark runs the pinned O'Reach bundled arXiv example (6,000
+vertices, 66,707 arcs) and the authors' published `kron_logn12`
+(4,096 vertices, 116,952 arcs), using the authors' archive URL and refusing
+silent substitutions. Both sources were successfully exercised in real CI.
+For each dataset, the same three deterministic train/test seeds drive TRIC
+and O'Reach. Only a **within-dataset** paired ratio is meaningful; do not
 pool raw nanoseconds or treat the seeds as independent graph replications.
+The multi-graph default PR matrix is deliberately limited to sources that
+have actually been reachable, not an exhaustive reproduction of O'Reach.
 
 These are still small-to-medium graphs. Published large-graph scaling
 (`kron_logn16`, 65,536 vertices, 2,456,071 arcs; others) is an explicit
@@ -75,13 +77,15 @@ but the training and Python graph representation may become a bottleneck.
 - TRIC has an independent native oracle; the upstream O'Reach executable
   reports aggregate CSV metrics, so its per-query answers are not independently
   re-audited here.
-- The first Phase XIII matrix run showed that the authors' published `go_sub`
-  archive URL returned HTTP 404 in CI on 2026-10-22. `go_sub` is therefore
-  excluded from the default PR qualification matrix (still selectable manually).
-  Its graph-specific result is **blocked**, not a successful benchmark.
-  `pubmed_sub` is a separately declared new candidate to check, not a
-  substitute claimed to be `go_sub`. Any further download failure remains a
-  source availability error; do not silently replace input data.
+- The first Phase XIII CI matrices found HTTP 404 from the authors'
+  published URLs for `go_sub`, `pubmed_sub`, and `delaunay_n15`.
+  Those graphs are excluded from the default PR matrix. They remain
+  selectable manually for source diagnosis but are **not** benchmarked
+  successfully. No replacement graph is relabeled as any of them.
+- The native hybrid variants alternate plain-first and topology-first
+  execution on successive repetitions; fixed call order could otherwise
+  favor the later method through a hotter cache. Dedicated-machine
+  repetition and additional positive/mixed query workloads remain necessary.
 - These changes test engineering trade-offs. Neither a mathematical novelty
   claim nor a cross-system superiority claim is authorized by this phase.
 
