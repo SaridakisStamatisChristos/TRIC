@@ -61,7 +61,7 @@ class SCCComparatorExactness(unittest.TestCase):
                 remap_queryfile(raw,raw,adj,q,map_)
             with self.assertRaises(AssertionError):
                 corrupt=root/"corrupt.query.m.txt"
-                corrupt.write_text("0 3 1\n")
+                corrupt.write_text("0 4 1\n")
                 remap_queryfile(corrupt,mapped,adj,q,map_)
 
     def test_fixed_seed_generated_family_support(self):
