@@ -139,13 +139,16 @@ int main(int argc,char **argv){
     CompactReachability compact(graph);
     auto k1=Clock::now();
     const double compact_build_ms=std::chrono::duration<double,std::milli>(k1-k0).count();
-    std::vector<double> compact_samples, compact_plain_samples, closure_onepass_samples;
+    std::vector<double> compact_samples, compact_plain_samples, hybrid_samples, closure_onepass_samples;
     std::vector<double> closure_samples;
-    uint64_t compact_checksum=0, compact_plain_checksum=0;
+    uint64_t compact_checksum=0, compact_plain_checksum=0, hybrid_checksum=0;
+    uint64_t hybrid_pivot_rescues=0, hybrid_fallback_queries=0, hybrid_probe_count=0;
     CompactReachability::QueryStats compact_stats, compact_plain_stats;
     uint64_t closure_checksum=0;
     std::vector<std::vector<double>> samples(numpol);
     std::vector<Counter> counters(numpol);
+    const Policy* trained=&policies[0];
+    for(const auto& p:policies)if(p.name=="Ordered"){trained=&p;break;}
     std::vector<int> query_order(qcount);std::iota(query_order.begin(),query_order.end(),0);
     // Separate untimed warmup; rotate benchmark policy execution order per repetition.
     for(int pi=0;pi<numpol;pi++)(void)run(graph,pivots,policies[pi],queries,query_order,truth);
@@ -195,6 +198,28 @@ int main(int argc,char **argv){
         compact_plain_checksum=sum;
         compact_plain_stats=st;
         if(sum!=compact_checksum)throw std::runtime_error("plain/filtered compact mismatch");
+      }
+      {
+        uint64_t checksum=0, rescues=0, fallbacks=0, probes=0;
+        auto t0=Clock::now();
+        for(int id:query_order){
+          const int s=queries[id].first,t=queries[id].second;
+          int decision=compact.certificate(s,t);
+          if(decision==-1){
+            for(int p:trained->order){
+              ++probes;
+              int outcome=certify(pivots.at(p),s,t);
+              if(outcome!=-1){decision=outcome;++rescues;break;}
+            }
+          }
+          if(decision==-1){++fallbacks;decision=compact.reaches(s,t,nullptr,false)?1:0;}
+          checksum=(checksum*0x100000001b3ULL)^(static_cast<uint64_t>(id)*4ULL+static_cast<unsigned>(decision));
+        }
+        auto t1=Clock::now();
+        hybrid_samples.push_back(std::chrono::duration<double,std::nano>(t1-t0).count()/qcount);
+        hybrid_checksum=checksum;hybrid_pivot_rescues=rescues;
+        hybrid_fallback_queries=fallbacks;hybrid_probe_count=probes;
+        if(checksum!=compact_checksum)throw std::runtime_error("compact-pivot hybrid incorrect");
       }
       if(closure.built()){
         uint64_t onepass_checksum=0;
@@ -261,6 +286,17 @@ int main(int argc,char **argv){
     for(std::size_t j=0;j<compact_plain_samples.size();++j){
       if(j)std::cout<<',';
       std::cout<<compact_plain_samples[j];
+    }
+    std::cout<<"]},\"compact_pivots\":{\"policy\":\""<<trained->name
+             <<"\",\"median_ns_per_query\":"<<median(hybrid_samples)
+             <<",\"pivot_rescues\":"<<hybrid_pivot_rescues
+             <<",\"pivot_probes\":"<<hybrid_probe_count
+             <<",\"fallback_queries\":"<<hybrid_fallback_queries
+             <<",\"checksum\":"<<hybrid_checksum
+             <<",\"samples_ns_per_query\":[";
+    for(std::size_t j=0;j<hybrid_samples.size();++j){
+      if(j)std::cout<<',';
+      std::cout<<hybrid_samples[j];
     }
     std::cout<<"]},\"closure\":{\"available\":"<<(closure.built()?"true":"false")
              <<",\"components\":"<<closure.components()
