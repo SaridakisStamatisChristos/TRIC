@@ -139,11 +139,11 @@ int main(int argc,char **argv){
     CompactReachability compact(graph);
     auto k1=Clock::now();
     const double compact_build_ms=std::chrono::duration<double,std::milli>(k1-k0).count();
-    std::vector<double> compact_samples, compact_plain_samples, hybrid_samples, closure_onepass_samples;
+    std::vector<double> compact_samples, compact_plain_samples, compact_topo_samples, hybrid_samples, hybrid_topo_samples, closure_onepass_samples;
     std::vector<double> closure_samples;
-    uint64_t compact_checksum=0, compact_plain_checksum=0, hybrid_checksum=0;
+    uint64_t compact_checksum=0, compact_plain_checksum=0, compact_topo_checksum=0, hybrid_checksum=0, hybrid_topo_checksum=0;
     uint64_t hybrid_pivot_rescues=0, hybrid_fallback_queries=0, hybrid_probe_count=0;
-    CompactReachability::QueryStats compact_stats, compact_plain_stats;
+    CompactReachability::QueryStats compact_stats, compact_plain_stats, compact_topo_stats;
     uint64_t closure_checksum=0;
     std::vector<std::vector<double>> samples(numpol);
     std::vector<Counter> counters(numpol);
@@ -200,6 +200,20 @@ int main(int argc,char **argv){
         if(sum!=compact_checksum)throw std::runtime_error("plain/filtered compact mismatch");
       }
       {
+        // Ablation: one integer topological bound per unexplored SCC.
+        CompactReachability::QueryStats st;
+        uint64_t sum=0;
+        auto t0=Clock::now();
+        for(int id:query_order){
+          const bool answer=compact.reaches(queries[id].first,queries[id].second,&st,false,true);
+          sum=(sum*0x100000001b3ULL)^(static_cast<uint64_t>(id)*4ULL+static_cast<unsigned>(answer));
+        }
+        auto t1=Clock::now();
+        compact_topo_samples.push_back(std::chrono::duration<double,std::nano>(t1-t0).count()/qcount);
+        compact_topo_checksum=sum;compact_topo_stats=st;
+        if(sum!=compact_checksum)throw std::runtime_error("topological compact mismatch");
+      }
+      {
         uint64_t checksum=0, rescues=0, fallbacks=0, probes=0;
         auto t0=Clock::now();
         for(int id:query_order){
@@ -220,6 +234,28 @@ int main(int argc,char **argv){
         hybrid_checksum=checksum;hybrid_pivot_rescues=rescues;
         hybrid_fallback_queries=fallbacks;hybrid_probe_count=probes;
         if(checksum!=compact_checksum)throw std::runtime_error("compact-pivot hybrid incorrect");
+      }
+      {
+        // Identical pivot ordering and certificates; only fallback changes.
+        uint64_t checksum=0, rescues=0, fallbacks=0;
+        auto t0=Clock::now();
+        for(int id:query_order){
+          const int s=queries[id].first,t=queries[id].second;
+          int decision=compact.certificate(s,t);
+          if(decision==-1){
+            for(int p:trained->order){
+              int outcome=certify(pivots.at(p),s,t);
+              if(outcome!=-1){decision=outcome;++rescues;break;}
+            }
+          }
+          if(decision==-1){++fallbacks;decision=compact.reaches(s,t,nullptr,false,true)?1:0;}
+          checksum=(checksum*0x100000001b3ULL)^(static_cast<uint64_t>(id)*4ULL+static_cast<unsigned>(decision));
+        }
+        auto t1=Clock::now();
+        hybrid_topo_samples.push_back(std::chrono::duration<double,std::nano>(t1-t0).count()/qcount);
+        hybrid_topo_checksum=checksum;
+        if(checksum!=compact_checksum || rescues!=hybrid_pivot_rescues || fallbacks!=hybrid_fallback_queries)
+          throw std::runtime_error("topological hybrid mismatch with plain hybrid");
       }
       if(closure.built()){
         uint64_t onepass_checksum=0;
@@ -287,6 +323,17 @@ int main(int argc,char **argv){
       if(j)std::cout<<',';
       std::cout<<compact_plain_samples[j];
     }
+    std::cout<<"]},\"compact_topo\":{\"median_ns_per_query\":"<<median(compact_topo_samples)
+             <<",\"certified_yes\":"<<compact_topo_stats.certified_yes
+             <<",\"certified_no\":"<<compact_topo_stats.certified_no
+             <<",\"fallback_queries\":"<<compact_topo_stats.fallback
+             <<",\"fallback_edges\":"<<compact_topo_stats.edges
+             <<",\"checksum\":"<<compact_topo_checksum
+             <<",\"samples_ns_per_query\":[";
+    for(std::size_t j=0;j<compact_topo_samples.size();++j){
+      if(j)std::cout<<',';
+      std::cout<<compact_topo_samples[j];
+    }
     std::cout<<"]},\"compact_pivots\":{\"policy\":\""<<trained->name
              <<"\",\"median_ns_per_query\":"<<median(hybrid_samples)
              <<",\"pivot_rescues\":"<<hybrid_pivot_rescues
@@ -297,6 +344,16 @@ int main(int argc,char **argv){
     for(std::size_t j=0;j<hybrid_samples.size();++j){
       if(j)std::cout<<',';
       std::cout<<hybrid_samples[j];
+    }
+    std::cout<<"]},\"compact_pivots_topo\":{\"policy\":\""<<trained->name
+             <<"\",\"median_ns_per_query\":"<<median(hybrid_topo_samples)
+             <<",\"pivot_rescues\":"<<hybrid_pivot_rescues
+             <<",\"fallback_queries\":"<<hybrid_fallback_queries
+             <<",\"checksum\":"<<hybrid_topo_checksum
+             <<",\"samples_ns_per_query\":[";
+    for(std::size_t j=0;j<hybrid_topo_samples.size();++j){
+      if(j)std::cout<<',';
+      std::cout<<hybrid_topo_samples[j];
     }
     std::cout<<"]},\"closure\":{\"available\":"<<(closure.built()?"true":"false")
              <<",\"components\":"<<closure.components()
