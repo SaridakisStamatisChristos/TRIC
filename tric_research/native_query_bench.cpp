@@ -214,49 +214,49 @@ int main(int argc,char **argv){
         if(sum!=compact_checksum)throw std::runtime_error("topological compact mismatch");
       }
       {
-        uint64_t checksum=0, rescues=0, fallbacks=0, probes=0;
-        auto t0=Clock::now();
-        for(int id:query_order){
-          const int s=queries[id].first,t=queries[id].second;
-          int decision=compact.certificate(s,t);
-          if(decision==-1){
-            for(int p:trained->order){
-              ++probes;
-              int outcome=certify(pivots.at(p),s,t);
-              if(outcome!=-1){decision=outcome;++rescues;break;}
+        // Paired, alternating A/B order prevents a fixed warm-cache advantage.
+        // Both methods execute the same oracle/certificate/pivot work.
+        struct HybridResult {
+          double ns=0;
+          uint64_t checksum=0, rescues=0, fallbacks=0, probes=0;
+        };
+        const auto measure_hybrid=[&](bool use_topo){
+          HybridResult result;
+          auto t0=Clock::now();
+          for(int id:query_order){
+            const int s=queries[id].first,t=queries[id].second;
+            int decision=compact.certificate(s,t);
+            if(decision==-1){
+              for(int p:trained->order){
+                ++result.probes;
+                int outcome=certify(pivots.at(p),s,t);
+                if(outcome!=-1){decision=outcome;++result.rescues;break;}
+              }
             }
-          }
-          if(decision==-1){++fallbacks;decision=compact.reaches(s,t,nullptr,false)?1:0;}
-          checksum=(checksum*0x100000001b3ULL)^(static_cast<uint64_t>(id)*4ULL+static_cast<unsigned>(decision));
-        }
-        auto t1=Clock::now();
-        hybrid_samples.push_back(std::chrono::duration<double,std::nano>(t1-t0).count()/qcount);
-        hybrid_checksum=checksum;hybrid_pivot_rescues=rescues;
-        hybrid_fallback_queries=fallbacks;hybrid_probe_count=probes;
-        if(checksum!=compact_checksum)throw std::runtime_error("compact-pivot hybrid incorrect");
-      }
-      {
-        // Identical pivot ordering and certificates; only fallback changes.
-        uint64_t checksum=0, rescues=0, fallbacks=0, probes=0;
-        auto t0=Clock::now();
-        for(int id:query_order){
-          const int s=queries[id].first,t=queries[id].second;
-          int decision=compact.certificate(s,t);
-          if(decision==-1){
-            for(int p:trained->order){
-              ++probes;
-              int outcome=certify(pivots.at(p),s,t);
-              if(outcome!=-1){decision=outcome;++rescues;break;}
+            if(decision==-1){
+              ++result.fallbacks;
+              decision=compact.reaches(s,t,nullptr,false,use_topo)?1:0;
             }
+            result.checksum=(result.checksum*0x100000001b3ULL)
+                ^(static_cast<uint64_t>(id)*4ULL+static_cast<unsigned>(decision));
           }
-          if(decision==-1){++fallbacks;decision=compact.reaches(s,t,nullptr,false,true)?1:0;}
-          checksum=(checksum*0x100000001b3ULL)^(static_cast<uint64_t>(id)*4ULL+static_cast<unsigned>(decision));
-        }
-        auto t1=Clock::now();
-        hybrid_topo_samples.push_back(std::chrono::duration<double,std::nano>(t1-t0).count()/qcount);
-        hybrid_topo_checksum=checksum;
-        if(checksum!=compact_checksum || rescues!=hybrid_pivot_rescues || fallbacks!=hybrid_fallback_queries || probes!=hybrid_probe_count)
-          throw std::runtime_error("topological hybrid mismatch with plain hybrid");
+          auto t1=Clock::now();
+          result.ns=std::chrono::duration<double,std::nano>(t1-t0).count()/qcount;
+          return result;
+        };
+        HybridResult plain, topo;
+        if(rep%2){topo=measure_hybrid(true);plain=measure_hybrid(false);}
+        else{plain=measure_hybrid(false);topo=measure_hybrid(true);}
+        hybrid_samples.push_back(plain.ns);
+        hybrid_topo_samples.push_back(topo.ns);
+        hybrid_checksum=plain.checksum;hybrid_topo_checksum=topo.checksum;
+        hybrid_pivot_rescues=plain.rescues;
+        hybrid_fallback_queries=plain.fallbacks;
+        hybrid_probe_count=plain.probes;
+        if(plain.checksum!=compact_checksum || topo.checksum!=compact_checksum
+           || plain.rescues!=topo.rescues || plain.fallbacks!=topo.fallbacks
+           || plain.probes!=topo.probes)
+          throw std::runtime_error("paired topological hybrid mismatch");
       }
       if(closure.built()){
         uint64_t onepass_checksum=0;
