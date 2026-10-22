@@ -237,13 +237,14 @@ int main(int argc,char **argv){
       }
       {
         // Identical pivot ordering and certificates; only fallback changes.
-        uint64_t checksum=0, rescues=0, fallbacks=0;
+        uint64_t checksum=0, rescues=0, fallbacks=0, probes=0;
         auto t0=Clock::now();
         for(int id:query_order){
           const int s=queries[id].first,t=queries[id].second;
           int decision=compact.certificate(s,t);
           if(decision==-1){
             for(int p:trained->order){
+              ++probes;
               int outcome=certify(pivots.at(p),s,t);
               if(outcome!=-1){decision=outcome;++rescues;break;}
             }
@@ -254,7 +255,7 @@ int main(int argc,char **argv){
         auto t1=Clock::now();
         hybrid_topo_samples.push_back(std::chrono::duration<double,std::nano>(t1-t0).count()/qcount);
         hybrid_topo_checksum=checksum;
-        if(checksum!=compact_checksum || rescues!=hybrid_pivot_rescues || fallbacks!=hybrid_fallback_queries)
+        if(checksum!=compact_checksum || rescues!=hybrid_pivot_rescues || fallbacks!=hybrid_fallback_queries || probes!=hybrid_probe_count)
           throw std::runtime_error("topological hybrid mismatch with plain hybrid");
       }
       if(closure.built()){
@@ -348,6 +349,7 @@ int main(int argc,char **argv){
     std::cout<<"]},\"compact_pivots_topo\":{\"policy\":\""<<trained->name
              <<"\",\"median_ns_per_query\":"<<median(hybrid_topo_samples)
              <<",\"pivot_rescues\":"<<hybrid_pivot_rescues
+             <<",\"pivot_probes\":"<<hybrid_probe_count
              <<",\"fallback_queries\":"<<hybrid_fallback_queries
              <<",\"checksum\":"<<hybrid_topo_checksum
              <<",\"samples_ns_per_query\":[";
