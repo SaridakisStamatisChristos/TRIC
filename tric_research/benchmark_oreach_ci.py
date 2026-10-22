@@ -128,6 +128,8 @@ def run(args):
     hybrid = native_results['compact_pivots']
     topo = native_results['compact_topo']
     hybrid_topo = native_results['compact_pivots_topo']
+    bidir = native_results['compact_bidir']
+    hybrid_bidir = native_results['compact_pivots_bidir']
     bfs_checksum = next(p['checksum'] for p in native_results['policies'] if p['name']=='BFS')
     if topo['checksum'] != bfs_checksum or hybrid_topo['checksum'] != bfs_checksum:
         raise AssertionError('topological fallback disagrees with independent BFS')
@@ -135,6 +137,12 @@ def run(args):
         raise AssertionError('topological pruning scanned more edges than plain fallback')
     if hybrid_topo['pivot_rescues'] != hybrid['pivot_rescues'] or hybrid_topo['fallback_queries'] != hybrid['fallback_queries']:
         raise AssertionError('topological hybrid changes certificate/pivot accounting')
+    if bidir['checksum'] != bfs_checksum or hybrid_bidir['checksum'] != bfs_checksum:
+        raise AssertionError('bidirectional SCC fallback disagrees with independent BFS')
+    if bidir['fallback_queries'] != topo['fallback_queries']:
+        raise AssertionError('bidirectional/topological certificates disagree')
+    if any(hybrid_bidir[key] != hybrid_topo[key] for key in ('pivot_probes', 'pivot_rescues', 'fallback_queries')):
+        raise AssertionError('bidir and topo hybrids perform different pivot work')
     if hybrid['checksum'] != bfs_checksum:
         raise AssertionError('compact + trained pivot hybrid disagrees with independent BFS')
     if compact_plain['checksum'] != bfs_checksum:
@@ -205,6 +213,10 @@ def run(args):
             'compact_topo_ns':topo['median_ns_per_query'],
             'compact_topo_fallback_edges':topo['fallback_edges'],
             'compact_pivots_topo_ns':hybrid_topo['median_ns_per_query'],
+            'compact_bidir_ns':bidir['median_ns_per_query'],
+            'compact_bidir_fallback_edges':bidir['fallback_edges'],
+            'compact_bidir_extra_storage_bytes':bidir['extra_storage_bytes'],
+            'compact_pivots_bidir_ns':hybrid_bidir['median_ns_per_query'],
             'compact_pivot_rescues':hybrid['pivot_rescues'],
             'compact_pivot_fallback_queries':hybrid['fallback_queries'],
             'compact_build_ms':compact['build_ms'],
