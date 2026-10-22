@@ -42,7 +42,7 @@ def build_executable(directory, cxx='g++', optimization='-O3'):
     return output, time.perf_counter()-t0, args
 
 
-def serialize_native(adj, candidate_vertices, methods, queries):
+def serialize_native(adj, candidate_vertices, methods, queries, selector_train=None):
     edges=[(u,v) for u,row in enumerate(adj) for v in row]
     chunks=[f'{len(adj)} {len(edges)} {len(candidate_vertices)} {len(queries)}',
             *[f'{u} {v}' for u,v in edges],
@@ -54,6 +54,10 @@ def serialize_native(adj, candidate_vertices, methods, queries):
             raise ValueError('invalid policy')
         chunks.append(' '.join([name,str(len(order))]+[str(i) for i in order]))
     chunks.extend(f'{s} {t}' for s,t in queries)
+    # Appended optional train-only query set. All existing callers remain valid.
+    if selector_train is not None:
+        chunks.append(str(len(selector_train)))
+        chunks.extend(f'{s} {t}' for s,t in selector_train)
     return ('\n'.join(chunks)+'\n').encode('ascii')
 
 
