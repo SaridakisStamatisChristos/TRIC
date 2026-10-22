@@ -53,7 +53,7 @@ def run_one(exe,payload,mode,factor,max_sources,cap_bytes,out,timeout=300):
     (out/"result.json").write_text(json.dumps(row,indent=2)+"\n")
     return row
 
-def compare(exe,payload,max_sources,cap_bytes,out,timeout=300,replications=2):
+def compare(exe,payload,max_sources,cap_bytes,out,timeout=300,replications=3):
     if not 1<=replications<=8:
         raise ValueError("invalid repetitions")
     out=Path(out)
@@ -61,8 +61,9 @@ def compare(exe,payload,max_sources,cap_bytes,out,timeout=300,replications=2):
     for factor in (1,50):
         observations={m:[] for m in MODES}
         for rep in range(replications):
-            # Clock position balanced among three methods across runs.
-            order=MODES if rep%2==0 else tuple(reversed(MODES))
+            # Three-arm Latin-square position balance: at three repetitions
+            # each mode occupies every launch position exactly once.
+            order=tuple(MODES[(rep+i)%len(MODES)] for i in range(len(MODES)))
             for mode in order:
                 row=run_one(exe,payload,mode,factor,max_sources,cap_bytes,
                             out/f"factor_{factor}"/f"rep{rep}_{mode}",timeout)
