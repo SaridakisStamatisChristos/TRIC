@@ -23,6 +23,7 @@ from benchmark_native import build_executable, serialize_native
 from benchmark_hot_source_cache import native_input
 from ordered_probe import greedy_coverage_order, hit_masks_for_pivots, optimize_ordered
 from tric import make_pivot, early_reachable
+from oreach_compatible_input import prepare_comparator, remap_queryfile
 
 ROOT=Path(__file__).resolve().parent
 CLASSES=("matched_hot", "uniform", "shifted_hot")
@@ -81,13 +82,28 @@ def run(args):
             and 0<args.pivot_budget<=args.candidates<=19):
         raise ValueError("invalid benchmark parameters")
     allow_crash = bool(getattr(args, "allow_upstream_segfault", False))
-    if allow_crash and not str(getattr(args, "dataset", "")).startswith("generated_"):
-        raise ValueError("upstream-segfault tolerance is restricted to generated_* graphs")
+    use_compatible = bool(getattr(args, "oreach_scc_compatible", False))
+    dataset = str(getattr(args, "dataset", ""))
+    if (allow_crash or use_compatible) and not dataset.startswith("generated_"):
+        raise ValueError("original O-Reach compatibility modes are restricted to generated_* graphs")
+    if allow_crash and use_compatible:
+        raise ValueError("do not combine original-segfault tolerance with validated compatibility mode")
     out=Path(args.output_dir).resolve()
     out.mkdir(parents=True,exist_ok=True)
     graph=Path(args.graph).resolve()
     adj,rev=read_metis(graph)
     n=len(adj)
+    oreach_graph=graph
+    oreach_adj=adj
+    oreach_mapping=None
+    oreach_meta={"mode":"original_pinned_default_raw", "original_graph_sha256":hashlib.sha256(graph.read_bytes()).hexdigest(),
+                 "comparator_graph_sha256":hashlib.sha256(graph.read_bytes()).hexdigest(), "upstream_support_parameter":3,
+                 "scc_preprocess_ns_excluded_from_upstream_process":0}
+    oreach_support_args=[]
+    if use_compatible:
+        oreach_graph,oreach_adj,oreach_mapping,oreach_meta=prepare_comparator(
+            adj,graph,dataset,out/"oreach_compatible_graph")
+        oreach_support_args=["--support","0"]
     train,heldout,hot,shifted=workload_sets(
         adj,args.seed,args.train,args.test,args.hot_sources)
     if args.candidates>n:
@@ -130,6 +146,18 @@ def run(args):
         queryfile=directory/"heldout.query.m.txt"
         positives=write_queryfile(queryfile,adj,queries)
         q_sha=hashlib.sha256(queryfile.read_bytes()).hexdigest()
+        oreach_queryfile=queryfile
+        query_equivalence={"original_query_sha256":q_sha,
+                           "translated_query_sha256":q_sha,
+                           "original_query_count":len(queries),
+                           "comparator_query_count":len(queries),
+                           "equivalence_verified_pairs":len(queries),
+                           "positive_count":positives}
+        if use_compatible:
+            oreach_queryfile=directory/"oreach_equivalent.query.m.txt"
+            query_equivalence=remap_queryfile(queryfile,oreach_queryfile,adj,oreach_adj,oreach_mapping)
+            if query_equivalence["positive_count"]!=positives:
+                raise AssertionError("SCC quotient lost original positive query count")
         input_data=native_input(adj,train,queries,
                                 args.hot_sources,args.hot_cache_cap_mib*1024*1024)
         cache_proc=subprocess.run([str(cache_exe)],input=input_data,
@@ -191,8 +219,8 @@ def run(args):
                 rss_path=directory/f"oreach_{rep}.rss_kib.txt"
                 cmd=["/usr/bin/time","-f","%M","-o",str(rss_path),
                      str(Path(args.oreach_binary).resolve()),
-                     str(graph),"--seed",str(args.seed),"--queries",str(queryfile),
-                     "--pbibfs","--pdfs","--output",str(csv_path)]
+                     str(oreach_graph),"--seed",str(args.seed),"--queries",str(oreach_queryfile),
+                     *oreach_support_args,"--pbibfs","--pdfs","--output",str(csv_path)]
                 proc=subprocess.run(cmd,capture_output=True,text=True,timeout=args.timeout)
                 upstream_attempts += 1
                 (directory/f"oreach_{rep}.stderr.txt").write_text(proc.stderr)
@@ -280,6 +308,11 @@ def run(args):
                     if upstream_failure is None else None),
                 "oreach_process_maxrss_kib":rss_values,
                 "oreach_status":oreach_status,
+                "oreach_comparator_input":oreach_meta,
+                "oreach_query_equivalence":query_equivalence,
+                "oreach_graph_path":str(oreach_graph),
+                "oreach_queryfile_path":str(oreach_queryfile),
+                "oreach_support_args":oreach_support_args,
                 "times":times,"oreach_raw_csv_rows":oreach_raw,
                 "claim_limit":"Identical heldout queries but different index budgets and separate timed process runs; source skew is synthetic on authentic graph topology; per-query O'Reach output not independently exported"}
         by_class[cls]=result
@@ -312,6 +345,8 @@ def run(args):
         "hot_probability":0.8,"hot_cache_cap_mib":args.hot_cache_cap_mib,
         "pivot_budget":args.pivot_budget,
         "matched_resource_budgets":False,
+        "oreach_comparator_input":oreach_meta,
+        "oreach_config_is_default":not use_compatible,
         "native_compile_seconds":compile_seconds,
         "native_compile_cmd":build_cmd,"cache_compile_cmd":cache_compile_cmd,
         "cache_indexed_compile_cmd":indexed_compile_cmd,
@@ -339,6 +374,8 @@ def parser():
     p.add_argument("--optimization",default="-O3")
     p.add_argument("--compiler",default="g++")
     p.add_argument("--timeout",type=int,default=300)
+    p.add_argument("--oreach-scc-compatible",action="store_true",
+                   help="Generated graphs only: unchanged original O-Reach with support=0 on semantically equivalent SCC-DAG; independent BFS checks")
     p.add_argument("--allow-upstream-segfault",action="store_true",
                    help="Only for explicitly labeled generated_* graph families: preserve and mark original O-Reach SIGSEGV as unavailable (not a measurement)")
     return p
