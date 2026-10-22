@@ -79,7 +79,8 @@ class HotSourceIndexTests(unittest.TestCase):
             subprocess.run(['g++','-std=c++17','-O2','-Wall','-Wextra',
                             '-Wpedantic','-I',str(ROOT),str(source),'-o',str(binary)],
                            check=True,capture_output=True,text=True)
-            subprocess.run([str(binary)],check=True,capture_output=True,text=True)
+            p=subprocess.run([str(binary)],capture_output=True,text=True)
+            self.assertEqual(p.returncode,0, p.stdout+'\n'+p.stderr)
 
     def test_paired_benchmark_smoke(self):
         with tempfile.TemporaryDirectory() as td:
