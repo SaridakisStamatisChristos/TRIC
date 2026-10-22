@@ -32,6 +32,8 @@ class CompactNativeTests(unittest.TestCase):
         out = json.loads(proc.stdout)
         compact = out["compact"]
         self.assertEqual(compact["checksum"], out["policies"][0]["checksum"])
+        self.assertEqual(out["compact_plain"]["checksum"], compact["checksum"])
+        self.assertEqual(len(out["compact_plain"]["samples_ns_per_query"]), 3)
         self.assertEqual(sum(compact[k] for k in
                              ("certified_yes", "certified_no", "fallback_queries")), len(queries))
         self.assertEqual(compact["dimensions"], 4)
@@ -65,7 +67,9 @@ class CompactNativeTests(unittest.TestCase):
         queries = [(0, n - 1), (n - 1, 0), (31, 30), (31, 32), (400, 400)]
         data = self.execute(adj, queries, 0)["compact"]
         self.assertGreaterEqual(data["certified_yes"], 3)
-        self.assertEqual(data["components"] if "components" in data else n, n)
+        self.assertEqual(data["certified_no"], 2)
+        self.assertEqual(data["fallback_queries"], 0)
+        self.assertEqual(data["components"], n)
 
     def test_complex_scc_and_isolated_vertices(self):
         n = 55
