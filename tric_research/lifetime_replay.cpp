@@ -199,6 +199,8 @@ int main(int argc,char** argv){
     }
   }
   const auto end=Clock::now();
+  if(cache.retained_bytes()>cap_bytes)
+    throw std::runtime_error("late cache retained-byte cap exceeded");
   // Differential truth check after all timed sections (all unique heldout
   // queries); never mix expensive graph DFS oracle into full-index timing.
   for(const auto& q:queries){
