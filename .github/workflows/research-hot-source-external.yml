@@ -1,0 +1,104 @@
+name: TRIC Phase XX paired hot-source external pilot
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/research-hot-source-external.yml'
+      - 'tric_research/benchmark_hot_source_external.py'
+      - 'tric_research/test_hot_source_external.py'
+      - 'tric_research/hot_source_cache.h'
+      - 'tric_research/hot_source_bench.cpp'
+      - 'tric_research/PHASE_XX_RESEARCH_REPORT.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-skew-external:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        dataset: [example, kron_logn12]
+    env:
+      OREACH_SHA: 78b3e326bbb021b7ee225ab605a4cdd074fa1d93
+      DATASET: ${{ matrix.dataset }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install pinned O-Reach native dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libboost-dev cmake g++ xz-utils
+      - name: Compile unmodified pinned O-Reach
+        run: |
+          set -euo pipefail
+          git clone --quiet https://github.com/o-reach/O-Reach.git upstream-oreach
+          git -C upstream-oreach checkout --detach "$OREACH_SHA"
+          test "$(git -C upstream-oreach rev-parse HEAD)" = "$OREACH_SHA"
+          cmake -S upstream-oreach -B upstream-oreach/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-include cstdint"
+          cmake --build upstream-oreach/build --parallel 2
+          test -x upstream-oreach/build/reachability
+      - name: Load authentic O-Reach sample graph
+        run: |
+          set -euo pipefail
+          mkdir -p research-results/data
+          if [ "$DATASET" = example ]; then
+            cp upstream-oreach/examples/arXiv.metis research-results/data/graph.metis
+          elif [ "$DATASET" = kron_logn12 ]; then
+            curl --fail --location --retry 2 --connect-timeout 20 --max-time 180 \
+              https://oreach.taa.univie.ac.at/assets/data/instances/kron_logn12.tar.xz \
+              --output research-results/dataset.tar.xz
+            sha256sum research-results/dataset.tar.xz > research-results/dataset.sha256
+            mkdir -p research-results/unpacked
+            tar -xJf research-results/dataset.tar.xz -C research-results/unpacked
+            mapfile -t graphs < <(find research-results/unpacked -type f -name '*.metis' | sort)
+            test "${#graphs[@]}" -eq 1
+            cp "${graphs[0]}" research-results/data/graph.metis
+          else
+            exit 2
+          fi
+          sha256sum research-results/data/graph.metis > research-results/graph.sha256
+          g++ --version | head -1 > research-results/compiler.txt
+          python --version >> research-results/compiler.txt
+          git rev-parse HEAD >> research-results/compiler.txt
+          git -C upstream-oreach rev-parse HEAD >> research-results/compiler.txt
+      - name: Phase XIX cache and Phase XX paired-engine exactness tests
+        working-directory: tric_research
+        run: python -m unittest -q test_hot_source_cache test_hot_source_external
+      - name: Run paired TRIC/cache/O-Reach on identical query files
+        working-directory: tric_research
+        run: |
+          python benchmark_hot_source_external.py \
+            --graph ../research-results/data/graph.metis \
+            --oreach-binary ../upstream-oreach/build/reachability \
+            --oreach-git-sha "$OREACH_SHA" \
+            --output-dir ../research-results/phase20 \
+            --train 500 --test 2400 --hot-sources 8 \
+            --hot-cache-cap-mib 2 --candidates 11 --pivot-budget 5 \
+            --seed 20261022 --tric-repetitions 15 --oreach-repetitions 5 \
+            --closure-cap-mib 0
+      - name: Publish raw comparators and provenance
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tric-phase20-${{ matrix.dataset }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            research-results/compiler.txt
+            research-results/graph.sha256
+            research-results/dataset.sha256
+            research-results/phase20/phase20_summary.json
+            research-results/phase20/*/comparison.json
+            research-results/phase20/*/heldout.query.m.txt
+            research-results/phase20/*/hot_source_native.json
+            research-results/phase20/*/tric_native.json
+            research-results/phase20/*/oreach_*.csv
+            research-results/phase20/*/oreach_*.rss_kib.txt
+            research-results/phase20/*/oreach_*.stdout.txt
+            research-results/phase20/*/oreach_*.stderr.txt
+          if-no-files-found: warn
+          retention-days: 30
