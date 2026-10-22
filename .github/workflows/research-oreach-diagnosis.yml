@@ -1,0 +1,71 @@
+name: TRIC upstream O-Reach sparse/cyclic crash diagnosis
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/research-oreach-diagnosis.yml'
+      - 'tric_research/patch_oreach_sparse.py'
+      - 'tric_research/diagnose_oreach_compat.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  discriminate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        family: [generated_blocks, generated_communities, generated_dag]
+    env:
+      OREACH_SHA: 78b3e326bbb021b7ee225ab605a4cdd074fa1d93
+      FAMILY: ${{ matrix.family }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Build exact original pinned O-Reach
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libboost-dev cmake g++
+          git clone --quiet https://github.com/o-reach/O-Reach.git upstream-oreach
+          git -C upstream-oreach checkout --detach "$OREACH_SHA"
+          test "$(git -C upstream-oreach rev-parse HEAD)" = "$OREACH_SHA"
+          cmake -S upstream-oreach -B upstream-oreach/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-include cstdint"
+          cmake --build upstream-oreach/build --parallel 2
+          cp upstream-oreach/build/reachability upstream-oreach/build/reachability-original
+          sha256sum upstream-oreach/build/reachability-original > research-original-binary.sha256
+      - name: Build separately identified candidate-bounds-guard comparator
+        run: |
+          set -euo pipefail
+          python tric_research/patch_oreach_sparse.py upstream-oreach/lib/reachability/oreach.cpp \
+            --report upstream-sparse-guard-patch.json
+          cmake --build upstream-oreach/build --parallel 2
+          cp upstream-oreach/build/reachability upstream-oreach/build/reachability-guarded
+          sha256sum upstream-oreach/build/reachability-guarded > research-guarded-binary.sha256
+      - name: Generate and independently validate frozen graph
+        run: |
+          python tric_research/phase22_graphs.py --family "$FAMILY" --output diagnosis/graph.metis
+      - name: Reproduce unmodified crash and discriminate independent guards
+        working-directory: tric_research
+        run: |
+          python diagnose_oreach_compat.py \
+            --graph ../diagnosis/graph.metis \
+            --original ../upstream-oreach/build/reachability-original \
+            --guarded ../upstream-oreach/build/reachability-guarded \
+            --output ../diagnosis/results
+      - name: Publish original, guarded, and alternate-support behavior
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: oreach-diagnosis-${{ matrix.family }}-${{ github.run_id }}
+          path: |
+            research-original-binary.sha256
+            research-guarded-binary.sha256
+            upstream-sparse-guard-patch.json
+            diagnosis/data/generated_graph_provenance.json
+            diagnosis/generated_graph_provenance.json
+            diagnosis/results/*
+          if-no-files-found: warn
+          retention-days: 30
