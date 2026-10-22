@@ -101,7 +101,76 @@ there is repeatable **end-to-end**, resource-matched benefit at the
 actual intended query volume. Even favorable amortized projections
 do not establish such a benefit.
 
-## Pilot findings
+## Executed pilot evidence (2026-10-22)
 
-To be populated from the exact final-commit CI run. No cost model
-results are claimed prior to successful verification.
+[Python 3.10 and 3.13 unit CI (both successful)](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39778413924).
+[Full paired O'Reach research CI (both graph jobs successful)](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39778413930)
+at source SHA `f7f65fc5dad7fbdc2ab2cbc2c6aa87c11f70dfb0`.
+Raw per-seed graphs, query pairs, verified training fingerprints and
+`phase18_amortization.json` reports are included in the
+[arXiv artifact](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39778413930/artifacts/12426295064)
+and
+[Kronecker artifact](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39778413930/artifacts/12425134390).
+
+### Observed *and* modeled evidence
+
+- Both graphs × all four heldout classes × all three seeds passed the
+  independent BFS checksum, original pivot-work accounting, exact true/false
+  label composition, and uniform **same-seed training input fingerprint**
+  checks. None required revising the training samples or query sets.
+- **Measured:** the selector fit cost F, per-query native method medians,
+  and the selected policy on each seed. This run's fitted policies should
+  not be presumed stable across different hosted runners.
+- **Derived, not measured:** net cost of Q future queries calculated from
+  the equation above using each pair of observed times. Query volumes
+  beyond 1200 were **not executed**, and this is not a real time-series
+  or empirical scaling measurement.
+- **At Q=1200:** selector projected net win against *either baseline*
+  in **0/24** graph×seed×class comparisons: extra fit dominates.
+- **At Q=1,000,000:** projected selector wins against **original
+  bidirectional fallback** by class:
+
+| Graph | Uniform | Positive | Negative | Balanced |
+|---|---:|---:|---:|---:|
+| arXiv | 3/3 | 2/3 | 3/3 | 2/3 |
+| Kronecker | 0/3 | 0/3 | 0/3 | 0/3 |
+
+- Against **topological-only fallback at Q=1,000,000**:
+  arXiv uniform 2/3, positive 3/3, negative **0/3**, balanced 3/3;
+  Kronecker uniform 3/3, positive 3/3, negative **0/3**,
+  balanced 3/3. Be careful: a topology-only implementation might
+  save reverse-DAG memory absent in the shared experimental index.
+
+### Key refutation: run-to-run instability on Kronecker negative queries
+
+Phase XVII's earlier benchmark gave the selector ~9% query-only
+advantage over bidirectional search on Kronecker negative-only splits.
+In the Phase XVIII rerun on the unchanged selection implementation, the
+selector had **no per-query advantage in any of the three negative-only
+splits**, so no finite incremental break-even exists on those seeds,
+irrespective of the future query count. The earlier apparent gain
+was **not robust to a new hosted-runner environment**.
+
+This is empirical evidence *against* promoting the selector to the
+default path. The regression is not evidence that the underlying
+routing idea can never work: dedicated-machine training/evaluation,
+broader graph families, and much larger independently sampled query
+batches are necessary to distinguish true selection benefit from
+training/performance measurement noise.
+
+### Research verdict
+
+- **PASS —** implementation, independent tests, data provenance and
+  correctness-conditioned break-even accounting.
+- **REJECTED —** claim that the fitted selector is beneficial at 1200
+  queries (24/24 comparisons showed a modeled deficit).
+- **UNRESOLVED —** general amortized benefit at larger real-life query
+  volumes; the table is explicitly conditional extrapolation, not
+  a measured million-query benchmark.
+- **NO-GO —** new production default, claimed superiority over O'Reach,
+  SOTA/novelty, or publication readiness.
+
+**Next high-information experiment:** actual long-volume query replay on
+dedicated machines using separately timed warm/cold cache regimes,
+independent graphs, and fully accounted index/Python-training/selector
+fitting costs. This was **not performed in Phase XVIII**.
