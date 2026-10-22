@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 #include "closure_index.h"
+#include "compact_reachability.h"
 using Clock=std::chrono::steady_clock;
 using Graph=std::vector<std::vector<int>>;
 struct Policy {std::string name; std::vector<int> order;};
@@ -133,7 +134,15 @@ int main(int argc,char **argv){
     BoundedClosure closure(graph,cap_mib*1024*1024);
     auto c1=Clock::now();
     const double closure_build_ms=std::chrono::duration<double,std::milli>(c1-c0).count();
+    // O(|V|+|E|) SCC condensation plus four reachability-safe intervals.
+    auto k0=Clock::now();
+    CompactReachability compact(graph);
+    auto k1=Clock::now();
+    const double compact_build_ms=std::chrono::duration<double,std::milli>(k1-k0).count();
+    std::vector<double> compact_samples, closure_onepass_samples;
     std::vector<double> closure_samples;
+    uint64_t compact_checksum=0;
+    CompactReachability::QueryStats compact_stats;
     uint64_t closure_checksum=0;
     std::vector<std::vector<double>> samples(numpol);
     std::vector<Counter> counters(numpol);
@@ -144,6 +153,10 @@ int main(int argc,char **argv){
     if(closure.built())for(int i=0;i<qcount;++i)
       if(closure.reaches(queries[i].first,queries[i].second)!=bool(truth[i]))
         throw std::runtime_error("closure mismatch with independent DFS oracle at query "+std::to_string(i));
+    // Independent BFS validates every index answer before timing.
+    for(int i=0;i<qcount;++i)
+      if(compact.reaches(queries[i].first,queries[i].second)!=bool(truth[i]))
+        throw std::runtime_error("compact reachability mismatch at query "+std::to_string(i));
     for(int rep=0;rep<reps;rep++){
       std::mt19937_64 rng(0x9e3779b97f4a7c15ULL+static_cast<uint64_t>(rep));
       std::shuffle(query_order.begin(),query_order.end(),rng);
@@ -155,7 +168,30 @@ int main(int argc,char **argv){
         samples[pi].push_back(std::chrono::duration<double,std::nano>(t1-t0).count()/qcount);
         counters[pi]=result;
       }
+      {
+        CompactReachability::QueryStats st;
+        uint64_t sum=0;
+        auto t0=Clock::now();
+        for(int id:query_order){
+          const bool answer=compact.reaches(queries[id].first,queries[id].second,&st);
+          sum=(sum*0x100000001b3ULL)^(static_cast<uint64_t>(id)*4ULL+static_cast<unsigned>(answer));
+        }
+        auto t1=Clock::now();
+        compact_samples.push_back(std::chrono::duration<double,std::nano>(t1-t0).count()/qcount);
+        compact_checksum=sum;
+        compact_stats=st;
+        if(sum!=counters[0].checksum)throw std::runtime_error("compact checksum differed from oracle");
+      }
       if(closure.built()){
+        uint64_t onepass_checksum=0;
+        auto a0=Clock::now();
+        for(int id:query_order){
+          const bool answer=closure.reaches(queries[id].first,queries[id].second);
+          onepass_checksum=(onepass_checksum*0x100000001b3ULL)^(static_cast<uint64_t>(id)*4ULL+static_cast<unsigned>(answer));
+        }
+        auto a1=Clock::now();
+        closure_onepass_samples.push_back(std::chrono::duration<double,std::nano>(a1-a0).count()/qcount);
+        if(onepass_checksum!=compact_checksum)throw std::runtime_error("closure/compact checksum mismatch");
         auto t0=Clock::now();
         uint64_t sum=0;
         constexpr int batches=128; // suppress timer overhead at nanosecond scale
@@ -186,7 +222,22 @@ int main(int argc,char **argv){
       for(size_t j=0;j<samples[i].size();j++){if(j)std::cout<<',';std::cout<<samples[i][j];}
       std::cout<<"]}";
     }
-    std::cout<<"],\"closure\":{\"available\":"<<(closure.built()?"true":"false")
+    std::cout<<"],\"compact\":{\"dimensions\":"<<CompactReachability::dimensions
+             <<",\"components\":"<<compact.components()
+             <<",\"labels_bytes\":"<<compact.labels_bytes()
+             <<",\"build_ms\":"<<compact_build_ms
+             <<",\"median_ns_per_query\":"<<median(compact_samples)
+             <<",\"certified_yes\":"<<compact_stats.certified_yes
+             <<",\"certified_no\":"<<compact_stats.certified_no
+             <<",\"fallback_queries\":"<<compact_stats.fallback
+             <<",\"fallback_edges\":"<<compact_stats.edges
+             <<",\"checksum\":"<<compact_checksum
+             <<",\"samples_ns_per_query\":[";
+    for(std::size_t j=0;j<compact_samples.size();++j){
+      if(j)std::cout<<',';
+      std::cout<<compact_samples[j];
+    }
+    std::cout<<"]},\"closure\":{\"available\":"<<(closure.built()?"true":"false")
              <<",\"components\":"<<closure.components()
              <<",\"index_matrix_bytes\":"<<closure.matrix_bytes()
              <<",\"cap_mib\":"<<cap_mib
@@ -194,6 +245,7 @@ int main(int argc,char **argv){
              <<",\"timed_query_repeats\":128";
     if(closure.built()){
       std::cout<<",\"median_ns_per_query\":"<<median(closure_samples)
+               <<",\"median_onepass_ns_per_query\":"<<median(closure_onepass_samples)
                <<",\"checksum\":"<<closure_checksum
                <<",\"samples_ns_per_query\":[";
       for(std::size_t j=0;j<closure_samples.size();++j){
