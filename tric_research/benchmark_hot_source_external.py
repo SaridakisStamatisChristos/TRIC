@@ -130,6 +130,8 @@ def run(args):
             or cached["retained_bytes"]>cached["cap_bytes"]):
             raise AssertionError("cache budget/inputs mismatch")
         native_bytes=serialize_native(adj,candidates,policies,queries,train)
+        # Immutable native input shared by Phase XXI and lifetime replay.
+        (directory/"native_input.txt").write_bytes(native_bytes)
         native_proc=subprocess.run([str(native_exe),str(args.tric_repetitions),
                                     str(args.closure_cap_mib)],
                                    input=native_bytes,capture_output=True,
