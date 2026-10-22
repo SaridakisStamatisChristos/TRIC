@@ -9,22 +9,21 @@ Phase XXI reported ~3.4–3.5x improved **query-only** latency for cache+pivot+i
 
 ## Independent research matrix
 
-Five *original published* O'Reach graph instances, not new synthetic networks:
+Five distinct graph instances/topologies: two verified published inputs plus three **clearly labeled generated** graphs. The originally proposed go_sub, pubmed_sub and delaunay_n15 instances could not be retrieved from the published URLs (HTTP 404); see failed matrix attempt CI 39796683330. They are not silently replaced under the original names:
 
 | Dataset | Vertices | Directed edges | Family |
 |---|---:|---:|---|
 | example / arXiv.metis | 6000 | 66707 | citation |
 | kron_logn12 | 4096 | 116952 | RMAT / Kronecker DAG |
-| go_sub | 6793 | 13361 | small biological ontology |
-| pubmed_sub | 9000 | 40028 | biomedical |
-| delaunay_n15 | 32768 | 98274 | geometric DAG |
+| generated_dag | 2000 | determined by fixed generator seed | synthetic topological DAG |
+| generated_blocks | 2000 | determined by fixed generator seed | synthetic block DAG |
+| generated_communities | 2000 | determined by fixed generator seed | synthetic cyclic communities |
 
-Source: original O'Reach published instance catalogue: https://oreach.taa.univie.ac.at/.
-The SHA-pinned, unmodified O'Reach implementation is the comparison source. Do not equate the three query/training seeds *on one fixed graph* with independent graph samples.
+Authentic graphs source: original O'Reach published catalogue: https://oreach.taa.univie.ac.at/ and bundled upstream arXiv example. Synthetic graphs: TRIC's pre-existing graph_family routine with graph seed 20261001, 2000 nodes, fixed across query seeds, exported as directed METIS and checksum-checked. Original O'Reach remains the SHA-pinned comparator for **all** graph classes. The synthetic instances do NOT reproduce the unavailable published instances. Do not equate the three query/training seeds *on one fixed graph* with independent graph samples.
 
 For each graph × seed (20261022, 20261023, 20261024) × workload (matched 80%-hot, uniform, shifted 80%-hot from disjoint sources), use exact identical 2400 heldout pairs per method, independently train on 500 other pair draws, deterministic first-party pivot selection, 2 MiB cap for retained hot bitset vectors, and 11 candidates / pivot budget 5. The original benchmark runs native TRIC/O'Reach comparisons including control methods and preserves all data hashes.
 
-**Expected matrix:** 15 graph-seed jobs and 45 different heldout test sets. Graph sources are five independent graph *instances* but some are related methodologically.
+**Expected matrix:** 15 graph-seed jobs and 45 different heldout test sets. Graph sources are five graph *instances* but only two are genuinely published benchmark sources. Synthetic families cannot substitute for independent real-world replication.
 
 ## Cold-start / real replay protocol
 
@@ -51,7 +50,7 @@ No automatic/default promotion. Consider proposing one only if ALL hold on the f
 4. **Memory:** quantify actual max-RSS delta for each paired fresh process; require the selected cap be enforced and no unexplained extra RSS beyond up to +5 MiB per tested graph/seed. Report combined retained index sizes separately.
 5. **External competitiveness:** compare O'Reach on the same exact repeated query files, and report original O'Reach build/query/RSS without conflating process wall timers. Do not claim blanket or memory-matched superiority from any narrow result.
 
-These thresholds are engineering acceptance criteria, not formal confidence bounds. Shared GitHub runners and two trial replicates are exploratory; require dedicated or independently repeated runs before marketing/publishing generalized superiority.
+These thresholds are engineering acceptance criteria, not formal confidence bounds. Shared GitHub runners and two trial replicates are exploratory. The 2 authentic + 3 generated matrix can validate the mechanism but is **insufficient by itself to promote a general-performance/default algorithm**; obtain additional verifiable authentic graphs and dedicated replicated runs before marketing, default promotion or publishing generalized superiority.
 
 ## Closest prior art and novelty state
 
@@ -64,3 +63,7 @@ Source-selective transitive-closure bitmaps, cached BFS sources, SCC condensatio
 Standalone test: `cd tric_research && python -m unittest -q test_phase22_lifetime`.
 
 **State at creation:** specified and implemented, **NOT YET externally replicated**. After 15 CI jobs complete, append actual positives/negative cases, paired trial medians and final promotion decision, with exact SHA. If jobs fail, preserve evidence and repair test defects rather than weakening assertions.
+
+## Dataset availability audit and experimental amendment
+
+Original matrix run https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39796683330 recorded an HTTP 404 while downloading go_sub from the authors' advertised instance URL; external checks showed pubmed_sub and delaunay_n15 also returned 404. Those jobs remain failed instead of being relabeled successes or silently fed different inputs. On this subsequent code revision, the planned 5×3 replication is **2 authentic + 3 generated** families, with the original dataset list preserved here as an unexecuted/failed acquisition plan. Generated graphs are frozen to a separate deterministic graph seed so the three query seeds do not inadvertently change their topology. Publication/generalization gate therefore stays NO-GO without more real sources.
