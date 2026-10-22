@@ -52,7 +52,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # PRs cross-check multiple real graphs. Manual runs select just one.
+        # PRs run two authentic source graphs and three explicitly synthetic stress graphs.
+        # Native-only synthetic runs DO NOT establish an O-Reach comparison.
         dataset: ${{ fromJSON(github.event_name == 'workflow_dispatch' && format('["{0}"]', inputs.dataset) || '["example","kron_logn12","synthetic_chain","synthetic_blocks","synthetic_communities"]') }}
     env:
       OREACH_SHA: 78b3e326bbb021b7ee225ab605a4cdd074fa1d93
@@ -130,11 +131,19 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          BASELINE_ARGS=()
+          if [ "$GRAPH_ORIGIN" = synthetic ]; then
+            # O-Reach at the pinned upstream SHA segfaulted (-11) on all
+            # three 720-vertex synthetic structures in run 39763094174.
+            # Retain failure evidence. Do NOT invent a baseline timing.
+            BASELINE_ARGS=(--tric-only)
+          fi
           python benchmark_oreach_ci.py \
             --graph ../research-results/data/graph.metis \
             --oreach-binary ../upstream-oreach/build/reachability \
             --oreach-git-sha "$OREACH_SHA" \
             --graph-origin "$GRAPH_ORIGIN" \
+            "${BASELINE_ARGS[@]}" \
             --output-dir ../research-results \
             --train 500 --test 1200 --seed 20261022 \
             --candidates 11 --budget 5 \
@@ -147,12 +156,14 @@ jobs:
               --oreach-binary ../upstream-oreach/build/reachability \
               --oreach-git-sha "$OREACH_SHA" \
             --graph-origin "$GRAPH_ORIGIN" \
+            "${BASELINE_ARGS[@]}" \
               --output-dir "../research-results/seeds/$seed" \
               --train 500 --test 1200 --seed "$seed" \
               --candidates 11 --budget 5 \
               --tric-repetitions 15 --oreach-repetitions 5 \
               --closure-cap-mib 64
           done
+          if [ "$GRAPH_ORIGIN" = published ]; then
           python summarize_phase12.py \
             ../research-results/comparison.json \
             ../research-results/seeds/20261023/comparison.json \
@@ -175,6 +186,7 @@ jobs:
                 --oreach-binary ../upstream-oreach/build/reachability \
                 --oreach-git-sha "$OREACH_SHA" \
             --graph-origin "$GRAPH_ORIGIN" \
+            "${BASELINE_ARGS[@]}" \
                 --output-dir "$output" \
                 --query-stratum "$stratum" \
                 --train 500 --test 1200 --seed "$seed" \
@@ -201,6 +213,7 @@ jobs:
             ../research-results/seeds/20261024/comparison.json \
             ../research-results/strata/*/*/comparison.json \
             --out ../research-results/phase17_summary.json
+          fi
           python summarize_phase18.py \
             ../research-results/comparison.json \
             ../research-results/seeds/20261023/comparison.json \
