@@ -192,3 +192,23 @@ selected methods.
 Future gates: compare memory/preprocessing budgets, obtain diverse graphs,
 independent O'Reach per-query outcome export, and test a preregistered
 feature-only selector on held-out workloads before generalizing.
+
+### Code-audit correction to benchmark provenance (after initial CI)
+
+Inspection of the **pinned upstream** `o-reach/O-Reach`
+`app/reachability.cpp` showed that O'Reach derives the output CSV's
+`querytype` column solely from the query filename suffix. Earlier harness
+versions wrote all held-out query files as `*.query.m.txt`, incorrectly
+marking true-only, false-only and uniform sets as `mixed` **in O'Reach's
+CSV metadata**. The actual source/destination pairs and methods were
+unaffected; the true-positive counts reported by TRIC were independently
+verified and remain substantive evidence.
+
+To prevent metadata laundering, the harness now uses:
+`heldout.query.txt` (uniform/random),
+`heldout.query.t.txt` (positive/true),
+`heldout.query.f.txt` (negative/false), and
+`heldout.query.m.txt` (balanced/mixed). The CSV parser also checks that
+upstream O'Reach classified each file correctly. New unit regression tests
+reject a deliberately mislabeled CSV. The revised final-code CI run must
+pass independently before the updated artifact is called verified.
