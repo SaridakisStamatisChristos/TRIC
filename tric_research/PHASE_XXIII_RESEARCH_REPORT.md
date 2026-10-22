@@ -43,3 +43,46 @@ At initial proposal time **the full matrix is not yet observed**. Do not fill pe
 ## Main limitations
 
 Training two physically separate graph-loading paths is still required when the native trainer and query runner run in distinct processes. A production integrated runner could reuse the resident compact index and pivot bitsets, but doing so would change the architecture and warrants its own measurement. The 60%/256/50,000 thresholds are transparent *hypotheses*, not calibrated statistically or claimed optimal. Fixed source-prefix admission could be wrong after abrupt distribution drift; this remains explicit research scope.
+
+
+## Observed Phase XXIII qualification — CI run 39847666038
+
+Evidence: [pinned 17-job Phase XXIII CI](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39847666038), plus [2/2 full tests](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39847666028) and [15/15 Phase XXII regression tests](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39847666022), all on **0c79a6c84d5e8e8d69fc3ee3d065d599eb657a83**.
+
+All 15 dataset/seed artifacts were downloaded and inspected from the named GitHub workflow. They contain independent Python/C++ parity, per-run training timings, and the actual three-arm native lifecycle comparisons, not estimates.
+
+### Native train-only optimizer: same result, lower cost in 12/15 cells
+
+The median of 15 *within-dataset/seed* median legacy/native training ratios is **7.39×**. Exactly **12/15** cells improve; this *meets but does not exceed* the preregistered minimum of 12/15 cells. The three regressions are all synthetic block instances, with native at **0.87×, 0.93×, 0.93×** of the Python trainer. This requires maintaining the legacy fallback for small/sparse disconnected training regimes.
+
+| Dataset | Native training speedup, three seeds |
+| --- | --- |
+| arXiv | 12.52×, 6.24×, 7.70× |
+| Kronecker | 15.98×, 8.83×, 10.92× |
+| Generated DAG | 10.91×, 9.80×, 7.27× |
+| Generated blocks | **0.87×, 0.93×, 0.93×** (regression) |
+| Generated communities | 7.39×, 7.15×, 5.58× |
+
+These are *training pipeline timings*, including native serialization/subprocess/DP, excluding compilation and candidate preselection from both alternatives. Candidate order, per-query hit masks, fallback edge counts, greedy/ordered policy and model objective were checked for **exact parity**. Full original O-Reach external comparisons remain part of Phase XXII, not Phase XXIII.
+
+### Online cache admission: all 45 source-shape/horizon-50 decisions as intended
+
+At the **120,000 actual-call** horizon, the source-only gate admitted the cache in **15/15 matched-hot** cases and refused it in **15/15 uniform** plus **15/15 shifted-hot** cases. Cache rows remain unallocated after refusal. All three modes had the same per-run heldout answers against the independent reachability oracle. At the short 2,400-call horizon, the gate refuses admission by design.
+
+Across all 15 graph-seed cases, the medians of adaptive/cache-free full native build-plus-query ratios were **1.223× matched-hot**, **0.988× uniform**, and **0.992× shifted-hot**. The negative-class medians represent **small remaining overhead** from admission instrumentation; neither class produced a slowdown worse than 5% on these 30 measured cells. For matched-hot, adaptive beat cache-free indexed TRIC in **15/15** cells, but the sizes and improvement are graph-specific.
+
+| Dataset | Adaptive matched-hot full native speedup, three seeds |
+| --- | --- |
+| arXiv | 1.469×, 1.417×, 1.483× |
+| Kronecker | 1.083×, 1.069×, 1.125× |
+| Generated DAG | 1.537×, 1.483×, 1.387× |
+| Generated blocks | 1.127×, 1.242×, 1.120× |
+| Generated communities | 1.201×, 1.223×, 1.065× |
+
+### Disposition: conditional research uplift, still no general promotion
+
+1. **Native train-only acceleration: conditional GO as an opt-in research path**, with exact parity verified and all sparse-block slowdowns preserved. To choose automatically in production, first measure a training-graph feature gate or rework the trainer to reduce fixed subprocess overhead for short tasks; do not use heldout timing to choose.
+2. **Admission logic: conditional GO as an experimental policy**, not a universal default. First 256 *live* source IDs and a **known 50,000+ call horizon** are assumed; real streams may have unknown lifetimes or sudden phase shifts. Replaying a frozen 2,400-pair test set 50 times is **not 120,000 IID queries**.
+3. **Default TRIC/SOTA promotion: NO-GO.** Unchanged main/default algorithm, original Phase XXII and source code are preserved. The gates above are research evidence only, not matched-memory broad superiority or a field-deployed predictor.
+
+Raw artifact URL: https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39847666038.
