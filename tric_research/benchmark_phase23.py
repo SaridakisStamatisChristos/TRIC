@@ -19,6 +19,7 @@ from benchmark_hot_source_external import CLASSES,workload_sets
 from benchmark_native import serialize_native
 from benchmark_oreach_ci import read_metis
 from phase23_training import compile_native,native_fit,legacy_fit,assert_parity
+from phase23_admission import compare as compare_admission
 from tric import early_reachable
 
 ROOT=Path(__file__).resolve().parent
@@ -56,7 +57,13 @@ def run(args):
            "native_serialization_ns":fast["serialize_ns"],
            "objective_equal":True,
            "exact_same_order":True})
+    cold_runner=out/"phase23_lifetime"
+    subprocess.run([args.compiler,"-std=c++17",args.optimization,"-DNDEBUG",
+                   "-Wall","-Wextra","-Wpedantic",
+                   str(ROOT/"lifetime_replay.cpp"),"-o",str(cold_runner)],
+                   capture_output=True,check=True,text=True)
     query_comparisons={}
+    policy_admission={}
     policies={"BFS":[],"Control":[],"Greedy":fast["greedy"],"Ordered":fast["ordered"]}
     for cls in CLASSES:
         qs=heldout[cls]
@@ -72,6 +79,10 @@ def run(args):
             raise AssertionError("native index/cache disagreement")
         if result["queries"]!=len(qs) or result["training"]!=len(train):
             raise AssertionError("train/test data was changed")
+        policy_admission[cls]=compare_admission(
+            cold_runner,raw,args.hot_sources,
+            args.hot_cache_cap_mib*1024*1024,
+            out/cls/"admission",args.timeout,replications=2)
         query_comparisons[cls]={
           "training_hash":hashlib.sha256(str(train).encode()).hexdigest(),
           "heldout_hash":hashlib.sha256(str(qs).encode()).hexdigest(),
@@ -112,6 +123,9 @@ def run(args):
       "median_native_fit_ns":train_new,
       "training_speedup":train_old/train_new,
       "query_tests":query_comparisons,
+      "three_arm_lifecycle_admission":policy_admission,
+      "admission_design":"After first 256 LIVE sources only; trained high-frequency source candidate list, 60%-support threshold, 50000 known future call horizon; same graph/index/pivot policy, cache lazily constructed only when admitted",
+      "admission_target_query_labels_used":False,
       "environment":{"python":sys.version,"platform":platform.platform(),
                      "compiler":args.compiler,"optimization":args.optimization},
       "claim_limit":"Same exact trained pivot order and native serving behavior on these inputs; does not claim improvement to original O-Reach, cold whole-application deployment or general SOTA"}
@@ -122,7 +136,11 @@ def run(args):
         "legacy_train_ms":train_old/1e6,
         "native_train_ms":train_new/1e6,
         "exact_same_order":True,
-        "classes_checked":list(query_comparisons)}),flush=True)
+        "classes_checked":list(query_comparisons),
+        "matched_hot_120k_admitted":policy_admission["matched_hot"]["50"]["adaptive_cache_pivot_index"]["admitted"],
+        "uniform_120k_admitted":policy_admission["uniform"]["50"]["adaptive_cache_pivot_index"]["admitted"],
+        "shifted_120k_admitted":policy_admission["shifted_hot"]["50"]["adaptive_cache_pivot_index"]["admitted"],
+        "lifecycle_adaptive_matched_speedup":policy_admission["matched_hot"]["50"]["adaptive_cache_pivot_index"]["speedup_over_index"]}),flush=True)
     return report
 
 if __name__=="__main__":
