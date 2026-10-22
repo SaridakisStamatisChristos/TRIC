@@ -34,10 +34,21 @@ class CompactNativeTests(unittest.TestCase):
         self.assertEqual(compact["checksum"], out["policies"][0]["checksum"])
         self.assertEqual(out["compact_plain"]["checksum"], compact["checksum"])
         self.assertEqual(out["compact_topo"]["checksum"], compact["checksum"])
+        self.assertEqual(out["compact_bidir"]["checksum"], compact["checksum"])
+        self.assertEqual(out["compact_bidir"]["fallback_queries"],
+                         out["compact_topo"]["fallback_queries"])
+        self.assertGreater(out["compact_bidir"]["extra_storage_bytes"], 0)
         self.assertLessEqual(out["compact_topo"]["fallback_edges"],
                              out["compact_plain"]["fallback_edges"])
         self.assertEqual(out["compact_pivots"]["checksum"], compact["checksum"])
         self.assertEqual(out["compact_pivots_topo"]["checksum"], compact["checksum"])
+        self.assertEqual(out["compact_pivots_bidir"]["checksum"], compact["checksum"])
+        self.assertEqual(out["compact_pivots_bidir"]["pivot_probes"],
+                         out["compact_pivots_topo"]["pivot_probes"])
+        self.assertEqual(out["compact_pivots_bidir"]["pivot_rescues"],
+                         out["compact_pivots_topo"]["pivot_rescues"])
+        self.assertEqual(out["compact_pivots_bidir"]["fallback_queries"],
+                         out["compact_pivots_topo"]["fallback_queries"])
         self.assertEqual(out["compact_pivots_topo"]["pivot_rescues"],
                          out["compact_pivots"]["pivot_rescues"])
         self.assertEqual(out["compact_pivots_topo"]["fallback_queries"],
@@ -45,6 +56,8 @@ class CompactNativeTests(unittest.TestCase):
         self.assertGreaterEqual(out["compact_pivots"]["pivot_rescues"], 0)
         self.assertEqual(len(out["compact_plain"]["samples_ns_per_query"]), 3)
         self.assertEqual(len(out["compact_topo"]["samples_ns_per_query"]), 3)
+        self.assertEqual(len(out["compact_bidir"]["samples_ns_per_query"]), 3)
+        self.assertEqual(len(out["compact_pivots_bidir"]["samples_ns_per_query"]), 3)
         self.assertEqual(len(out["compact_pivots_topo"]["samples_ns_per_query"]), 3)
         self.assertEqual(sum(compact[k] for k in
                              ("certified_yes", "certified_no", "fallback_queries")), len(queries))
@@ -91,6 +104,31 @@ class CompactNativeTests(unittest.TestCase):
         out = self.execute(adj, queries, 1)
         self.assertEqual(out["compact"]["components"], 11)
         self.assertEqual(out["closure"]["checksum"], out["compact"]["checksum"])
+
+    def test_bidirectional_interleaved_disconnected_dags(self):
+        # Two chains interleave in topological rank but never connect.
+        n = 120
+        adj = [[] for _ in range(n)]
+        for i in range(n - 2):
+            adj[i].append(i + 2)
+            if i + 4 < n and i % 6 == 0:
+                adj[i].append(i + 4)
+        queries = [(i, j) for i in range(0, n, 5) for j in range(0, n, 9)]
+        out = self.execute(adj, queries, 0)
+        self.assertEqual(out["compact_bidir"]["checksum"],
+                         out["compact_topo"]["checksum"])
+
+    def test_bidirectional_duplicate_edges_and_cycles(self):
+        n = 180
+        adj = [[] for _ in range(n)]
+        for i in range(n - 1):
+            adj[i].extend([i + 1, i + 1])
+        for i in range(0, n - 6, 9):
+            adj[i + 6].append(i)
+        queries = [(s, t) for s in range(0, n, 11) for t in range(0, n, 13)]
+        out = self.execute(adj, queries, 0)
+        self.assertEqual(out["compact_bidir"]["checksum"],
+                         out["compact_plain"]["checksum"])
 
     def test_dense_dag_nontrivial_negative_cases(self):
         n = 120
