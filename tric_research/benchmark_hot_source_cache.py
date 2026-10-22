@@ -28,7 +28,7 @@ def native_input(adj, training, test, rows, cap):
     lines.extend(f'{u} {v}' for u,v in edges)
     lines.extend(f'{u} {v}' for u,v in training)
     lines.extend(f'{u} {v}' for u,v in test)
-    return ('\\n'.join(lines)+'\\n').encode('ascii')
+    return ('\n'.join(lines)+'\n').encode('ascii')
 
 def execute(n, train_count, test_count, seed, cache_sources, cap=65536):
     adj,_ = graph_family('dag',n,seed)
@@ -84,7 +84,7 @@ def main():
             'system':{'platform':platform.platform(),'python':platform.python_version()},
             'results':rows}
     args.output.parent.mkdir(parents=True,exist_ok=True)
-    args.output.write_text(json.dumps(result,indent=2)+'\\n')
+    args.output.write_text(json.dumps(result,indent=2)+'\n')
     for row in rows:
         for cls,rec in row['classes'].items():
             print(f"seed={row['seed']} class={cls} ratio={rec['ratio_baseline_over_cached']:.3f} "
