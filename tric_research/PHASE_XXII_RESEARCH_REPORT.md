@@ -126,3 +126,18 @@ A passing 15-job matrix **does not imply 15 successful original-O'Reach
 external comparisons**. For valid external superiority comparisons
 use only those real original-O'Reach methods actually measured.
 
+
+## Recovery from O-Reach comparator incompatibility (2026-10-22)
+
+The prior synthetic-only SIGSEGV tolerance was an honest fail-open *experiment* but left six external comparisons unavailable. The new compatibility path aims to **measure**, not silently skip, those comparisons. It addresses two incompatible input assumptions identified in the original pinned O-Reach source:
+
+* `lib/reachability/oreach.cpp::sampleSupportsFromLevels` advances the candidate iterator by `NUM_SUPPORTS` and indexes the resulting candidates without first establishing that at least that many exist. On the `generated_blocks` topology all weak components are below the original `n/10` large-component threshold, so the default sampling criteria can return no candidates. This is a source-supported plausible cause of the observed 139; the exact runtime fault location was not established by a native backtrace.
+* `app/reachability.cpp` constructs the O-Reach index directly from the input directed graph. Its extended topological indexes assume a DAG. The `generated_communities` family intentionally includes cycles. It must not be run through original DAG indexes without SCC condensation.
+
+**Compatibility contract:** for the three synthetic graph families only, compute a **deterministic, exact SCC quotient DAG**, translate **every heldout original query** into its SCC pair, check original-vs-quotient truth independently by BFS on both graphs, and run the **unmodified SHA-pinned O-Reach binary with `--support 0`**. This disables only the source-unsupported support-vertex selection; interval labels and original pDFS/pBiBFS query fallbacks are still executed. The two authentic O-Reach instances keep the original raw graph, original query file and default support configuration.
+
+Proof/regression: enumerate all 512 simple three-node digraphs including self-loops and directed cycles; check all 9 pairwise reachability outcomes on each quotient. Check complete heldout query count and original vs converted positive count, and persist graph/vertex-map/query SHA256s for independent replay. A distinct output verifier requires **15/15 genuine original-O-Reach measurements** in this revised matrix. The previous crash-tolerance switch remains a negative-test mechanism but is no longer enabled by CI.
+
+**Crucial scientific qualification:** original and compatible O-Reach configurations are **different algorithms/settings** for performance interpretation. An original graph with N vertices and a quotient with M SCCs require different memory and build work. Record Python SCC construction time independently and do not misrepresent O-Reach's *internal* index initialization or process RSS as full application cost including that preprocessing. Synthetic results must be labeled `original_pinned_binary_support0_scc_quotient`, not published-default O-Reach or matched-index-memory results. Default promotion still NO-GO independent of run success.
+
+Current repair branch will be accepted only after live original binary CI shows genuine measurements on all graph/seed combinations; until then these comparator claims remain UNVERIFIED.
