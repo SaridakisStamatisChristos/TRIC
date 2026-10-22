@@ -27,9 +27,16 @@ def summarize(paths):
     seen=set()
     sha=None
     train_selection=defaultdict(dict)
+    origin=None
     for path in paths:
         d=json.loads(Path(path).read_text(encoding="utf8"))
         graph=d["graph_sha256"]
+        if d["graph_origin"] not in ("published","synthetic"):
+            raise ValueError("unrecognized or missing graph provenance")
+        if origin is None:
+            origin=d["graph_origin"]
+        elif origin!=d["graph_origin"]:
+            raise ValueError("mixed provenance for a supposedly identical graph")
         if sha is None:
             sha=graph
         if sha!=graph:
@@ -54,11 +61,14 @@ def summarize(paths):
         for k in ("pivot_probes","pivot_rescues","fallback_queries"):
             if selector[k]!=tric["compact_pivots_bidir"][k]:
                 raise AssertionError("selector and control changed pivot work")
-        if d["heldout_positive_count"] != {
-            "positive":d["test_count"],
+        positives=d["heldout_positive_count"]
+        count=d["test_count"]
+        if count<=0 or not 0<=positives<=count:
+            raise AssertionError("physically impossible query true-count")
+        if typ!="uniform" and positives != {
+            "positive":count,
             "negative":0,
-            "balanced":d["test_count"]//2,
-            "uniform":d["heldout_positive_count"]
+            "balanced":count//2
         }[typ]:
             raise AssertionError("stratum mislabel")
         selected_ns=selector["median_ns_per_query"]
@@ -120,7 +130,7 @@ def summarize(paths):
     return{
         "graph_sha256":sha,
         "scope":"incremental fit-cost amortization for Phase XVII selector versus same-graph bidir/topo controls",
-        "source_category":next(iter(groups.values()))[0]["graph_origin"],
+        "source_category":origin,
         "horizon_type":"EXTRAPOLATED per-query medians, not executed at 10k/100k/1m/10m query lengths",
         "shared_cost_caveat":"Python training and native pivot construction overlap in this research harness; provided separately, NOT added as deployable system end-to-end wall time",
         "fitting_cost_caveat":"C++ reported fit_ns excludes training-oracle validation, Python common training and compiler; therefore a LOWER BOUND on total selector-specific cost",
