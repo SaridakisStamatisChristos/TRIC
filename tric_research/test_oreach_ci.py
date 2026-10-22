@@ -33,6 +33,15 @@ class BenchmarkProtocolTests(unittest.TestCase):
             self.assertEqual(len(parse_oreach_csv(p,10,'mixed')),2)
             with self.assertRaisesRegex(ValueError,"query-class metadata"):
                 parse_oreach_csv(p,10,'true')
+    def test_never_skip_oreach_on_published_source(self):
+        from benchmark_oreach_ci import parser, run
+        args=parser().parse_args([
+            '--graph', 'irrelevant.metis', '--oreach-binary', 'none',
+            '--oreach-git-sha', 'pinned', '--output-dir', 'unused',
+            '--graph-origin', 'published', '--tric-only'])
+        with self.assertRaisesRegex(ValueError, 'must be explicitly labeled synthetic'):
+            run(args)
+
     def test_bad_metis_header_or_edge_count(self):
         with tempfile.TemporaryDirectory() as d:
             p=Path(d)/'bad.metis'
