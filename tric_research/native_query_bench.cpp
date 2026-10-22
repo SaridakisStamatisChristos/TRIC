@@ -186,23 +186,23 @@ int main(int argc,char **argv){
       for(size_t j=0;j<samples[i].size();j++){if(j)std::cout<<',';std::cout<<samples[i][j];}
       std::cout<<"]}";
     }
-    std::cout<<"],\\\"closure\\\":{\\\"available\\\":"<<(closure.built()?"true":"false")
-             <<",\\\"components\\\":"<<closure.components()
-             <<",\\\"index_matrix_bytes\\\":"<<closure.matrix_bytes()
-             <<",\\\"cap_mib\\\":"<<cap_mib
-             <<",\\\"build_ms\\\":"<<closure_build_ms
-             <<",\\\"timed_query_repeats\\\":128";
+    std::cout<<"],\"closure\":{\"available\":"<<(closure.built()?"true":"false")
+             <<",\"components\":"<<closure.components()
+             <<",\"index_matrix_bytes\":"<<closure.matrix_bytes()
+             <<",\"cap_mib\":"<<cap_mib
+             <<",\"build_ms\":"<<closure_build_ms
+             <<",\"timed_query_repeats\":128";
     if(closure.built()){
-      std::cout<<",\\\"median_ns_per_query\\\":"<<median(closure_samples)
-               <<",\\\"checksum\\\":"<<closure_checksum
-               <<",\\\"samples_ns_per_query\\\":[";
+      std::cout<<",\"median_ns_per_query\":"<<median(closure_samples)
+               <<",\"checksum\":"<<closure_checksum
+               <<",\"samples_ns_per_query\":[";
       for(std::size_t j=0;j<closure_samples.size();++j){
         if(j)std::cout<<',';
         std::cout<<closure_samples[j];
       }
       std::cout<<']';
     }
-    std::cout<<"}}\\n";
+    std::cout<<"}}\n";
     return 0;
   }catch(const std::exception &e){std::cerr<<e.what()<<'\n';return 2;}
 }
