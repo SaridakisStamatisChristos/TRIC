@@ -1,0 +1,121 @@
+name: TRIC external reachability research
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/research-oreach.yml'
+      - 'tric_research/benchmark_oreach_ci.py'
+      - 'tric_research/test_oreach_ci.py'
+      - 'tric_research/native_query_bench.cpp'
+      - 'tric_research/benchmark_native.py'
+      - 'tric_research/ordered_probe.py'
+      - 'tric_research/tric.py'
+  workflow_dispatch:
+    inputs:
+      dataset:
+        description: 'O-Reach published instance (example runs without external dataset download)'
+        type: choice
+        required: true
+        default: example
+        options:
+          - example
+          - arXiv
+          - go_sub
+          - kron_logn12
+
+permissions:
+  contents: read
+
+jobs:
+  paired-native-experiment:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      OREACH_SHA: 78b3e326bbb021b7ee225ab605a4cdd074fa1d93
+      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || 'example' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install O-Reach dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libboost-dev cmake g++ xz-utils
+      - name: Compile pinned original O-Reach
+        run: |
+          git clone --quiet https://github.com/o-reach/O-Reach.git upstream-oreach
+          git -C upstream-oreach checkout --detach "$OREACH_SHA"
+          test "$(git -C upstream-oreach rev-parse HEAD)" = "$OREACH_SHA"
+          cmake -S upstream-oreach -B upstream-oreach/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-include cstdint"
+          cmake --build upstream-oreach/build --parallel 2
+          test -x upstream-oreach/build/reachability
+      - name: Select dataset and record source checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p research-results/data
+          if [ "$DATASET" = example ]; then
+            cp upstream-oreach/examples/arXiv.metis research-results/data/graph.metis
+          else
+            case "$DATASET" in
+              arXiv|go_sub|kron_logn12) ;;
+              *) echo "Unsupported dataset: $DATASET" >&2; exit 2 ;;
+            esac
+            url="https://oreach.taa.univie.ac.at/assets/data/instances/${DATASET}.tar.xz"
+            curl --fail --location --retry 2 --connect-timeout 20 --max-time 180 \
+              "$url" --output research-results/dataset.tar.xz
+            sha256sum research-results/dataset.tar.xz > research-results/dataset.sha256
+            tar -tJf research-results/dataset.tar.xz > research-results/archive_members.txt
+            mkdir -p research-results/unpacked
+            tar -xJf research-results/dataset.tar.xz -C research-results/unpacked
+            mapfile -t graphs < <(find research-results/unpacked -type f -name '*.metis' | sort)
+            test "${#graphs[@]}" -eq 1 || {
+              printf 'Expected one METIS graph; found %s\n' "${#graphs[@]}" >&2
+              exit 3
+            }
+            cp "${graphs[0]}" research-results/data/graph.metis
+          fi
+          sha256sum research-results/data/graph.metis > research-results/graph.sha256
+          g++ --version | head -1 > research-results/compiler.txt
+          python --version >> research-results/compiler.txt
+          uname -a >> research-results/compiler.txt
+          git -C upstream-oreach rev-parse HEAD >> research-results/compiler.txt
+      - name: Verify benchmark protocol and original TRIC suite
+        working-directory: tric_research
+        run: >-
+          python -m unittest -q
+          test_tric test_path_monge test_path_sweep test_backbone test_backbone_scc
+          test_frontier_dp test_adaptive_exact test_frontier_compact
+          test_ordered_probe test_native_benchmark test_oreach_ci
+      - name: Run paired native experiment
+        working-directory: tric_research
+        shell: bash
+        run: |
+          set -euo pipefail
+          python benchmark_oreach_ci.py \
+            --graph ../research-results/data/graph.metis \
+            --oreach-binary ../upstream-oreach/build/reachability \
+            --oreach-git-sha "$OREACH_SHA" \
+            --output-dir ../research-results \
+            --train 500 --test 1200 --seed 20261022 \
+            --candidates 11 --budget 5 \
+            --tric-repetitions 7 --oreach-repetitions 5
+      - name: Publish raw results and provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reachability-research-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            research-results/comparison.json
+            research-results/graph.sha256
+            research-results/dataset.sha256
+            research-results/archive_members.txt
+            research-results/compiler.txt
+            research-results/tric_native.json
+            research-results/heldout.query.m.txt
+            research-results/oreach_*.csv
+            research-results/oreach_*.stdout.txt
+            research-results/oreach_*.stderr.txt
+          if-no-files-found: warn
+          retention-days: 30
