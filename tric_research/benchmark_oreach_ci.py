@@ -147,6 +147,8 @@ def run(args):
     hybrid_topo = native_results['compact_pivots_topo']
     bidir = native_results['compact_bidir']
     hybrid_bidir = native_results['compact_pivots_bidir']
+    bidir_intervals = native_results['compact_bidir_intervals']
+    hybrid_bidir_intervals = native_results['compact_pivots_bidir_intervals']
     bfs_checksum = next(p['checksum'] for p in native_results['policies'] if p['name']=='BFS')
     if topo['checksum'] != bfs_checksum or hybrid_topo['checksum'] != bfs_checksum:
         raise AssertionError('topological fallback disagrees with independent BFS')
@@ -160,6 +162,15 @@ def run(args):
         raise AssertionError('bidirectional/topological certificates disagree')
     if any(hybrid_bidir[key] != hybrid_topo[key] for key in ('pivot_probes', 'pivot_rescues', 'fallback_queries')):
         raise AssertionError('bidir and topo hybrids perform different pivot work')
+    if bidir_intervals['checksum'] != bfs_checksum or hybrid_bidir_intervals['checksum'] != bfs_checksum:
+        raise AssertionError('two-sided interval pruning disagrees with independent BFS')
+    if bidir_intervals['fallback_queries'] != bidir['fallback_queries']:
+        raise AssertionError('pruned and plain bidirectional query decisions differ')
+    if bidir_intervals['interval_rejections'] < 0:
+        raise AssertionError('invalid interval rejection count')
+    if any(hybrid_bidir_intervals[key] != hybrid_bidir[key] for key in
+           ('pivot_probes', 'pivot_rescues', 'fallback_queries')):
+        raise AssertionError('interval-pruned hybrid changes pivot work')
     if hybrid['checksum'] != bfs_checksum:
         raise AssertionError('compact + trained pivot hybrid disagrees with independent BFS')
     if compact_plain['checksum'] != bfs_checksum:
@@ -244,6 +255,10 @@ def run(args):
             'compact_bidir_fallback_edges':bidir['fallback_edges'],
             'compact_bidir_extra_storage_bytes':bidir['extra_storage_bytes'],
             'compact_pivots_bidir_ns':hybrid_bidir['median_ns_per_query'],
+            'compact_bidir_intervals_ns':bidir_intervals['median_ns_per_query'],
+            'compact_bidir_intervals_fallback_edges':bidir_intervals['fallback_edges'],
+            'compact_bidir_intervals_rejections':bidir_intervals['interval_rejections'],
+            'compact_pivots_bidir_intervals_ns':hybrid_bidir_intervals['median_ns_per_query'],
             'compact_pivot_rescues':hybrid['pivot_rescues'],
             'compact_pivot_fallback_queries':hybrid['fallback_queries'],
             'compact_build_ms':compact['build_ms'],
