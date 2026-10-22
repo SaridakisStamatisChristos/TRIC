@@ -65,6 +65,20 @@ class PortfolioRegression(unittest.TestCase):
                     self.assertEqual(out["cache_rows"],2)
                     self.assertEqual(out["cache_hits"],6)
 
+    def test_zero_pivot_order_exact(self):
+        with tempfile.TemporaryDirectory() as td:
+            exe=compile_portfolio(td)
+            adj,_=build_graph(6,[(0,1),(1,2),(2,3)])
+            queries=[(s,t) for s in range(6) for t in range(6)]
+            train=[(0,1)]*9
+            raw=serialize_native(adj,[0,1],
+                {"BFS":[],"Ordered":[]},queries,train)
+            p=subprocess.run([str(exe),"16","1","4096"],
+                             input=raw,capture_output=True,timeout=30)
+            self.assertEqual(p.returncode,0,p.stderr.decode(errors="replace"))
+            modes=json.loads(p.stdout)["modes"]
+            self.assertEqual(len({x["checksum"] for x in modes.values()}),1)
+
     def test_64_bit_boundary_and_budget_refusal(self):
         with tempfile.TemporaryDirectory() as td:
             exe=compile_portfolio(td)
