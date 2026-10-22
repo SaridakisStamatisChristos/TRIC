@@ -91,6 +91,8 @@ def parse_oreach_csv(path, expected_q, expected_type=None):
 
 
 def run(args):
+    if args.tric_only and args.graph_origin != 'synthetic':
+        raise ValueError('TRIC-only runs must be explicitly labeled synthetic')
     if not 0 <= args.closure_cap_mib <= 1024:
         raise ValueError('closure cap must be in [0,1024] MiB')
     out = Path(args.output_dir).resolve()
@@ -193,33 +195,39 @@ def run(args):
         raise AssertionError('closure exceeded matrix memory cap')
     (out/'tric_native.json').write_text(json.dumps(native_results,indent=2)+'\n')
     oreach_samples=[]
-    for j in range(args.oreach_repetitions):
-        dest = out/f'oreach_{j}.csv'
-        cmd = [str(Path(args.oreach_binary).resolve()), str(graph), '--seed',
-               str(args.seed), '--queries', str(queryfile), '--pbibfs', '--pdfs',
-               '--output', str(dest)]
-        proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                              text=True, timeout=args.timeout)
-        (out/f'oreach_{j}.stdout.txt').write_text(proc.stdout)
-        (out/f'oreach_{j}.stderr.txt').write_text(proc.stderr)
-        if proc.returncode:
-            raise RuntimeError(f'O\'Reach failed with code {proc.returncode}; see logs')
-        expected_type = {'uniform': 'random', 'positive': 'true',
-                         'negative': 'false', 'balanced': 'mixed'}[args.query_stratum]
-        oreach_samples.extend(parse_oreach_csv(dest,len(heldout),expected_type))
-    methods = {name: [v for v in oreach_samples if v['algorithm']==name]
-               for name in ('oreach-pdfs', 'oreach-pbibfs')}
-    for name in methods:
-        if len(methods[name]) != args.oreach_repetitions:
-            raise ValueError('O\'Reach report incomplete')
-    stats = {name: {'median_ns_per_query':1000*statistics.median(
-                v['query_us'] for v in values),
-                'median_init_ms':statistics.median(v['init_ms'] for v in values),
-                'samples_ns_per_query':[1000*v['query_us'] for v in values]}
-             for name, values in methods.items()}
-    result = {'protocol':'TRIC-OReach paired native execution pilot',
+    stats={}
+    if not args.tric_only:
+        for j in range(args.oreach_repetitions):
+            dest = out/f'oreach_{j}.csv'
+            cmd = [str(Path(args.oreach_binary).resolve()), str(graph), '--seed',
+                   str(args.seed), '--queries', str(queryfile), '--pbibfs', '--pdfs',
+                   '--output', str(dest)]
+            proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                  text=True, timeout=args.timeout)
+            (out/f'oreach_{j}.stdout.txt').write_text(proc.stdout)
+            (out/f'oreach_{j}.stderr.txt').write_text(proc.stderr)
+            if proc.returncode:
+                raise RuntimeError(f'O\'Reach failed with code {proc.returncode}; see logs')
+            expected_type = {'uniform': 'random', 'positive': 'true',
+                             'negative': 'false', 'balanced': 'mixed'}[args.query_stratum]
+            oreach_samples.extend(parse_oreach_csv(dest,len(heldout),expected_type))
+        methods = {name: [v for v in oreach_samples if v['algorithm']==name]
+                   for name in ('oreach-pdfs', 'oreach-pbibfs')}
+        for name in methods:
+            if len(methods[name]) != args.oreach_repetitions:
+                raise ValueError('O\'Reach report incomplete')
+        stats = {name: {'median_ns_per_query':1000*statistics.median(
+                    v['query_us'] for v in values),
+                    'median_init_ms':statistics.median(v['init_ms'] for v in values),
+                    'samples_ns_per_query':[1000*v['query_us'] for v in values]}
+                 for name, values in methods.items()}
+    result = {'protocol':('TRIC synthetic native-only stress qualification'
+                          if args.tric_only else 'TRIC-OReach paired native execution pilot'),
+              'oreach_benchmark_status':('NOT_RUN_SYNTHETIC_UPSTREAM_CRASH'
+                                         if args.tric_only else 'EXECUTED_ORIGINAL_SHA_PINNED'),
               'claim_boundary':'Different indexing methods and memory budgets; compact interval labels are established prior art (GRAIL/PReaCH); closure uses quadratic matrix space; OReach individual answers not independently audited; hosted runner timing is noisy',
-              'source_git_sha':args.oreach_git_sha,'graph':str(graph),
+              'source_git_sha':(None if args.tric_only else args.oreach_git_sha),
+              'graph':str(graph),
               'graph_sha256':hashlib.sha256(graph.read_bytes()).hexdigest(),
               'n':n, 'edges':sum(map(len,adj)),
               'query_file_sha256':q_sha,'test_count':len(heldout),
@@ -231,6 +239,9 @@ def run(args):
                   if args.query_stratum != 'uniform' else
                   'independent uniform source and target sampling'),
               'candidate_vertices':vertices,'pivot_budget':args.budget,
+              'training_count':len(training),'seed':args.seed,
+              'training_query_seed':args.seed+1,'heldout_query_seed':args.seed+2,
+              'graph_origin':args.graph_origin,
               'selected_orders':policies,
               'offline_training_seconds_including_pivot_build':training_seconds,
               'tric_compile_seconds':compile_seconds,'tric_compile_cmd':command,
@@ -244,10 +255,10 @@ def run(args):
     (out/'comparison.json').write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({'n':n,'edges':result['edges'],'heldout':len(heldout),
             'ordered_ns':next(p['median_ns_per_query'] for p in native_results['policies'] if p['name']=='Ordered'),
-            'oreach_pdfs_ns':stats['oreach-pdfs']['median_ns_per_query'],
+            'oreach_pdfs_ns':(None if args.tric_only else stats['oreach-pdfs']['median_ns_per_query']),
             'query_stratum':args.query_stratum,
             'heldout_positive_count':positives,
-            'oreach_pbibfs_ns':stats['oreach-pbibfs']['median_ns_per_query'],
+            'oreach_pbibfs_ns':(None if args.tric_only else stats['oreach-pbibfs']['median_ns_per_query']),
             'closure_available':closure['available'],
             'closure_ns':closure.get('median_ns_per_query'),
             'closure_build_ms':closure['build_ms'],
@@ -290,6 +301,9 @@ def parser():
     p.add_argument('--output-dir',required=True)
     p.add_argument('--train',type=int,default=500)
     p.add_argument('--test',type=int,default=1200)
+    p.add_argument('--graph-origin',choices=('published','synthetic'),default='published')
+    p.add_argument('--tric-only',action='store_true',
+                   help='For synthetic stress graphs only: do not invoke O-Reach and do not claim paired baseline evidence')
     p.add_argument('--query-stratum',choices=('uniform','positive','negative','balanced'),
                    default='uniform')
     p.add_argument('--seed',type=int,default=20261022)
