@@ -21,7 +21,7 @@ public:
     std::uint64_t certified_yes=0, certified_no=0, fallback=0, edges=0;
   };
 private:
-  std::vector<int> component_, entry_, exit_, seen_;
+  std::vector<int> component_, entry_, exit_, topo_rank_, seen_;
   std::vector<std::vector<int>> dag_;
   std::array<std::vector<int>,dimensions> rank_,low_,high_;
   std::vector<int> search_stack_;
@@ -35,7 +35,7 @@ public:
   int components() const {return components_;}
   std::size_t labels_bytes() const {
     return static_cast<std::size_t>(components_)*dimensions*3*sizeof(int)
-           +static_cast<std::size_t>(components_)*3*sizeof(int)
+           +static_cast<std::size_t>(components_)*4*sizeof(int)
            +component_.size()*sizeof(int);
   }
   template<class Graph>
@@ -83,6 +83,8 @@ public:
       for(int b:dag_[a])if(--indegree[b]==0)ready.push(b);
     }
     if(static_cast<int>(topo.size())!=components_)throw std::logic_error("SCC condensation is not a DAG");
+    topo_rank_.resize(components_);
+    for(int i=0;i<components_;++i)topo_rank_[topo[i]]=i;
     // Each permutation provides a sound bounding interval of *all* descendants.
     // When a ->* b, rank[b] must lie in [low[a],high[a]] in EVERY dimension.
     std::mt19937_64 random(0x123af9087c6571d0ULL);
@@ -119,13 +121,13 @@ public:
     seen_.assign(components_,0);
     search_stack_.reserve(components_);
   }
-  bool reaches(int source,int target,QueryStats* stats=nullptr){
+  bool reaches(int source,int target,QueryStats* stats=nullptr,bool guided=true){
     const int s=component_.at(source),t=component_.at(target);
     if(s==t || (entry_[s]<=entry_[t] && exit_[t]<=exit_[s])){
       if(stats)++stats->certified_yes;
       return true;
     }
-    if(!necessary(s,t)){
+    if(topo_rank_[s]>topo_rank_[t] || !necessary(s,t)){
       if(stats)++stats->certified_no;
       return false;
     }
@@ -139,7 +141,7 @@ public:
       for(int b:dag_[a]){
         if(stats)++stats->edges;
         if(b==t)return true;
-        if(seen_[b]!=epoch_ && necessary(b,t)){
+        if(seen_[b]!=epoch_ && (!guided || necessary(b,t))){
           seen_[b]=epoch_;search_stack_.push_back(b);
         }
       }
