@@ -1,0 +1,98 @@
+name: TRIC Phase XXIII exact native training
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/research-phase23.yml'
+      - 'tric_research/native_training_phase23.cpp'
+      - 'tric_research/phase23_training.py'
+      - 'tric_research/benchmark_phase23.py'
+      - 'tric_research/test_phase23_training.py'
+      - 'tric_research/PHASE_XXIII_RESEARCH_REPORT.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-training-tests:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Native/legacy independently validated training parity
+        working-directory: tric_research
+        run: python -m unittest -q test_phase23_training test_ordered_probe test_cache_indexed
+  benchmark:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        dataset: [example, kron_logn12, generated_dag, generated_blocks, generated_communities]
+        seed: [20261022, 20261023, 20261024]
+    env:
+      OREACH_SHA: 78b3e326bbb021b7ee225ab605a4cdd074fa1d93
+      DATASET: ${{ matrix.dataset }}
+      SEED: ${{ matrix.seed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Acquire original graphs and frozen synthetic families
+        run: |
+          set -euo pipefail
+          mkdir -p research-results/data
+          if [ "$DATASET" = example ]; then
+            git clone --quiet https://github.com/o-reach/O-Reach.git upstream-oreach
+            git -C upstream-oreach checkout --detach "$OREACH_SHA"
+            test "$(git -C upstream-oreach rev-parse HEAD)" = "$OREACH_SHA"
+            cp upstream-oreach/examples/arXiv.metis research-results/data/graph.metis
+          elif [[ "$DATASET" == generated_* ]]; then
+            python tric_research/phase22_graphs.py \
+              --family "$DATASET" --output research-results/data/graph.metis
+          else
+            test "$DATASET" = kron_logn12
+            url="https://oreach.taa.univie.ac.at/assets/data/instances/${DATASET}.tar.xz"
+            curl --fail --location --retry 2 --connect-timeout 20 --max-time 180 \
+              "$url" --output research-results/dataset.tar.xz
+            sha256sum research-results/dataset.tar.xz > research-results/dataset.sha256
+            mkdir -p research-results/unpacked
+            tar -xJf research-results/dataset.tar.xz -C research-results/unpacked
+            mapfile -t graphs < <(find research-results/unpacked -type f -name '*.metis' | sort)
+            test "${#graphs[@]}" -eq 1
+            cp "${graphs[0]}" research-results/data/graph.metis
+          fi
+          sha256sum research-results/data/graph.metis > research-results/graph.sha256
+          git rev-parse HEAD > research-results/manifest.txt
+          g++ --version | head -1 >> research-results/manifest.txt
+          python --version >> research-results/manifest.txt
+          uname -a >> research-results/manifest.txt
+      - name: Paired native/legacy training and native query truth verification
+        working-directory: tric_research
+        run: |
+          python benchmark_phase23.py \
+            --graph ../research-results/data/graph.metis \
+            --output-dir ../research-results/phase23 \
+            --dataset "$DATASET" --seed "$SEED" \
+            --train 500 --test 2400 --hot-sources 8 \
+            --hot-cache-cap-mib 2 --candidates 11 --budget 5 \
+            --training-reps 3
+      - name: Preserve all measured repetitions and provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase23-${{ matrix.dataset }}-seed${{ matrix.seed }}-run${{ github.run_id }}
+          path: |
+            research-results/phase23/phase23_summary.json
+            research-results/graph.sha256
+            research-results/manifest.txt
+            research-results/data/generated_graph_provenance.json
+            research-results/dataset.sha256
+          retention-days: 30
+          if-no-files-found: warn
