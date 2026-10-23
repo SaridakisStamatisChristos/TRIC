@@ -4,6 +4,8 @@ on:
     paths:
       - '.github/workflows/research-phase24.yml'
       - 'tric_research/partitioned_reachability.h'
+      - 'tric_research/tric_reachability.h'
+      - 'tric_research/closure_index.h'
       - 'tric_research/partitioned_bench.cpp'
       - 'tric_research/oreach_adapter.h'
       - 'tric_research/build_oreach_adapter.py'

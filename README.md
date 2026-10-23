@@ -77,13 +77,14 @@ Run all phase tests with `cd tric_research && python -m unittest -q test_tric te
 
 The latest research branch adds a C++17 static reachability index with no query
 training: SCC and weak-component partitioning, chain labels, bitsets, lossless
-sparse-row compression, and exact search when a table is refused. The table-payload
+sparse-row compression, and exact search when a table is refused. The `TricReachability` entry point first uses the existing direct full closure
+when it fits, otherwise the partitioned index. The table-payload
 budget is explicit; total RSS and construction scratch are additional.
 
 ```cpp
-#include "tric_research/partitioned_reachability.h"
+#include "tric_research/tric_reachability.h"
 std::vector<std::vector<int>> graph{{1}, {2}, {}};
-PartitionedReachability index(graph, 2 * 1024 * 1024);
+TricReachability index(graph, 2 * 1024 * 1024);
 bool reachable = index.reaches(0, 2); // true; reflexive reachability is supported
 ```
 

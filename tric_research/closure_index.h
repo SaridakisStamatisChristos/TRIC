@@ -20,12 +20,20 @@ public:
   bool built() const {return !bits_.empty();}
   int components() const {return components_;}
   std::size_t matrix_bytes() const {return bits_.size()*sizeof(std::uint64_t);}
+  std::size_t retained_bytes() const {
+    return sizeof(*this)+component_.capacity()*sizeof(int)+bits_.capacity()*sizeof(std::uint64_t);
+  }
   template<class Graph>
   explicit BoundedClosure(const Graph& graph, std::size_t max_bytes){
+    if(graph.size()>static_cast<std::size_t>(std::numeric_limits<int>::max()))
+      throw std::length_error("graph has too many vertices");
     const int n=static_cast<int>(graph.size());
     if(n==0)return;
     Graph reverse(n);
-    for(int u=0;u<n;++u) for(int v:graph[u])reverse[v].push_back(u);
+    for(int u=0;u<n;++u) for(int v:graph[u]) {
+      if(v<0 || v>=n)throw std::out_of_range("edge endpoint");
+      reverse[v].push_back(u);
+    }
     // Nonrecursive DFS finish order: safe on long directed paths.
     std::vector<unsigned char> seen(n,0);
     std::vector<int> finish;finish.reserve(n);
@@ -79,6 +87,8 @@ public:
   }
   bool reaches(int source,int target) const {
     if(!built())throw std::logic_error("closure not materialized within memory cap");
+    if(source<0 || target<0 || static_cast<std::size_t>(source)>=component_.size()
+       || static_cast<std::size_t>(target)>=component_.size())throw std::out_of_range("query endpoint");
     const int a=component_[source],b=component_[target];
     return (bits_[static_cast<std::size_t>(a)*words_+(b>>6)]>>(b&63))&std::uint64_t(1);
   }

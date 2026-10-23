@@ -13,6 +13,18 @@ research. Earlier experimental implementations and their negative results remain
 
 ## Implementation
 
+`tric_reachability.h` provides `TricReachability`, a graph-only automatic entry
+point. It first tries the existing `BoundedClosure`. If its global SCC bit matrix
+fits, query it directly. Otherwise destroy the refused probe and build the new
+partitioned index. Both SCC probes count in measured construction time. This
+routing depends only on graph structure and the declared table allowance, never
+on query outcomes. Direct full closure trades greater retained space for its
+constant-time query path; use `PartitionedReachability` explicitly when preferring
+its space savings. The automatic mode and both constituent controls are measured
+separately. The existing direct closure API now validates input/query endpoints
+and exposes retained capacity; its underlying closure algorithm is unchanged.
+
+
 `partitioned_reachability.h` computes iterative Kosaraju SCCs, deduplicates and
 sorts the quotient arcs, and partitions the DAG by weak connectivity. Within each
 partition, a greedy directed path cover yields chain labels. The smaller of the
@@ -94,7 +106,7 @@ new complexity result, or globally fastest index is claimed.
 
 `benchmark_partitioned.py` uses equal input bytes, independent fresh processes,
 position-balanced rotations, two actual-call horizons and per-answer independent
-BFS checks after timing. Controls are the existing `CompactReachability` with
+BFS checks after timing. Controls include automatic routing, the existing `CompactReachability` with
 bidirectional search and `BoundedClosure`, including explicit unavailable cases
 when its global table exceeds its cap. An unavailable control is never a win.
 Queries cover uniform, positive, negative and balanced classes. Conditional

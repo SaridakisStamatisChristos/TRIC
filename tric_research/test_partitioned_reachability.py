@@ -22,8 +22,8 @@ class PartitionedTests(unittest.TestCase):
                         str(ROOT/'partitioned_bench.cpp'),'-o',str(cls.exe)],check=True)
     @classmethod
     def tearDownClass(cls): cls.tmp.cleanup()
-    def run_graph(self,g,qs,cap=1048576):
-        p = subprocess.run([str(self.exe),'partitioned',str(cap),'2'],
+    def run_graph(self,g,qs,cap=1048576,mode="partitioned"):
+        p = subprocess.run([str(self.exe),mode,str(cap),'2'],
                            input=serialize(g,qs),text=True,capture_output=True,check=True,timeout=40)
         result=json.loads(p.stdout)
         self.assertEqual(result['oracle_verified_pairs'],len(qs))
@@ -84,6 +84,16 @@ class PartitionedTests(unittest.TestCase):
         self.assertEqual(refused['indexed_components'],0)
         self.assertEqual(refused['table_bytes'],0)
 
+    def test_auto_routes_only_on_graph_and_cap(self):
+        g=[list(range(1,130))]+[[] for _ in range(129)]
+        qs=[(0,129),(128,129),(1,1),(1,0)]
+        direct=self.run_graph(g,qs,1048576,mode='auto')
+        self.assertTrue(direct['uses_direct_closure'])
+        n=1024;g=[list(range(1,n))]+[[] for _ in range(n-1)]
+        compressed=self.run_graph(g,qs,65536,mode='auto')
+        self.assertFalse(compressed['uses_direct_closure'])
+        self.assertGreater(compressed['table_bytes'],0)
+
     def test_invalid_edges_queries_and_options_rejected(self):
         for raw in ('2 1 1\n0 2\n0 1\n','2 0 1\n-1 0\n'):
             p=subprocess.run([str(self.exe),'partitioned','100','1'],input=raw,text=True,capture_output=True)
@@ -91,6 +101,7 @@ class PartitionedTests(unittest.TestCase):
     def test_empty_and_invalid_public_api(self):
         code = r'''
 #include "partitioned_reachability.h"
+#include "tric_reachability.h"
 int main(){
   using G=std::vector<std::vector<int>>;
   PartitionedReachability empty(G{},0);
@@ -100,6 +111,12 @@ int main(){
   PartitionedReachability one(G{{}},0);
   if(!one.reaches(0,0))return 4;
   try {one.reaches(-1,0);return 5;}catch(const std::out_of_range&){}
+  TricReachability auto_empty(G{},0);
+  try {auto_empty.reaches(0,0);return 7;}catch(const std::out_of_range&){}
+  TricReachability auto_one(G{{}},8);
+  if(!auto_one.uses_direct_closure() || !auto_one.reaches(0,0))return 8;
+  try {auto_one.reaches(-1,0);return 9;}catch(const std::out_of_range&){}
+  try {TricReachability bad(G{{1}},8);return 10;}catch(const std::out_of_range&){}
   G wide(1024);for(int i=1;i<1024;++i)wide[0].push_back(i);
   PartitionedReachability refused(wide,65536,0);
   if(refused.indexed_components()!=0 || refused.table_bytes()!=0 || !refused.reaches(0,1023))return 6;

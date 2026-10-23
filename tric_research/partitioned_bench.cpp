@@ -1,4 +1,5 @@
 #include "partitioned_reachability.h"
+#include "tric_reachability.h"
 #include "compact_reachability.h"
 #include "closure_index.h"
 #include <chrono>
@@ -28,14 +29,35 @@ static int selftest() {
     for(int a=0;a<3;++a)for(int b=0;b<3;++b)if(mask&(1<<(3*a+b)))g[a].push_back(b);
     for(std::size_t cap:{std::size_t(0),std::size_t(11),std::size_t(24),std::size_t(4096)}) {
       PartitionedReachability index(g,cap);
+      TricReachability automatic(g,cap);
       if(index.table_bytes()>cap)throw std::runtime_error("cap exceeded");
       for(int a=0;a<3;++a)for(int b=0;b<3;++b){
-        if(index.reaches(a,b)!=bfs(g,a,b))throw std::runtime_error("exhaustive mismatch");
+        if(index.reaches(a,b)!=bfs(g,a,b) || automatic.reaches(a,b)!=bfs(g,a,b))throw std::runtime_error("exhaustive mismatch");
         ++checks;
       }
     }
   }
-  std::cout<<"{\"exhaustive_checks\":"<<checks<<"}\n"; return 0;
+  // Larger cases exercise compressed dense suffixes, sparse missing words,
+  // interleaved weak components, mutable search scratch and multiword shifts
+  // under the sanitizers, not only the three-vertex exhaustive domain.
+  std::uint64_t adversarial=0;
+  for(int shape=0;shape<3;++shape){
+    Graph g(1024);
+    if(shape==0)for(int v=1;v<1024;++v)g[0].push_back(v);
+    if(shape==1)for(int u=0;u<1022;++u)g[u].push_back(u+2);
+    if(shape==2)for(int u=0;u<1023;++u){
+      g[u].push_back(u+1);if(u%9==0 && u+11<1024)g[u+11].push_back(u);
+    }
+    for(std::size_t cap:{std::size_t(0),std::size_t(65536),std::size_t(1048576)}){
+      PartitionedReachability index(g,cap);TricReachability automatic(g,cap);
+      for(int i=0;i<160;++i){
+        const int a=(i*73)%1024,b=(i*197+17)%1024;const bool truth=bfs(g,a,b);
+        if(index.reaches(a,b)!=truth || automatic.reaches(a,b)!=truth)throw std::runtime_error("adversarial mismatch");
+        ++adversarial;
+      }
+    }
+  }
+  std::cout<<"{\"exhaustive_checks\":"<<checks<<",\"adversarial_checks\":"<<adversarial<<"}\n"; return 0;
 }
 int main(int argc,char** argv) {
   try {
@@ -46,7 +68,7 @@ int main(int argc,char** argv) {
 #ifdef TRIC_WITH_OREACH
     external=mode=="oreach-pdfs" || mode=="oreach-pbibfs" || mode=="oreach-pdfs0" || mode=="oreach-pbibfs0";
 #endif
-    if(mode!="partitioned" && mode!="bounded" && mode!="compact" && !external)throw std::invalid_argument("mode");
+    if(mode!="partitioned" && mode!="bounded" && mode!="compact" && mode!="auto" && !external)throw std::invalid_argument("mode");
     if(argv[2][0]=='-' || argv[3][0]=='-')throw std::invalid_argument("negative option");
     const auto cap=std::stoull(argv[2]);const auto repeats=std::stoull(argv[3]);
     if(cap>1073741824ULL || repeats<1 || repeats>1000000)throw std::invalid_argument("cap/repeat bounds");
@@ -58,9 +80,11 @@ int main(int argc,char** argv) {
     std::vector<Pair> queries(q);
     for(auto& p:queries)if(!(std::cin>>p.first>>p.second)||p.first<0||p.first>=n||p.second<0||p.second>=n)throw std::invalid_argument("query");
     const auto parsed=Clock::now();
+    std::unique_ptr<TricReachability> automatic;
     std::unique_ptr<PartitionedReachability> partitioned;
     std::unique_ptr<CompactReachability> compact;
     std::unique_ptr<BoundedClosure> bounded;
+    if(mode=="auto")automatic=std::make_unique<TricReachability>(g,cap);
     if(mode=="partitioned")partitioned=std::make_unique<PartitionedReachability>(g,cap);
     if(mode=="compact")compact=std::make_unique<CompactReachability>(g);
     if(mode=="bounded")bounded=std::make_unique<BoundedClosure>(g,cap);
@@ -83,6 +107,7 @@ int main(int argc,char** argv) {
         checksum=(checksum*0x100000001b3ULL)^(std::uint64_t(i)*4+unsigned(a));
       }
     };
+    if(automatic)replay([&](int a,int b){return automatic->reaches(a,b);});
     if(partitioned)replay([&](int a,int b){return partitioned->reaches(a,b);});
     if(compact)replay([&](int a,int b){return compact->reaches_bidirectional(a,b);});
     if(bounded && available)replay([&](int a,int b){return bounded->reaches(a,b);});
@@ -104,6 +129,9 @@ int main(int argc,char** argv) {
       <<",\"partitions\":"<<partitioned->partitions()<<",\"chain_partitions\":"<<partitioned->chain_partitions()
       <<",\"bit_partitions\":"<<partitioned->bit_partitions()<<",\"merged_arcs\":"<<partitioned->merged_arcs()
       <<",\"skipped_arcs\":"<<partitioned->skipped_arcs();
+    if(automatic)std::cout<<",\"table_bytes\":"<<automatic->table_bytes()
+      <<",\"retained_capacity_bytes\":"<<automatic->retained_bytes()
+      <<",\"uses_direct_closure\":"<<(automatic->uses_direct_closure()?"true":"false");
     if(bounded)std::cout<<",\"table_bytes\":"<<bounded->matrix_bytes();
     std::cout<<"}\n";
   } catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}

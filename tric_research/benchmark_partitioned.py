@@ -20,7 +20,7 @@ from stratified_queries import generate_stratified_queries
 from oreach_compatible_input import prepare_comparator, remap_queryfile
 from test_partitioned_reachability import serialize
 ROOT=Path(__file__).resolve().parent
-MODES=('compact','bounded','partitioned')
+MODES=('compact','bounded','partitioned','auto')
 STRATA=('uniform','positive','negative','balanced')
 
 def validate(row,mode,count,repeats,cap):
@@ -45,8 +45,8 @@ def assert_parity(rows):
         raise AssertionError('answer checksum mismatch')
 
 def run(args):
-    if args.trials<3 or args.trials%3 or args.count<1 or args.cap_mib<0:
-        raise ValueError('use a positive multiple of three position-balanced trials')
+    if args.trials<3 or args.trials%len(MODES) or args.count<1 or args.cap_mib<0:
+        raise ValueError('use a positive multiple of the number of native modes position-balanced trials')
     out=Path(args.output_dir).resolve();out.mkdir(parents=True,exist_ok=True)
     graph=Path(args.graph).resolve();original,_=read_metis(graph)
     adj=original;mapping=None
@@ -81,7 +81,7 @@ def run(args):
         for repeats in args.horizons:
             observations={m:[] for m in modes}
             # n modes => n launch positions across n trials. For external's
-            # five arms use 5 trials (native's three arms use args.trials).
+            # six arms use 6 trials (native's four arms use args.trials).
             trials=len(modes) if args.external else args.trials
             for trial in range(trials):
                 rows=[]
@@ -111,13 +111,19 @@ def run(args):
                 if mode=='partitioned' or not rows[0]['available']:continue
                 ratios[mode]={key:statistics.median(r[key]/t[key] for r,t in zip(rows,target))
                               for key in ('query_ns','build_ns','lifecycle_ns')}
-            horizons[str(repeats)]={'modes':summary,'paired_control_over_partitioned':ratios}
+            auto_ratios={}
+            for mode,rows in observations.items():
+                if mode=='auto' or not rows[0]['available']:continue
+                auto_ratios[mode]={key:statistics.median(r[key]/t[key] for r,t in zip(rows,observations['auto']))
+                                   for key in ('query_ns','build_ns','lifecycle_ns')}
+            horizons[str(repeats)]={'modes':summary,'paired_control_over_partitioned':ratios,
+                                   'paired_control_over_auto':auto_ratios}
         cells[stratum]={'positive_pairs':positive,'pair_count':len(qs),
                         'native_input_sha256':hashlib.sha256(payload).hexdigest(),
                         'original_query_sha256':hashlib.sha256(queryfile.read_bytes()).hexdigest(),
                         'horizons':horizons}
         print(json.dumps({'dataset':args.dataset,'seed':args.seed,'stratum':stratum,'complete':True}),flush=True)
-    hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'partitioned_reachability.h',ROOT/'partitioned_bench.cpp',ROOT/'benchmark_partitioned.py',ROOT/'oreach_adapter.h',ROOT/'closure_index.h',ROOT/'compact_reachability.h']}
+    hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'partitioned_reachability.h',ROOT/'partitioned_bench.cpp',ROOT/'benchmark_partitioned.py',ROOT/'oreach_adapter.h',ROOT/'closure_index.h',ROOT/'compact_reachability.h',ROOT/'tric_reachability.h']}
     try:revision=subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip()
     except subprocess.CalledProcessError:revision=None
     result={'schema':1,'dataset':args.dataset,'seed':args.seed,'cap_bytes':cap,'preprocessing':preprocessing,
@@ -137,7 +143,7 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--graph',required=True);p.add_argument('--dataset',required=True)
     p.add_argument('--output-dir',required=True);p.add_argument('--executable');p.add_argument('--external',action='store_true')
     p.add_argument('--compiler',default='g++');p.add_argument('--seed',type=int,default=20261023)
-    p.add_argument('--count',type=int,default=1200);p.add_argument('--trials',type=int,default=3)
+    p.add_argument('--count',type=int,default=1200);p.add_argument('--trials',type=int,default=4)
     p.add_argument('--horizons',type=int,nargs='+',default=[1,100]);p.add_argument('--cap-mib',type=int,default=2)
     p.add_argument('--strata',nargs='+',choices=STRATA,default=list(STRATA));p.add_argument('--timeout',type=int,default=180)
     run(p.parse_args())
