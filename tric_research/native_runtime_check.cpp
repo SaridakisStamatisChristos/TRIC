@@ -74,7 +74,34 @@ static int selftest() {
       }
     }
   }
-  std::cout<<"{\"exhaustive_checks\":"<<checks<<",\"adversarial_checks\":"<<adversarial<<",\"interval_checks\":"<<interval_checks<<",\"interval_indexes\":"<<interval_indexes<<"}\n"; return 0;
+  std::uint64_t forest_checks=0;
+  // Enumerate all 6! increasing-parent forests, in both arc directions, with
+  // SCC aliases and duplicate external arcs. No closure table is permitted.
+  for(int shape=0;shape<720;++shape)for(int reverse=0;reverse<2;++reverse) {
+    Graph g(12);int code=shape;
+    for(int u=0;u<6;++u) {
+      g[2*u].push_back(2*u+1);g[2*u+1].push_back(2*u);
+      const int choice=code%(u+1);code/=u+1;
+      if(choice) {
+        const int parent=choice-1,a=reverse?u:parent,b=reverse?parent:u;
+        g[2*a].push_back(2*b);g[2*a+1].push_back(2*b);
+      }
+    }
+    TricReachability index(g,0);
+    if(!index.uses_forest_index() || index.table_bytes()!=0)throw std::runtime_error("forest routing mismatch");
+    for(int a=0;a<12;++a)for(int b=0;b<12;++b) {
+      if(index.reaches(a,b)!=bfs(g,a,b))throw std::runtime_error("forest family mismatch");
+      ++forest_checks;
+    }
+  }
+  std::uint64_t packed_checks=0;
+  const std::uint32_t values[]={0,1,65535,65536,0x7ffffffeU,0x7fffffffU};
+  for(auto ax:values)for(auto ay:values)for(auto bx:values)for(auto by:values) {
+    const auto a=std::uint64_t(ax)|(std::uint64_t(ay)<<32),b=std::uint64_t(bx)|(std::uint64_t(by)<<32);
+    if(tric_detail::forest_dominates(a,b)!=(ax<=bx && ay<=by))throw std::runtime_error("packed dominance mismatch");
+    ++packed_checks;
+  }
+  std::cout<<"{\"exhaustive_checks\":"<<checks<<",\"adversarial_checks\":"<<adversarial<<",\"interval_checks\":"<<interval_checks<<",\"interval_indexes\":"<<interval_indexes<<",\"forest_checks\":"<<forest_checks<<",\"packed_checks\":"<<packed_checks<<"}\n"; return 0;
 }
 int main(int argc,char** argv) {
   try {
@@ -124,12 +151,16 @@ int main(int argc,char** argv) {
       <<",\"table_bytes\":"<<partitioned->table_bytes()<<",\"retained_capacity_bytes\":"<<partitioned->retained_bytes()
       <<",\"compressed_partitions\":"<<partitioned->compressed_partitions()
       <<",\"interval_partitions\":"<<partitioned->interval_partitions()
+
       <<",\"partitions\":"<<partitioned->partitions()<<",\"chain_partitions\":"<<partitioned->chain_partitions()
       <<",\"bit_partitions\":"<<partitioned->bit_partitions()<<",\"merged_arcs\":"<<partitioned->merged_arcs()
       <<",\"skipped_arcs\":"<<partitioned->skipped_arcs();
     if(automatic)std::cout<<",\"table_bytes\":"<<automatic->table_bytes()
       <<",\"retained_capacity_bytes\":"<<automatic->retained_bytes()
       <<",\"uses_direct_closure\":"<<(automatic->uses_direct_closure()?"true":"false");
+#ifdef TRIC_HAS_FOREST_INDEX
+    if(automatic)std::cout<<",\"uses_forest_index\":"<<(automatic->uses_forest_index()?"true":"false");
+#endif
     if(bounded)std::cout<<",\"table_bytes\":"<<bounded->matrix_bytes();
     std::cout<<"}\n";
   } catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}

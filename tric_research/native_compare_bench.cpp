@@ -2,6 +2,9 @@
 #ifdef TRIC_WITH_BFL
 #include "bfl_adapter.h"
 #endif
+#ifdef TRIC_WITH_PRUNED_LABELING
+#include "pruned_labeling_adapter.h"
+#endif
 #include "tric_reachability.h"
 #include "closure_index.h"
 #ifdef TRIC_WITH_OREACH
@@ -36,14 +39,17 @@ int main(int argc,char** argv) {
   try {
     if(argc!=4)throw std::invalid_argument("usage: mode cap-bytes query-repeats < graph-and-queries");
     const std::string mode=argv[1];
-    bool external=false,oreach_mode=false;
+    bool external=false,oreach_mode=false,pruned_mode=false;
 #ifdef TRIC_WITH_BFL
     external=mode=="bfl";
 #endif
 #ifdef TRIC_WITH_OREACH
     oreach_mode=mode=="oreach-pdfs" || mode=="oreach-pbibfs" || mode=="oreach-pdfs0" || mode=="oreach-pbibfs0";
 #endif
-    if(mode!="partitioned" && mode!="bounded" && mode!="auto" && !external && !oreach_mode)throw std::invalid_argument("mode");
+#ifdef TRIC_WITH_PRUNED_LABELING
+    pruned_mode=mode=="pll" || mode=="ppl";
+#endif
+    if(mode!="partitioned" && mode!="bounded" && mode!="auto" && !external && !oreach_mode && !pruned_mode)throw std::invalid_argument("mode");
     if(argv[2][0]=='-' || argv[3][0]=='-')throw std::invalid_argument("negative option");
     const auto cap=std::stoull(argv[2]);const auto repeats=std::stoull(argv[3]);
     if(cap>1073741824ULL || repeats<1 || repeats>1000000)throw std::invalid_argument("cap/repeat bounds");
@@ -73,6 +79,12 @@ int main(int argc,char** argv) {
       std::cout.rdbuf(saved);
     }
 #endif
+#ifdef TRIC_WITH_PRUNED_LABELING
+    std::unique_ptr<PllAdapter> pll;
+    std::unique_ptr<PplAdapter> ppl;
+    if(mode=="pll")pll=std::make_unique<PllAdapter>(g);
+    if(mode=="ppl")ppl=std::make_unique<PplAdapter>(g);
+#endif
     const auto built=Clock::now();const auto cpu_built=thread_cpu_ns();const bool available=!bounded || bounded->built();
     std::vector<unsigned char> answers(q);std::uint64_t checksum=0;
     auto replay=[&](auto&& query){
@@ -90,6 +102,10 @@ int main(int argc,char** argv) {
 #endif
 #ifdef TRIC_WITH_OREACH
     if(oreach)replay([&](int a,int b){return oreach->reaches(a,b);});
+#endif
+#ifdef TRIC_WITH_PRUNED_LABELING
+    if(pll)replay([&](int a,int b){return pll->reaches(a,b);});
+    if(ppl)replay([&](int a,int b){return ppl->reaches(a,b);});
 #endif
     const auto done=Clock::now();const auto cpu_done=thread_cpu_ns();rusage usage{};getrusage(RUSAGE_SELF,&usage);
     // VmHWM belongs to this executable's current memory image. ru_maxrss can
@@ -117,9 +133,16 @@ int main(int argc,char** argv) {
     if(automatic)std::cout<<",\"table_bytes\":"<<automatic->table_bytes()
       <<",\"retained_capacity_bytes\":"<<automatic->retained_bytes()
       <<",\"uses_direct_closure\":"<<(automatic->uses_direct_closure()?"true":"false");
+#ifdef TRIC_HAS_FOREST_INDEX
+    if(automatic)std::cout<<",\"uses_forest_index\":"<<(automatic->uses_forest_index()?"true":"false");
+#endif
     if(bounded)std::cout<<",\"table_bytes\":"<<bounded->matrix_bytes();
 #ifdef TRIC_WITH_BFL
     if(bfl)std::cout<<",\"retained_capacity_bytes\":"<<bfl->retained_bytes();
+#endif
+#ifdef TRIC_WITH_PRUNED_LABELING
+    if(pll)std::cout<<",\"upstream_reported_label_bytes\":"<<pll->upstream_reported_label_bytes();
+    if(ppl)std::cout<<",\"upstream_reported_label_bytes\":"<<ppl->upstream_reported_label_bytes();
 #endif
     std::cout<<"}\n";
   } catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}

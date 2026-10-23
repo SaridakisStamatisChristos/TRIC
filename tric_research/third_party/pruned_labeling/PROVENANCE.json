@@ -1,0 +1,14 @@
+{
+  "repository": "https://github.com/y3eadgbe/PrunedLabeling",
+  "commit": "65b4cadc8d70cd267cff80c4522b381e4a0b9e30",
+  "license": "MIT; copyright 2013 Yosuke Yano",
+  "files": {
+    "src/PrunedLabeling.h": "72afc9f3295348bace82b484727f649a85ae20eb",
+    "src/PrunedLabeling.cpp": "49dd6f1059ca3825aa27d380d917d047d999cf9b",
+    "LICENSE": "78c4c4e20d41466a7ea4ea1665a3d03d572c99f7",
+    "README.md": "ec359fb72e03e9ea5732f45eca10079c99135b53",
+    "sample/benchmark.cpp": "b51e0b0eb245a9d60b232df14e70431ec8ed9d45"
+  },
+  "adapter": "Graph adjacency is zero-based as expected by createIndex. The original query API subtracts one from each endpoint; the adapter passes source+1,target+1. No source modifications. Original cpp is included in the single benchmark translation unit to permit the same optimizer visibility as TRIC. Original sample benchmark is preserved as provenance and is not executed.",
+  "memory": "upstream_reported_label_bytes is indexSize(), not total retained memory. Its PPL pair count charges six bytes per pair; C++ pair padding/vector capacities and retained graphs are excluded. Native pre-oracle VmHWM is reported separately."
+}

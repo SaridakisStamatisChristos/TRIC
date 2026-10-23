@@ -23,7 +23,7 @@ def build(args):
     before=Path(args.before_headers).resolve()
     source=output/'native_compare_bench.cpp'
     shutil.copyfile(ROOT/'native_compare_bench.cpp',source)
-    common=[args.compiler,'-std=c++17','-O3','-DNDEBUG','-DTRIC_WITH_BFL']
+    common=[args.compiler,'-std=c++17','-O3','-DNDEBUG','-DTRIC_WITH_BFL','-DTRIC_WITH_PRUNED_LABELING']
     common.extend('-I'+str(Path(path).resolve()) for path in args.extra_include)
     objects=[]
     if bool(args.oreach_source)!=bool(args.oreach_build):
@@ -54,7 +54,10 @@ def build(args):
     manifest={'compiler':subprocess.check_output([args.compiler,'--version'],text=True).splitlines()[0],
               'source_sha256':digest(source),'oreach_sha':OREACH_SHA if args.oreach_source else None,
               'bfl_commit':'0c837927a3f2fa3fc633abeedd56cea6e75d3a9a',
-              'bfl_main_sha256':digest(ROOT/'third_party/bfl/main.cpp'),'commands':commands}
+              'bfl_main_sha256':digest(ROOT/'third_party/bfl/main.cpp'),
+              'pruned_labeling_commit':'65b4cadc8d70cd267cff80c4522b381e4a0b9e30',
+              'pruned_labeling_sources':{str(p.relative_to(ROOT)):digest(p) for p in sorted((ROOT/'third_party/pruned_labeling').rglob('*')) if p.is_file()},
+              'commands':commands}
     (output/'build_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     return manifest
 

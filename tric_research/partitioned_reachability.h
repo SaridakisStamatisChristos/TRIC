@@ -45,7 +45,8 @@ class PartitionedReachability {
   std::vector<IntervalRow> interval_rows_;
   std::vector<Interval> intervals_;
   std::vector<std::uint32_t> word_ids_;
-  Graph fallback_dag_;
+  std::vector<std::size_t> fallback_offsets_;
+  std::vector<int> fallback_edges_;
   std::vector<unsigned> seen_;
   std::vector<int> stack_;
   unsigned epoch_ = 0;
@@ -326,9 +327,17 @@ private:
         tree_begin[a],tree_end[a],signature[a]};
     }
     if (needs_search) {
-      fallback_dag_=std::move(dag);
-      for (int a=0;a<count;++a) if (partitions_[group_[a]].mode!=Mode::search)
-        std::vector<int>().swap(fallback_dag_[a]);
+      // Free reverse adjacency before allocating compact forward CSR.
+      Graph().swap(incoming);
+      std::size_t arcs=0;
+      for(int a=0;a<count;++a)if(partitions_[group_[a]].mode==Mode::search)arcs+=dag[a].size();
+      fallback_offsets_.reserve(static_cast<std::size_t>(count)+1);
+      fallback_edges_.reserve(arcs);fallback_offsets_.push_back(0);
+      for(int a=0;a<count;++a) {
+        if(partitions_[group_[a]].mode==Mode::search)
+          fallback_edges_.insert(fallback_edges_.end(),dag[a].begin(),dag[a].end());
+        fallback_offsets_.push_back(fallback_edges_.size());
+      }
       seen_.assign(count,0); stack_.reserve(count);
     }
   }
@@ -379,7 +388,8 @@ public:
     stack_.assign(1,a); seen_[a]=epoch_;
     while (!stack_.empty()) {
       const int u=stack_.back(); stack_.pop_back();
-      for (int v:fallback_dag_[u]) {
+      for(std::size_t edge=fallback_offsets_[u];edge<fallback_offsets_[u+1];++edge) {
+        const int v=fallback_edges_[edge];
         if (v==b) return true;
         if (v<b && seen_[v]!=epoch_) {seen_[v]=epoch_; stack_.push_back(v);}
       }
@@ -392,8 +402,7 @@ public:
       +rows_.capacity()*sizeof(Row)+word_ids_.capacity()*sizeof(std::uint32_t)
       +partitions_.capacity()*sizeof(Partition)+labels_.capacity()*sizeof(std::uint32_t)
       +bits_.capacity()*sizeof(std::uint64_t)+seen_.capacity()*sizeof(unsigned)
-      +fallback_dag_.capacity()*sizeof(std::vector<int>)+sizeof(*this);
-    for (const auto& row:fallback_dag_) total+=row.capacity()*sizeof(int);
+      +fallback_offsets_.capacity()*sizeof(std::size_t)+fallback_edges_.capacity()*sizeof(int)+sizeof(*this);
     return total;
   }
   std::size_t components() const {return component_count_;}
