@@ -1,0 +1,167 @@
+{
+  "schema": 1,
+  "arms": [
+    {
+      "name": "previous",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf26/final-build/previous",
+      "mode": "auto",
+      "executable_sha256": "7272f30ae677d717d85fb9a8b5a7694cbf79af12aa087c440a915f32bc11dcd9"
+    },
+    {
+      "name": "candidate",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf26/final-build/candidate",
+      "mode": "auto",
+      "executable_sha256": "bb4160077fbc27319f55c7f23036fa5b8bf05654a6493c1d8c7b5620cb70d17a"
+    },
+    {
+      "name": "bfl",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf26/final-build/candidate",
+      "mode": "bfl",
+      "executable_sha256": "bb4160077fbc27319f55c7f23036fa5b8bf05654a6493c1d8c7b5620cb70d17a"
+    },
+    {
+      "name": "oreach-pdfs",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf26/final-build/candidate",
+      "mode": "oreach-pdfs",
+      "executable_sha256": "bb4160077fbc27319f55c7f23036fa5b8bf05654a6493c1d8c7b5620cb70d17a"
+    },
+    {
+      "name": "oreach-pbibfs",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf26/final-build/candidate",
+      "mode": "oreach-pbibfs",
+      "executable_sha256": "bb4160077fbc27319f55c7f23036fa5b8bf05654a6493c1d8c7b5620cb70d17a"
+    }
+  ],
+  "cap_bytes": 2097152,
+  "trials": 5,
+  "horizons": [
+    1,
+    100
+  ],
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "cpu_affinity": [
+      1
+    ],
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "timing_scope": "Paired fresh-process comparisons on pinned native input bytes.\n\nEach available arm BFS-verifies every query after its timed region. Repeats\nexecute frozen query pairs; they are not independent new requests. Includes\nparsing/build/query costs, excludes process startup, verification and teardown.\n",
+  "files": [
+    {
+      "fixture_sha256": "74ab9c9e8fd407b107cedcff5207e64716b409bedb4139deb01c50aa68a683c7",
+      "file": "example.json.gz",
+      "sha256": "5f7e90c3f8bbb09bbde82616a6514ba9bf5a1863a45d29e74f3e4941a962de9d",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "04d77a9aaedb7935763f003937163375140c05ae73c3f34491c5235d4ba35167",
+      "file": "generated_blocks.json.gz",
+      "sha256": "49023d900b1dc3eaf7f898af2fa2cf7d01b1b99611de359da889c2f820b7d56b",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "6285c3ac50d992038b92235e8fefdc4d51408272f3b1718061aa7bc7e62acf58",
+      "file": "generated_communities.json.gz",
+      "sha256": "5e28c73043382996272249392fdde55c00d376d3158407c8b6f465ba6899c2dd",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "c5b0dd6b7579163ab8d9af5ba73e57c473555bb742872a265d5af55f584a1a51",
+      "file": "generated_dag.json.gz",
+      "sha256": "a1897fabb6d17a22aa72f206de1ca7143cea84189f55f63c8c112d092a8b59bb",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "e98ab7f61df076bb33089ea8989510f9f0ca99f2379182aab56ef11248a95842",
+      "file": "grail_citeseer.json.gz",
+      "sha256": "27945153fdfb86a2c79031a5fa6705a2e73464bdedd9fcd29f035f66ac0e0d3d",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "8e0239e999a7728322b58a342e2eb7f830d933c160323f0af9cd0c3311a0aa1d",
+      "file": "grail_go.json.gz",
+      "sha256": "b4faa9ac26947c713d14a333d67ba48f7fa36746a838a049df12a16cdbd8dfd2",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "a0b31a5721547d251fe273dd1fa6535c3b922a89f5647f8bfd82739f0239f085",
+      "file": "grail_kegg.json.gz",
+      "sha256": "026f02ca5fb516d1d541b9663dc5c046bd65ca88b9402481281ff138de741020",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "0f05607e4ae5ed100dba7b4a84778eb503a5de7b97b2985de5841c946078b194",
+      "file": "grail_pubmed.json.gz",
+      "sha256": "8f69bd8faa232c2a755652ead53c67401a9899bbd6fcec257e94514154701ca7",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "7970a2fd69aa9d875b9423e6f9fcde0fc13cfca1582678291ad916c23d8ce5ec",
+      "file": "grail_yago.json.gz",
+      "sha256": "10ab204b523f7b191665e91c361cb222f8cdb46f06812b86bbbced141485abd4",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "3d9d0646e32e9fb4ee233142d732a7bfb9775dd6e0f377ba1cbb4a13f7a6970e",
+      "file": "heldout_agrocyc.json.gz",
+      "sha256": "f2a3de25f3408c451569e369df04dc9377a3afd4dcd283b8d006652a012bff59",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "693c5ff20d9693eb1e4074fd1d9f6b0e7553ca4ded02e07c65c1257a70ed93e7",
+      "file": "heldout_amaze.json.gz",
+      "sha256": "b89c46d40a59afb0ad63a0147ceaa09d15d0267dece6ae56fe20fcc28cd9186a",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "5c6b46b9b5b01c13c77533d56db54eabb4c2b85af972dd09fb79bf915bfa00df",
+      "file": "heldout_anthra.json.gz",
+      "sha256": "e745ce330f25c5b34a329226e4d0d68e970e984278f0b95d7b4ba17a9f971f82",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "837eadaacf22c0666f3f9f52f63a33c024a5fec89e33afc2c983c55ca75b8f42",
+      "file": "heldout_ecoo.json.gz",
+      "sha256": "2548546c4af10095713ec7edb98009a8716c83f4f223bb697e0e6bdb60aaff4e",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "11b24a12fc6a37e69ba9c95818b44cb405f8c75167f11f02393efc5b7c247e2f",
+      "file": "heldout_human.json.gz",
+      "sha256": "4eef0e2befcec021b3da8d6fc5a15fa5dbdb0adf8e345ab3c1d9ebf5920909e7",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "dae67ea1d2a7ccdbe578f5dbf9eaece98ff79c27fea89030cbcb68e6fc1ca7d6",
+      "file": "heldout_mtbrv.json.gz",
+      "sha256": "a7990e1e675faf38fe3de1813f9fface1dd2eb11c6207497824f31228da24aed",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "81c255cabf2ef254e2f9c48fe77b7f79a7141b250f8bd8dddd98150548bb1e8e",
+      "file": "heldout_nasa.json.gz",
+      "sha256": "3b6bc3f9908045cf319a750fc9ce386f9dfcd60e2a831fa036624d637fc218dd",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "d42be1976af13984556d96684af8d304a2edc95ba9d9d182cc8bc41bd047ab1c",
+      "file": "heldout_vchocyc.json.gz",
+      "sha256": "b467c43a6ecbb12c315732187f93a46b4c66c499dced4b4266fe4b561adb03a5",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "1df4bae6901a00d9c4cb36a6c7d4da0aedb5f772f1a0eb9bad93c7eea96b4057",
+      "file": "heldout_xmark.json.gz",
+      "sha256": "9e46e9c2a3606a552c2ab03790398a46683aa37fa73c31e5de7ab15ebc64e572",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "0b4e5ffe37e311697ee4bbfed56f4a3fb8008a05ca880befd43cfd3a05c0c085",
+      "file": "kron_logn12.json.gz",
+      "sha256": "0e2f2061b467fc27acc2c00926a38ef3bd8b86f90ceaf58887cc90bf95629e1c",
+      "cells": 24
+    }
+  ],
+  "complete": true
+}

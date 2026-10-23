@@ -117,9 +117,11 @@ def run(args):
                 results.append(result)
                 print(json.dumps({'dataset':fixture['dataset'],'seed':case['seed'],'stratum':case['stratum'],
                                   'repeats':repeats,'summary':summary}),flush=True)
-                dest=output/(fixture['dataset']+'.json.gz')
-                atomic_write(dest,gzip.compress(json.dumps(results,separators=(',',':')).encode(),mtime=0))
         if results:
+            # Publish each completed graph once. Progress goes to the log;
+            # the manifest never references an intermediate graph checkpoint.
+            dest=output/(fixture['dataset']+'.json.gz')
+            atomic_write(dest,gzip.compress(json.dumps(results,separators=(',',':')).encode(),mtime=0))
             manifest['files'].append({'fixture_sha256':digest(path.read_bytes()),'file':dest.name,'sha256':digest(dest.read_bytes()),'cells':len(results)})
             atomic_write(output/'manifest.json',(json.dumps(manifest,indent=2)+'\n').encode())
 

@@ -97,6 +97,21 @@ class PartitionedTests(unittest.TestCase):
         self.assertEqual(data['interval_partitions'],0)
         self.assertEqual(data['indexed_components'],n)
 
+    def test_interval_row_labels_with_relabelled_scc_aliases(self):
+        # Different original vertices share one SCC row; cross-tree positive
+        # pairs exercise the inline interval metadata after all certificates.
+        n=512;r=random.Random(20261026);perm=list(range(n));r.shuffle(perm)
+        original=[[] for _ in range(n)]
+        original[0]=list(range(1,n));original[1]=[2];original[2]=[0]
+        for u in range(3,128):original[u]=[128+(u*17)%384,128+(u*53+7)%384]
+        g=[[] for _ in range(n)]
+        for u,row in enumerate(original):g[perm[u]]=[perm[v] for v in row]
+        qs=[(perm[u],perm[v]) for u in range(128) for v in range(0,n,7)]
+        for mode in ('partitioned','auto'):
+            data=self.run_graph(g,qs,16000,mode)
+            if mode=='partitioned':self.assertEqual(data['interval_partitions'],1)
+        self.run_graph(g,qs,0)
+
     def test_large_interval_index_without_dense_matrix(self):
         n=100000
         g=[list(range(1,n))]+[[] for _ in range(n-1)]
@@ -176,6 +191,9 @@ class PartitionedTests(unittest.TestCase):
         fixture={'dataset':'smoke','graph':{'vertices':3,'arcs':[[0,1]]},
                  'cases':[{'seed':1,'stratum':'uniform','queries':[[0,1],[1,0],[2,2]],
                            'native_input_sha256':hashlib.sha256(raw.encode()).hexdigest()}]}
+        other=serialize([[1],[],[]],[(0,2),(2,0)])
+        fixture['cases'].append({'seed':2,'stratum':'negative','queries':[[0,2],[2,0]],
+                                 'native_input_sha256':hashlib.sha256(other.encode()).hexdigest()})
         folder=Path(self.tmp.name)/'fixtures';folder.mkdir(exist_ok=True)
         path=folder/'smoke.json.gz';path.write_bytes(gzip.compress(json.dumps(fixture).encode()))
         output=Path(self.tmp.name)/'comparison'
@@ -184,10 +202,15 @@ class PartitionedTests(unittest.TestCase):
                  '--trials','2','--horizons','1']
         subprocess.run(command,capture_output=True,text=True,check=True,timeout=40)
         result=json.loads(gzip.decompress((output/'smoke.json.gz').read_bytes()))
-        self.assertEqual(len(result),1)
-        for rows in result[0]['rows'].values():
-            self.assertEqual(len(rows),2)
-            self.assertTrue(all(row['oracle_verified_pairs']==3 for row in rows))
+        self.assertEqual(len(result),2)
+        manifest=json.loads((output/'manifest.json').read_text())
+        self.assertTrue(manifest['complete'])
+        self.assertEqual(manifest['files'][0]['cells'],2)
+        self.assertEqual(manifest['files'][0]['sha256'],hashlib.sha256((output/'smoke.json.gz').read_bytes()).hexdigest())
+        for cell,count in zip(result,(3,2)):
+            for rows in cell['rows'].values():
+                self.assertEqual(len(rows),2)
+                self.assertTrue(all(row['oracle_verified_pairs']==count for row in rows))
         duplicate=subprocess.run(command,capture_output=True,text=True,timeout=40)
         self.assertNotEqual(duplicate.returncode,0)
         self.assertIn('output directory must be empty',duplicate.stderr)
