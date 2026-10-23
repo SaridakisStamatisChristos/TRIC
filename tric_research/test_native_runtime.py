@@ -31,7 +31,10 @@ class PartitionedTests(unittest.TestCase):
         return result
     def test_exhaustive_including_loops(self):
         p=subprocess.run([str(self.exe),'--self-test'],capture_output=True,text=True,check=True,timeout=40)
-        self.assertEqual(json.loads(p.stdout)['exhaustive_checks'],512*4*9)
+        data=json.loads(p.stdout)
+        self.assertEqual(data['exhaustive_checks'],512*4*9)
+        self.assertEqual(data['interval_checks'],4096*3*6*8)
+        self.assertGreater(data['interval_indexes'],4096)
     def test_random_relabelled_cyclic_and_acyclic(self):
         r=random.Random(20261023)
         for n in (9,40,130):
@@ -78,11 +81,51 @@ class PartitionedTests(unittest.TestCase):
         n=1024;g=[list(range(1,n))]+[[] for _ in range(n-1)]
         qs=[(u,v) for u in range(0,n,17) for v in range(0,n,31)]
         data=self.run_graph(g,qs,65536)
-        self.assertEqual(data['compressed_partitions'],1)
+        self.assertEqual(data['interval_partitions'],1)
         self.assertEqual(data['indexed_components'],n)
         refused=self.run_graph(g,qs,100)
         self.assertEqual(refused['indexed_components'],0)
         self.assertEqual(refused['table_bytes'],0)
+
+    def test_fragmented_intervals_fall_back_to_compressed_words(self):
+        r=random.Random(20261023)
+        n=1024
+        g=[sorted(r.sample(range(512,n),32)) for _ in range(512)]+[[] for _ in range(512)]
+        qs=[(r.randrange(n),r.randrange(n)) for _ in range(700)]
+        data=self.run_graph(g,qs,98304)
+        self.assertEqual(data['compressed_partitions'],1)
+        self.assertEqual(data['interval_partitions'],0)
+        self.assertEqual(data['indexed_components'],n)
+
+    def test_large_interval_index_without_dense_matrix(self):
+        n=100000
+        g=[list(range(1,n))]+[[] for _ in range(n-1)]
+        data=self.run_graph(g,[(0,n-1),(n-1,0),(123,124),(1,1)],2*1024*1024)
+        self.assertEqual(data['interval_partitions'],1)
+        self.assertEqual(data['indexed_components'],n)
+        self.assertEqual(data['table_bytes'],16*n)
+
+    def test_interval_failure_rolls_back_between_partitions(self):
+        r=random.Random(20261023)
+        star=[list(range(1,1024))]+[[] for _ in range(1023)]
+        fragmented=[sorted(r.sample(range(512,1024),32)) for _ in range(512)]+[[] for _ in range(512)]
+        g=[]
+        for part in (star,fragmented,star):
+            offset=len(g)
+            g.extend([[v+offset for v in row] for row in part])
+        qs=[(r.randrange(len(g)),r.randrange(len(g))) for _ in range(700)]
+        qs.extend([(0,1023),(2048,3071),(1024,fragmented[0][0]+1024)])
+        data=self.run_graph(g,qs,65536)
+        self.assertEqual(data['interval_partitions'],2)
+        self.assertEqual(data['indexed_components'],2048)
+
+    def test_saturated_depths_preserve_long_path_reachability(self):
+        n=140000
+        g=[[u+1] if u+1<n else [] for u in range(n)]
+        qs=[(66000,70000),(70000,66000),(0,n-1),(n-1,n-1)]
+        for cap in (0,4*n):
+            self.run_graph(g,qs,cap)
+            self.run_graph(g,qs,cap,mode='auto')
 
     def test_auto_routes_only_on_graph_and_cap(self):
         g=[list(range(1,130))]+[[] for _ in range(129)]
@@ -98,6 +141,49 @@ class PartitionedTests(unittest.TestCase):
         for raw in ('2 1 1\n0 2\n0 1\n','2 0 1\n-1 0\n'):
             p=subprocess.run([str(self.exe),'partitioned','100','1'],input=raw,text=True,capture_output=True)
             self.assertNotEqual(p.returncode,0)
+    def test_original_bfl_adapter_and_source_provenance(self):
+        import hashlib
+        raw=(ROOT/'third_party/bfl/main.cpp').read_bytes()
+        self.assertEqual(hashlib.sha1(f'blob {len(raw)}\0'.encode()+raw).hexdigest(),
+                         'f1a75eecbb74bdc5370282328283bbd4c250814e')
+        exe=Path(self.tmp.name)/'bfl'
+        subprocess.run(['g++','-std=c++17','-O2','-DTRIC_WITH_BFL',
+                        str(ROOT/'native_compare_bench.cpp'),'-o',str(exe)],check=True,capture_output=True)
+        r=random.Random(20261023)
+        for n in (3,40,160):
+            for cyclic in (False,True):
+                g=[[v for v in range(n) if (cyclic or u<v) and r.random()<0.08] for u in range(n)]
+                qs=[(u,v) for u in range(n) for v in range(n)]
+                result=subprocess.run([str(exe),'bfl','0','1'],input=serialize(g,qs),text=True,
+                                      capture_output=True,check=True,timeout=40)
+                data=json.loads(result.stdout.splitlines()[-1])
+                self.assertEqual(data['oracle_verified_pairs'],n*n)
+
+    def test_comparison_runner_verifies_inputs_and_all_arms(self):
+        import gzip
+        import hashlib
+        raw=serialize([[1],[],[]],[(0,1),(1,0),(2,2)])
+        fixture={'dataset':'smoke','graph':{'vertices':3,'arcs':[[0,1]]},
+                 'cases':[{'seed':1,'stratum':'uniform','queries':[[0,1],[1,0],[2,2]],
+                           'native_input_sha256':hashlib.sha256(raw.encode()).hexdigest()}]}
+        folder=Path(self.tmp.name)/'fixtures';folder.mkdir(exist_ok=True)
+        path=folder/'smoke.json.gz';path.write_bytes(gzip.compress(json.dumps(fixture).encode()))
+        output=Path(self.tmp.name)/'comparison'
+        command=['python',str(ROOT/'benchmark_native_changes.py'),'--fixtures',str(folder),'--output',str(output),
+                 '--arm','auto',str(self.exe),'auto','--arm','partitioned',str(self.exe),'partitioned',
+                 '--trials','2','--horizons','1']
+        subprocess.run(command,capture_output=True,text=True,check=True,timeout=40)
+        result=json.loads(gzip.decompress((output/'smoke.json.gz').read_bytes()))
+        self.assertEqual(len(result),1)
+        for rows in result[0]['rows'].values():
+            self.assertEqual(len(rows),2)
+            self.assertTrue(all(row['oracle_verified_pairs']==3 for row in rows))
+        fixture['cases'][0]['native_input_sha256']='0'*64
+        path.write_bytes(gzip.compress(json.dumps(fixture).encode()))
+        result=subprocess.run(command,capture_output=True,text=True,timeout=40)
+        self.assertNotEqual(result.returncode,0)
+        self.assertIn('fixture differs',result.stderr)
+
     def test_empty_and_invalid_public_api(self):
         code = r'''
 #include "partitioned_reachability.h"
@@ -118,6 +204,8 @@ int main(){
   try {auto_one.reaches(-1,0);return 9;}catch(const std::out_of_range&){}
   try {TricReachability bad(G{{1}},8);return 10;}catch(const std::out_of_range&){}
   G wide(1024);for(int i=1;i<1024;++i)wide[0].push_back(i);
+  PartitionedReachability tiny_scratch(wide,65536,16);
+  if(tiny_scratch.interval_partitions()!=1 || tiny_scratch.indexed_components()!=1024 || !tiny_scratch.reaches(0,1023))return 11;
   PartitionedReachability refused(wide,65536,0);
   if(refused.indexed_components()!=0 || refused.table_bytes()!=0 || !refused.reaches(0,1023))return 6;
 }'''
