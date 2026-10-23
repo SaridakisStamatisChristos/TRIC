@@ -1,0 +1,99 @@
+name: TRIC Phase XXIV graph-only exact index
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/research-phase24.yml'
+      - 'tric_research/partitioned_reachability.h'
+      - 'tric_research/partitioned_bench.cpp'
+      - 'tric_research/oreach_adapter.h'
+      - 'tric_research/build_oreach_adapter.py'
+      - 'tric_research/benchmark_partitioned.py'
+      - 'tric_research/test_partitioned_reachability.py'
+      - 'tric_research/test_partitioned_benchmark.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exactness:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Exhaustive and adversarial exactness / cap refusal
+        working-directory: tric_research
+        run: python -m unittest -q test_partitioned_reachability test_partitioned_benchmark
+      - name: Address and undefined behavior sanitizers
+        working-directory: tric_research
+        run: |
+          g++ -std=c++17 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer partitioned_bench.cpp -o /tmp/tric-sanitized
+          /tmp/tric-sanitized --self-test
+  comparator:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        dataset: [example, kron_logn12, generated_dag, generated_blocks, generated_communities]
+        seed: [20261022, 20261023, 20261024]
+    env:
+      OREACH_SHA: 78b3e326bbb021b7ee225ab605a4cdd074fa1d93
+      DATASET: ${{ matrix.dataset }}
+      SEED: ${{ matrix.seed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Build unchanged OReach plus per-answer public API adapter
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libboost-dev cmake g++ xz-utils
+          git clone --quiet https://github.com/o-reach/O-Reach.git upstream-oreach
+          git -C upstream-oreach checkout --detach "$OREACH_SHA"
+          python tric_research/build_oreach_adapter.py --source upstream-oreach --output research-results/build
+      - name: Acquire identified graphs
+        run: |
+          set -euo pipefail
+          mkdir -p research-results/data
+          if [ "$DATASET" = example ]; then
+            cp upstream-oreach/examples/arXiv.metis research-results/data/graph.metis
+          elif [[ "$DATASET" == generated_* ]]; then
+            python tric_research/phase22_graphs.py --family "$DATASET" --output research-results/data/graph.metis
+          else
+            test "$DATASET" = kron_logn12
+            curl --fail --location --retry 2 --connect-timeout 20 --max-time 180 \
+              "https://oreach.taa.univie.ac.at/assets/data/instances/kron_logn12.tar.xz" --output research-results/data/dataset.tar.xz
+            mkdir -p research-results/unpacked
+            tar -xJf research-results/data/dataset.tar.xz -C research-results/unpacked
+            mapfile -t graphs < <(find research-results/unpacked -type f -name '*.metis' | sort)
+            test "${#graphs[@]}" -eq 1
+            cp "${graphs[0]}" research-results/data/graph.metis
+          fi
+          sha256sum research-results/data/graph.metis > research-results/data/graph.sha256
+          git rev-parse HEAD > research-results/data/checkout.sha
+          lscpu > research-results/data/cpu.txt
+      - name: Same-input per-answer comparison with actual cold and warm calls
+        working-directory: tric_research
+        run: |
+          python benchmark_partitioned.py --graph ../research-results/data/graph.metis \
+            --dataset "$DATASET" --seed "$SEED" --output-dir ../research-results/phase24 \
+            --executable ../research-results/build/partitioned_external_bench --external \
+            --cap-mib 2 --count 1200 --horizons 1 100
+      - name: Preserve raw samples, hashes, input, build, memory and comparator provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase24-${{ matrix.dataset }}-seed${{ matrix.seed }}-run${{ github.run_id }}
+          path: |
+            research-results/phase24/
+            research-results/data/
+            research-results/build/build_manifest.json
+          retention-days: 30
+          if-no-files-found: warn
