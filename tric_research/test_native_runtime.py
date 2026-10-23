@@ -126,6 +126,16 @@ class PartitionedTests(unittest.TestCase):
         for cap in (0,4*n):
             self.run_graph(g,qs,cap)
             self.run_graph(g,qs,cap,mode='auto')
+        # A deep diamond makes one branch reach a previously finished subtree.
+        # Both level fields saturate, so a positive query must survive search
+        # pruning instead of being answered by the DFS positive certificate.
+        prefix=66000;target=prefix+3;n=target+66001
+        g=[[u+1] if u+1<n else [] for u in range(n)]
+        g[prefix]=[prefix+1,prefix+2]
+        g[prefix+1]=[target];g[prefix+2]=[target]
+        qs=[(u,v) for u in (prefix+1,prefix+2) for v in (target,target+100)]
+        for mode in ('partitioned','auto'):
+            self.run_graph(g,qs,0,mode=mode)
 
     def test_auto_routes_only_on_graph_and_cap(self):
         g=[list(range(1,130))]+[[] for _ in range(129)]
@@ -178,6 +188,10 @@ class PartitionedTests(unittest.TestCase):
         for rows in result[0]['rows'].values():
             self.assertEqual(len(rows),2)
             self.assertTrue(all(row['oracle_verified_pairs']==3 for row in rows))
+        duplicate=subprocess.run(command,capture_output=True,text=True,timeout=40)
+        self.assertNotEqual(duplicate.returncode,0)
+        self.assertIn('output directory must be empty',duplicate.stderr)
+        command[command.index('--output')+1]=str(output.with_name('comparison-corrupt'))
         fixture['cases'][0]['native_input_sha256']='0'*64
         path.write_bytes(gzip.compress(json.dumps(fixture).encode()))
         result=subprocess.run(command,capture_output=True,text=True,timeout=40)

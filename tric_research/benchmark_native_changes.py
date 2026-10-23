@@ -27,6 +27,17 @@ def payload(fixture,case):
         *(f'{u} {v}' for u,v in case['queries'])])+'\n').encode('ascii')
 
 
+def atomic_write(path,data):
+    """Publish complete bytes before a manifest can reference their digest."""
+    temporary=path.with_name(path.name+'.tmp')
+    with temporary.open('wb') as stream:
+        stream.write(data);stream.flush();os.fsync(stream.fileno())
+    temporary.replace(path)
+    directory=os.open(path.parent,os.O_RDONLY|os.O_DIRECTORY)
+    try:os.fsync(directory)
+    finally:os.close(directory)
+
+
 def run(args):
     if args.cpu is not None:
         os.sched_setaffinity(0,{args.cpu})
@@ -37,13 +48,18 @@ def run(args):
     if args.trials<1 or any(x<1 for x in args.horizons):
         raise ValueError('positive trials/horizons required')
     output=Path(args.output);output.mkdir(parents=True,exist_ok=True)
+    if any(output.iterdir()):
+        raise ValueError('output directory must be empty')
+    # Exclusive creation prevents two fresh invocations sharing an empty folder.
+    lock=os.open(output/'manifest.json',os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o644)
+    os.close(lock)
     manifest={'schema':1,'arms':arms,'cap_bytes':args.cap,'trials':args.trials,'horizons':args.horizons,
               'environment':{'platform':platform.platform(),'python':platform.python_version(),
                              'cpu_affinity':sorted(os.sched_getaffinity(0)),
                              'cpu_model':next((line.split(':',1)[1].strip() for line in Path('/proc/cpuinfo').read_text().splitlines()
                                                if line.startswith('model name')),'unknown')},
               'timing_scope':__doc__,'files':[]}
-    (output/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+    atomic_write(output/'manifest.json',(json.dumps(manifest,indent=2)+'\n').encode())
     for path in sorted(Path(args.fixtures).glob('*.json.gz')):
         fixture=json.loads(gzip.decompress(path.read_bytes()))
         if args.datasets and fixture['dataset'] not in args.datasets:
@@ -102,13 +118,19 @@ def run(args):
                 print(json.dumps({'dataset':fixture['dataset'],'seed':case['seed'],'stratum':case['stratum'],
                                   'repeats':repeats,'summary':summary}),flush=True)
                 dest=output/(fixture['dataset']+'.json.gz')
-                dest.write_bytes(gzip.compress(json.dumps(results,separators=(',',':')).encode(),mtime=0))
+                atomic_write(dest,gzip.compress(json.dumps(results,separators=(',',':')).encode(),mtime=0))
         if results:
             manifest['files'].append({'fixture_sha256':digest(path.read_bytes()),'file':dest.name,'sha256':digest(dest.read_bytes()),'cells':len(results)})
-            (output/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+            atomic_write(output/'manifest.json',(json.dumps(manifest,indent=2)+'\n').encode())
 
     if not manifest['files']:
         raise ValueError('no matching fixture cases')
+    for entry in manifest['files']:
+        data=(output/entry['file']).read_bytes()
+        if digest(data)!=entry['sha256'] or len(json.loads(gzip.decompress(data)))!=entry['cells']:
+            raise AssertionError('final artifact integrity mismatch')
+    manifest['complete']=True
+    atomic_write(output/'manifest.json',(json.dumps(manifest,indent=2)+'\n').encode())
 
 
 if __name__=='__main__':

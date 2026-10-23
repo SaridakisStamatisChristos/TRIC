@@ -1,0 +1,101 @@
+[
+  {
+    "dataset": "heldout_human",
+    "vertices": 38811,
+    "arcs": 39816,
+    "repository": "zakimjz/grail",
+    "commit": "c13a7364fbc185841fc6277cd295acf33a7188f0",
+    "archive": "sigmod08.tar.gz",
+    "member": "sigmod08/human_dag_uniq.gra",
+    "archive_git_blob": "87530101a5bd050841c92fee3f9ee33e93233160",
+    "member_sha256": "9f9ebdc2ca8930957b57c881f4afd2518b8d13600231d82e98c030738ed32c58"
+  },
+  {
+    "dataset": "heldout_vchocyc",
+    "vertices": 9491,
+    "arcs": 10345,
+    "repository": "zakimjz/grail",
+    "commit": "c13a7364fbc185841fc6277cd295acf33a7188f0",
+    "archive": "sigmod08.tar.gz",
+    "member": "sigmod08/vchocyc_dag_uniq.gra",
+    "archive_git_blob": "87530101a5bd050841c92fee3f9ee33e93233160",
+    "member_sha256": "4b67928d91b808e9c6b31442e7e2433dce382c6764b2624dffb8999ff2d8dff6"
+  },
+  {
+    "dataset": "heldout_agrocyc",
+    "vertices": 12684,
+    "arcs": 13657,
+    "repository": "zakimjz/grail",
+    "commit": "c13a7364fbc185841fc6277cd295acf33a7188f0",
+    "archive": "sigmod08.tar.gz",
+    "member": "sigmod08/agrocyc_dag_uniq.gra",
+    "archive_git_blob": "87530101a5bd050841c92fee3f9ee33e93233160",
+    "member_sha256": "4e72b4913c8bbcb81d650b53ca327e21b8f5d048add3db495acdfc722d63e557"
+  },
+  {
+    "dataset": "heldout_amaze",
+    "vertices": 3710,
+    "arcs": 3947,
+    "repository": "zakimjz/grail",
+    "commit": "c13a7364fbc185841fc6277cd295acf33a7188f0",
+    "archive": "sigmod08.tar.gz",
+    "member": "sigmod08/amaze_dag_uniq.gra",
+    "archive_git_blob": "87530101a5bd050841c92fee3f9ee33e93233160",
+    "member_sha256": "43fb0cc2aec94cdcfb55822b9d97cae4492f3c49bf559562be23e4e2be23c0ec"
+  },
+  {
+    "dataset": "heldout_mtbrv",
+    "vertices": 9602,
+    "arcs": 10438,
+    "repository": "zakimjz/grail",
+    "commit": "c13a7364fbc185841fc6277cd295acf33a7188f0",
+    "archive": "sigmod08.tar.gz",
+    "member": "sigmod08/mtbrv_dag_uniq.gra",
+    "archive_git_blob": "87530101a5bd050841c92fee3f9ee33e93233160",
+    "member_sha256": "368459131f48b7ff0ed697d05a748877a521a433912eae59944333c99aeb03a1"
+  },
+  {
+    "dataset": "heldout_anthra",
+    "vertices": 12499,
+    "arcs": 13327,
+    "repository": "zakimjz/grail",
+    "commit": "c13a7364fbc185841fc6277cd295acf33a7188f0",
+    "archive": "sigmod08.tar.gz",
+    "member": "sigmod08/anthra_dag_uniq.gra",
+    "archive_git_blob": "87530101a5bd050841c92fee3f9ee33e93233160",
+    "member_sha256": "b4d78afc40354a46d6f23de83e7e452a2ed85fbda0f332311f72f1ec9549059b"
+  },
+  {
+    "dataset": "heldout_ecoo",
+    "vertices": 12620,
+    "arcs": 13575,
+    "repository": "zakimjz/grail",
+    "commit": "c13a7364fbc185841fc6277cd295acf33a7188f0",
+    "archive": "sigmod08.tar.gz",
+    "member": "sigmod08/ecoo_dag_uniq.gra",
+    "archive_git_blob": "87530101a5bd050841c92fee3f9ee33e93233160",
+    "member_sha256": "25da88f596a7ea9c2a3711132e3924a9325fe8ab97f05b6253bfb058e6b291c9"
+  },
+  {
+    "dataset": "heldout_nasa",
+    "vertices": 5605,
+    "arcs": 6538,
+    "repository": "zakimjz/grail",
+    "commit": "c13a7364fbc185841fc6277cd295acf33a7188f0",
+    "archive": "sigmod08.tar.gz",
+    "member": "sigmod08/nasa_dag_uniq.gra",
+    "archive_git_blob": "87530101a5bd050841c92fee3f9ee33e93233160",
+    "member_sha256": "0608ab03442e7e98a7d8b359daf01a8986a69bd61420202422dd68ed7d526120"
+  },
+  {
+    "dataset": "heldout_xmark",
+    "vertices": 6080,
+    "arcs": 7051,
+    "repository": "zakimjz/grail",
+    "commit": "c13a7364fbc185841fc6277cd295acf33a7188f0",
+    "archive": "sigmod08.tar.gz",
+    "member": "sigmod08/xmark_dag_uniq.gra",
+    "archive_git_blob": "87530101a5bd050841c92fee3f9ee33e93233160",
+    "member_sha256": "95f7e50cac286992c2feb4bf4ed30a0e34bac26c60b3026339fdd0befc9f9f55"
+  }
+]

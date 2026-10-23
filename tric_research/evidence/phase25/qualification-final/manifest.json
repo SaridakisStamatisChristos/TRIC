@@ -1,0 +1,175 @@
+{
+  "schema": 1,
+  "arms": [
+    {
+      "name": "previous",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf25/final-build/previous",
+      "mode": "auto",
+      "executable_sha256": "27b20696e9407c6aa47bd8fdd980b3ca464de709b3323d2cee8064668d09e0a6"
+    },
+    {
+      "name": "candidate",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf25/final-build/candidate",
+      "mode": "auto",
+      "executable_sha256": "7272f30ae677d717d85fb9a8b5a7694cbf79af12aa087c440a915f32bc11dcd9"
+    },
+    {
+      "name": "bfl",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf25/final-build/candidate",
+      "mode": "bfl",
+      "executable_sha256": "7272f30ae677d717d85fb9a8b5a7694cbf79af12aa087c440a915f32bc11dcd9"
+    },
+    {
+      "name": "oreach-pdfs",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf25/final-build/candidate",
+      "mode": "oreach-pdfs",
+      "executable_sha256": "7272f30ae677d717d85fb9a8b5a7694cbf79af12aa087c440a915f32bc11dcd9"
+    },
+    {
+      "name": "oreach-pbibfs",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf25/final-build/candidate",
+      "mode": "oreach-pbibfs",
+      "executable_sha256": "7272f30ae677d717d85fb9a8b5a7694cbf79af12aa087c440a915f32bc11dcd9"
+    }
+  ],
+  "cap_bytes": 2097152,
+  "trials": 5,
+  "horizons": [
+    1,
+    100
+  ],
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "cpu_affinity": [
+      1
+    ],
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "timing_scope": "Paired fresh-process comparisons on pinned native input bytes.\n\nEach available arm BFS-verifies every query after its timed region. Repeats\nexecute frozen query pairs; they are not independent new requests. Includes\nparsing/build/query costs, excludes process startup, verification and teardown.\n",
+  "files": [
+    {
+      "fixture_sha256": "74ab9c9e8fd407b107cedcff5207e64716b409bedb4139deb01c50aa68a683c7",
+      "file": "example.json.gz",
+      "sha256": "1ba14fe97a8713061e78016be79299338449fbed64d975523d889610da1e4594",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "04d77a9aaedb7935763f003937163375140c05ae73c3f34491c5235d4ba35167",
+      "file": "generated_blocks.json.gz",
+      "sha256": "3fe55fe82a3e78fbff474acd94beec421a62c28ba42196952df30b39c71bc137",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "6285c3ac50d992038b92235e8fefdc4d51408272f3b1718061aa7bc7e62acf58",
+      "file": "generated_communities.json.gz",
+      "sha256": "b4de9612841bbfcfcbe9e5730b774238e5151f4a614c9b31ec59aeab41bdf351",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "c5b0dd6b7579163ab8d9af5ba73e57c473555bb742872a265d5af55f584a1a51",
+      "file": "generated_dag.json.gz",
+      "sha256": "0976e7e473f6e23bcf9e1176fcef34b2bdd0ae0930cd4c324940da06abdaa528",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "e98ab7f61df076bb33089ea8989510f9f0ca99f2379182aab56ef11248a95842",
+      "file": "grail_citeseer.json.gz",
+      "sha256": "842409b74fdfb4f8e66bb2cd8867107304dfdc4928d6f6a5c02064e779f2ace6",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "8e0239e999a7728322b58a342e2eb7f830d933c160323f0af9cd0c3311a0aa1d",
+      "file": "grail_go.json.gz",
+      "sha256": "5f7961d5fe6db98057b204edcf97db2f8876e883f98df8ac86d8442cd93d86b9",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "a0b31a5721547d251fe273dd1fa6535c3b922a89f5647f8bfd82739f0239f085",
+      "file": "grail_kegg.json.gz",
+      "sha256": "b40b01f8adaf3317f5d04a65a2d63813ed0564293cc8abd0feb5b70b7069eea6",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "0f05607e4ae5ed100dba7b4a84778eb503a5de7b97b2985de5841c946078b194",
+      "file": "grail_pubmed.json.gz",
+      "sha256": "e9dd8d90277bf32ee48e67504eb8a3053962e0aa6a99a1b5983c823bfa26c39f",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "7970a2fd69aa9d875b9423e6f9fcde0fc13cfca1582678291ad916c23d8ce5ec",
+      "file": "grail_yago.json.gz",
+      "sha256": "d6605aaf433d76435a3d818b1f2ef1de0295c3abffeeb9c4f779cdb8dfbaa1b5",
+      "cells": 24
+    },
+    {
+      "fixture_sha256": "3d9d0646e32e9fb4ee233142d732a7bfb9775dd6e0f377ba1cbb4a13f7a6970e",
+      "file": "heldout_agrocyc.json.gz",
+      "sha256": "102912b36d467f7e30d926f7fe5c6043e1a82f682f58d1840ea7897e33702744",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "693c5ff20d9693eb1e4074fd1d9f6b0e7553ca4ded02e07c65c1257a70ed93e7",
+      "file": "heldout_amaze.json.gz",
+      "sha256": "37d5131fda8fe76d5ab357f4ddf50cebe93698da8bdcab037f4a276b25add80d",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "5c6b46b9b5b01c13c77533d56db54eabb4c2b85af972dd09fb79bf915bfa00df",
+      "file": "heldout_anthra.json.gz",
+      "sha256": "c2c4933c7860ad8e2c5d1d29be1e718e461d72f50c4600ed230e1c0afeeb677d",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "837eadaacf22c0666f3f9f52f63a33c024a5fec89e33afc2c983c55ca75b8f42",
+      "file": "heldout_ecoo.json.gz",
+      "sha256": "d3b33f5a6e470fae3680645e9c7f92bba4f82fc1eeb8912af500a1fa3a28c143",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "11b24a12fc6a37e69ba9c95818b44cb405f8c75167f11f02393efc5b7c247e2f",
+      "file": "heldout_human.json.gz",
+      "sha256": "512e94ea629da10a59ad606272e397b0b720058205f0a65a597e9c4b03923c8b",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "dae67ea1d2a7ccdbe578f5dbf9eaece98ff79c27fea89030cbcb68e6fc1ca7d6",
+      "file": "heldout_mtbrv.json.gz",
+      "sha256": "6ede81b0aaeb2392bc1ea78f4d97b455cde8117be1b10dea339f8af2a478588d",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "81c255cabf2ef254e2f9c48fe77b7f79a7141b250f8bd8dddd98150548bb1e8e",
+      "file": "heldout_nasa.json.gz",
+      "sha256": "78f105b9bf730ed9907d9778b14cc8803e0d8380df4e97a1fcd6f11f905c14d8",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "d42be1976af13984556d96684af8d304a2edc95ba9d9d182cc8bc41bd047ab1c",
+      "file": "heldout_vchocyc.json.gz",
+      "sha256": "f03a18c93380b6578d8e7753f3fb3d623f582124c32c09a515d57cd48844de52",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "1df4bae6901a00d9c4cb36a6c7d4da0aedb5f772f1a0eb9bad93c7eea96b4057",
+      "file": "heldout_xmark.json.gz",
+      "sha256": "b33dbe7c810acdfc404da28be369ff9c75624f5340a0bb0c403c10ed71574de2",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "0b4e5ffe37e311697ee4bbfed56f4a3fb8008a05ca880befd43cfd3a05c0c085",
+      "file": "kron_logn12.json.gz",
+      "sha256": "d31a2547932903e9d71c9380c0692b04489751a3ed1484e88f77d8f38d40a66c",
+      "cells": 24
+    }
+  ],
+  "artifact_repair": {
+    "dataset": "generated_communities",
+    "reason": "original result file failed final digest/case-count verification; entire graph repeated",
+    "rejected_actual_sha256": "ce0c858453165c86be132b5e4562d41eb9de5507f6d9b305638851dd3330352d",
+    "replacement_manifest": "repair_run_manifest.json",
+    "same_executables": true,
+    "runtime_source_commit": "a94c1828abe2212e0239cdc93f09ff9d440d6c4f"
+  },
+  "complete": true
+}

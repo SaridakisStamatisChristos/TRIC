@@ -111,9 +111,79 @@ machine dedicated hardware.
 
 ## Results
 
-Qualification is in progress. Final summaries and raw trials will replace this
-paragraph before the PR is marked ready. No result from the superseded
-exploratory candidates is promoted as final evidence.
+Qualification is complete: **39 graph/seed experiments on 19 graphs**, 312
+stratum/horizon cells, 7,800 fresh processes, 9,360,000 post-timing independent
+BFS pair checks and 472,680,000 actual query calls. Every expected input/result
+hash and case count passes the final validator. The fixed runtime is commit
+`a94c1828abe2212e0239cdc93f09ff9d440d6c4f`; subsequent changes add tests,
+artifact durability, summaries and evidence, without changing runtime headers.
+
+Across the 76 warm graph/stratum aggregates (100 replays), paired median build
+speed improved in 76/76, query speed in 71/76, and parse/build/query lifecycle
+in 71/76 against the previous TRIC. The median cell ratios are 1.78× for build,
+1.21× for queries and 1.29× for lifecycle. These are equal-cell medians, not an
+aggregate throughput guarantee or statistically established universal dominance.
+
+The following uniform 120,000-call cells show the median of paired trial ratios,
+then the median across seeds. Nine held-out graphs have one seed rather than
+three. Ratios above one favor this candidate. The fastest external comparator
+is selected separately for each metric and paired trial from original BFL and
+both original O'Reach variants.
+
+| Graph | Query speed vs previous | Build speed vs previous | Lifecycle vs previous | Query vs fastest external |
+|---|---:|---:|---:|---:|
+| arXiv | 0.91× | 1.27× | 1.07× | 9.90× |
+| CiteSeer | 1.29× | 2.07× | 1.39× | 0.85× |
+| GO | 1.29× | 1.90× | 1.38× | 0.90× |
+| KEGG | 1.03× | 1.18× | 1.01× | 0.87× |
+| PubMed | 1.37× | 1.67× | 1.29× | 1.00× |
+| YAGO | 1.39× | 1.74× | 1.19× | 0.93× |
+| agrocyc | 1.17× | 5.35× | 2.55× | 0.58× |
+| amaze | 1.01× | 1.13× | 1.06× | 0.88× |
+| anthra | 1.10× | 5.46× | 2.55× | 0.60× |
+| ecoo | 1.12× | 5.19× | 2.47× | 0.57× |
+| human | 1.55× | 1.09× | 1.06× | 0.60× |
+| mtbrv | 1.09× | 3.78× | 1.98× | 0.52× |
+| nasa | 1.47× | 2.47× | 1.61× | 1.03× |
+| vchocyc | 1.22× | 3.91× | 2.00× | 0.58× |
+| xmark | 1.26× | 2.71× | 1.56× | 1.39× |
+| Kronecker | 1.02× | 1.29× | 1.04× | 10.27× |
+
+GO queries improve 1.29× and builds 1.90× against previous TRIC; CiteSeer improves
+1.29× and 2.07×. YAGO improves 1.39× and 1.74×. Held-out anthra/agrocyc builds
+improve about 5.46×/5.35×, with approximately 2.55× faster lifecycles. Measured
+CiteSeer native VmHWM falls from 20,960 to 5,756 KiB; retained index capacity
+falls from 2,068,328 to 1,139,992 bytes. These capacities exclude caller input
+and allocator metadata as documented.
+
+**Remaining losses matter.** Uniform arXiv queries are approximately 10.5%
+slower than previous TRIC, despite faster construction and lower peak memory.
+The candidate wins only 34/76 warm query cells and 45/76 lifecycle cells against
+the fastest measured external baseline. O'Reach retains large negative-heavy
+query advantages on several additional sparse biology graphs; BFL also wins
+important construction and query regimes. This is an improved engineering
+tradeoff, not global SOTA. Current PLL/MLRQ-O implementations, matched total
+memory, authentic graphs above 100,000 vertices and independent dedicated-hardware
+replications remain unqualified. See the current MLRQ paper at
+https://doi.org/10.1007/s44443-025-00310-0 for why O'Reach alone is insufficient.
+
+One generated-communities result failed final SHA256/case-count verification.
+The entire graph was repeated with the same executable hashes; only the
+complete verified replacement is promoted. Both manifests and the rejection
+reason are recorded. The runner now uses exclusive output initialization,
+atomic replacement, fsync and final read-back verification. Superseded
+exploratory outputs are not part of this qualification.
+
+A subsequent same-byte-budget signature/metadata split was rejected: small
+negative-query gains were offset by positive-query regressions. Its raw pilot
+and prototype header are retained in `ablation_layout.json.gz`; it is not the
+shipped runtime and is not included in the qualification counts above.
+
+Runtime CI passed on Python 3.10 and 3.13, including full address/undefined/leak
+sanitizer commands, at [run 39905073000](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39905073000).
+Additional integrity and deep-diamond saturation checks are included in the
+final PR head and rechecked by the final CI run. All results remain bounded
+empirical evidence, with the analytical invariant argument given above.
 
 ## Reproduction
 
