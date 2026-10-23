@@ -1,0 +1,16 @@
+{
+  "runtime_commit": "a94c1828abe2212e0239cdc93f09ff9d440d6c4f",
+  "sha256": {
+    "scc_decomposition.h": "c751356abf39e1d52b3310b3fc3c630c1813302a17c1cbebdae47262399b73ec",
+    "closure_index.h": "bbdeb40c467817fc95e99213ad00fc61b125f6c988901cd14fb0a5afa0faf154",
+    "partitioned_reachability.h": "083ef7929174e0fa474241bb9cfdfeb3361ab6fb941c1d98d3af30ecb26b2ff1",
+    "tric_reachability.h": "b965c9ec6d1547a07e994c8994078be88c6c08b2e7e6ce45e3ee6b3069641ba5",
+    "native_compare_bench.cpp": "09f0b4bb5739322279e9e7675606123a051c734006f2364b637824e4149b6051",
+    "bfl_adapter.h": "5d63bd722435ef8dddb3a04e75bda5277d8cba5d2c03ac9a42cda956487316a2",
+    "oreach_adapter.h": "694ba424d9b7c5df4fe1be3821ab12a579afbfce647e904980391e2d5c75fb51",
+    "third_party/bfl/main.cpp": "0c61bc450e1043ea365e7458b461895c1c780a1a662b91a257a092bccfaf524a",
+    "benchmark_native_changes.py": "d1663273f3d6eb89ad78b41f90d58e092771e52012dd2f0b6ed8504c1bb8cbd8",
+    "build_native_comparison.py": "341271b1f23283d0a999d1a8090b04f5214a48f31620ed37bfccf10d62cfd8af",
+    "summarize_native_changes.py": "aec37a36588ace425534539c58093dce78c78d287e63eef45f671d59194f2ee3"
+  }
+}

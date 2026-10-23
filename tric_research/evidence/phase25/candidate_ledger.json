@@ -1,0 +1,37 @@
+[
+  {
+    "candidate": "shared SCC decomposition",
+    "state": "EMPIRICALLY_VALIDATED",
+    "novelty": "PRIOR_ART_FOUND",
+    "decision": "ACCEPT"
+  },
+  {
+    "candidate": "branchless original bounds",
+    "state": "EMPIRICALLY_VALIDATED",
+    "decision": "REJECT",
+    "reason": "slower in exploratory paired trials"
+  },
+  {
+    "candidate": "signatures + DFS positive certificates + bounded intervals",
+    "state": "EMPIRICALLY_VALIDATED",
+    "novelty": "PRIOR_ART_FOUND",
+    "decision": "ACCEPT"
+  },
+  {
+    "candidate": "whole-subtree interval initialization",
+    "decision": "SUPERSEDED",
+    "reason": "redundant row merging caused arXiv build regression; singleton initialization permits sound transitive skipping"
+  },
+  {
+    "candidate": "signature/metadata split",
+    "state": "EMPIRICALLY_VALIDATED",
+    "decision": "REJECT",
+    "reason": "mixed/slower overall pilot; preserved ablation"
+  },
+  {
+    "candidate": "global SOTA",
+    "state": "UNESTABLISHED",
+    "decision": "NO CLAIM",
+    "reason": "external losses and baseline/hardware/scale qualification gaps"
+  }
+]

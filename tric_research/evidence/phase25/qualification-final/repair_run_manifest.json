@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "arms": [
+    {
+      "name": "previous",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf25/final-build/previous",
+      "mode": "auto",
+      "executable_sha256": "27b20696e9407c6aa47bd8fdd980b3ca464de709b3323d2cee8064668d09e0a6"
+    },
+    {
+      "name": "candidate",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf25/final-build/candidate",
+      "mode": "auto",
+      "executable_sha256": "7272f30ae677d717d85fb9a8b5a7694cbf79af12aa087c440a915f32bc11dcd9"
+    },
+    {
+      "name": "bfl",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf25/final-build/candidate",
+      "mode": "bfl",
+      "executable_sha256": "7272f30ae677d717d85fb9a8b5a7694cbf79af12aa087c440a915f32bc11dcd9"
+    },
+    {
+      "name": "oreach-pdfs",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf25/final-build/candidate",
+      "mode": "oreach-pdfs",
+      "executable_sha256": "7272f30ae677d717d85fb9a8b5a7694cbf79af12aa087c440a915f32bc11dcd9"
+    },
+    {
+      "name": "oreach-pbibfs",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf25/final-build/candidate",
+      "mode": "oreach-pbibfs",
+      "executable_sha256": "7272f30ae677d717d85fb9a8b5a7694cbf79af12aa087c440a915f32bc11dcd9"
+    }
+  ],
+  "cap_bytes": 2097152,
+  "trials": 5,
+  "horizons": [
+    1,
+    100
+  ],
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "cpu_affinity": [
+      1
+    ],
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "timing_scope": "Paired fresh-process comparisons on pinned native input bytes.\n\nEach available arm BFS-verifies every query after its timed region. Repeats\nexecute frozen query pairs; they are not independent new requests. Includes\nparsing/build/query costs, excludes process startup, verification and teardown.\n",
+  "files": [
+    {
+      "fixture_sha256": "6285c3ac50d992038b92235e8fefdc4d51408272f3b1718061aa7bc7e62acf58",
+      "file": "generated_communities.json.gz",
+      "sha256": "b4de9612841bbfcfcbe9e5730b774238e5151f4a614c9b31ec59aeab41bdf351",
+      "cells": 24
+    }
+  ],
+  "complete": true
+}

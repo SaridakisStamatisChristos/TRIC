@@ -53,7 +53,28 @@ static int selftest() {
       }
     }
   }
-  std::cout<<"{\"exhaustive_checks\":"<<checks<<",\"adversarial_checks\":"<<adversarial<<"}\n"; return 0;
+  // A wide 160-vertex extension forces interval routing, including cross
+  // edges to previously finished DFS subtrees. Exhaust all 12 variable arcs.
+  std::uint64_t interval_checks=0, interval_indexes=0;
+  for(int mask=0;mask<4096;++mask) {
+    Graph g(160);for(int v=6;v<160;++v)g[0].push_back(v);
+    int bit=0;
+    for(int a=0;a<6;++a)for(int b=a+1;b<6;++b) {
+      if(bit<12 && (mask&(1<<bit)))g[a].push_back(b);
+      ++bit;
+    }
+    for(std::size_t cap:{std::size_t(2559),std::size_t(2560),std::size_t(3072)}) {
+      PartitionedReachability index(g,cap);TricReachability automatic(g,cap);
+      if(index.table_bytes()>cap || automatic.table_bytes()>cap)throw std::runtime_error("interval cap exceeded");
+      interval_indexes+=index.interval_partitions();
+      for(int a=0;a<6;++a)for(int j=0;j<8;++j) {
+        const int b=j<6?j:(j==6?6:159);const bool truth=bfs(g,a,b);
+        if(index.reaches(a,b)!=truth || automatic.reaches(a,b)!=truth)throw std::runtime_error("interval family mismatch");
+        ++interval_checks;
+      }
+    }
+  }
+  std::cout<<"{\"exhaustive_checks\":"<<checks<<",\"adversarial_checks\":"<<adversarial<<",\"interval_checks\":"<<interval_checks<<",\"interval_indexes\":"<<interval_indexes<<"}\n"; return 0;
 }
 int main(int argc,char** argv) {
   try {
@@ -102,6 +123,7 @@ int main(int argc,char** argv) {
     if(partitioned)std::cout<<",\"components\":"<<partitioned->components()<<",\"indexed_components\":"<<partitioned->indexed_components()
       <<",\"table_bytes\":"<<partitioned->table_bytes()<<",\"retained_capacity_bytes\":"<<partitioned->retained_bytes()
       <<",\"compressed_partitions\":"<<partitioned->compressed_partitions()
+      <<",\"interval_partitions\":"<<partitioned->interval_partitions()
       <<",\"partitions\":"<<partitioned->partitions()<<",\"chain_partitions\":"<<partitioned->chain_partitions()
       <<",\"bit_partitions\":"<<partitioned->bit_partitions()<<",\"merged_arcs\":"<<partitioned->merged_arcs()
       <<",\"skipped_arcs\":"<<partitioned->skipped_arcs();

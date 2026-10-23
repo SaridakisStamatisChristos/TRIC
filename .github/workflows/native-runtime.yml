@@ -20,6 +20,9 @@ jobs:
       - name: Preserve original Python research and verify native exactness
         working-directory: tric_research
         run: python -m unittest -q test_tric test_path_monge test_path_sweep test_backbone test_native_runtime
+      - name: Validate preserved benchmark inputs, trials and completeness
+        working-directory: tric_research
+        run: python summarize_native_changes.py evidence/phase25
       - name: Native address and undefined behavior checks
         working-directory: tric_research
         run: |

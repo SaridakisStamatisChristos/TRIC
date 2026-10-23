@@ -10,12 +10,13 @@ class TricReachability {
 public:
   template<class Graph>
   explicit TricReachability(const Graph& graph,std::size_t table_cap_bytes=2ULL*1024*1024,
-                            std::size_t dense_scratch_cap_bytes=64ULL*1024*1024) {
-    // Both SCC probes count in construction cost if direct closure is refused.
-    direct_=std::make_unique<BoundedClosure>(graph,table_cap_bytes);
-    if (!direct_->built()) {
-      direct_.reset();
-      partitioned_=std::make_unique<PartitionedReachability>(graph,table_cap_bytes,dense_scratch_cap_bytes);
+                            std::size_t index_scratch_cap_bytes=64ULL*1024*1024) {
+    tric_detail::SccDecomposition scc(graph);
+    if (scc.closure_fits(table_cap_bytes)) {
+      direct_.reset(new BoundedClosure(graph,table_cap_bytes,std::move(scc)));
+    } else {
+      partitioned_.reset(new PartitionedReachability(
+        graph,table_cap_bytes,index_scratch_cap_bytes,std::move(scc)));
     }
   }
   bool reaches(int source,int target) {

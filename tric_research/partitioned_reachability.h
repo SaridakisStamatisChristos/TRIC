@@ -1,7 +1,8 @@
-// Static exact reachability: SCCs, weak-component partitioning, and the smaller
-// of established chain labels / bitset closure. No training or novelty claim.
+// Static exact reachability: SCCs, weak partitions, chains, bitsets and bounded
+// unions of DFS intervals. All techniques are established; no query training.
 // C++17. The cap is for TABLE PAYLOAD, not graph input, scratch or total RSS.
 #pragma once
+#include "scc_decomposition.h"
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
@@ -13,7 +14,9 @@
 
 class PartitionedReachability {
   using Graph = std::vector<std::vector<int>>;
-  enum class Mode { search, chains, bits, compressed };
+  enum class Mode { search, chains, bits, compressed, intervals };
+  struct Interval { std::uint32_t first, end; };
+  struct IntervalRow { std::uint32_t offset=0, count=0; };
   struct Row {
     std::size_t offset=0, ids_offset=0;
     std::uint32_t first=0, count=0;
@@ -24,62 +27,106 @@ class PartitionedReachability {
     std::size_t offset = 0, stride = 0;
   };
   struct alignas(32) Label {
-    int component=0, group=0, local=0, chain=0, forward=0, backward=0;
+    // route is a chain ID for indexed partitions, an SCC ID for search.
+    std::uint16_t forward=0, backward=0;
+    int group=0, local=0, route=0, tree_begin=0, tree_end=0;
+    std::uint64_t signature=0;
   };
+  static_assert(sizeof(Label)==32,"vertex labels must remain 32 bytes");
   std::vector<Label> vertex_labels_;
   std::size_t component_count_=0;
   std::vector<Partition> partitions_;
   std::vector<std::uint32_t> labels_;
   std::vector<std::uint64_t> bits_;
   std::vector<Row> rows_;
+  std::vector<IntervalRow> interval_rows_;
+  std::vector<Interval> intervals_;
   std::vector<std::uint32_t> word_ids_;
   Graph fallback_dag_;
   std::vector<unsigned> seen_;
   std::vector<int> stack_;
   unsigned epoch_ = 0;
-  std::size_t indexed_ = 0, chain_groups_ = 0, bit_groups_ = 0, compressed_groups_ = 0;
+  std::size_t indexed_ = 0, chain_groups_ = 0, bit_groups_ = 0, compressed_groups_ = 0, interval_groups_ = 0;
   std::uint64_t merged_arcs_ = 0, skipped_arcs_ = 0;
+  bool try_interval_partition(std::size_t g,const std::vector<int>& nodes,
+                              const Graph& dag,const std::vector<int>& local_,
+                              const std::vector<int>& tree_begin,
+                              std::size_t& remaining,std::size_t index_scratch_cap_bytes) {
+    // Exact unions of DFS intervals avoid a quadratic dense intermediate.
+    // Every child row is complete before its parent (reverse DAG order).
+    const std::size_t size=nodes.size();
+    const std::uint64_t row_bytes=std::uint64_t(size)*sizeof(IntervalRow);
+    if (row_bytes+std::uint64_t(size)*sizeof(Interval)<=remaining) {
+      const auto old_rows=interval_rows_.size(), old_intervals=intervals_.size();
+      const std::size_t limit=std::min((remaining-static_cast<std::size_t>(row_bytes))/sizeof(Interval),
+                                      index_scratch_cap_bytes/(2*sizeof(Interval)));
+      bool fits=limit>0;
+      if(fits) {
+        interval_rows_.resize(old_rows+size);
+        std::vector<Interval> current,next;
+        current.reserve(limit);next.reserve(limit);
+        for(auto it=nodes.rbegin();it!=nodes.rend() && fits;++it) {
+          const int a=*it;
+          current.assign(1,Interval{static_cast<std::uint32_t>(tree_begin[a]),
+                                    static_cast<std::uint32_t>(tree_begin[a]+1)});
+          for(int b:dag[a]) {
+            const auto row=interval_rows_[old_rows+static_cast<std::size_t>(local_[b])];
+            const auto* child=intervals_.data()+row.offset;
+            // Start from self only, then union COMPLETE child closures.
+            // A covered child entry therefore implies its full closure is
+            // already inherited; skip the transitive arc without row copying.
+            const auto target=static_cast<std::uint32_t>(tree_begin[b]);
+            const auto covered=std::upper_bound(current.begin(),current.end(),target,
+              [](std::uint32_t value,const Interval& range){return value<range.first;});
+            if(covered!=current.begin() && target<(covered-1)->end){++skipped_arcs_;continue;}
+            ++merged_arcs_;
+            next.clear();std::size_t i=0,j=0;
+            while(i<current.size() || j<row.count) {
+              const Interval value=(j==row.count || (i<current.size() && current[i].first<=child[j].first))
+                ?current[i++]:child[j++];
+              if(!next.empty() && value.first<=next.back().end)
+                next.back().end=std::max(next.back().end,value.end);
+              else {
+                if(next.size()==limit){fits=false;break;}
+                next.push_back(value);
+              }
+            }
+            if(!fits)break;
+            current.swap(next);
+          }
+          const auto added=intervals_.size()-old_intervals;
+          if(!fits || current.size()>(remaining-static_cast<std::size_t>(row_bytes))/sizeof(Interval)-added ||
+              current.size()>std::numeric_limits<std::uint32_t>::max()-intervals_.size()) {fits=false;break;}
+          interval_rows_[old_rows+static_cast<std::size_t>(local_[a])]=IntervalRow{
+            static_cast<std::uint32_t>(intervals_.size()),static_cast<std::uint32_t>(current.size())};
+          intervals_.insert(intervals_.end(),current.begin(),current.end());
+        }
+      }
+      if(fits) {
+        auto& part=partitions_[g];part.mode=Mode::intervals;part.offset=old_rows;
+        remaining-=static_cast<std::size_t>(row_bytes)+(intervals_.size()-old_intervals)*sizeof(Interval);
+        indexed_+=size;++interval_groups_;return true;
+      }
+      interval_rows_.resize(old_rows);intervals_.resize(old_intervals);
+    }
+    return false;
+  }
 public:
   template<class G>
   explicit PartitionedReachability(const G& graph, std::size_t table_cap_bytes,
-                                   std::size_t dense_scratch_cap_bytes=64ULL*1024*1024) {
-    if (graph.size() > static_cast<std::size_t>(std::numeric_limits<int>::max()))
-      throw std::length_error("graph has too many vertices");
-    const int n = static_cast<int>(graph.size());
-    std::vector<int> component_, group_, local_, chain_;
-    Graph reverse(n);
-    for (int u=0; u<n; ++u) for (int v: graph[u]) {
-      if (v<0 || v>=n) throw std::out_of_range("edge endpoint");
-      reverse[v].push_back(u);
-    }
-    std::vector<unsigned char> visited(n, 0);
-    std::vector<int> finish; finish.reserve(n);
-    std::vector<std::pair<int,std::size_t>> frames;
-    for (int root=0; root<n; ++root) {
-      if (visited[root]) continue;
-      frames.clear(); frames.emplace_back(root,0); visited[root]=1;
-      while (!frames.empty()) {
-        auto& frame=frames.back(); const int u=frame.first;
-        if (frame.second<graph[u].size()) {
-          const int v=graph[u][frame.second++];
-          if (!visited[v]) {visited[v]=1; frames.emplace_back(v,0);}
-        } else {finish.push_back(u); frames.pop_back();}
-      }
-    }
-    component_.assign(n,-1);
-    int count=0;
-    std::vector<int> todo;
-    for (auto it=finish.rbegin(); it!=finish.rend(); ++it) {
-      if (component_[*it]>=0) continue;
-      todo.assign(1,*it); component_[*it]=count;
-      while (!todo.empty()) {
-        const int u=todo.back(); todo.pop_back();
-        for (int v:reverse[u]) if (component_[v]<0) {
-          component_[v]=count; todo.push_back(v);
-        }
-      }
-      ++count;
-    }
+                                   std::size_t index_scratch_cap_bytes=64ULL*1024*1024)
+    : PartitionedReachability(graph,table_cap_bytes,index_scratch_cap_bytes,
+                              tric_detail::SccDecomposition(graph)) {}
+private:
+  friend class TricReachability;
+  // Internal construction route: consume already validated SCCs exactly once.
+  template<class G>
+  PartitionedReachability(const G& graph, std::size_t table_cap_bytes,
+                          std::size_t index_scratch_cap_bytes, tric_detail::SccDecomposition scc) {
+    const int n=static_cast<int>(graph.size());
+    auto component_=std::move(scc.component);
+    const int count=scc.count;
+    std::vector<int> group_, local_, chain_;
     // Kosaraju numbers the condensation in topological order.
     Graph dag(count), incoming(count);
     std::vector<int> parent(count), weight(count,1); std::iota(parent.begin(),parent.end(),0);
@@ -113,6 +160,29 @@ public:
       const int g=root_group[r]; group_[a]=g;
       local_[a]=static_cast<int>(members[g].size()); members[g].push_back(a);
     }
+    // DFS tree subtrees are exact positive certificates, including when the
+    // original DAG has cross edges. Absence from the subtree proves nothing.
+    std::vector<int> tree_begin(count,-1),tree_end(count,0);
+    std::vector<std::pair<int,std::size_t>> frames;int clock=0;
+    for(int root=0;root<count;++root) {
+      if(tree_begin[root]>=0)continue;
+      tree_begin[root]=clock++;frames.emplace_back(root,0);
+      while(!frames.empty()) {
+        auto& f=frames.back();const int a=f.first;
+        if(f.second<dag[a].size()) {
+          const int b=dag[a][f.second++];
+          if(tree_begin[b]<0){tree_begin[b]=clock++;frames.emplace_back(b,0);}
+        } else {tree_end[a]=clock;frames.pop_back();}
+      }
+    }
+    // Descendant signatures are a necessary condition, never an answer oracle.
+    // They occupy the former padding in the 32-byte vertex label.
+    std::vector<std::uint64_t> signature(count,0);
+    for(int a=count-1;a>=0;--a) {
+      const auto hash=(std::uint64_t(a)+1)*0x9e3779b97f4a7c15ULL;
+      signature[a]=std::uint64_t(1)<<(hash>>58);
+      for(int b:dag[a])signature[a]|=signature[b];
+    }
     partitions_.resize(members.size());
     std::vector<int> tail, lengths;
     std::size_t remaining=table_cap_bytes;
@@ -139,9 +209,11 @@ public:
       const bool use_chains=cb<bb;
       const std::uint64_t bytes=use_chains?cb:bb;
       if (bytes>remaining) {
+        if(try_interval_partition(g,nodes,dag,local_,tree_begin,
+                                  remaining,index_scratch_cap_bytes))continue;
         // A larger temporary matrix may be compressed into sparse word rows
         // or dense suffixes. This is a distinct, explicit CONSTRUCTION budget.
-        if (bb>dense_scratch_cap_bytes ||
+        if (bb>index_scratch_cap_bytes ||
             std::uint64_t(size)*(sizeof(Row)+sizeof(std::uint64_t))>remaining) {
           needs_search=true; continue;
         }
@@ -223,16 +295,16 @@ public:
     }
     labels_.shrink_to_fit(); bits_.shrink_to_fit();
     rows_.shrink_to_fit(); word_ids_.shrink_to_fit();
-    // Longest-path levels give two exact necessary conditions. Keep each
-    // vertex's query metadata together so a negative query needs two compact
-    // label loads rather than independent component/group/local arrays.
+    interval_rows_.shrink_to_fit();intervals_.shrink_to_fit();
     std::vector<int> forward(count,0),backward(count,0);
     for(int a=0;a<count;++a)for(int b:dag[a])forward[b]=std::max(forward[b],forward[a]+1);
     for(int a=count-1;a>=0;--a)for(int b:dag[a])backward[a]=std::max(backward[a],backward[b]+1);
     vertex_labels_.resize(n);component_count_=static_cast<std::size_t>(count);
     for(int u=0;u<n;++u){
       const int a=component_[u];
-      vertex_labels_[u]=Label{a,group_[a],local_[a],chain_[a],forward[a],backward[a]};
+      vertex_labels_[u]=Label{static_cast<std::uint16_t>(std::min(forward[a],65535)),
+        static_cast<std::uint16_t>(std::min(backward[a],65535)),group_[a],local_[a],
+        partitions_[group_[a]].mode==Mode::search?a:chain_[a],tree_begin[a],tree_end[a],signature[a]};
     }
     if (needs_search) {
       fallback_dag_=std::move(dag);
@@ -241,21 +313,30 @@ public:
       seen_.assign(count,0); stack_.reserve(count);
     }
   }
+public:
   // Reflexive semantics: every vertex reaches itself, including an isolate.
   // Fallback reuses mutable scratch: use one instance per querying thread.
   bool reaches(int source,int target) {
-    if (source<0 || target<0 || static_cast<std::size_t>(source)>=vertex_labels_.size()
+    if (static_cast<std::size_t>(source)>=vertex_labels_.size()
         || static_cast<std::size_t>(target)>=vertex_labels_.size()) throw std::out_of_range("query endpoint");
     const auto& from=vertex_labels_[source];const auto& to=vertex_labels_[target];
-    const int a=from.component,b=to.component;
-    if (a==b) return true;
-    if (a>b || from.group!=to.group || from.forward>=to.forward || from.backward<=to.backward) return false;
+    if ((from.signature & to.signature)!=to.signature)return false;
+    if (from.tree_begin==to.tree_begin) return true;
+    if (from.group!=to.group || from.local>to.local) return false;
+    if(from.tree_begin<=to.tree_begin && to.tree_begin<from.tree_end)return true;
     const auto& p=partitions_[from.group];
     if (p.mode==Mode::chains)
-      return labels_[p.offset+std::size_t(from.local)*p.stride+to.chain]<=static_cast<std::uint32_t>(to.local);
+      return labels_[p.offset+std::size_t(from.local)*p.stride+to.route]<=static_cast<std::uint32_t>(to.local);
     if (p.mode==Mode::bits) {
       const std::size_t bp=static_cast<std::size_t>(to.local);
       return (bits_[p.offset+std::size_t(from.local)*p.stride+(bp>>6)]>>(bp&63))&1U;
+    }
+    if (p.mode==Mode::intervals) {
+      const auto row=interval_rows_[p.offset+static_cast<std::size_t>(from.local)];
+      const auto first=intervals_.begin()+row.offset,last=first+row.count;
+      const auto target=static_cast<std::uint32_t>(to.tree_begin);
+      const auto it=std::upper_bound(first,last,target,[](std::uint32_t value,const Interval& range){return value<range.first;});
+      return it!=first && target<(it-1)->end;
     }
     if (p.mode==Mode::compressed) {
       const Row& row=rows_[p.offset+static_cast<std::size_t>(from.local)];
@@ -269,6 +350,11 @@ public:
       }
       return (bits_[row.offset+pos]>>(to.local&63))&1U;
     }
+    // Keep both depth bounds for the potentially expensive search route.
+    // 65535 means saturated: equal saturated values provide no rejection.
+    if((from.forward>=to.forward && to.forward!=65535) ||
+       (from.backward<=to.backward && from.backward!=65535))return false;
+    const int a=from.route,b=to.route;
     if (++epoch_==0) {std::fill(seen_.begin(),seen_.end(),0); epoch_=1;}
     stack_.assign(1,a); seen_[a]=epoch_;
     while (!stack_.empty()) {
@@ -280,9 +366,9 @@ public:
     }
     return false;
   }
-  std::size_t table_bytes() const {return (labels_.size()+word_ids_.size())*sizeof(std::uint32_t)+bits_.size()*sizeof(std::uint64_t)+rows_.size()*sizeof(Row);}
+  std::size_t table_bytes() const {return interval_rows_.size()*sizeof(IntervalRow)+intervals_.size()*sizeof(Interval)+(labels_.size()+word_ids_.size())*sizeof(std::uint32_t)+bits_.size()*sizeof(std::uint64_t)+rows_.size()*sizeof(Row);}
   std::size_t retained_bytes() const {
-    std::size_t total=vertex_labels_.capacity()*sizeof(Label)+stack_.capacity()*sizeof(int)
+    std::size_t total=interval_rows_.capacity()*sizeof(IntervalRow)+intervals_.capacity()*sizeof(Interval)+vertex_labels_.capacity()*sizeof(Label)+stack_.capacity()*sizeof(int)
       +rows_.capacity()*sizeof(Row)+word_ids_.capacity()*sizeof(std::uint32_t)
       +partitions_.capacity()*sizeof(Partition)+labels_.capacity()*sizeof(std::uint32_t)
       +bits_.capacity()*sizeof(std::uint64_t)+seen_.capacity()*sizeof(unsigned)
@@ -295,6 +381,7 @@ public:
   std::size_t chain_partitions() const {return chain_groups_;}
   std::size_t bit_partitions() const {return bit_groups_;}
   std::size_t compressed_partitions() const {return compressed_groups_;}
+  std::size_t interval_partitions() const {return interval_groups_;}
   std::size_t partitions() const {return partitions_.size();}
   std::uint64_t merged_arcs() const {return merged_arcs_;}
   std::uint64_t skipped_arcs() const {return skipped_arcs_;}
