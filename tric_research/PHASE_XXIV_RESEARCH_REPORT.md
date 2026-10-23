@@ -173,11 +173,76 @@ this supplies six real graphs plus the separately identified published Kronecker
 and three generated stress families. Success and numerical outcomes are recorded
 only after each run finishes.
 
-## Executed evidence
+## Executed evidence and decision — 23 October 2026
 
-Pending final campaign results. Local development exactness tests and pilot timings
-are preliminary. CI links, exact source SHA, machine-readable trials and negative
-cells will be recorded after execution; queued workflows are not passed workflows.
+Measured source: `b5e1a1c3aa4a32cbf4bafedb3a68680722195e00`.
+The standalone runtime in [PR #24](https://github.com/SaridakisStamatisChristos/TRIC/pull/24)
+has byte-identical runtime headers at `267085808ad53065825c9b1f464a3f15824a450e`.
+
+- [Full research tests](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645960)
+  passed **126 selected test methods** on Python 3.10 and 3.13. Local full
+  discovery additionally passes **129 methods**; the three older lifecycle tests
+  were absent from the hand-maintained CI list. This final evidence update replaces
+  that list with discovery so future modules cannot be silently omitted. The focused main integration additionally passes its 25 original/new
+  tests and normal address/undefined-behavior sanitizers on both Python versions
+  in [native CI](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899819705).
+- [All five recovered original real graphs x three seeds](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952)
+  passed **17/17 jobs**, including independent exact per-answer OReach validation.
+- All arXiv and published Kronecker graph/seed jobs passed in
+  [the original/stress matrix](https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925).
+  This completes **21/21 primary graph/seed experiments**, with four query strata,
+  two call horizons and six position-balanced fresh-process trials per method.
+  No incorrect answer or unavailable external comparator occurred in this primary
+  matrix. BoundedClosure refusals remain explicitly unavailable, not wins.
+- The original/stress matrix completed **17/17 jobs**, including all **nine of
+  nine** generated graph/seed experiments. The final campaign therefore has
+  **30/30 completed CI graph/seed experiments across 10 graphs**: six real graphs,
+  published Kronecker, and three explicitly generated stress families. Every
+  external answer was checked against an independent oracle. All 30 preserved
+  experiment records are CI-origin and share the measured implementation hashes.
+  The earlier local timing/layout ablation is separately labeled exploratory.
+
+### Primary uniform workload — all seven graphs
+
+120,000 actual calls = 1,200 frozen pairs replayed 100 times. Each reported speedup
+is the median of the three per-seed paired ratios against the **faster of OReach
+pDFS and pBiBFS** for that metric and cell. Above 1 favors automatic TRIC; below 1
+is a real regression. Query and lifecycle may select different faster fallbacks.
+
+| Graph | Query speedup | Three-seed query range | Native lifecycle speedup |
+|---|---:|---:|---:|
+| arXiv (real) | 18.341x | 12.085–21.732x | 2.868x |
+| Kronecker (published synthetic) | 13.383x | 11.055–22.507x | 2.849x |
+| GO (real) | 0.619x | 0.617–0.742x | 0.800x |
+| PubMed (real) | 1.532x | 1.314–1.545x | 0.883x |
+| CiteSeer (real) | 1.538x | 1.137–1.585x | 0.879x |
+| YAGO (real) | 0.597x | 0.566–0.601x | 0.876x |
+| KEGG (real) | 0.886x | 0.864–0.927x | 2.242x |
+
+This is substantial improvement on arXiv and Kronecker but **not a global win**.
+GO and YAGO lose in all four warm query strata. PubMed/CiteSeer have faster query
+paths but generally slower complete native lifecycles at this horizon. PubMed
+positive-only is a useful conditional gain (4.208x query, 1.176x lifecycle), not a
+universal claim. KEGG generally has much faster construction/lifecycle while
+negative and uniform query-only latency still loses. Existing direct global
+closure remains a credible competing control wherever its memory fits; automatic
+TRIC reuses that exact algorithm and does not establish a new faster primitive.
+
+All **56** primary graph/stratum/horizon median cells, seed ranges and memory
+figures appear in [primary_summary.csv](evidence/phase24/primary_summary.csv).
+Per-graph CSVs include every available control/seed; compressed JSONs preserve raw
+numeric trials, source identities, checksums, independent oracle counts and
+execution origins. The downloaded ZIP digests were verified against GitHub's
+artifact receipts. The evidence remains in the repository after CI artifacts
+expire. See [the evidence index](evidence/phase24/README.md).
+
+**Verdict:** exact native runtime integration is ready for review through PR #24.
+This is an established-technique portfolio with measured regime-specific gains.
+**Global SOTA promotion remains NO-GO.** Remaining failures include GO/YAGO query
+regressions and preprocessing costs on several sparse real graphs. Other modern
+indexes (e.g. additional 2-hop/BFL-family implementations), large-graph scaling,
+dedicated hardware replication and matched total-memory frontiers are not yet
+measured. No claim of paper novelty or production readiness follows.
 
 ## Reproduce
 

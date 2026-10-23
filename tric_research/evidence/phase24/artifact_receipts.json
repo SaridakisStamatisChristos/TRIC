@@ -1,0 +1,242 @@
+[
+  {
+    "artifact_id": 12478546369,
+    "name": "phase24-kron_logn12-seed20261022-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:a8d0ba64548d7e9044d4db0a52eca90b6bbf280375543f9365dc5dc07deb7a9f",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12478546369"
+  },
+  {
+    "artifact_id": 12478471498,
+    "name": "phase24-example-seed20261024-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:8ef71528f1ebe65d4d03b275221be290cb596459b0cf7cacad2e0dd495a6c3d7",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12478471498"
+  },
+  {
+    "artifact_id": 12478426943,
+    "name": "phase24-kron_logn12-seed20261024-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:e678e2a5ddd1976e1a243b62158dc618a1f6a678b5a20d9358b19d4f3a270a03",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12478426943"
+  },
+  {
+    "artifact_id": 12478117211,
+    "name": "phase24-generated_dag-seed20261022-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:27c71620b0748a63334db4e4522558210c46fa6b6369e662b8d2e31a34ce9f6d",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12478117211"
+  },
+  {
+    "artifact_id": 12477874607,
+    "name": "phase24-example-seed20261022-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:358575554cead9dfa8d08bfe0f50f6bdda49ae35276194649531ef4281e28db4",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12477874607"
+  },
+  {
+    "artifact_id": 12478785336,
+    "name": "real-graphs-grail_citeseer-seed20261022-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:fd5e01c0dbb9ff3755552087931cb4f8bfef574da67bdc49c18d49f1fae44fe3",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12478785336"
+  },
+  {
+    "artifact_id": 12478755284,
+    "name": "real-graphs-grail_pubmed-seed20261023-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:64ba1a18058d2cf3c2bb85eb27d0d29f7b2a1a74a4b93b01578d845e7228bb22",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12478755284"
+  },
+  {
+    "artifact_id": 12478486659,
+    "name": "real-graphs-grail_kegg-seed20261024-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:f61195fd5c337d127a4f5466d2627d5e9673ea2fb41a5f4cc63d2f51cf6ce719",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12478486659"
+  },
+  {
+    "artifact_id": 12478461565,
+    "name": "real-graphs-grail_go-seed20261024-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:f9061e816b68e663feacb57aac8b2380f43c7a29d473e641b92131bab07474d8",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12478461565"
+  },
+  {
+    "artifact_id": 12478362263,
+    "name": "real-graphs-grail_kegg-seed20261022-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:592539324c4a85aad271efd323f4066540fa8a0706f79108109d44a399898286",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12478362263"
+  },
+  {
+    "artifact_id": 12478352222,
+    "name": "real-graphs-grail_yago-seed20261023-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:5bb7ea8aa15864ae50a57ed714829228d3a98fa70981660bcc9ca9fcec948f2d",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12478352222"
+  },
+  {
+    "artifact_id": 12478182796,
+    "name": "real-graphs-grail_yago-seed20261022-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:840c1339ec1991aabced0ff5c22e006471cc11bfffc9204f0eff128332c431c6",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12478182796"
+  },
+  {
+    "artifact_id": 12478163020,
+    "name": "real-graphs-grail_yago-seed20261024-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:64b774be79fe264ef515ec08347f53aebeb18a05058e434fb2796027b4558685",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12478163020"
+  },
+  {
+    "artifact_id": 12478162888,
+    "name": "real-graphs-grail_pubmed-seed20261022-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:01b7d25c45ad5a88ca12d760cef5802a514adc64f440f9b2d93982202abecfed",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12478162888"
+  },
+  {
+    "artifact_id": 12478042539,
+    "name": "real-graphs-grail_go-seed20261022-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:a1291fabfc58183d09a8f52fe906c7c2f6d07b811bb4d43e1b1daaf1535d4350",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12478042539"
+  },
+  {
+    "artifact_id": 12477982738,
+    "name": "real-graphs-grail_go-seed20261023-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:41c3ea1b3d922ce637c1c408e66aa219abcba223cec4a0f9a4bb54ec7aebb27a",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12477982738"
+  },
+  {
+    "artifact_id": 12477779818,
+    "name": "real-graphs-grail_kegg-seed20261023-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:67a56477dce4aae2f4ee214ed6c4efcffe3680816ddc0cd70150df49a71fd2d4",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12477779818"
+  },
+  {
+    "artifact_id": 12477724916,
+    "name": "real-graphs-grail_citeseer-seed20261024-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:c16ff39407b377977efc359ec24d5c13faa31b394ab6fb4a193520850b2b39aa",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12477724916"
+  },
+  {
+    "artifact_id": 12477543806,
+    "name": "real-graphs-grail_pubmed-seed20261024-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:b472e7d0749d4d9138e058768605e2b7b1db14e87617574ebae6cd017a9e53e3",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12477543806"
+  },
+  {
+    "artifact_id": 12478780164,
+    "name": "phase24-generated_blocks-seed20261024-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:99cf8618f56b86077317b45341135716f7715feb6cca7ad1c7520285c8231e8e",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12478780164"
+  },
+  {
+    "artifact_id": 12478441935,
+    "name": "phase24-generated_communities-seed20261022-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:2322eadd2bc81f0d65b8c2e7ff249a4e9df5a9b8ace8f5bcd5a46ce92eb13513",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12478441935"
+  },
+  {
+    "artifact_id": 12478436223,
+    "name": "phase24-generated_communities-seed20261023-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:7ba047a088f456f733f8186b3d16aab3f9d6d58173ae3df1016d90af7ef9f36f",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12478436223"
+  },
+  {
+    "artifact_id": 12478128407,
+    "name": "phase24-generated_dag-seed20261024-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:531887ed66e92b901e06366ec64f9343c9aafcbd4c81972285ba6ae425b56cfc",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12478128407"
+  },
+  {
+    "artifact_id": 12478003043,
+    "name": "phase24-generated_dag-seed20261023-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:03b9d20298008f921db2e6c3945fb6540ee40be315b52b6a0e610b51fb82d4de",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12478003043"
+  },
+  {
+    "artifact_id": 12477874794,
+    "name": "phase24-generated_blocks-seed20261023-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:91d19fb478a571b8101d107b983add6fec0364caaedf77d3755920fce65329a8",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12477874794"
+  },
+  {
+    "artifact_id": 12478915310,
+    "name": "real-graphs-grail_citeseer-seed20261023-run39899645952",
+    "run_id": 39899645952,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:8877083814e78beb6e2700d6269ae4d31adcb026af419754f318267b041c444f",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645952/artifacts/12478915310"
+  },
+  {
+    "artifact_id": 12478756124,
+    "name": "phase24-example-seed20261023-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:32d2e86b6af257def373896bdcb0ce64d7ac4ac23e6361c57dc06bcd516c6e20",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12478756124"
+  },
+  {
+    "artifact_id": 12478746061,
+    "name": "phase24-kron_logn12-seed20261023-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:94402a8de31b43df90566d474faea72e529399aee54eca36f24802a655319684",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12478746061"
+  },
+  {
+    "artifact_id": 12478482875,
+    "name": "phase24-generated_communities-seed20261024-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:4f3010362c51c1be78dd23590d51a5b481a8324271a93578de4e551c110cf1a1",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12478482875"
+  },
+  {
+    "artifact_id": 12478028727,
+    "name": "phase24-generated_blocks-seed20261022-run39899645925",
+    "run_id": 39899645925,
+    "head_sha": "b5e1a1c3aa4a32cbf4bafedb3a68680722195e00",
+    "digest": "sha256:f9d5e0ed4e2f50d8a13b0a3f28ce91dfbdbfec3baaf650026a791e4bdcd1e62e",
+    "url": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39899645925/artifacts/12478028727"
+  }
+]
