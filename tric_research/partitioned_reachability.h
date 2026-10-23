@@ -136,7 +136,10 @@ public:
       if (bytes>remaining) {
         // A larger temporary matrix may be compressed into sparse word rows
         // or dense suffixes. This is a distinct, explicit CONSTRUCTION budget.
-        if (use_chains || bb>dense_scratch_cap_bytes) {needs_search=true; continue;}
+        if (bb>dense_scratch_cap_bytes ||
+            std::uint64_t(size)*(sizeof(Row)+sizeof(std::uint64_t))>remaining) {
+          needs_search=true; continue;
+        }
         std::vector<std::uint64_t> temp(size*words,0);
         for (auto it=nodes.rbegin();it!=nodes.rend();++it) {
           const int a=*it; const std::size_t pos=static_cast<std::size_t>(local_[a]);

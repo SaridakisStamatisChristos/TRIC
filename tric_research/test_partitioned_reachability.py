@@ -100,6 +100,9 @@ int main(){
   PartitionedReachability one(G{{}},0);
   if(!one.reaches(0,0))return 4;
   try {one.reaches(-1,0);return 5;}catch(const std::out_of_range&){}
+  G wide(1024);for(int i=1;i<1024;++i)wide[0].push_back(i);
+  PartitionedReachability refused(wide,65536,0);
+  if(refused.indexed_components()!=0 || refused.table_bytes()!=0 || !refused.reaches(0,1023))return 6;
 }'''
         source=Path(self.tmp.name)/'api.cpp';source.write_text(code)
         exe=source.with_suffix('')

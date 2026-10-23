@@ -117,7 +117,7 @@ def run(args):
                         'original_query_sha256':hashlib.sha256(queryfile.read_bytes()).hexdigest(),
                         'horizons':horizons}
         print(json.dumps({'dataset':args.dataset,'seed':args.seed,'stratum':stratum,'complete':True}),flush=True)
-    hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'partitioned_reachability.h',ROOT/'partitioned_bench.cpp',ROOT/'benchmark_partitioned.py']}
+    hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'partitioned_reachability.h',ROOT/'partitioned_bench.cpp',ROOT/'benchmark_partitioned.py',ROOT/'oreach_adapter.h',ROOT/'closure_index.h',ROOT/'compact_reachability.h']}
     try:revision=subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip()
     except subprocess.CalledProcessError:revision=None
     result={'schema':1,'dataset':args.dataset,'seed':args.seed,'cap_bytes':cap,'preprocessing':preprocessing,
@@ -125,7 +125,7 @@ def run(args):
       'serving_vertices':len(adj),'serving_edges':sum(map(len,adj)),
       'external_adapter':bool(args.external),'environment':{'python':sys.version,'platform':platform.platform(),
       'machine':platform.machine(),'compiler':subprocess.check_output([args.compiler,'--version'],text=True).splitlines()[0]},
-      'source_hashes':hashes,'checkout_sha':revision,'compile_command':compile_cmd,'cells':cells,
+      'source_hashes':hashes,'executable_sha256':hashlib.sha256(exe.read_bytes()).hexdigest(),'checkout_sha':revision,'compile_command':compile_cmd,'cells':cells,
       'limits':['Table cap excludes total RSS, input and construction scratch. Default dense compression scratch cap is 64 MiB.',
                 'Frozen query pairs replayed; not independent new requests. Shared-machine exploratory timings.',
                 'OReach adapter uses unchanged pinned library via per-query API, not upstream CSV application.',

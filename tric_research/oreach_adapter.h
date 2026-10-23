@@ -16,7 +16,10 @@ public:
     graph_.start_construction(g.size(),edges);
     for(std::size_t u=0;u<g.size();++u){
       const auto a=graph_.new_node();
-      for(int v:g[u])graph_.new_edge(a,static_cast<NodeID>(v));
+      graph_.setPartitionIndex(a,0);graph_.setNodeWeight(a,1);
+      for(int v:g[u]){
+        const auto e=graph_.new_edge(a,static_cast<NodeID>(v));graph_.setEdgeWeight(e,1);
+      }
     }
     graph_.finish_construction();
     config_.seed=20261023;config_.support=support;
