@@ -26,8 +26,8 @@ public:
   TricReachability(TricReachability&&) noexcept=default;
   TricReachability& operator=(TricReachability&&) noexcept=default;
   bool reaches(int source,int target) {
-    if(auto* p=std::get_if<PartitionedReachability>(&index_))return p->reaches(source,target);
     if(auto* p=std::get_if<BoundedClosure>(&index_))return p->reaches(source,target);
+    if(auto* p=std::get_if<PartitionedReachability>(&index_))return p->reaches(source,target);
     return std::get<ForestReachability>(index_).reaches(source,target);
   }
   bool uses_direct_closure()const{return index_.index()==0;}
