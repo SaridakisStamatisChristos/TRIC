@@ -137,6 +137,32 @@ own index design and is not total-memory-matched. Report retained capacity and R
 do not equate a 2 MiB table allowance with equal overall memory. Small graph/shared
 host results cannot establish broad-world SOTA.
 
+## Original real-graph recovery
+
+The GRAIL author's repository preserves `sigmod08.tar.gz` and `sigmod09.tar.gz` at
+commit `c13a7364fbc185841fc6277cd295acf33a7188f0`. `grail_datasets.py` downloads from
+that immutable source and requires exact original Git blob identity and byte
+length before reading one named archive member. It writes no archive paths to the
+filesystem and retains every vertex and outgoing arc, including duplicates and
+order, in a lossless directed-METIS conversion. Archive/member/output SHA256s and
+source provenance are saved. These are the authentic benchmark graphs, not the
+Phase XXII generated replacements and not new copies of arXiv.
+
+| Author archive graph | Vertices | Arcs |
+|---|---:|---:|
+| go_sub_6793 | 6,793 | 13,361 |
+| pubmed_sub_9000-1 | 9,000 | 40,028 |
+| citeseer_sub_10720 | 10,720 | 44,258 |
+| yago_sub_6642 | 6,642 | 42,392 |
+| kegg_dag_uniq | 3,617 | 4,395 |
+
+`research-real-graphs.yml` runs the same per-answer comparator, four query strata,
+three seeds and both horizons, with **raw original graphs and default support=3**.
+It does not use the generated-family compatibility exception. Together with arXiv
+this supplies six real graphs plus the separately identified published Kronecker
+and three generated stress families. Success and numerical outcomes are recorded
+only after each run finishes.
+
 ## Executed evidence
 
 Pending final campaign results. Local development exactness tests and pilot timings
