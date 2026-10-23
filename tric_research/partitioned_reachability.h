@@ -23,7 +23,11 @@ class PartitionedReachability {
     Mode mode = Mode::search;
     std::size_t offset = 0, stride = 0;
   };
-  std::vector<int> component_, group_, local_, chain_;
+  struct alignas(32) Label {
+    int component=0, group=0, local=0, chain=0, forward=0, backward=0;
+  };
+  std::vector<Label> vertex_labels_;
+  std::size_t component_count_=0;
   std::vector<Partition> partitions_;
   std::vector<std::uint32_t> labels_;
   std::vector<std::uint64_t> bits_;
@@ -42,6 +46,7 @@ public:
     if (graph.size() > static_cast<std::size_t>(std::numeric_limits<int>::max()))
       throw std::length_error("graph has too many vertices");
     const int n = static_cast<int>(graph.size());
+    std::vector<int> component_, group_, local_, chain_;
     Graph reverse(n);
     for (int u=0; u<n; ++u) for (int v: graph[u]) {
       if (v<0 || v>=n) throw std::out_of_range("edge endpoint");
@@ -218,6 +223,17 @@ public:
     }
     labels_.shrink_to_fit(); bits_.shrink_to_fit();
     rows_.shrink_to_fit(); word_ids_.shrink_to_fit();
+    // Longest-path levels give two exact necessary conditions. Keep each
+    // vertex's query metadata together so a negative query needs two compact
+    // label loads rather than independent component/group/local arrays.
+    std::vector<int> forward(count,0),backward(count,0);
+    for(int a=0;a<count;++a)for(int b:dag[a])forward[b]=std::max(forward[b],forward[a]+1);
+    for(int a=count-1;a>=0;--a)for(int b:dag[a])backward[a]=std::max(backward[a],backward[b]+1);
+    vertex_labels_.resize(n);component_count_=static_cast<std::size_t>(count);
+    for(int u=0;u<n;++u){
+      const int a=component_[u];
+      vertex_labels_[u]=Label{a,group_[a],local_[a],chain_[a],forward[a],backward[a]};
+    }
     if (needs_search) {
       fallback_dag_=std::move(dag);
       for (int a=0;a<count;++a) if (partitions_[group_[a]].mode!=Mode::search)
@@ -228,21 +244,22 @@ public:
   // Reflexive semantics: every vertex reaches itself, including an isolate.
   // Fallback reuses mutable scratch: use one instance per querying thread.
   bool reaches(int source,int target) {
-    if (source<0 || target<0 || static_cast<std::size_t>(source)>=component_.size()
-        || static_cast<std::size_t>(target)>=component_.size()) throw std::out_of_range("query endpoint");
-    const int a=component_[source], b=component_[target];
+    if (source<0 || target<0 || static_cast<std::size_t>(source)>=vertex_labels_.size()
+        || static_cast<std::size_t>(target)>=vertex_labels_.size()) throw std::out_of_range("query endpoint");
+    const auto& from=vertex_labels_[source];const auto& to=vertex_labels_[target];
+    const int a=from.component,b=to.component;
     if (a==b) return true;
-    if (a>b || group_[a]!=group_[b]) return false;
-    const auto& p=partitions_[group_[a]];
+    if (a>b || from.group!=to.group || from.forward>=to.forward || from.backward<=to.backward) return false;
+    const auto& p=partitions_[from.group];
     if (p.mode==Mode::chains)
-      return labels_[p.offset+std::size_t(local_[a])*p.stride+chain_[b]]<=static_cast<std::uint32_t>(local_[b]);
+      return labels_[p.offset+std::size_t(from.local)*p.stride+to.chain]<=static_cast<std::uint32_t>(to.local);
     if (p.mode==Mode::bits) {
-      const std::size_t bp=static_cast<std::size_t>(local_[b]);
-      return (bits_[p.offset+std::size_t(local_[a])*p.stride+(bp>>6)]>>(bp&63))&1U;
+      const std::size_t bp=static_cast<std::size_t>(to.local);
+      return (bits_[p.offset+std::size_t(from.local)*p.stride+(bp>>6)]>>(bp&63))&1U;
     }
     if (p.mode==Mode::compressed) {
-      const Row& row=rows_[p.offset+static_cast<std::size_t>(local_[a])];
-      const std::uint32_t word=static_cast<std::uint32_t>(local_[b])>>6;
+      const Row& row=rows_[p.offset+static_cast<std::size_t>(from.local)];
+      const std::uint32_t word=static_cast<std::uint32_t>(to.local)>>6;
       std::size_t pos=word-row.first;
       if (row.sparse) {
         const auto first=word_ids_.begin()+row.ids_offset,last=first+row.count;
@@ -250,7 +267,7 @@ public:
         if (it==last || *it!=word)return false;
         pos=static_cast<std::size_t>(it-first);
       }
-      return (bits_[row.offset+pos]>>(local_[b]&63))&1U;
+      return (bits_[row.offset+pos]>>(to.local&63))&1U;
     }
     if (++epoch_==0) {std::fill(seen_.begin(),seen_.end(),0); epoch_=1;}
     stack_.assign(1,a); seen_[a]=epoch_;
@@ -265,7 +282,7 @@ public:
   }
   std::size_t table_bytes() const {return (labels_.size()+word_ids_.size())*sizeof(std::uint32_t)+bits_.size()*sizeof(std::uint64_t)+rows_.size()*sizeof(Row);}
   std::size_t retained_bytes() const {
-    std::size_t total=(component_.capacity()+group_.capacity()+local_.capacity()+chain_.capacity()+stack_.capacity())*sizeof(int)
+    std::size_t total=vertex_labels_.capacity()*sizeof(Label)+stack_.capacity()*sizeof(int)
       +rows_.capacity()*sizeof(Row)+word_ids_.capacity()*sizeof(std::uint32_t)
       +partitions_.capacity()*sizeof(Partition)+labels_.capacity()*sizeof(std::uint32_t)
       +bits_.capacity()*sizeof(std::uint64_t)+seen_.capacity()*sizeof(unsigned)
@@ -273,7 +290,7 @@ public:
     for (const auto& row:fallback_dag_) total+=row.capacity()*sizeof(int);
     return total;
   }
-  std::size_t components() const {return group_.size();}
+  std::size_t components() const {return component_count_;}
   std::size_t indexed_components() const {return indexed_;}
   std::size_t chain_partitions() const {return chain_groups_;}
   std::size_t bit_partitions() const {return bit_groups_;}

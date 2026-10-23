@@ -48,6 +48,13 @@ payload includes row descriptors, IDs and words. Sparse membership uses binary
 search. If no exact representation fits, preserve exact topologically bounded DFS
 on that partition. Refusing a table changes performance, never answer semantics.
 
+Query metadata is coalesced into 32-byte aligned per-vertex labels. Two
+longest-path level bounds on the quotient give additional necessary conditions:
+a distinct reachable target must have strictly greater forward level and strictly
+smaller backward level. These reject many sparse negative pairs before a sparse
+word lookup. The level filters are established DAG techniques (also used by
+O'Reach), not novel certificates. Their additional retained metadata is counted.
+
 The constructor accepts a table-payload cap and an optional dense-compression
 scratch cap. Neither is a total-RSS cap. Graph copies, SCC / DAG scratch, fixed
 metadata, vector capacity and allocator overhead are additional. `table_bytes()`
@@ -71,7 +78,10 @@ reuses fallback scratch and must not be shared concurrently across query threads
 5. If a successor b is already represented as reachable, a previously merged
    successor has a path to b; its exact row already contains every descendant of b.
    Skipping b's row introduces no omission. Sparse/dense compression is lossless.
-6. Refused partitions use exhaustive DFS restricted to SCC IDs no greater than
+6. For an edge a->b, longest-from-source level strictly increases and
+   longest-to-sink level strictly decreases. These inequalities are transitive,
+   so rejecting a pair that violates either condition cannot remove a real path.
+7. Refused partitions use exhaustive DFS restricted to SCC IDs no greater than
    the target, which cannot remove a successful path.
 
 These give a human-checkable argument, not formal verification. For a quotient
