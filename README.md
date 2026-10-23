@@ -72,3 +72,23 @@ Phase VI groups weighted certificate queries by disjoint support hulls, computes
 Run all phase tests with `cd tric_research && python -m unittest -q test_tric test_path_monge test_path_sweep test_backbone test_backbone_scc test_frontier_dp test_adaptive_exact`.
 
 **Scientific limitation:** The decomposition and dynamic-programming operations use established techniques. No new reachability certificate, global novelty, or O'Reach superiority is claimed from this internal Python prototype.
+
+## Graph-only native exact index (Phase XXIV)
+
+The latest research branch adds a C++17 static reachability index with no query
+training: SCC and weak-component partitioning, chain labels, bitsets, lossless
+sparse-row compression, and exact search when a table is refused. The `TricReachability` entry point first uses the existing direct full closure
+when it fits, otherwise the partitioned index. The table-payload
+budget is explicit; total RSS and construction scratch are additional.
+
+```cpp
+#include "tric_research/tric_reachability.h"
+std::vector<std::vector<int>> graph{{1}, {2}, {}};
+TricReachability index(graph, 2 * 1024 * 1024);
+bool reachable = index.reaches(0, 2); // true; reflexive reachability is supported
+```
+
+See the [Phase XXIV report](tric_research/PHASE_XXIV_RESEARCH_REPORT.md) for
+correctness, resource bounds, credible controls, external per-answer verification,
+reproduction and claim limits. This is an additive index; the exact pivot-selection
+research remains available. Broad SOTA status requires further evidence.

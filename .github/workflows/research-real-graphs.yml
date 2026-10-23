@@ -1,0 +1,87 @@
+name: TRIC original GRAIL real-graph validation
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/research-real-graphs.yml'
+      - 'tric_research/grail_datasets.py'
+      - 'tric_research/test_grail_datasets.py'
+      - 'tric_research/tric_reachability.h'
+      - 'tric_research/partitioned_reachability.h'
+      - 'tric_research/closure_index.h'
+      - 'tric_research/partitioned_bench.cpp'
+      - 'tric_research/oreach_adapter.h'
+      - 'tric_research/benchmark_partitioned.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exactness:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Exhaustive and adversarial exactness / cap refusal
+        working-directory: tric_research
+        run: python -m unittest -q test_grail_datasets test_partitioned_reachability test_partitioned_benchmark
+      - name: Address and undefined behavior sanitizers
+        working-directory: tric_research
+        run: |
+          g++ -std=c++17 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer partitioned_bench.cpp -o /tmp/tric-sanitized
+          /tmp/tric-sanitized --self-test
+  comparator:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        dataset: [grail_go, grail_pubmed, grail_citeseer, grail_yago, grail_kegg]
+        seed: [20261022, 20261023, 20261024]
+    env:
+      OREACH_SHA: 78b3e326bbb021b7ee225ab605a4cdd074fa1d93
+      DATASET: ${{ matrix.dataset }}
+      SEED: ${{ matrix.seed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Build unchanged OReach plus per-answer public API adapter
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libboost-dev cmake g++ xz-utils
+          git clone --quiet https://github.com/o-reach/O-Reach.git upstream-oreach
+          git -C upstream-oreach checkout --detach "$OREACH_SHA"
+          python tric_research/build_oreach_adapter.py --source upstream-oreach --output research-results/build
+      - name: Recover immutable author archive and preserve every directed arc
+        run: |
+          mkdir -p research-results/data
+          python tric_research/grail_datasets.py --dataset "$DATASET" \
+            --output research-results/data/graph.metis --cache research-results/data
+          sha256sum research-results/data/graph.metis > research-results/data/graph.sha256
+          git rev-parse HEAD > research-results/data/checkout.sha
+          lscpu > research-results/data/cpu.txt
+      - name: Same-input per-answer comparison with actual cold and warm calls
+        working-directory: tric_research
+        run: |
+          python benchmark_partitioned.py --graph ../research-results/data/graph.metis \
+            --dataset "$DATASET" --seed "$SEED" --output-dir ../research-results/phase24 \
+            --executable ../research-results/build/partitioned_external_bench --external \
+            --cap-mib 2 --count 1200 --horizons 1 100
+      - name: Preserve raw samples, hashes, input, build, memory and comparator provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: real-graphs-${{ matrix.dataset }}-seed${{ matrix.seed }}-run${{ github.run_id }}
+          path: |
+            research-results/phase24/
+            research-results/data/
+            research-results/build/build_manifest.json
+          retention-days: 30
+          if-no-files-found: warn
