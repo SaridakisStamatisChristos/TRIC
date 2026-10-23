@@ -34,3 +34,17 @@ Created collaboratively in the ChatGPT TRIC research initiative.
 ## Archived phase snapshots
 
 The three original deliverable archives are preserved verbatim in [`archives/`](archives/): the Phase I prototype, Phase II research package, and Phase III research package. Browse [`tric_research/`](tric_research/) for the directly accessible source, tests, research notes, and benchmark evidence.
+
+
+## Native graph-only exact reachability
+
+A dependency-free C++17 API now complements the Python pivot-optimization research.
+`TricReachability` uses direct SCC bitset closure when it fits the table allowance;
+otherwise it uses partitioned chain/bitset labels, lossless sparse-row compression,
+and exact search on table refusal. It needs no query training.
+
+See [native runtime usage and limitations](NATIVE_RUNTIME.md). The table allowance
+is not a total-memory cap. The existing research algorithms and archives remain
+available. [Detailed comparative evidence is maintained in the companion research
+PR](https://github.com/SaridakisStamatisChristos/TRIC/pull/23); no universal SOTA or
+novel algorithm claim is made.
