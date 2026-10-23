@@ -35,14 +35,19 @@ reverse topological order, without a dense intermediate. A failed attempt rolls
 back its rows and payload before trying lossless word compression. If that also
 refuses the budget, the partition retains exact topologically bounded search.
 
-Each original vertex keeps one 32-byte label. A 64-bit descendant signature
-occupies the former padding: a missing descendant bit proves a negative answer,
-but a matching signature never proves reachability. DFS subtree containment is
-an exact positive certificate. Remaining queries use the selected exact table or
-search. The search route also retains both longest-path bounds, packed into two 16-bit
-fields. Saturation weakens pruning without changing answers. Chain IDs and
-search SCC IDs share one field because those routes are mutually exclusive;
-the full label still occupies 32 bytes.
+Each original vertex keeps one 32-byte label. Its 64-bit signature packs a
+32-bit descendant filter and the complement of a 32-bit ancestor filter. One
+subset check tests both necessary conditions; collisions weaken rejection and
+never prove reachability. DFS subtree containment is an exact positive
+certificate. Remaining queries use the selected exact table or search.
+
+Interval partitions copy their row offset and count into existing label fields,
+avoiding a dependent row lookup. Other modes reuse those fields for the chain or
+SCC ID and two saturating 16-bit longest-path bounds. Saturation weakens search
+pruning without changing answers. The interval row directory remains retained
+and counted against the table budget; this change does not increase capacity.
+Ancestor construction adds a temporary 8-byte entry per SCC and one DAG pass.
+The full label still occupies 32 bytes.
 
 The default allowance is **2 MiB of table payload**, including compressed row
 descriptors and IDs. This is **not a total-RSS cap**. Fixed metadata, vector

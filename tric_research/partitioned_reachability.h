@@ -27,9 +27,12 @@ class PartitionedReachability {
     std::size_t offset = 0, stride = 0;
   };
   struct alignas(32) Label {
-    // route is a chain ID for indexed partitions, an SCC ID for search.
-    std::uint16_t forward=0, backward=0;
-    int group=0, local=0, route=0, tree_begin=0, tree_end=0;
+    // Interval rows use auxiliary=count and route=offset. Other modes pack
+    // forward/backward depths in auxiliary; route is a chain ID or SCC ID.
+    std::uint32_t auxiliary=0;
+    int group=0, local=0;
+    std::uint32_t route=0;
+    int tree_begin=0, tree_end=0;
     std::uint64_t signature=0;
   };
   static_assert(sizeof(Label)==32,"vertex labels must remain 32 bytes");
@@ -175,14 +178,23 @@ private:
         } else {tree_end[a]=clock;frames.pop_back();}
       }
     }
-    // Descendant signatures are a necessary condition, never an answer oracle.
-    // They occupy the former padding in the 32-byte vertex label.
-    std::vector<std::uint64_t> signature(count,0);
+    // Descendant and ancestor signatures each use 32 bits. Reachability a->b
+    // requires D(b) subset D(a) and A(a) subset A(b). Complementing the ancestor
+    // half combines both necessary conditions in one 64-bit subset check.
+    // Hash collisions only weaken rejection; matching never proves an answer.
+    std::vector<std::uint64_t> signature(count,0),ancestors(count,0);
     for(int a=count-1;a>=0;--a) {
       const auto hash=(std::uint64_t(a)+1)*0x9e3779b97f4a7c15ULL;
-      signature[a]=std::uint64_t(1)<<(hash>>58);
+      signature[a]=std::uint64_t(1)<<(hash>>59);
       for(int b:dag[a])signature[a]|=signature[b];
     }
+    for(int a=0;a<count;++a) {
+      const auto hash=(std::uint64_t(a)+1)*0x9e3779b97f4a7c15ULL;
+      ancestors[a]|=std::uint64_t(1)<<(hash>>59);
+      for(int b:dag[a])ancestors[b]|=ancestors[a];
+    }
+    for(int a=0;a<count;++a)
+      signature[a]=(signature[a]<<32) | ((~ancestors[a])&0xffffffffULL);
     partitions_.resize(members.size());
     std::vector<int> tail, lengths;
     std::size_t remaining=table_cap_bytes;
@@ -302,9 +314,16 @@ private:
     vertex_labels_.resize(n);component_count_=static_cast<std::size_t>(count);
     for(int u=0;u<n;++u){
       const int a=component_[u];
-      vertex_labels_[u]=Label{static_cast<std::uint16_t>(std::min(forward[a],65535)),
-        static_cast<std::uint16_t>(std::min(backward[a],65535)),group_[a],local_[a],
-        partitions_[group_[a]].mode==Mode::search?a:chain_[a],tree_begin[a],tree_end[a],signature[a]};
+      const auto& part=partitions_[group_[a]];
+      const auto row=part.mode==Mode::intervals
+        ?interval_rows_[part.offset+static_cast<std::size_t>(local_[a])]:IntervalRow{};
+      const auto auxiliary=part.mode==Mode::intervals?row.count:
+        (static_cast<std::uint32_t>(std::min(forward[a],65535)) |
+         (static_cast<std::uint32_t>(std::min(backward[a],65535))<<16));
+      const auto route=part.mode==Mode::intervals?row.offset:
+        static_cast<std::uint32_t>(part.mode==Mode::search?a:chain_[a]);
+      vertex_labels_[u]=Label{auxiliary,group_[a],local_[a],route,
+        tree_begin[a],tree_end[a],signature[a]};
     }
     if (needs_search) {
       fallback_dag_=std::move(dag);
@@ -332,8 +351,7 @@ public:
       return (bits_[p.offset+std::size_t(from.local)*p.stride+(bp>>6)]>>(bp&63))&1U;
     }
     if (p.mode==Mode::intervals) {
-      const auto row=interval_rows_[p.offset+static_cast<std::size_t>(from.local)];
-      const auto first=intervals_.begin()+row.offset,last=first+row.count;
+      const auto first=intervals_.begin()+from.route,last=first+from.auxiliary;
       const auto target=static_cast<std::uint32_t>(to.tree_begin);
       const auto it=std::upper_bound(first,last,target,[](std::uint32_t value,const Interval& range){return value<range.first;});
       return it!=first && target<(it-1)->end;
@@ -352,9 +370,11 @@ public:
     }
     // Keep both depth bounds for the potentially expensive search route.
     // 65535 means saturated: equal saturated values provide no rejection.
-    if((from.forward>=to.forward && to.forward!=65535) ||
-       (from.backward<=to.backward && from.backward!=65535))return false;
-    const int a=from.route,b=to.route;
+    const auto from_forward=from.auxiliary&65535U,to_forward=to.auxiliary&65535U;
+    const auto from_backward=from.auxiliary>>16,to_backward=to.auxiliary>>16;
+    if((from_forward>=to_forward && to_forward!=65535) ||
+       (from_backward<=to_backward && from_backward!=65535))return false;
+    const int a=static_cast<int>(from.route),b=static_cast<int>(to.route);
     if (++epoch_==0) {std::fill(seen_.begin(),seen_.end(),0); epoch_=1;}
     stack_.assign(1,a); seen_[a]=epoch_;
     while (!stack_.empty()) {
