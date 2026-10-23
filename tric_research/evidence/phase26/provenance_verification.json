@@ -1,0 +1,12 @@
+{
+  "runtime_commit": "7c72dbb73fbd3cb2b6cf8b75fbdd2121c1287e58",
+  "qualification_binary_hashes_match_build_manifest": true,
+  "candidate_header_hashes_match_frozen_build": true,
+  "baseline_and_candidate_share_benchmark_source": true,
+  "legacy_benchmark_source_compiler_flags_verified": true,
+  "legacy_fresh_processes": 216,
+  "legacy_BFS_checks": 259200,
+  "legacy_actual_calls": 259200000,
+  "runtime_CI": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39952604712",
+  "runtime_CI_status": "success; final evidence-head CI separately linked in PR"
+}

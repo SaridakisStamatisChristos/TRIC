@@ -22,7 +22,9 @@ jobs:
         run: python -m unittest -q test_tric test_path_monge test_path_sweep test_backbone test_native_runtime
       - name: Validate preserved benchmark inputs, trials and completeness
         working-directory: tric_research
-        run: python summarize_native_changes.py evidence/phase25
+        run: |
+          python summarize_native_changes.py evidence/phase25
+          python summarize_native_changes.py evidence/phase26 --fixtures evidence/phase25/fixtures
       - name: Native address and undefined behavior checks
         working-directory: tric_research
         run: |

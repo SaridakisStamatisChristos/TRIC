@@ -19,6 +19,7 @@ def summarize(root,fixtures=None):
     fixtures=Path(fixtures) if fixtures is not None else root/'fixtures'
     output=root/'qualification-final'
     manifest=json.loads((output/'manifest.json').read_text())
+    assert manifest.get('complete') is True,'unsealed comparison manifest'
     expected={}
     for p in fixtures.glob('*.json.gz'):
         fixture=json.loads(gzip.decompress(p.read_bytes()))
@@ -68,7 +69,7 @@ def summarize(root,fixtures=None):
     assert seen==set(expected),(len(seen),len(expected))
     per_seed.sort(key=lambda r:(r['dataset'],r['stratum'],r['repeats'],r['seed']))
     with (root/'per_seed_summary.csv').open('w',newline='') as f:
-        writer=csv.DictWriter(f,fieldnames=list(per_seed[0]));writer.writeheader();writer.writerows(per_seed)
+        writer=csv.DictWriter(f,fieldnames=list(per_seed[0]),lineterminator='\n');writer.writeheader();writer.writerows(per_seed)
     groups=defaultdict(list)
     for row in per_seed:groups[(row['dataset'],row['stratum'],row['repeats'])].append(row)
     aggregate=[]
@@ -81,7 +82,7 @@ def summarize(root,fixtures=None):
                 row['min_seed_'+field]=min(numbers);row['max_seed_'+field]=max(numbers)
         aggregate.append(row)
     with (root/'aggregate_summary.csv').open('w',newline='') as f:
-        writer=csv.DictWriter(f,fieldnames=list(aggregate[0]));writer.writeheader();writer.writerows(aggregate)
+        writer=csv.DictWriter(f,fieldnames=list(aggregate[0]),lineterminator='\n');writer.writeheader();writer.writerows(aggregate)
     result={'datasets':len(manifest['files']),'graph_seed_experiments':sum(len(json.loads(gzip.decompress(p.read_bytes()))['cases'])//4 for p in fixtures.glob('*.gz')),
             'cells':len(seen),'aggregate_cells':len(aggregate),'fresh_process_trials':processes,
             'independent_BFS_pair_checks':oracle_checks,'actual_query_calls':calls,

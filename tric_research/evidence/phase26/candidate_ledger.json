@@ -1,0 +1,44 @@
+[
+  {
+    "candidate": "certified complete-subtree query fast path",
+    "decision": "REJECT",
+    "state": "EMPIRICALLY_VALIDATED",
+    "evidence": "ablations.json.gz:subtree-pilot",
+    "reason": "extra branch lost on most pilot cells"
+  },
+  {
+    "candidate": "inline interval row metadata alone",
+    "decision": "KEEP AS ABLATION",
+    "state": "EMPIRICALLY_VALIDATED",
+    "evidence": "ablations.json.gz:row-pilot",
+    "reason": "improves most pilot positive queries; combined candidate selected"
+  },
+  {
+    "candidate": "48/16 descendant/ancestor signature with inline rows",
+    "decision": "REJECT",
+    "state": "EMPIRICALLY_VALIDATED",
+    "evidence": "ablations.json.gz:signature-selection",
+    "reason": "weaker median incremental benefit than 32/32 split"
+  },
+  {
+    "candidate": "32/32 signatures plus inline interval rows",
+    "decision": "ACCEPT",
+    "state": "EMPIRICALLY_VALIDATED",
+    "novelty": "ESTABLISHED TECHNIQUES; NO NOVELTY CLAIM",
+    "runtime_commit": "7c72dbb73fbd3cb2b6cf8b75fbdd2121c1287e58",
+    "evidence": "qualification-final, aggregate_summary.csv, per_seed_summary.csv",
+    "limits": "58/76 warm query wins, 1.110x median; construction and lifecycle medians flat; all regressions retained"
+  },
+  {
+    "candidate": "initial signature pilot",
+    "decision": "REJECT EVIDENCE",
+    "state": "INCOMPLETE",
+    "reason": "final graph result integrity mismatch; not used in selection statistics or qualification"
+  },
+  {
+    "candidate": "global SOTA",
+    "decision": "NO CLAIM",
+    "state": "UNESTABLISHED",
+    "reason": "external losses, exposed graph families, unmatched memory, shared hardware, scale and comparator gaps"
+  }
+]

@@ -103,6 +103,9 @@ an independent oracle, not a machine-checked proof for all graphs.
 
 The Phase XXV comparison harness, pinned input bytes, raw trials and limits are
 in `tric_research/evidence/phase25/` and `tric_research/PHASE_XXV_RESEARCH_REPORT.md`.
+The subsequent query-path comparison, complete ablations and remaining losses
+are in `tric_research/PHASE_XXVI_RESEARCH_REPORT.md` and
+`tric_research/evidence/phase26/`.
 The benchmark-only BFL source retains its upstream MIT license and is not a
 runtime dependency. Build the comparator with:
 

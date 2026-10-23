@@ -1,0 +1,36 @@
+{
+  "baseline_commit": "f6e6b37bc25e797a1c893f96ad06ae6651442e29",
+  "candidate_runtime_commit": "7c72dbb73fbd3cb2b6cf8b75fbdd2121c1287e58",
+  "candidate_files": {
+    "tric_research/partitioned_reachability.h": "b108521fbbb53e26d650ed1eda95956895ce632300f245256aae0c2c4f3795ad",
+    "tric_research/closure_index.h": "bbdeb40c467817fc95e99213ad00fc61b125f6c988901cd14fb0a5afa0faf154",
+    "tric_research/scc_decomposition.h": "c751356abf39e1d52b3310b3fc3c630c1813302a17c1cbebdae47262399b73ec",
+    "tric_research/tric_reachability.h": "b965c9ec6d1547a07e994c8994078be88c6c08b2e7e6ce45e3ee6b3069641ba5",
+    "tric_research/native_compare_bench.cpp": "09f0b4bb5739322279e9e7675606123a051c734006f2364b637824e4149b6051",
+    "tric_research/bfl_adapter.h": "5d63bd722435ef8dddb3a04e75bda5277d8cba5d2c03ac9a42cda956487316a2",
+    "tric_research/oreach_adapter.h": "694ba424d9b7c5df4fe1be3821ab12a579afbfce647e904980391e2d5c75fb51",
+    "tric_research/benchmark_native_changes.py": "2901804b7dbd76f6a6f9c6d329d5e5cedbb4946d2fb18ff01cd559f995896814"
+  },
+  "fixture_directory": "../phase25/fixtures",
+  "fixture_sha256": {
+    "kron_logn12.json.gz": "0b4e5ffe37e311697ee4bbfed56f4a3fb8008a05ca880befd43cfd3a05c0c085",
+    "heldout_vchocyc.json.gz": "d42be1976af13984556d96684af8d304a2edc95ba9d9d182cc8bc41bd047ab1c",
+    "grail_yago.json.gz": "7970a2fd69aa9d875b9423e6f9fcde0fc13cfca1582678291ad916c23d8ce5ec",
+    "grail_citeseer.json.gz": "e98ab7f61df076bb33089ea8989510f9f0ca99f2379182aab56ef11248a95842",
+    "grail_kegg.json.gz": "a0b31a5721547d251fe273dd1fa6535c3b922a89f5647f8bfd82739f0239f085",
+    "heldout_nasa.json.gz": "81c255cabf2ef254e2f9c48fe77b7f79a7141b250f8bd8dddd98150548bb1e8e",
+    "heldout_mtbrv.json.gz": "dae67ea1d2a7ccdbe578f5dbf9eaece98ff79c27fea89030cbcb68e6fc1ca7d6",
+    "generated_communities.json.gz": "6285c3ac50d992038b92235e8fefdc4d51408272f3b1718061aa7bc7e62acf58",
+    "heldout_amaze.json.gz": "693c5ff20d9693eb1e4074fd1d9f6b0e7553ca4ded02e07c65c1257a70ed93e7",
+    "heldout_anthra.json.gz": "5c6b46b9b5b01c13c77533d56db54eabb4c2b85af972dd09fb79bf915bfa00df",
+    "heldout_human.json.gz": "11b24a12fc6a37e69ba9c95818b44cb405f8c75167f11f02393efc5b7c247e2f",
+    "grail_pubmed.json.gz": "0f05607e4ae5ed100dba7b4a84778eb503a5de7b97b2985de5841c946078b194",
+    "example.json.gz": "74ab9c9e8fd407b107cedcff5207e64716b409bedb4139deb01c50aa68a683c7",
+    "generated_dag.json.gz": "c5b0dd6b7579163ab8d9af5ba73e57c473555bb742872a265d5af55f584a1a51",
+    "generated_blocks.json.gz": "04d77a9aaedb7935763f003937163375140c05ae73c3f34491c5235d4ba35167",
+    "grail_go.json.gz": "8e0239e999a7728322b58a342e2eb7f830d933c160323f0af9cd0c3311a0aa1d",
+    "heldout_agrocyc.json.gz": "3d9d0646e32e9fb4ee233142d732a7bfb9775dd6e0f377ba1cbb4a13f7a6970e",
+    "heldout_xmark.json.gz": "1df4bae6901a00d9c4cb36a6c7d4da0aedb5f772f1a0eb9bad93c7eea96b4057",
+    "heldout_ecoo.json.gz": "837eadaacf22c0666f3f9f52f63a33c024a5fec89e33afc2c983c55ca75b8f42"
+  }
+}
