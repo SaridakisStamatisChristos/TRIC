@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "arms": [
+    {
+      "name": "previous",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf27/final-v2-build/previous",
+      "mode": "auto",
+      "executable_sha256": "763c3a623606eb07d88b82a484715cedf850e79fb27ce316037d70fc3e96a828"
+    },
+    {
+      "name": "candidate",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf27/final-v2-build/candidate",
+      "mode": "auto",
+      "executable_sha256": "8ad6d8cad9567b8eebb1efe0af34d02b4a3e248f6a75402591b3ba2f4b942180"
+    },
+    {
+      "name": "bfl",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf27/final-v2-build/candidate",
+      "mode": "bfl",
+      "executable_sha256": "8ad6d8cad9567b8eebb1efe0af34d02b4a3e248f6a75402591b3ba2f4b942180"
+    },
+    {
+      "name": "oreach-pdfs",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf27/final-v2-build/candidate",
+      "mode": "oreach-pdfs",
+      "executable_sha256": "8ad6d8cad9567b8eebb1efe0af34d02b4a3e248f6a75402591b3ba2f4b942180"
+    },
+    {
+      "name": "oreach-pbibfs",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf27/final-v2-build/candidate",
+      "mode": "oreach-pbibfs",
+      "executable_sha256": "8ad6d8cad9567b8eebb1efe0af34d02b4a3e248f6a75402591b3ba2f4b942180"
+    },
+    {
+      "name": "pll",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf27/final-v2-build/candidate",
+      "mode": "pll",
+      "executable_sha256": "8ad6d8cad9567b8eebb1efe0af34d02b4a3e248f6a75402591b3ba2f4b942180"
+    },
+    {
+      "name": "ppl",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf27/final-v2-build/candidate",
+      "mode": "ppl",
+      "executable_sha256": "8ad6d8cad9567b8eebb1efe0af34d02b4a3e248f6a75402591b3ba2f4b942180"
+    }
+  ],
+  "cap_bytes": 2097152,
+  "trials": 7,
+  "horizons": [
+    1
+  ],
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "cpu_affinity": [
+      1
+    ],
+    "cpu_model": "INTEL(R) XEON(R) PLATINUM 8573C"
+  },
+  "timing_scope": "Paired fresh-process comparisons on pinned native input bytes.\n\nEach available arm BFS-verifies every query after its timed region. Repeats\nexecute frozen query pairs; they are not independent new requests. Includes\nparsing/build/query costs, excludes process startup, verification and teardown.\n",
+  "files": [
+    {
+      "fixture_sha256": "fd3e72511c5efd0f8c9b7ee900249db8304c42c471c35a7c8e2e3ce93a578827",
+      "file": "large_citeseer.json.gz",
+      "sha256": "e8a0736b902244b8b540ca94c3af5d155f20779a8e893837404b221802bfb7ef",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "671fb03261584bc1b583cb9c28e864dbd63d9c75af22d41f9eb7d540d5cae2d2",
+      "file": "large_uniprot_22m.json.gz",
+      "sha256": "ecb7780b94a944aefd9cd815c0240f5d33e5138d3aaff7ab028924153dacd860",
+      "cells": 1
+    }
+  ],
+  "complete": true
+}

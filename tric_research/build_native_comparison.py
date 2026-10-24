@@ -1,4 +1,4 @@
-"""Build previous/current TRIC and original BFL with one benchmark source.
+"""Build previous/current TRIC and original BFL/PLL/PPL with one benchmark source.
 
 Optional O'Reach support links an already built, unchanged pinned upstream tree.
 No upstream code is patched; the required cstdint include is a compiler flag.

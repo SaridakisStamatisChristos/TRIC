@@ -4,6 +4,7 @@ import csv
 import gzip
 import hashlib
 import json
+import math
 import statistics
 from collections import defaultdict
 from pathlib import Path
@@ -40,12 +41,18 @@ def summarize(root,fixtures=None):
             assert key in expected and key not in seen,key
             seen.add(key);input_hash,count,n,m=expected[key]
             assert cell['input_sha256']==input_hash
-            rows=cell['rows'];assert set(rows)=={a['name'] for a in manifest['arms']}
+            rows=cell['rows'];specs={a['name']:a for a in manifest['arms']}
+            assert set(rows)==set(specs)
             checksums=set()
             for name,values in rows.items():
                 assert len(values)==manifest['trials']
-                assert {r['trial'] for r in values}==set(range(manifest['trials']))
+                assert [r['trial'] for r in values]==list(range(manifest['trials']))
+                expected_mode=specs[name]['mode']
+                if key[0].startswith('generated_') and expected_mode.startswith('oreach-'):expected_mode+='0'
                 for row in values:
+                    assert row['mode']==expected_mode,'wrong arm mode'
+                    for field in ('parse_ns','build_ns','query_ns','query_thread_cpu_ns','lifecycle_ns','timed_peak_rss_kib'):
+                        assert isinstance(row[field],(int,float)) and math.isfinite(row[field]) and row[field]>0,'invalid timing/memory'
                     assert row['available'] and row['vertices']==n and row['edges']==m
                     assert row['queries']==count and row['repeats']==key[3]
                     assert row['oracle_verified_pairs']==count and row['actual_calls']==count*key[3]
@@ -58,7 +65,8 @@ def summarize(root,fixtures=None):
             cand=rows['candidate'];prev=rows['previous']
             for metric in ('query_ns','query_thread_cpu_ns','build_ns','lifecycle_ns'):
                 result['previous_over_candidate_'+metric]=statistics.median(a[metric]/b[metric] for a,b in zip(prev,cand))
-                for label,names in [('oreach',('oreach-pdfs','oreach-pbibfs')),('external',('bfl','oreach-pdfs','oreach-pbibfs'))]:
+                for label,names in [('oreach',tuple(name for name in ('oreach-pdfs','oreach-pbibfs') if name in rows)),('external',tuple(name for name in ('bfl','oreach-pdfs','oreach-pbibfs','pll','ppl') if name in rows))]:
+                    if not names:continue
                     result[label+'_over_candidate_'+metric]=statistics.median(min(rows[name][i][metric] for name in names)/r[metric] for i,r in enumerate(cand))
             for label,values in [('previous',prev),('candidate',cand)]:
                 for metric in ('query_ns','query_thread_cpu_ns'):
@@ -83,7 +91,7 @@ def summarize(root,fixtures=None):
         aggregate.append(row)
     with (root/'aggregate_summary.csv').open('w',newline='') as f:
         writer=csv.DictWriter(f,fieldnames=list(aggregate[0]),lineterminator='\n');writer.writeheader();writer.writerows(aggregate)
-    result={'datasets':len(manifest['files']),'graph_seed_experiments':sum(len(json.loads(gzip.decompress(p.read_bytes()))['cases'])//4 for p in fixtures.glob('*.gz')),
+    result={'datasets':len(manifest['files']),'graph_seed_experiments':len({(key[0],key[1]) for key in seen}),
             'cells':len(seen),'aggregate_cells':len(aggregate),'fresh_process_trials':processes,
             'independent_BFS_pair_checks':oracle_checks,'actual_query_calls':calls,
             'input_digest_checks':'all passed','result_digest_checks':'all passed','case_completeness':'all expected cases present'}
