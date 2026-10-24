@@ -24,9 +24,14 @@ reuses mutable fallback scratch. Use one instance per querying thread.
 ## Routing and budgets
 
 The automatic index computes strongly connected components (SCCs) once. It
-constructs a direct global bit matrix when that table fits. Otherwise it hands
-the same decomposition to `PartitionedReachability`; there is no second SCC pass.
-Routing uses the graph and budgets, with no query training or horizon input.
+constructs a direct global bit matrix when that table fits. Otherwise it checks
+whether the condensation has at most one distinct predecessor per SCC or at
+most one distinct successor per SCC. Such forests use exact DFS dominance
+labels: one 64-bit word per original vertex, constant-time queries and no closure
+table. The temporary forest payload is 20 bytes per SCC and must fit the scratch
+allowance. On refusal, the same SCC decomposition goes to
+`PartitionedReachability`; there is no second SCC pass. Routing uses only the
+graph and budgets, with no query training or horizon input.
 
 The partitioned index splits the SCC DAG by weak connectivity, then chooses the
 smaller chain-label / bitset payload per partition. If neither fits, it first
@@ -35,7 +40,7 @@ reverse topological order, without a dense intermediate. A failed attempt rolls
 back its rows and payload before trying lossless word compression. If that also
 refuses the budget, the partition retains exact topologically bounded search.
 
-Each original vertex keeps one 32-byte label. Its 64-bit signature packs a
+The general partitioned backend keeps one 32-byte label per original vertex. Its 64-bit signature packs a
 32-bit descendant filter and the complement of a 32-bit ancestor filter. One
 subset check tests both necessary conditions; collisions weaken rejection and
 never prove reachability. DFS subtree containment is an exact positive
@@ -53,16 +58,21 @@ The default allowance is **2 MiB of table payload**, including compressed row
 descriptors and IDs. This is **not a total-RSS cap**. Fixed metadata, vector
 capacity, graph input, SCC / DAG construction, allocator overhead and scratch are
 additional. Index construction has a distinct default **64 MiB scratch allowance**
-for a dense compression matrix or the two interval-union buffers. The allowance
-bounds their requested payload, not all constructor allocations. Set the third
-constructor argument to zero to disable both attempts. Even 16 bytes of union
-scratch can index a wide forest when its final interval payload fits.
+for the forest's component arrays, a dense compression matrix or the two
+interval-union buffers. It bounds each attempt's requested temporary payload,
+not all constructor allocations. Set the third argument to zero to disable
+those attempts; existing chain/bitset tables and exact fallback remain available.
+Even 16 bytes of union scratch can index a wide forest through the general
+partitioned backend when its final interval payload fits. Forest labels reuse
+less metadata than the existing 32-byte general labels; they are not an
+additional closure table hidden from the payload cap.
 `table_bytes()` reports payload and `retained_bytes()` reports actual retained
 object/vector capacity, excluding input and allocator metadata. A refused table
 changes time and space costs, never exactness.
 
 Use `PartitionedReachability` directly to prefer its partition-local space savings
-over automatic direct closure. `uses_direct_closure()` exposes automatic routing.
+over automatic direct closure. `uses_direct_closure()` and `uses_forest_index()`
+expose automatic routing.
 No single strategy is fastest on every graph or request horizon.
 
 ## Cost and evidence
@@ -75,7 +85,11 @@ Interval construction merges child rows and may inspect many ranges per edge;
 it is not guaranteed linear. The table and scratch budgets bound storage, and
 refusal preserves exactness. Sparse-word and interval queries use binary search;
 chain and dense-bit queries use constant-time membership. A refused partition
-can still require linear graph search. Preprocessing can outweigh query savings.
+can still require linear graph search. Its retained adjacency uses CSR offsets
+and flat arcs, reducing vector-header overhead; reverse adjacency is freed
+before CSR allocation. Preprocessing can outweigh query savings. Forest
+construction is linear in input size, with 8 bytes per original vertex retained
+plus constant object storage; shared SCC/input and temporary arrays are separate.
 
 SCCs, chain/path reachability, bitset closure, sparse storage, Bloom-style negative pruning, DFS intervals and
 transitive-edge skipping are established techniques. This implementation combines
@@ -93,11 +107,14 @@ python -m unittest -q test_tric test_path_monge test_path_sweep test_backbone te
 The native checker independently BFS-verifies 18,432 exhaustive three-vertex
 query/cap cases for **both** automatic and partitioned indexes, plus 1,440 larger
 adversarial cases and 589,824 checks across all 4,096 members of a 12-variable-arc
-DAG family extended to 160 vertices to exercise interval routing. Python tests additionally exercise random relabeled graphs,
+DAG family extended to 160 vertices to exercise interval routing. Another 207,360
+checks enumerate both orientations of all 720 six-SCC forests with aliases and
+duplicate arcs; 1,296 coordinate cases test packed comparisons through INT_MAX.
+Python tests additionally exercise random relabeled graphs,
 long paths, cycles, duplicate/transitive arcs, sparse/dense representation choice,
 partial refusal, interval rollback, 100,000-vertex indexing beyond the dense
 scratch limit, invalid inputs and public-API boundaries. The optional original
-BFL comparator is independently BFS-verified on cyclic and acyclic inputs. CI runs both Python
+BFL, PLL and PPL comparators are independently BFS-verified on cyclic and acyclic inputs. CI runs both Python
 versions and address/undefined-behavior sanitizers. These are bounded tests and
 an independent oracle, not a machine-checked proof for all graphs.
 
@@ -105,9 +122,11 @@ The Phase XXV comparison harness, pinned input bytes, raw trials and limits are
 in `tric_research/evidence/phase25/` and `tric_research/PHASE_XXV_RESEARCH_REPORT.md`.
 The subsequent query-path comparison, complete ablations and remaining losses
 are in `tric_research/PHASE_XXVI_RESEARCH_REPORT.md` and
-`tric_research/evidence/phase26/`.
-The benchmark-only BFL source retains its upstream MIT license and is not a
-runtime dependency. Build the comparator with:
+`tric_research/evidence/phase26/`. Forest/CSR scale qualification, original PLL/PPL
+comparisons, rejected variants and all regressions are documented in
+`tric_research/PHASE_XXVII_RESEARCH_REPORT.md` and `tric_research/evidence/phase27/`.
+The benchmark-only BFL and PLL/PPL sources retain their upstream MIT licenses and are not
+runtime dependencies. Build the comparator with:
 
 ```bash
 g++ -std=c++17 -O3 -DNDEBUG -DTRIC_WITH_BFL \

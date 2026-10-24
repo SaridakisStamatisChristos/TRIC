@@ -1,0 +1,48 @@
+{
+  "baseline": "68f32a47802b2133fa5a107a6d2f7ae3f50b2664",
+  "runtime": "9b51f3a1d54d1bce8b6dcd13adfc556404c7f50b",
+  "accepted": [
+    {
+      "candidate": "Exact inward/outward SCC forest dominance",
+      "basis": "207360 forest BFS cases plus exhaustive and boundary tests; frozen large and fresh qualification; 8V label payload, no closure table",
+      "scope": "Structural time/space improvement on exposed forest-shaped inputs"
+    },
+    {
+      "candidate": "CSR fallback adjacency",
+      "basis": "Zero-cap nonforest retained bytes 4342648 -> 3280496, exact BFS answers",
+      "tradeoff": "General-route query median 0.947x across 92 old-suite seed cells; no broad general-query speedup claimed"
+    },
+    {
+      "candidate": "Direct-first inline variant ownership",
+      "basis": "Rejected partition-first regression, matched correction pilot, complete frozen rerun",
+      "scope": "Direct-route speedup 1.183x over 64 seed-level cells; overall old-suite query 1.012x"
+    }
+  ],
+  "rejected": [
+    "Full level filters",
+    "Level-plus-signature filters",
+    "Endpoint check variants",
+    "Combined DFS/SCC certificates",
+    "16-byte fast-label split",
+    "Partition-first variant dispatcher"
+  ],
+  "not_qualified": [
+    "Interrupted unmatched-build level pilot"
+  ],
+  "remaining": [
+    "General-route and sparse biological query gap, worst external aggregate 0.314x",
+    "Warm large-forest query gap (2/8 external wins)",
+    "Independent general-graph evaluation and dedicated performance replication",
+    "Total-memory Pareto matching",
+    "Original MLRQ/MLRQ-O comparator unavailable here"
+  ],
+  "claim": "No global SOTA or formal-verification claim",
+  "result_metrics": "result_metrics.json",
+  "raw_accepted_runs": [
+    "small",
+    "large",
+    "fresh",
+    "csr"
+  ],
+  "raw_rejected_runs": "ablations.json.gz"
+}

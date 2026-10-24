@@ -1,0 +1,15 @@
+{
+  "runtime_sources_match_frozen_build": true,
+  "baseline_sources_match_frozen_build": true,
+  "benchmark_source_matches_frozen_build": true,
+  "binary_hashes_match_all_manifests": true,
+  "original_PLL_PPL_and_BFL_sources_match_frozen_build": true,
+  "fixture_sha256": {
+    "large-fixtures/large_citeseer.json.gz": "a42f52bb6c7ab27935ec0af9ec3d9b84acf18144fc7622e246d077d642251262",
+    "large-fixtures/large_uniprot_22m.json.gz": "053c4346a390ffc4cf2a3c062a0f6ae076e74fb6edece77dcf9939e724c31662",
+    "fresh-fixtures/large_citeseer.json.gz": "fd3e72511c5efd0f8c9b7ee900249db8304c42c471c35a7c8e2e3ce93a578827",
+    "fresh-fixtures/large_uniprot_22m.json.gz": "671fb03261584bc1b583cb9c28e864dbd63d9c75af22d41f9eb7d540d5cae2d2",
+    "csr-fixtures/generated_csr_nonforest.json.gz": "56f3bdc1b1cf27abba4f477f36b1e3ad04b16562fe18a5ecfedb9c685d5fa7c8"
+  },
+  "runtime_CI": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/39985367589"
+}

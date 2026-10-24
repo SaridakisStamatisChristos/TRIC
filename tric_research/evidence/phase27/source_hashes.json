@@ -1,0 +1,19 @@
+{
+  "algorithm_runtime_commit": "9b51f3a1d54d1bce8b6dcd13adfc556404c7f50b",
+  "baseline_commit": "68f32a47802b2133fa5a107a6d2f7ae3f50b2664",
+  "sha256": {
+    "tric_research/bfl_adapter.h": "5d63bd722435ef8dddb3a04e75bda5277d8cba5d2c03ac9a42cda956487316a2",
+    "tric_research/closure_index.h": "bbdeb40c467817fc95e99213ad00fc61b125f6c988901cd14fb0a5afa0faf154",
+    "tric_research/forest_reachability.h": "b49f05e9d0f24f48e792b485ab05d66f738a438f0f9778d224db53ea7e028c7d",
+    "tric_research/oreach_adapter.h": "694ba424d9b7c5df4fe1be3821ab12a579afbfce647e904980391e2d5c75fb51",
+    "tric_research/partitioned_reachability.h": "1b1b7357a9016b2d5ffb5fe2488f2b15097f63b144a7184a55aefb331afb7df7",
+    "tric_research/pruned_labeling_adapter.h": "ca19a66f7dab1ae0bd5e75ee3266033f3422fec49a341da25e0c213471761840",
+    "tric_research/scc_decomposition.h": "c751356abf39e1d52b3310b3fc3c630c1813302a17c1cbebdae47262399b73ec",
+    "tric_research/tric_reachability.h": "fa3a846aee3c11870edc9c63eaedadaf1288010d33d849758f7db8c3a5257f2b",
+    "tric_research/native_compare_bench.cpp": "30223f6b43f76cc29e83c9db014f3ce01fd8ae6fee1dfea9b9fdb68a64eb0b68",
+    "tric_research/benchmark_native_changes.py": "2901804b7dbd76f6a6f9c6d329d5e5cedbb4946d2fb18ff01cd559f995896814",
+    "tric_research/prepare_large_forest_fixtures.py": "7b147093dfb94f3961eb629f78f13c01aaecc47bb39e350d0c6fd524a6d2323e",
+    "tric_research/summarize_native_changes.py": "01c463785ced063f1dac3518ed7a6990ca3ebd1b521ed3eeef768902c41e6195",
+    "tric_research/build_native_comparison.py": "51eacc2fd35f63adaf17f957e59241f37665e386822a058b9b4fab7a7beb370f"
+  }
+}

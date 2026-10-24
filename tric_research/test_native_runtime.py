@@ -35,6 +35,8 @@ class PartitionedTests(unittest.TestCase):
         self.assertEqual(data['exhaustive_checks'],512*4*9)
         self.assertEqual(data['interval_checks'],4096*3*6*8)
         self.assertGreater(data['interval_indexes'],4096)
+        self.assertEqual(data['forest_checks'],720*2*12*12)
+        self.assertEqual(data['packed_checks'],6**4)
     def test_random_relabelled_cyclic_and_acyclic(self):
         r=random.Random(20261023)
         for n in (9,40,130):
@@ -160,7 +162,8 @@ class PartitionedTests(unittest.TestCase):
         n=1024;g=[list(range(1,n))]+[[] for _ in range(n-1)]
         compressed=self.run_graph(g,qs,65536,mode='auto')
         self.assertFalse(compressed['uses_direct_closure'])
-        self.assertGreater(compressed['table_bytes'],0)
+        self.assertTrue(compressed['uses_forest_index'])
+        self.assertEqual(compressed['table_bytes'],0)
 
     def test_invalid_edges_queries_and_options_rejected(self):
         for raw in ('2 1 1\n0 2\n0 1\n','2 0 1\n-1 0\n'):
@@ -183,6 +186,46 @@ class PartitionedTests(unittest.TestCase):
                                       capture_output=True,check=True,timeout=40)
                 data=json.loads(result.stdout.splitlines()[-1])
                 self.assertEqual(data['oracle_verified_pairs'],n*n)
+
+    def test_forward_and_reverse_forests_with_scc_aliases_and_cross_roots(self):
+        r=random.Random(20261028)
+        for reverse in (False,True):
+            n=400;g=[[] for _ in range(2*n)];perm=list(range(2*n));r.shuffle(perm)
+            for u in range(n):
+                g[perm[2*u]].append(perm[2*u+1]);g[perm[2*u+1]].append(perm[2*u])
+                if u and u%17:
+                    p=r.randrange(u);a,b=(u,p) if reverse else (p,u)
+                    g[perm[2*a]].extend([perm[2*b],perm[2*b]])
+            qs=[(u,v) for u in range(2*n) for v in range(0,2*n,11)]
+            data=self.run_graph(g,qs,0,mode='auto')
+            self.assertTrue(data['uses_forest_index'])
+            self.assertEqual(data['table_bytes'],0)
+            self.assertLess(data['retained_capacity_bytes'],8*len(g)+1024)
+        # Both degree conditions fail: exact general fallback is mandatory.
+        g=[[1,2],[3],[3],[]]
+        data=self.run_graph(g,[(a,b) for a in range(4) for b in range(4)],0,mode='auto')
+        self.assertFalse(data['uses_forest_index'])
+
+    def test_original_pruned_labeling_adapters_and_provenance(self):
+        import hashlib
+        provenance=json.loads((ROOT/'third_party/pruned_labeling/PROVENANCE.json').read_text())
+        for name,expected in provenance['files'].items():
+            raw=(ROOT/'third_party/pruned_labeling'/name).read_bytes()
+            self.assertEqual(hashlib.sha1(f'blob {len(raw)}\0'.encode()+raw).hexdigest(),expected)
+        exe=Path(self.tmp.name)/'pruned'
+        subprocess.run(['g++','-std=c++17','-O2','-DTRIC_WITH_PRUNED_LABELING',
+                        str(ROOT/'native_compare_bench.cpp'),'-o',str(exe)],check=True,capture_output=True)
+        r=random.Random(20261028)
+        for n in (1,3,40,160):
+            for cyclic in (False,True):
+                g=[[v for v in range(n) if (cyclic or u<v) and r.random()<0.08] for u in range(n)]
+                qs=[(u,v) for u in range(n) for v in range(n)]
+                for mode in ('pll','ppl'):
+                    result=subprocess.run([str(exe),mode,'0','1'],input=serialize(g,qs),text=True,
+                                          capture_output=True,check=True,timeout=40)
+                    data=json.loads(result.stdout.splitlines()[-1])
+                    self.assertEqual(data['oracle_verified_pairs'],n*n)
+                    self.assertGreater(data['upstream_reported_label_bytes'],0)
 
     def test_comparison_runner_verifies_inputs_and_all_arms(self):
         import gzip
@@ -236,6 +279,12 @@ int main(){
   try {one.reaches(-1,0);return 5;}catch(const std::out_of_range&){}
   TricReachability auto_empty(G{},0);
   try {auto_empty.reaches(0,0);return 7;}catch(const std::out_of_range&){}
+  TricReachability no_scratch(G{{1},{}},0,0);
+  if(no_scratch.uses_forest_index() || !no_scratch.reaches(0,1))return 12;
+  TricReachability forest_tiny_scratch(G{{1},{}},0,39);
+  if(forest_tiny_scratch.uses_forest_index() || !forest_tiny_scratch.reaches(0,1))return 13;
+  TricReachability exact_scratch(G{{1},{}},0,40);
+  if(!exact_scratch.uses_forest_index() || !exact_scratch.reaches(0,1))return 14;
   TricReachability auto_one(G{{}},8);
   if(!auto_one.uses_direct_closure() || !auto_one.reaches(0,0))return 8;
   try {auto_one.reaches(-1,0);return 9;}catch(const std::out_of_range&){}
