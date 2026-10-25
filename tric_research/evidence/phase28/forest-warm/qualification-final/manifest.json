@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "arms": [
+    {
+      "name": "previous",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf28/final-build/previous",
+      "mode": "auto",
+      "executable_sha256": "8ad6d8cad9567b8eebb1efe0af34d02b4a3e248f6a75402591b3ba2f4b942180"
+    },
+    {
+      "name": "candidate",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf28/final-build/candidate",
+      "mode": "auto",
+      "executable_sha256": "d70aaf578be23ec978f2088e8ce90164fb50e8e5e1de7c6449e4984a505a1858"
+    }
+  ],
+  "cap_bytes": 2097152,
+  "trials": 4,
+  "horizons": [
+    1000
+  ],
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "cpu_affinity": [
+      1
+    ],
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "timing_scope": "Paired fresh-process comparisons on pinned native input bytes.\n\nEach available arm BFS-verifies every query after its timed region. Repeats\nexecute frozen query pairs; they are not independent new requests. Includes\nparsing/build/query costs, excludes process startup, verification and teardown.\n",
+  "files": [
+    {
+      "fixture_sha256": "a42f52bb6c7ab27935ec0af9ec3d9b84acf18144fc7622e246d077d642251262",
+      "file": "large_citeseer.json.gz",
+      "sha256": "f7daf1e91d03b8300e164ef1be4f83c2b98dfe6a318de1d5a2fc6bd28043f738",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "053c4346a390ffc4cf2a3c062a0f6ae076e74fb6edece77dcf9939e724c31662",
+      "file": "large_uniprot_22m.json.gz",
+      "sha256": "134caffeb7e86a59ce6f5df1e549c94f643cab29e83b22fcedf7e4b16d8dd455",
+      "cells": 4
+    }
+  ],
+  "complete": true
+}

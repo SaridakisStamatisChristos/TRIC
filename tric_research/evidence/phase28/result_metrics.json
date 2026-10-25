@@ -1,0 +1,488 @@
+{
+  "native": {
+    "previous_over_candidate_query_ns": {
+      "median": 1.0183037915288047,
+      "wins": 53,
+      "cells": 76,
+      "min": 0.9340202701503737,
+      "max": 1.5462942416113155
+    },
+    "previous_over_candidate_query_thread_cpu_ns": {
+      "median": 1.0191982266570334,
+      "wins": 54,
+      "cells": 76,
+      "min": 0.9059675255672369,
+      "max": 1.5441275172124653
+    },
+    "previous_over_candidate_build_ns": {
+      "median": 1.0096796552995524,
+      "wins": 45,
+      "cells": 76,
+      "min": 0.7999426708391078,
+      "max": 1.2754113558763476
+    },
+    "previous_over_candidate_lifecycle_ns": {
+      "median": 1.0203672551385918,
+      "wins": 55,
+      "cells": 76,
+      "min": 0.94791532267956,
+      "max": 1.3762904619031409
+    }
+  },
+  "small": {
+    "previous_over_candidate_query_ns": {
+      "median": 1.0089017033015297,
+      "wins": 50,
+      "cells": 76,
+      "min": 0.8421333636021583,
+      "max": 1.7463008730260623
+    },
+    "oreach_over_candidate_query_ns": {
+      "median": 1.0511702958511264,
+      "wins": 41,
+      "cells": 76,
+      "min": 0.39324928399883796,
+      "max": 150.0019388903315
+    },
+    "external_over_candidate_query_ns": {
+      "median": 1.0069006822792703,
+      "wins": 39,
+      "cells": 76,
+      "min": 0.39324928399883796,
+      "max": 3.9277423089127
+    },
+    "previous_over_candidate_query_thread_cpu_ns": {
+      "median": 1.009340188432775,
+      "wins": 51,
+      "cells": 76,
+      "min": 0.8405117423659333,
+      "max": 1.7477260661829765
+    },
+    "oreach_over_candidate_query_thread_cpu_ns": {
+      "median": 1.0523469761828808,
+      "wins": 41,
+      "cells": 76,
+      "min": 0.39138020012696323,
+      "max": 150.11149094918298
+    },
+    "external_over_candidate_query_thread_cpu_ns": {
+      "median": 1.0057914721665466,
+      "wins": 39,
+      "cells": 76,
+      "min": 0.39138020012696323,
+      "max": 3.929084725403654
+    },
+    "previous_over_candidate_build_ns": {
+      "median": 1.0051525192113404,
+      "wins": 40,
+      "cells": 76,
+      "min": 0.8385377908201233,
+      "max": 1.1802676209095242
+    },
+    "oreach_over_candidate_build_ns": {
+      "median": 1.3210580762741664,
+      "wins": 66,
+      "cells": 76,
+      "min": 0.8168025996000741,
+      "max": 15.951785788511097
+    },
+    "external_over_candidate_build_ns": {
+      "median": 0.945546107882858,
+      "wins": 24,
+      "cells": 76,
+      "min": 0.5131301408108107,
+      "max": 1.9917776635786608
+    },
+    "previous_over_candidate_lifecycle_ns": {
+      "median": 1.0082234545379967,
+      "wins": 46,
+      "cells": 76,
+      "min": 0.874561038261237,
+      "max": 1.1555339721770546
+    },
+    "oreach_over_candidate_lifecycle_ns": {
+      "median": 1.1123365617668146,
+      "wins": 64,
+      "cells": 76,
+      "min": 0.9533864924839777,
+      "max": 4.359398099077859
+    },
+    "external_over_candidate_lifecycle_ns": {
+      "median": 1.022007467080848,
+      "wins": 47,
+      "cells": 76,
+      "min": 0.8236190141295313,
+      "max": 1.7571542304420387
+    }
+  },
+  "forest-warm": {
+    "previous_over_candidate_query_ns": {
+      "median": 1.0024778616320853,
+      "wins": 4,
+      "cells": 8,
+      "min": 0.831934270721595,
+      "max": 1.2827509349519586
+    },
+    "previous_over_candidate_query_thread_cpu_ns": {
+      "median": 1.0008220343662462,
+      "wins": 5,
+      "cells": 8,
+      "min": 0.830060893945207,
+      "max": 1.2866771813759592
+    },
+    "previous_over_candidate_build_ns": {
+      "median": 0.9988963956938378,
+      "wins": 4,
+      "cells": 8,
+      "min": 0.9062339264470669,
+      "max": 1.0505419034379386
+    },
+    "previous_over_candidate_lifecycle_ns": {
+      "median": 0.9935926063717753,
+      "wins": 2,
+      "cells": 8,
+      "min": 0.952882593722177,
+      "max": 1.0206308782268811
+    }
+  },
+  "forest-fresh": {
+    "previous_over_candidate_query_ns": {
+      "median": 0.9764047251832257,
+      "wins": 0,
+      "cells": 2,
+      "min": 0.9621000787711815,
+      "max": 0.99070937159527
+    },
+    "previous_over_candidate_query_thread_cpu_ns": {
+      "median": 0.9726732119533975,
+      "wins": 0,
+      "cells": 2,
+      "min": 0.9588628595765347,
+      "max": 0.9864835643302603
+    },
+    "previous_over_candidate_build_ns": {
+      "median": 0.999947166439884,
+      "wins": 1,
+      "cells": 2,
+      "min": 0.96064620432988,
+      "max": 1.039248128549888
+    },
+    "previous_over_candidate_lifecycle_ns": {
+      "median": 0.9725263632859438,
+      "wins": 1,
+      "cells": 2,
+      "min": 0.9190866859854782,
+      "max": 1.0259660405864093
+    }
+  },
+  "native_route": {
+    "all": {
+      "previous": {
+        "query_ns": {
+          "median": 1.0182694418186067,
+          "wins": 102,
+          "cells": 156,
+          "min": 0.907095119547076,
+          "max": 1.5462942416113155
+        },
+        "query_thread_cpu_ns": {
+          "median": 1.0189113663761828,
+          "wins": 102,
+          "cells": 156,
+          "min": 0.8903522804634165,
+          "max": 1.5441275172124653
+        },
+        "build_ns": {
+          "median": 1.005696803331507,
+          "wins": 88,
+          "cells": 156,
+          "min": 0.7999426708391078,
+          "max": 1.4309004628637254
+        },
+        "lifecycle_ns": {
+          "median": 1.0200113011241272,
+          "wins": 112,
+          "cells": 156,
+          "min": 0.9101226016677373,
+          "max": 1.3762904619031409
+        }
+      },
+      "pr26": {
+        "query_ns": {
+          "median": 1.0303472209347173,
+          "wins": 124,
+          "cells": 156,
+          "min": 0.9057311666881884,
+          "max": 1.5824879642827627
+        },
+        "query_thread_cpu_ns": {
+          "median": 1.029948102648779,
+          "wins": 125,
+          "cells": 156,
+          "min": 0.9215922009405733,
+          "max": 1.5805107027310945
+        },
+        "build_ns": {
+          "median": 1.003425427192249,
+          "wins": 85,
+          "cells": 156,
+          "min": 0.8130265865840925,
+          "max": 1.352972597263638
+        },
+        "lifecycle_ns": {
+          "median": 1.0277098866137515,
+          "wins": 112,
+          "cells": 156,
+          "min": 0.9292685354361059,
+          "max": 1.3756880269399134
+        }
+      }
+    },
+    "general": {
+      "previous": {
+        "query_ns": {
+          "median": 1.0483502501917816,
+          "wins": 71,
+          "cells": 92,
+          "min": 0.907095119547076,
+          "max": 1.5462942416113155
+        },
+        "query_thread_cpu_ns": {
+          "median": 1.0460767961246558,
+          "wins": 71,
+          "cells": 92,
+          "min": 0.8903522804634165,
+          "max": 1.5441275172124653
+        },
+        "build_ns": {
+          "median": 0.9995344841449734,
+          "wins": 45,
+          "cells": 92,
+          "min": 0.7999426708391078,
+          "max": 1.2754113558763476
+        },
+        "lifecycle_ns": {
+          "median": 1.0302984656637457,
+          "wins": 74,
+          "cells": 92,
+          "min": 0.9412133258007117,
+          "max": 1.3762904619031409
+        }
+      },
+      "pr26": {
+        "query_ns": {
+          "median": 1.077103233458689,
+          "wins": 78,
+          "cells": 92,
+          "min": 0.9057311666881884,
+          "max": 1.5824879642827627
+        },
+        "query_thread_cpu_ns": {
+          "median": 1.0706271120633408,
+          "wins": 79,
+          "cells": 92,
+          "min": 0.9215922009405733,
+          "max": 1.5805107027310945
+        },
+        "build_ns": {
+          "median": 0.9980921051227907,
+          "wins": 43,
+          "cells": 92,
+          "min": 0.8130265865840925,
+          "max": 1.352972597263638
+        },
+        "lifecycle_ns": {
+          "median": 1.0496848714787645,
+          "wins": 69,
+          "cells": 92,
+          "min": 0.9606339464684246,
+          "max": 1.3756880269399134
+        }
+      }
+    },
+    "direct": {
+      "previous": {
+        "query_ns": {
+          "median": 0.9988227249319488,
+          "wins": 31,
+          "cells": 64,
+          "min": 0.9092257341452279,
+          "max": 1.0909604306077794
+        },
+        "query_thread_cpu_ns": {
+          "median": 0.9982341770268919,
+          "wins": 31,
+          "cells": 64,
+          "min": 0.9088074327868743,
+          "max": 1.090955573927142
+        },
+        "build_ns": {
+          "median": 1.0254589679049313,
+          "wins": 43,
+          "cells": 64,
+          "min": 0.8348400398601694,
+          "max": 1.4309004628637254
+        },
+        "lifecycle_ns": {
+          "median": 1.0076488856731447,
+          "wins": 38,
+          "cells": 64,
+          "min": 0.9101226016677373,
+          "max": 1.084974685791659
+        }
+      },
+      "pr26": {
+        "query_ns": {
+          "median": 1.0226552845203685,
+          "wins": 46,
+          "cells": 64,
+          "min": 0.9466971466984557,
+          "max": 1.0827704784744347
+        },
+        "query_thread_cpu_ns": {
+          "median": 1.0227689153575177,
+          "wins": 46,
+          "cells": 64,
+          "min": 0.946639771232395,
+          "max": 1.0828991672646953
+        },
+        "build_ns": {
+          "median": 1.0162083096717234,
+          "wins": 42,
+          "cells": 64,
+          "min": 0.9090554912845494,
+          "max": 1.2695848013796613
+        },
+        "lifecycle_ns": {
+          "median": 1.0204020220619854,
+          "wins": 43,
+          "cells": 64,
+          "min": 0.9292685354361059,
+          "max": 1.0898347320581316
+        }
+      }
+    }
+  },
+  "biological_subset": {
+    "positive": {
+      "query_ns": {
+        "median": 1.4784090471369926,
+        "wins": 6,
+        "cells": 6,
+        "min": 1.0979188627876917,
+        "max": 1.5462942416113155
+      },
+      "query_thread_cpu_ns": {
+        "median": 1.4803452761484182,
+        "wins": 6,
+        "cells": 6,
+        "min": 1.0985720301395423,
+        "max": 1.5441275172124653
+      },
+      "build_ns": {
+        "median": 1.0141799408339092,
+        "wins": 3,
+        "cells": 6,
+        "min": 0.9385239269310188,
+        "max": 1.1164304515656875
+      },
+      "lifecycle_ns": {
+        "median": 1.2445072272485722,
+        "wins": 6,
+        "cells": 6,
+        "min": 1.0772201191544677,
+        "max": 1.3762904619031409
+      }
+    },
+    "negative": {
+      "query_ns": {
+        "median": 1.0281257583571728,
+        "wins": 5,
+        "cells": 6,
+        "min": 0.9992625870713872,
+        "max": 1.0714298903125397
+      },
+      "query_thread_cpu_ns": {
+        "median": 1.0270845823472552,
+        "wins": 6,
+        "cells": 6,
+        "min": 1.0011124524567,
+        "max": 1.071476640606179
+      },
+      "build_ns": {
+        "median": 0.9946270471120452,
+        "wins": 3,
+        "cells": 6,
+        "min": 0.9670079630648702,
+        "max": 1.0101035178785898
+      },
+      "lifecycle_ns": {
+        "median": 0.9963978577513232,
+        "wins": 2,
+        "cells": 6,
+        "min": 0.9921709176799811,
+        "max": 1.0264401353087562
+      }
+    },
+    "balanced": {
+      "query_ns": {
+        "median": 1.276267870511227,
+        "wins": 6,
+        "cells": 6,
+        "min": 1.0437130957887222,
+        "max": 1.387549290883873
+      },
+      "query_thread_cpu_ns": {
+        "median": 1.2750143680713242,
+        "wins": 6,
+        "cells": 6,
+        "min": 1.0437196771290043,
+        "max": 1.3875749192958131
+      },
+      "build_ns": {
+        "median": 1.0072803142027071,
+        "wins": 3,
+        "cells": 6,
+        "min": 0.9701872074234865,
+        "max": 1.0506745934059698
+      },
+      "lifecycle_ns": {
+        "median": 1.1464933844118215,
+        "wins": 6,
+        "cells": 6,
+        "min": 1.0298956549914,
+        "max": 1.1925389580818568
+      }
+    },
+    "uniform": {
+      "query_ns": {
+        "median": 0.9949172942377678,
+        "wins": 2,
+        "cells": 6,
+        "min": 0.9641156527521905,
+        "max": 1.0232799382598534
+      },
+      "query_thread_cpu_ns": {
+        "median": 0.9952957976296232,
+        "wins": 2,
+        "cells": 6,
+        "min": 0.9631360985938587,
+        "max": 1.02151228667161
+      },
+      "build_ns": {
+        "median": 1.032523602598619,
+        "wins": 5,
+        "cells": 6,
+        "min": 0.9457288254097608,
+        "max": 1.2754113558763476
+      },
+      "lifecycle_ns": {
+        "median": 1.0094749254390598,
+        "wins": 4,
+        "cells": 6,
+        "min": 0.9904651970872964,
+        "max": 1.0316081275811926
+      }
+    }
+  }
+}

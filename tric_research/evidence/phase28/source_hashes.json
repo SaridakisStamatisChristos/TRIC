@@ -1,0 +1,30 @@
+{
+  "runtime_commit": "3505d6390e24f30515d78f90c0fed43e7a6e4bb8",
+  "baseline_commit": "49eafb9b8cc06ff15b9f71058e2eb8770fc50961",
+  "sha256": {
+    "tric_research/tric_reachability.h": "fa3a846aee3c11870edc9c63eaedadaf1288010d33d849758f7db8c3a5257f2b",
+    "tric_research/partitioned_reachability.h": "15abe6dfd4c2df369b20509ecd14faae70fae6fd7763a113e6e948daece0e14a",
+    "tric_research/oreach_adapter.h": "694ba424d9b7c5df4fe1be3821ab12a579afbfce647e904980391e2d5c75fb51",
+    "tric_research/bfl_adapter.h": "5d63bd722435ef8dddb3a04e75bda5277d8cba5d2c03ac9a42cda956487316a2",
+    "tric_research/pruned_labeling_adapter.h": "ca19a66f7dab1ae0bd5e75ee3266033f3422fec49a341da25e0c213471761840",
+    "tric_research/forest_reachability.h": "b49f05e9d0f24f48e792b485ab05d66f738a438f0f9778d224db53ea7e028c7d",
+    "tric_research/closure_index.h": "bbdeb40c467817fc95e99213ad00fc61b125f6c988901cd14fb0a5afa0faf154",
+    "tric_research/scc_decomposition.h": "c751356abf39e1d52b3310b3fc3c630c1813302a17c1cbebdae47262399b73ec",
+    "tric_research/native_compare_bench.cpp": "30223f6b43f76cc29e83c9db014f3ce01fd8ae6fee1dfea9b9fdb68a64eb0b68",
+    "tric_research/build_native_comparison.py": "ecd22f777676c5eff04577ef8573d35873294cad22b417dad49b4e023007b811",
+    "tric_research/benchmark_native_changes.py": "2901804b7dbd76f6a6f9c6d329d5e5cedbb4946d2fb18ff01cd559f995896814",
+    "tric_research/summarize_native_changes.py": "01c463785ced063f1dac3518ed7a6990ca3ebd1b521ed3eeef768902c41e6195",
+    "tric_research/verify_phase27_evidence.py": "876df7ddfd6e271e3613e57a97748e953c67cadead73d1a5a6e86ae57320fab9",
+    "tric_research/verify_phase28_evidence.py": "1a8479db646ca3141ec2ec1794829ffaaff47356d968e220a199b0892132719f"
+  },
+  "artifact_sha256": {
+    "campaign.json": "bac1d472aa291975f6336c9bdc64c0e2441a658a643785521597390fb697db1b",
+    "query_profile.json": "425e35f70553f260dc85a7b4cfab2362983d5354e6f62eb6111d02c86698a37c",
+    "qualification_protocol.json": "7029d02dc3f2fd0c37a1380d5b8ad40c54eec7c07a6b1da50b87ae4465be7192",
+    "build_manifest.json": "591738f05272e5639d4b26ac7c2ded3f4f1f9cb0937bcc8fc6704d67c481af2f",
+    "reference26_build_manifest.json": "60697dd97da221655c9990d073fc28ecf8ca0798aa5302ffb8981ff29fdbe28d",
+    "experiments.json.gz": "0bcfe8258239b51d945f34125e1541df1de9c09d80fb6ae2c5b4a1cba45517fd",
+    "provenance_verification.json": "a783ce8b9b9c68bdd6aafeb1cf47c4d213d54420d45f0fdb4071233216fa7d4d",
+    "result_metrics.json": "76326c50f7952fb688f74e7a6131885763a20a09924c049738b35182d060a470"
+  }
+}

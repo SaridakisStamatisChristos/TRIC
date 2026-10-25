@@ -1,0 +1,40 @@
+{
+  "baseline": "49eafb9b8cc06ff15b9f71058e2eb8770fc50961",
+  "objective": "Reduce general reachability query overhead without semantic or storage-budget changes",
+  "execution_layer": "OmO native fallback; real runtime_info reports installed=false",
+  "hypotheses": [
+    {
+      "id": "H1",
+      "claim": "Branchless or small linear interval search materially improves general queries",
+      "state": "rejected as standalone on corrected matched pilot",
+      "evidence": "matched-pilot: branchless0.9778, scan4 0.9904, scan8 0.9851 median threadCPU ratios across76cells; initial same-binary pilots excluded"
+    },
+    {
+      "id": "H2",
+      "claim": "Caching an exact first interval in the existing label avoids lookup work",
+      "state": "supported within local measured scope",
+      "constraints": "32-byte labels, same tables, no query training, exact BFS answers",
+      "evidence": "native final generalwall1.048xvsPR27,1.077xvsPR26; biologicalpositive1.478x; all capacities and oracle answers preserved"
+    },
+    {
+      "id": "H3",
+      "claim": "A dispatch change alone explains the general regression",
+      "state": "unresolved; do not infer causal contribution from Phase27 aggregate"
+    }
+  ],
+  "acceptance": [
+    "All existing semantics, public boundaries and budgets preserved",
+    "Full native/oracle/sanitizer checks pass",
+    "Frozen matched qualification over original suite, all regressions retained",
+    "No global SOTA claim from bounded suite or exposed inputs"
+  ],
+  "diagnostic_scope": "Profile directly invokes partitioned backend; it counts paths, not cycle cost. First six counts are components, partitions, chain/bit/interval/compressed partitions; next twelve are signature reject, identity, group reject, topological reject, DFS hit, chain, bits, interval, compressed, fallback, one-range interval query, multi-range interval query.",
+  "invalidated_runs": [
+    "interval-pilot",
+    "inline-pilot"
+  ],
+  "runtime_commit": "3505d6390e24f30515d78f90c0fed43e7a6e4bb8",
+  "qualification_scope": "Four sealed comparisons; horizons3000/100/1000/1 never mixed",
+  "core_CI": "https://github.com/SaridakisStamatisChristos/TRIC/actions/runs/40198865100",
+  "remaining": "Worst new external query ratio0.393x; forestsinglepass0.976x; no globalSOTA"
+}

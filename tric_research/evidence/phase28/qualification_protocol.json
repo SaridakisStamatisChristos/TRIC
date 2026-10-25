@@ -1,0 +1,52 @@
+{
+  "scope": "Four separate matched comparisons; never mix ratios across horizons",
+  "interrupted": "small-long-interrupted: replay1000 made search external arms expensive; stopped before evaluating candidate results; exclude incomplete run",
+  "runs": [
+    {
+      "tag": "native",
+      "fixtures": "tric_research/evidence/phase25/fixtures",
+      "horizon": 3000,
+      "trials": 6,
+      "arms": [
+        "previous",
+        "candidate",
+        "pr26"
+      ]
+    },
+    {
+      "tag": "small",
+      "fixtures": "tric_research/evidence/phase25/fixtures",
+      "horizon": 100,
+      "trials": 7,
+      "arms": [
+        "previous",
+        "candidate",
+        "bfl",
+        "oreach-pdfs",
+        "oreach-pbibfs",
+        "pll",
+        "ppl"
+      ]
+    },
+    {
+      "tag": "forest-warm",
+      "fixtures": "tric_research/evidence/phase27/large-fixtures",
+      "horizon": 1000,
+      "trials": 4,
+      "arms": [
+        "previous",
+        "candidate"
+      ]
+    },
+    {
+      "tag": "forest-fresh",
+      "fixtures": "tric_research/evidence/phase27/fresh-fixtures",
+      "horizon": 1,
+      "trials": 4,
+      "arms": [
+        "previous",
+        "candidate"
+      ]
+    }
+  ]
+}
