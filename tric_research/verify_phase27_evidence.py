@@ -1,5 +1,6 @@
 """Verify frozen source provenance and the preserved rejected-run archive."""
 import base64
+import argparse
 import gzip
 import hashlib
 import json
@@ -10,9 +11,10 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def verify():
-    source = Path(__file__).resolve().parent
-    root = source / 'evidence/phase27'
+def verify(source_root=None):
+    live = Path(__file__).resolve().parent
+    source = Path(source_root).resolve() / 'tric_research' if source_root else live
+    root = live / 'evidence/phase27'
     hashes = json.loads((root / 'source_hashes.json').read_text())
     for path, expected in hashes['sha256'].items():
         assert sha((source.parent / path).read_bytes()) == expected, path
@@ -21,10 +23,10 @@ def verify():
     for path, expected in candidate['runtime_source_hashes'].items():
         assert sha((source / path).read_bytes()) == expected, path
     assert sha((source / 'native_compare_bench.cpp').read_bytes()) == build['source_sha256']
-    assert sha((source / 'third_party/bfl/main.cpp').read_bytes()) == build['bfl_main_sha256']
+    assert sha((live / 'third_party/bfl/main.cpp').read_bytes()) == build['bfl_main_sha256']
     for path, expected in build['pruned_labeling_sources'].items():
-        assert sha((source / path).read_bytes()) == expected, path
-    upstream = source / 'third_party/pruned_labeling'
+        assert sha((live / path).read_bytes()) == expected, path
+    upstream = live / 'third_party/pruned_labeling'
     provenance = json.loads((upstream / 'PROVENANCE.json').read_text())
     for path, expected in provenance['files'].items():
         data = (upstream / path).read_bytes()
@@ -70,4 +72,7 @@ def verify():
 
 
 if __name__ == '__main__':
-    print(json.dumps(verify(), indent=2))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--source-root', help='Frozen repository-shaped source snapshot; defaults to current sources')
+    args = parser.parse_args()
+    print(json.dumps(verify(args.source_root), indent=2))
