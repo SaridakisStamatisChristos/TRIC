@@ -6,6 +6,7 @@ No upstream code is patched; the required cstdint include is a compiler flag.
 import argparse
 import hashlib
 import json
+import shlex
 import shutil
 import subprocess
 from pathlib import Path
@@ -45,12 +46,21 @@ def build(args):
             objects.extend(map(str,entries))
     commands=[]
     for name,headers in [('previous',before),('candidate',ROOT)]:
-        command=common+['-I'+str(headers),'-I'+str(ROOT),str(source),*objects,'-o',str(output/name)]
+        dependency_file=output/(name+'.d')
+        command=common+['-MMD','-MF',str(dependency_file),'-I'+str(headers),'-I'+str(ROOT),str(source),*objects,'-o',str(output/name)]
         result=subprocess.run(command,capture_output=True,text=True)
         (output/(name+'-compile.stderr')).write_text(result.stderr)
         result.check_returncode()
+        dependencies=shlex.split(dependency_file.read_text().replace('\\\n','').split(':',1)[1])
+        runtime_names={p.name for p in headers.glob('*.h')}
+        selected={Path(p).name:Path(p).resolve() for p in dependencies if Path(p).name in runtime_names}
+        if not {'tric_reachability.h','partitioned_reachability.h','closure_index.h','scc_decomposition.h'}<=selected.keys():
+            raise ValueError('missing compiled runtime dependencies')
+        if any(path!=headers/key for key,path in selected.items()):
+            raise ValueError('compiler selected a different runtime header directory')
         commands.append({'name':name,'command':command,'executable_sha256':digest(output/name),
-                         'runtime_source_hashes':{p.name:digest(p) for p in headers.glob('*.h')}})
+                         'runtime_source_hashes':{p.name:digest(p) for p in headers.glob('*.h')},
+                         'selected_runtime_dependencies':{str(path):digest(path) for path in selected.values()}})
     manifest={'compiler':subprocess.check_output([args.compiler,'--version'],text=True).splitlines()[0],
               'source_sha256':digest(source),'oreach_sha':OREACH_SHA if args.oreach_source else None,
               'bfl_commit':'0c837927a3f2fa3fc633abeedd56cea6e75d3a9a',

@@ -1,0 +1,178 @@
+{
+  "schema": 1,
+  "arms": [
+    {
+      "name": "previous",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf28/final-build/previous",
+      "mode": "auto",
+      "executable_sha256": "8ad6d8cad9567b8eebb1efe0af34d02b4a3e248f6a75402591b3ba2f4b942180"
+    },
+    {
+      "name": "candidate",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf28/final-build/candidate",
+      "mode": "auto",
+      "executable_sha256": "d70aaf578be23ec978f2088e8ce90164fb50e8e5e1de7c6449e4984a505a1858"
+    },
+    {
+      "name": "bfl",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf28/final-build/candidate",
+      "mode": "bfl",
+      "executable_sha256": "d70aaf578be23ec978f2088e8ce90164fb50e8e5e1de7c6449e4984a505a1858"
+    },
+    {
+      "name": "oreach-pdfs",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf28/final-build/candidate",
+      "mode": "oreach-pdfs",
+      "executable_sha256": "d70aaf578be23ec978f2088e8ce90164fb50e8e5e1de7c6449e4984a505a1858"
+    },
+    {
+      "name": "oreach-pbibfs",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf28/final-build/candidate",
+      "mode": "oreach-pbibfs",
+      "executable_sha256": "d70aaf578be23ec978f2088e8ce90164fb50e8e5e1de7c6449e4984a505a1858"
+    },
+    {
+      "name": "pll",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf28/final-build/candidate",
+      "mode": "pll",
+      "executable_sha256": "d70aaf578be23ec978f2088e8ce90164fb50e8e5e1de7c6449e4984a505a1858"
+    },
+    {
+      "name": "ppl",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf28/final-build/candidate",
+      "mode": "ppl",
+      "executable_sha256": "d70aaf578be23ec978f2088e8ce90164fb50e8e5e1de7c6449e4984a505a1858"
+    }
+  ],
+  "cap_bytes": 2097152,
+  "trials": 7,
+  "horizons": [
+    100
+  ],
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "cpu_affinity": [
+      1
+    ],
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "timing_scope": "Paired fresh-process comparisons on pinned native input bytes.\n\nEach available arm BFS-verifies every query after its timed region. Repeats\nexecute frozen query pairs; they are not independent new requests. Includes\nparsing/build/query costs, excludes process startup, verification and teardown.\n",
+  "files": [
+    {
+      "fixture_sha256": "74ab9c9e8fd407b107cedcff5207e64716b409bedb4139deb01c50aa68a683c7",
+      "file": "example.json.gz",
+      "sha256": "e4f207d2864ecc07f907c913fd82f79350438538b5b7a3d28f45d3c32ee735f9",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "04d77a9aaedb7935763f003937163375140c05ae73c3f34491c5235d4ba35167",
+      "file": "generated_blocks.json.gz",
+      "sha256": "18a63b2b53c6626ba5a2cf231fdc242359a91d7179454bbbe1b2b8a689a9dd83",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "6285c3ac50d992038b92235e8fefdc4d51408272f3b1718061aa7bc7e62acf58",
+      "file": "generated_communities.json.gz",
+      "sha256": "76363382112568681d9572f29d71154cc4c05ae8593079f541711240787f692f",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "c5b0dd6b7579163ab8d9af5ba73e57c473555bb742872a265d5af55f584a1a51",
+      "file": "generated_dag.json.gz",
+      "sha256": "b58966b4c04743b5d044b9a7452d9a1a34cf4f62f488aec6dbd245cabec7189e",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "e98ab7f61df076bb33089ea8989510f9f0ca99f2379182aab56ef11248a95842",
+      "file": "grail_citeseer.json.gz",
+      "sha256": "ee2efceec5aacf778647d49400d1c71a8e74d68f79b34884e4e34248bc48d66d",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "8e0239e999a7728322b58a342e2eb7f830d933c160323f0af9cd0c3311a0aa1d",
+      "file": "grail_go.json.gz",
+      "sha256": "3263e91b5cd4acdf27051a6ec4d03613c1fbbab0b3f249d87818a36b03456c45",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "a0b31a5721547d251fe273dd1fa6535c3b922a89f5647f8bfd82739f0239f085",
+      "file": "grail_kegg.json.gz",
+      "sha256": "3e35c1dcf175bc91637c4c98f5b42c3086f4b73c44ac20ffb50b7eaf89700443",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "0f05607e4ae5ed100dba7b4a84778eb503a5de7b97b2985de5841c946078b194",
+      "file": "grail_pubmed.json.gz",
+      "sha256": "1fa615ca34ee902f4e31804385c732f4a99569cf6435b5a614917b9e2af7b79f",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "7970a2fd69aa9d875b9423e6f9fcde0fc13cfca1582678291ad916c23d8ce5ec",
+      "file": "grail_yago.json.gz",
+      "sha256": "c81cfbea987743b9d1ca16570997235e66fb7e2374da54e87c0c18ce28a19a9c",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "3d9d0646e32e9fb4ee233142d732a7bfb9775dd6e0f377ba1cbb4a13f7a6970e",
+      "file": "heldout_agrocyc.json.gz",
+      "sha256": "fe2a8322bd484187d058de0856a64a067318c92f0d7589a14f2e0721bb6ca085",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "693c5ff20d9693eb1e4074fd1d9f6b0e7553ca4ded02e07c65c1257a70ed93e7",
+      "file": "heldout_amaze.json.gz",
+      "sha256": "bdaa7687a622e2b35537071a195383c3c1fc32407ef6ebdb17a2e30b82268ce1",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "5c6b46b9b5b01c13c77533d56db54eabb4c2b85af972dd09fb79bf915bfa00df",
+      "file": "heldout_anthra.json.gz",
+      "sha256": "269c0b95532c0c668af295d976204ee333b27adbfc70aa98267cecf6c9e3ff60",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "837eadaacf22c0666f3f9f52f63a33c024a5fec89e33afc2c983c55ca75b8f42",
+      "file": "heldout_ecoo.json.gz",
+      "sha256": "093887501498c99187b79dafe79471b8e6b7dc067d45dc2683428c44353cd657",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "11b24a12fc6a37e69ba9c95818b44cb405f8c75167f11f02393efc5b7c247e2f",
+      "file": "heldout_human.json.gz",
+      "sha256": "a7f984e5d9b92e900563a3c15f401f6d3a68d7bc1644ac4cedb06bf218460f97",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "dae67ea1d2a7ccdbe578f5dbf9eaece98ff79c27fea89030cbcb68e6fc1ca7d6",
+      "file": "heldout_mtbrv.json.gz",
+      "sha256": "e6956ebf92220680406d127bc5ed3d8445dc0d06a4bd771b0bd021f365436fbe",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "81c255cabf2ef254e2f9c48fe77b7f79a7141b250f8bd8dddd98150548bb1e8e",
+      "file": "heldout_nasa.json.gz",
+      "sha256": "f0760e781cc36993f9d2ad614fe57cb187ba7830b260668472a319d1810ccbac",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "d42be1976af13984556d96684af8d304a2edc95ba9d9d182cc8bc41bd047ab1c",
+      "file": "heldout_vchocyc.json.gz",
+      "sha256": "925c9751e185d60f0bdf453e452b0fef5b60ee53197d725cb24c63c5bca30917",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "1df4bae6901a00d9c4cb36a6c7d4da0aedb5f772f1a0eb9bad93c7eea96b4057",
+      "file": "heldout_xmark.json.gz",
+      "sha256": "3d672fb4468c74757893c0bb0f835f959c4e7d42bee3ea3332e15ae8ee34a2ad",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "0b4e5ffe37e311697ee4bbfed56f4a3fb8008a05ca880befd43cfd3a05c0c085",
+      "file": "kron_logn12.json.gz",
+      "sha256": "5214ab68009a33b2975abe4cf69178746fedbede7ca9cc99d7997489e4299dd1",
+      "cells": 12
+    }
+  ],
+  "complete": true
+}

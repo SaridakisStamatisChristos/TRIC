@@ -27,8 +27,10 @@ class PartitionedReachability {
     std::size_t offset = 0, stride = 0;
   };
   struct alignas(32) Label {
-    // Interval rows use auxiliary=count and route=offset. Other modes pack
-    // forward/backward depths in auxiliary; route is a chain ID or SCC ID.
+    // Interval labels tag group as -group_id-1; auxiliary=count, route=offset,
+    // local=first range begin, tree_end=first range end, tree_begin=self preorder.
+    // Other modes pack forward/backward depths in auxiliary; route is a chain
+    // ID or SCC ID, and tree_begin/tree_end retain the DFS subtree.
     std::uint32_t auxiliary=0;
     int group=0, local=0;
     std::uint32_t route=0;
@@ -323,8 +325,13 @@ private:
          (static_cast<std::uint32_t>(std::min(backward[a],65535))<<16));
       const auto route=part.mode==Mode::intervals?row.offset:
         static_cast<std::uint32_t>(part.mode==Mode::search?a:chain_[a]);
-      vertex_labels_[u]=Label{auxiliary,group_[a],local_[a],route,
-        tree_begin[a],tree_end[a],signature[a]};
+      // Cache an exact first range in fields unused by interval membership.
+      // Retain the Bloom signature and original SCC preorder for all labels.
+      const bool interval=part.mode==Mode::intervals;
+      const auto first=interval?intervals_[row.offset]:Interval{};
+      vertex_labels_[u]=Label{auxiliary,interval?-group_[a]-1:group_[a],
+        interval?static_cast<int>(first.first):local_[a],route,
+        tree_begin[a],interval?static_cast<int>(first.end):tree_end[a],signature[a]};
     }
     if (needs_search) {
       // Free reverse adjacency before allocating compact forward CSR.
@@ -349,6 +356,18 @@ public:
         || static_cast<std::size_t>(target)>=vertex_labels_.size()) throw std::out_of_range("query endpoint");
     const auto& from=vertex_labels_[source];const auto& to=vertex_labels_[target];
     if ((from.signature & to.signature)!=to.signature)return false;
+    if(from.group<0) {
+      // All DFS preorder coordinates are globally unique across SCCs. A full
+      // closure interval contains only reachable SCCs, even across DFS trees;
+      // no partition/equality/topological certificate is needed on this route.
+      const auto target=static_cast<std::uint32_t>(to.tree_begin);
+      if(target-static_cast<std::uint32_t>(from.local)<
+         static_cast<std::uint32_t>(from.tree_end-from.local))return true;
+      if(from.auxiliary==1)return false;
+      const auto first=intervals_.begin()+from.route+1,last=first+from.auxiliary-1;
+      const auto it=std::upper_bound(first,last,target,[](std::uint32_t value,const Interval& range){return value<range.first;});
+      return it!=first && target<(it-1)->end;
+    }
     if (from.tree_begin==to.tree_begin) return true;
     if (from.group!=to.group || from.local>to.local) return false;
     if(from.tree_begin<=to.tree_begin && to.tree_begin<from.tree_end)return true;
@@ -358,12 +377,6 @@ public:
     if (p.mode==Mode::bits) {
       const std::size_t bp=static_cast<std::size_t>(to.local);
       return (bits_[p.offset+std::size_t(from.local)*p.stride+(bp>>6)]>>(bp&63))&1U;
-    }
-    if (p.mode==Mode::intervals) {
-      const auto first=intervals_.begin()+from.route,last=first+from.auxiliary;
-      const auto target=static_cast<std::uint32_t>(to.tree_begin);
-      const auto it=std::upper_bound(first,last,target,[](std::uint32_t value,const Interval& range){return value<range.first;});
-      return it!=first && target<(it-1)->end;
     }
     if (p.mode==Mode::compressed) {
       const Row& row=rows_[p.offset+static_cast<std::size_t>(from.local)];

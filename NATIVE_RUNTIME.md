@@ -43,7 +43,12 @@ refuses the budget, the partition retains exact topologically bounded search.
 The general partitioned backend keeps one 32-byte label per original vertex. Its 64-bit signature packs a
 32-bit descendant filter and the complement of a 32-bit ancestor filter. One
 subset check tests both necessary conditions; collisions weaken rejection and
-never prove reachability. DFS subtree containment is an exact positive
+never prove reachability. Interval-mode labels cache the first exact closure range in existing fields,
+retain the same Bloom prefix, and search only the remaining ranges on a miss.
+Their negative group tag distinguishes this format; label/table sizes do not
+grow. Other modes retain the original local-order and DFS fields.
+
+DFS subtree containment is an exact positive
 certificate. Remaining queries use the selected exact table or search.
 
 Interval partitions copy their row offset and count into existing label fields,
@@ -124,7 +129,9 @@ The subsequent query-path comparison, complete ablations and remaining losses
 are in `tric_research/PHASE_XXVI_RESEARCH_REPORT.md` and
 `tric_research/evidence/phase26/`. Forest/CSR scale qualification, original PLL/PPL
 comparisons, rejected variants and all regressions are documented in
-`tric_research/PHASE_XXVII_RESEARCH_REPORT.md` and `tric_research/evidence/phase27/`.
+`tric_research/PHASE_XXVII_RESEARCH_REPORT.md` and `tric_research/evidence/phase27/`. The subsequent first-range cache, matched
+compiler-dependency checks and complete qualification are in
+`tric_research/PHASE_XXVIII_RESEARCH_REPORT.md` and `tric_research/evidence/phase28/`.
 The benchmark-only BFL and PLL/PPL sources retain their upstream MIT licenses and are not
 runtime dependencies. Build the comparator with:
 

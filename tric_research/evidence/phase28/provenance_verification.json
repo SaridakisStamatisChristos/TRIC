@@ -1,0 +1,12 @@
+{
+  "runtime_commit": "3505d6390e24f30515d78f90c0fed43e7a6e4bb8",
+  "baseline_commit": "49eafb9b8cc06ff15b9f71058e2eb8770fc50961",
+  "matched_runtime_dependencies": "passed",
+  "baseline_reproduces_phase27_binary": true,
+  "same_table_payload_and_retained_capacities_in_every_accepted_trial": true,
+  "all_accepted_runs_sealed": true,
+  "same_comparison_source_as_reference26": true,
+  "native_local_test_methods": 34,
+  "local_ASAN_UBSAN": "passed; only local LeakSanitizer disabled",
+  "experiments_sha256": "0bcfe8258239b51d945f34125e1541df1de9c09d80fb6ae2c5b4a1cba45517fd"
+}

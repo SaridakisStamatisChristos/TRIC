@@ -1,0 +1,154 @@
+{
+  "schema": 1,
+  "arms": [
+    {
+      "name": "previous",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf28/final-build/previous",
+      "mode": "auto",
+      "executable_sha256": "8ad6d8cad9567b8eebb1efe0af34d02b4a3e248f6a75402591b3ba2f4b942180"
+    },
+    {
+      "name": "candidate",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf28/final-build/candidate",
+      "mode": "auto",
+      "executable_sha256": "d70aaf578be23ec978f2088e8ce90164fb50e8e5e1de7c6449e4984a505a1858"
+    },
+    {
+      "name": "pr26",
+      "executable": "/workspace/scratch/1b79db4f9fc0/perf27/final-v2-build/previous",
+      "mode": "auto",
+      "executable_sha256": "763c3a623606eb07d88b82a484715cedf850e79fb27ce316037d70fc3e96a828"
+    }
+  ],
+  "cap_bytes": 2097152,
+  "trials": 6,
+  "horizons": [
+    3000
+  ],
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "cpu_affinity": [
+      1
+    ],
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "timing_scope": "Paired fresh-process comparisons on pinned native input bytes.\n\nEach available arm BFS-verifies every query after its timed region. Repeats\nexecute frozen query pairs; they are not independent new requests. Includes\nparsing/build/query costs, excludes process startup, verification and teardown.\n",
+  "files": [
+    {
+      "fixture_sha256": "74ab9c9e8fd407b107cedcff5207e64716b409bedb4139deb01c50aa68a683c7",
+      "file": "example.json.gz",
+      "sha256": "8d799de205e99b99cffc036eff5d3624b6410d1c8f06b463d61382a6a976bb26",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "04d77a9aaedb7935763f003937163375140c05ae73c3f34491c5235d4ba35167",
+      "file": "generated_blocks.json.gz",
+      "sha256": "f7e72c78405d738cab8c0be26c423f563edad7e3949aeb4cfa3c864804a09194",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "6285c3ac50d992038b92235e8fefdc4d51408272f3b1718061aa7bc7e62acf58",
+      "file": "generated_communities.json.gz",
+      "sha256": "e9ad174e491ec7257d7ac6a7e409763aa176acaeb7627c14391f72a06b879fe7",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "c5b0dd6b7579163ab8d9af5ba73e57c473555bb742872a265d5af55f584a1a51",
+      "file": "generated_dag.json.gz",
+      "sha256": "6ed4f11a89d672d52cb2389a7caa43147c0329b410e62ab5d770253e5bb61576",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "e98ab7f61df076bb33089ea8989510f9f0ca99f2379182aab56ef11248a95842",
+      "file": "grail_citeseer.json.gz",
+      "sha256": "84140cdb35b733c266b2688a2336c86412009fb4c83ea89d8185632b5e61df06",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "8e0239e999a7728322b58a342e2eb7f830d933c160323f0af9cd0c3311a0aa1d",
+      "file": "grail_go.json.gz",
+      "sha256": "b013366ad93da8311307f393a2114be7eb1a0530ae73a99208bc02ab9025a148",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "a0b31a5721547d251fe273dd1fa6535c3b922a89f5647f8bfd82739f0239f085",
+      "file": "grail_kegg.json.gz",
+      "sha256": "dd861c77c165b82763c4af1fc1d5cf8c9a99d827578879143c5fcf65910d6272",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "0f05607e4ae5ed100dba7b4a84778eb503a5de7b97b2985de5841c946078b194",
+      "file": "grail_pubmed.json.gz",
+      "sha256": "34c98c7afb17d664a70bae9fc0f3c7ee64dff8d77d215b002c818abc15072254",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "7970a2fd69aa9d875b9423e6f9fcde0fc13cfca1582678291ad916c23d8ce5ec",
+      "file": "grail_yago.json.gz",
+      "sha256": "e667fef7ca362e85154a5a344dfa8aaff9a6b48b27aa5a1894ddb018a37867cb",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "3d9d0646e32e9fb4ee233142d732a7bfb9775dd6e0f377ba1cbb4a13f7a6970e",
+      "file": "heldout_agrocyc.json.gz",
+      "sha256": "bc367fea51ac74b6ea464ed7ba9d9fedbae047449ebf15f65d5b60c3368f5ca8",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "693c5ff20d9693eb1e4074fd1d9f6b0e7553ca4ded02e07c65c1257a70ed93e7",
+      "file": "heldout_amaze.json.gz",
+      "sha256": "6c2ea0a8d2ac8f89625627c1ea7b6b70d103eb09e82b52ca4e1684e367ef6466",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "5c6b46b9b5b01c13c77533d56db54eabb4c2b85af972dd09fb79bf915bfa00df",
+      "file": "heldout_anthra.json.gz",
+      "sha256": "f495c3a4897ecf3beca114e3dff818740ce75f65f10763ed62506f59fa62d648",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "837eadaacf22c0666f3f9f52f63a33c024a5fec89e33afc2c983c55ca75b8f42",
+      "file": "heldout_ecoo.json.gz",
+      "sha256": "34bf2f3260ab6bfc4ba7f9c7536755ce1790669f80ac78aa4898018a7a7fab02",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "11b24a12fc6a37e69ba9c95818b44cb405f8c75167f11f02393efc5b7c247e2f",
+      "file": "heldout_human.json.gz",
+      "sha256": "3f0f63c64ae9482566474391d379e17097d2e82c9570629fd40a2c2c15ec957c",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "dae67ea1d2a7ccdbe578f5dbf9eaece98ff79c27fea89030cbcb68e6fc1ca7d6",
+      "file": "heldout_mtbrv.json.gz",
+      "sha256": "df0b31fc74382385173d22ea3512bcbf7de92f2cdc156a125c55d5f1017a7fd9",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "81c255cabf2ef254e2f9c48fe77b7f79a7141b250f8bd8dddd98150548bb1e8e",
+      "file": "heldout_nasa.json.gz",
+      "sha256": "31f7d272b3ec84de147c88694b129f78b72033340466d5b47f4b6beafb27971c",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "d42be1976af13984556d96684af8d304a2edc95ba9d9d182cc8bc41bd047ab1c",
+      "file": "heldout_vchocyc.json.gz",
+      "sha256": "4cff7c2db9a708c672dd61de134a0d1a645ad14480f04b9fe24e8aa4f0594211",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "1df4bae6901a00d9c4cb36a6c7d4da0aedb5f772f1a0eb9bad93c7eea96b4057",
+      "file": "heldout_xmark.json.gz",
+      "sha256": "8db4bf9954d4bdf84297fb2486a78ba2b83dc886c266a74a1367042119dec502",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "0b4e5ffe37e311697ee4bbfed56f4a3fb8008a05ca880befd43cfd3a05c0c085",
+      "file": "kron_logn12.json.gz",
+      "sha256": "f42eecb03d2ed3843a9a45a8446835b909d81bc0bcfa1afdbb9a4b2cedec0fca",
+      "cells": 12
+    }
+  ],
+  "complete": true
+}
