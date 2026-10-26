@@ -1,0 +1,85 @@
+{
+  "baseline_commit": "4baa1a8b9a19d86bff33e304849e76ed77a7d511",
+  "selection": "Plain widest-range stable rotation selected after three exploratory pilots. Preserve Bloom-first query code. Degree-order and Bloom-order variants rejected. Freeze candidate before fresh fixtures and qualification.",
+  "candidate_header_sha256": "03034b0ec7bee25d1bb522a127d995604affde97d2d500ec491ce6ec4974aa94",
+  "cap_bytes": 2097152,
+  "scratch_default_bytes": 67108864,
+  "cpu": 1,
+  "claim_boundary": "Local paired improvement only; all historical inputs exposed, fresh synthetic distributions are not independent real-world replication; no global SOTA or novelty claim.",
+  "runs": [
+    {
+      "tag": "fresh",
+      "fixtures": "evidence/phase29/fresh-fixtures",
+      "arms": [
+        "previous",
+        "candidate"
+      ],
+      "trials": 4,
+      "horizons": [
+        1,
+        1000
+      ],
+      "previous_build": "corrected"
+    },
+    {
+      "tag": "native",
+      "fixtures": "evidence/phase25/fixtures",
+      "arms": [
+        "previous",
+        "candidate",
+        "pr28"
+      ],
+      "trials": 6,
+      "horizons": [
+        3000
+      ],
+      "previous_build": "corrected"
+    },
+    {
+      "tag": "external",
+      "fixtures": "evidence/phase25/fixtures",
+      "arms": [
+        "previous",
+        "candidate",
+        "bfl",
+        "oreach-pdfs",
+        "oreach-pbibfs",
+        "pll",
+        "ppl"
+      ],
+      "trials": 7,
+      "horizons": [
+        100
+      ],
+      "previous_build": "original"
+    },
+    {
+      "tag": "forest-warm",
+      "fixtures": "evidence/phase27/large-fixtures",
+      "arms": [
+        "previous",
+        "candidate"
+      ],
+      "trials": 4,
+      "horizons": [
+        1000
+      ],
+      "previous_build": "original"
+    },
+    {
+      "tag": "forest-fresh",
+      "fixtures": "evidence/phase27/fresh-fixtures",
+      "arms": [
+        "previous",
+        "candidate"
+      ],
+      "trials": 4,
+      "horizons": [
+        1
+      ],
+      "previous_build": "original"
+    }
+  ],
+  "amendment": "Correctness counterexample on fresh cross-linked chains invalidates cache-only candidate. Final native/fresh comparisons use a chain-corrected control; native also retains original PR28 as third arm. All preliminary results are superseded, retained, never pooled. Fresh distributions now exposed for correctness repair, not used to retune performance.",
+  "runtime_commit": "e5a63e8f429b089439d294362f2629145f349d85"
+}

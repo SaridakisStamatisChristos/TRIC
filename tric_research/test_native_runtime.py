@@ -37,6 +37,7 @@ class PartitionedTests(unittest.TestCase):
         self.assertGreater(data['interval_indexes'],4096)
         self.assertEqual(data['forest_checks'],720*2*12*12)
         self.assertEqual(data['packed_checks'],6**4)
+        self.assertEqual(data['cross_chain_checks'],2*3*160*160)
     def test_random_relabelled_cyclic_and_acyclic(self):
         r=random.Random(20261023)
         for n in (9,40,130):
@@ -121,6 +122,26 @@ class PartitionedTests(unittest.TestCase):
         self.assertEqual(data['interval_partitions'],1)
         self.assertEqual(data['indexed_components'],n)
         self.assertEqual(data['table_bytes'],16*n)
+
+    def test_cached_interval_residuals_all_pairs(self):
+        # Unequal reachable sink blocks, with gaps on both sides, exercise
+        # cached ranges that need not be the first or last sorted interval.
+        # Permutations and SCC aliases prevent dependence on original IDs.
+        n=512
+        original=[[] for _ in range(n)]
+        original[0]=list(range(1,n))
+        for u in range(1,64):
+            for start,width in ((128+u%17,1),(192+u%23,3),
+                                (288+u%19,11),(416+u%13,5)):
+                original[u].extend(range(start,start+width))
+        original[64]=[65];original[65]=[64,128,193,300,420]
+        r=random.Random(29017);perm=list(range(n));r.shuffle(perm)
+        g=[[] for _ in range(n)]
+        for u,row in enumerate(original):g[perm[u]]=[perm[v] for v in row]
+        queries=[(u,v) for u in range(n) for v in range(n)]
+        data=self.run_graph(g,queries,16000)
+        self.assertEqual(data['interval_partitions'],1)
+        self.assertEqual(data['indexed_components'],n-1)
 
     def test_interval_failure_rolls_back_between_partitions(self):
         r=random.Random(20261023)

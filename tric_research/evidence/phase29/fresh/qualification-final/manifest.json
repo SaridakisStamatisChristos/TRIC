@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "arms": [
+    {
+      "name": "previous",
+      "executable": "/workspace/scratch/750cc954fdb8/tric-work/control-build/previous",
+      "mode": "auto",
+      "executable_sha256": "847ca9463e9e29c97361b18451c58b46e3d900dfb43473dabe473870bcf52b3e"
+    },
+    {
+      "name": "candidate",
+      "executable": "/workspace/scratch/750cc954fdb8/tric-work/repaired-build/candidate",
+      "mode": "auto",
+      "executable_sha256": "e6550a96854bc092866a4987fc10051d6095959c91e193feb2ad82ebea9491e5"
+    }
+  ],
+  "cap_bytes": 2097152,
+  "trials": 4,
+  "horizons": [
+    1,
+    1000
+  ],
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "cpu_affinity": [
+      1
+    ],
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "timing_scope": "Paired fresh-process comparisons on pinned native input bytes.\n\nEach available arm BFS-verifies every query after its timed region. Repeats\nexecute frozen query pairs; they are not independent new requests. Includes\nparsing/build/query costs, excludes process startup, verification and teardown.\n",
+  "files": [
+    {
+      "fixture_sha256": "47004bb86536e8f98dad9751cf7eadf4696bed439c69849f570ca95ab287f188",
+      "file": "fresh_cross_chains.json.gz",
+      "sha256": "caa8a5d9b00110e45b913d03b748eeeddeb98a905fe00e0c7bea949bf7bbde9f",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "a0d92d4c0908b736f6a5f1577a50198a2aee5cf5d55a43d444da0f62a1f92940",
+      "file": "fresh_fragmented.json.gz",
+      "sha256": "699c7d5c16d841cf7c9b6f42637ca09dcb21413cad26be0dc49d74e1800ec01d",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "26879db87ae54f42b6719aa7c7ad40775b63a6ec942c6e2d9ad4c6788e3ced35",
+      "file": "fresh_scc_aliases.json.gz",
+      "sha256": "13f92bb85a4b960abaf78ea6d2a7a01e4c1a69570c81c61602962e242ec4b75e",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "245fc362dd9f1ee20ce04c9fa5403a6cab3c65e1d47713b1c3aea51382f5b866",
+      "file": "fresh_shared_hubs.json.gz",
+      "sha256": "f7025671ab9b8ea24f6b3ebc36ace0a73ad95a3d4a6ffe2868e422fe6d047d88",
+      "cells": 8
+    }
+  ],
+  "complete": true
+}

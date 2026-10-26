@@ -1,4 +1,5 @@
 """Verify current sources, selected compiler dependencies and experiment exclusions."""
+import argparse
 import base64
 import gzip
 import hashlib
@@ -10,12 +11,13 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def verify():
+def verify(source_root=None):
     source = Path(__file__).resolve().parent
     root = source / 'evidence/phase28'
+    frozen = Path(source_root).resolve() if source_root is not None else source.parent
     hashes = json.loads((root / 'source_hashes.json').read_text())
     for path, expected in hashes['sha256'].items():
-        assert sha((source.parent / path).read_bytes()) == expected, path
+        assert sha((frozen / path).read_bytes()) == expected, path
     for path, expected in hashes['artifact_sha256'].items():
         assert sha((root / path).read_bytes()) == expected, path
     build = json.loads((root / 'build_manifest.json').read_text())
@@ -26,7 +28,7 @@ def verify():
         assert build[key] == reference[key], key
     binaries = {a['name']: a['executable_sha256'] for a in build['commands']}
     for arm in build['commands']:
-        headers = source if arm['name'] == 'candidate' else root / 'baseline-sources/tric_research'
+        headers = frozen / 'tric_research' if arm['name'] == 'candidate' else root / 'baseline-sources/tric_research'
         selected = arm['selected_runtime_dependencies']
         assert len(selected) == 8
         for path, expected in selected.items():
@@ -99,4 +101,6 @@ def verify():
 
 
 if __name__ == '__main__':
-    print(json.dumps(verify(), indent=2))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--source-root', help='Repository-shaped frozen source snapshot')
+    print(json.dumps(verify(parser.parse_args().source_root), indent=2))

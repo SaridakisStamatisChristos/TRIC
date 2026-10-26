@@ -1,0 +1,77 @@
+{
+  "baseline_commit": "4baa1a8b9a19d86bff33e304849e76ed77a7d511",
+  "selection": "Plain widest-range stable rotation selected after three exploratory pilots. Preserve Bloom-first query code. Degree-order and Bloom-order variants rejected. Freeze candidate before fresh fixtures and qualification.",
+  "candidate_header_sha256": "a73a4f47e15ad4d3128af396e62b937ec68aa55bee69c457a5d17e6b2365e000",
+  "cap_bytes": 2097152,
+  "scratch_default_bytes": 67108864,
+  "cpu": 1,
+  "claim_boundary": "Local paired improvement only; all historical inputs exposed, fresh synthetic distributions are not independent real-world replication; no global SOTA or novelty claim.",
+  "runs": [
+    {
+      "tag": "native",
+      "fixtures": "evidence/phase25/fixtures",
+      "arms": [
+        "previous",
+        "candidate"
+      ],
+      "trials": 6,
+      "horizons": [
+        3000
+      ]
+    },
+    {
+      "tag": "external",
+      "fixtures": "evidence/phase25/fixtures",
+      "arms": [
+        "previous",
+        "candidate",
+        "bfl",
+        "oreach-pdfs",
+        "oreach-pbibfs",
+        "pll",
+        "ppl"
+      ],
+      "trials": 7,
+      "horizons": [
+        100
+      ]
+    },
+    {
+      "tag": "fresh",
+      "fixtures": "evidence/phase29/fresh-fixtures",
+      "arms": [
+        "previous",
+        "candidate"
+      ],
+      "trials": 4,
+      "horizons": [
+        1,
+        1000
+      ]
+    },
+    {
+      "tag": "forest-warm",
+      "fixtures": "evidence/phase27/large-fixtures",
+      "arms": [
+        "previous",
+        "candidate"
+      ],
+      "trials": 4,
+      "horizons": [
+        1000
+      ]
+    },
+    {
+      "tag": "forest-fresh",
+      "fixtures": "evidence/phase27/fresh-fixtures",
+      "arms": [
+        "previous",
+        "candidate"
+      ],
+      "trials": 4,
+      "horizons": [
+        1
+      ]
+    }
+  ]
+}
