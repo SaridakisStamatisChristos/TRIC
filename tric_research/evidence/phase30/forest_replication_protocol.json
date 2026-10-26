@@ -1,0 +1,16 @@
+{
+  "reason": "Investigate the large single-pass forest query regression; retain original results; no runtime changes or tuning",
+  "fixtures": "evidence/phase27/fresh-fixtures",
+  "trials": 12,
+  "horizons": [
+    1
+  ],
+  "cpu": 1,
+  "cap_bytes": 2097152,
+  "arms": [
+    "previous",
+    "candidate"
+  ],
+  "candidate_header_sha256": "cf414e68113cb142212f743e922a40e72a2e5ccfdcdedeeae9383cd7a155031b",
+  "stop": "Complete both graphs and all 12 balanced trial pairs exactly once; do not rerun until favorable"
+}

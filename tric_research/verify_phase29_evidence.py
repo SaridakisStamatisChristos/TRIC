@@ -1,4 +1,5 @@
 """Verify frozen sources, matched builds, all qualified inputs and rejected pilots."""
+import argparse
 import base64
 import gzip
 import hashlib
@@ -12,16 +13,17 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def verify():
+def verify(source_root=None):
     source=Path(__file__).resolve().parent
     root=source/'evidence/phase29'
+    frozen=Path(source_root).resolve()/'tric_research' if source_root is not None else source
     hashes=json.loads((root/'source_hashes.json').read_text())
     for name,expected in hashes['sources'].items():
-        assert sha((source/name).read_bytes())==expected,name
+        assert sha((frozen/name).read_bytes())==expected,name
     for name,expected in hashes['artifacts'].items():
         assert sha((root/name).read_bytes())==expected,name
     protocol=json.loads((root/'qualification_protocol.json').read_text())
-    assert sha((source/'partitioned_reachability.h').read_bytes())==protocol['candidate_header_sha256']
+    assert sha((frozen/'partitioned_reachability.h').read_bytes())==protocol['candidate_header_sha256']
     build=json.loads((root/'build_manifest.json').read_text())
     previous_build=json.loads((source/'evidence/phase28/build_manifest.json').read_text())
     old=next(a for a in previous_build['commands'] if a['name']=='candidate')
@@ -37,7 +39,7 @@ def verify():
     binaries={}
     for arm in build['commands']:
         binaries[arm['name']]=arm['executable_sha256']
-        headers=source if arm['name']=='candidate' else root/'baseline-sources/tric_research'
+        headers=frozen if arm['name']=='candidate' else root/'baseline-sources/tric_research'
         assert len(arm['selected_runtime_dependencies'])==8
         for name,expected in arm['runtime_source_hashes'].items():
             assert sha((headers/name).read_bytes())==expected,name
@@ -52,14 +54,14 @@ def verify():
     corrected=next(a for a in control['commands'] if a['name']=='previous')
     assert next(a for a in control['commands'] if a['name']=='candidate')['executable_sha256']==binaries['candidate']
     for name,expected in corrected['runtime_source_hashes'].items():
-        path=root/'corrected-control'/name if name=='partitioned_reachability.h' else source/name
+        path=root/'corrected-control'/name if name=='partitioned_reachability.h' else frozen/name
         assert sha(path.read_bytes())==expected,name
     assert len(corrected['selected_runtime_dependencies'])==8
     for name,expected in corrected['selected_runtime_dependencies'].items():
         basename=Path(name).name
-        path=root/'corrected-control'/basename if basename=='partitioned_reachability.h' else source/basename
+        path=root/'corrected-control'/basename if basename=='partitioned_reachability.h' else frozen/basename
         assert sha(path.read_bytes())==expected,name
-    current=(source/'partitioned_reachability.h').read_text()
+    current=(frozen/'partitioned_reachability.h').read_text()
     start=current.index('    // Closure union must see sorted complete rows.')
     end=current.index('    labels_.shrink_to_fit(); bits_.shrink_to_fit();',start)
     assert (root/'corrected-control/partitioned_reachability.h').read_text()==current[:start]+current[end:]
@@ -146,4 +148,6 @@ def verify():
 
 
 if __name__=='__main__':
-    print(json.dumps(verify(),indent=2))
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--source-root",help="Repository-shaped frozen source snapshot")
+    print(json.dumps(verify(parser.parse_args().source_root),indent=2))

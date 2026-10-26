@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "arms": [
+    {
+      "name": "previous",
+      "executable": "/workspace/scratch/750cc954fdb8/tric-phase30/qualified-build/previous",
+      "mode": "auto",
+      "executable_sha256": "e6550a96854bc092866a4987fc10051d6095959c91e193feb2ad82ebea9491e5"
+    },
+    {
+      "name": "candidate",
+      "executable": "/workspace/scratch/750cc954fdb8/tric-phase30/qualified-build/candidate",
+      "mode": "auto",
+      "executable_sha256": "12cbc59121898bdfb985f8ec88df304d2d2a3a88cc7a92cb7328bd542a5580e7"
+    }
+  ],
+  "cap_bytes": 2097152,
+  "trials": 4,
+  "horizons": [
+    1,
+    1000
+  ],
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "cpu_affinity": [
+      1
+    ],
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "timing_scope": "Paired fresh-process comparisons on pinned native input bytes.\n\nEach available arm BFS-verifies every query after its timed region. Repeats\nexecute frozen query pairs; they are not independent new requests. Includes\nparsing/build/query costs, excludes process startup, verification and teardown.\n",
+  "files": [
+    {
+      "fixture_sha256": "83c8b2d69717c3936c4aeba2685b0b3ab5bb7c5b25dd27f4241deab591b39841",
+      "file": "phase30_cross_chains.json.gz",
+      "sha256": "61ab13d62f0910112d12b30d2e66c94edd690dca0c8f374dbfbb54bc099580ca",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "30973a5c8df1bfe9e1838833a13806c59f5424d4a1963118b15f10ebadc9c5a2",
+      "file": "phase30_fragmented.json.gz",
+      "sha256": "bca5a4c175e61d2edf91960c1c0affbaab60db676e73ed14e8f7b600df4f13a6",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "f762dc6778902eabb30c4eccc368cce90be6499ee3ae02e1177facaab58ebaf2",
+      "file": "phase30_scc_aliases.json.gz",
+      "sha256": "66ff475e01d75e0df9c86b75ccc70433ad3b5477d8f766c30254509af37213db",
+      "cells": 8
+    },
+    {
+      "fixture_sha256": "16b289bf3223c42c543fa2e10a49f4a8aed71a63997c0f67a25fe1bc77afce7b",
+      "file": "phase30_shared_hubs.json.gz",
+      "sha256": "ac99a1b7e0f3292cffd8f124cb625ae0b2e1d1c9fd4971305c286189fb8bdbe1",
+      "cells": 8
+    }
+  ],
+  "complete": true
+}

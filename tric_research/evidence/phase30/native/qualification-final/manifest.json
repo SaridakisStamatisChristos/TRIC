@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "arms": [
+    {
+      "name": "previous",
+      "executable": "/workspace/scratch/750cc954fdb8/tric-phase30/qualified-build/previous",
+      "mode": "auto",
+      "executable_sha256": "e6550a96854bc092866a4987fc10051d6095959c91e193feb2ad82ebea9491e5"
+    },
+    {
+      "name": "candidate",
+      "executable": "/workspace/scratch/750cc954fdb8/tric-phase30/qualified-build/candidate",
+      "mode": "auto",
+      "executable_sha256": "12cbc59121898bdfb985f8ec88df304d2d2a3a88cc7a92cb7328bd542a5580e7"
+    }
+  ],
+  "cap_bytes": 2097152,
+  "trials": 4,
+  "horizons": [
+    2000
+  ],
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "cpu_affinity": [
+      1
+    ],
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "timing_scope": "Paired fresh-process comparisons on pinned native input bytes.\n\nEach available arm BFS-verifies every query after its timed region. Repeats\nexecute frozen query pairs; they are not independent new requests. Includes\nparsing/build/query costs, excludes process startup, verification and teardown.\n",
+  "files": [
+    {
+      "fixture_sha256": "74ab9c9e8fd407b107cedcff5207e64716b409bedb4139deb01c50aa68a683c7",
+      "file": "example.json.gz",
+      "sha256": "81694660004d2caeadfbc12d599f3815b4ea4d43263ffe30e44033fc246700a8",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "04d77a9aaedb7935763f003937163375140c05ae73c3f34491c5235d4ba35167",
+      "file": "generated_blocks.json.gz",
+      "sha256": "27e5b07b66097e612148a68c6b03075ff3ebb7cd8f63f7c7d60ff1a347f7f34c",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "6285c3ac50d992038b92235e8fefdc4d51408272f3b1718061aa7bc7e62acf58",
+      "file": "generated_communities.json.gz",
+      "sha256": "4fdb11a1e691abac7c1abbd8baf49225d2c374062cf80ae51e5650109f237738",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "c5b0dd6b7579163ab8d9af5ba73e57c473555bb742872a265d5af55f584a1a51",
+      "file": "generated_dag.json.gz",
+      "sha256": "4fb458865139f0b93ed8dad04e3beb05ecfaa43bd9df5defcc8a2a88cf3bdb12",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "e98ab7f61df076bb33089ea8989510f9f0ca99f2379182aab56ef11248a95842",
+      "file": "grail_citeseer.json.gz",
+      "sha256": "7173d3dbfd510c6d708fd64874e38d8070c9c92986bbb9b4ebfc4f37cae12468",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "8e0239e999a7728322b58a342e2eb7f830d933c160323f0af9cd0c3311a0aa1d",
+      "file": "grail_go.json.gz",
+      "sha256": "362b110e4760d76cecd1e2799f0c5d91a7aa41679467b5c4a8587f69cbce9de7",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "a0b31a5721547d251fe273dd1fa6535c3b922a89f5647f8bfd82739f0239f085",
+      "file": "grail_kegg.json.gz",
+      "sha256": "d1bb9862694697f7fede9ec3ea35573473dfb9afcbb55d88e49365445bf862d9",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "0f05607e4ae5ed100dba7b4a84778eb503a5de7b97b2985de5841c946078b194",
+      "file": "grail_pubmed.json.gz",
+      "sha256": "2c04ed7c5ea7404ddac7a7a0b6d31baae66c3225defcd6361cdf5e2e7d013adc",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "7970a2fd69aa9d875b9423e6f9fcde0fc13cfca1582678291ad916c23d8ce5ec",
+      "file": "grail_yago.json.gz",
+      "sha256": "f42c930cd8a933617ec4f7a7148de10521f880d5c65934cbbd96979f8417f2ee",
+      "cells": 12
+    },
+    {
+      "fixture_sha256": "3d9d0646e32e9fb4ee233142d732a7bfb9775dd6e0f377ba1cbb4a13f7a6970e",
+      "file": "heldout_agrocyc.json.gz",
+      "sha256": "d758d4b79365c285788f4416ce30540debc5af0ae468bb41151f83dafd3e1c46",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "693c5ff20d9693eb1e4074fd1d9f6b0e7553ca4ded02e07c65c1257a70ed93e7",
+      "file": "heldout_amaze.json.gz",
+      "sha256": "e5d7fda7881a3885e7baaacc815e9e81d191f1f9383b05c76f6010683003b062",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "5c6b46b9b5b01c13c77533d56db54eabb4c2b85af972dd09fb79bf915bfa00df",
+      "file": "heldout_anthra.json.gz",
+      "sha256": "624ec77a0399d47ca372f13e1f39edecbfbbde0446accdd5c45405bfe46e5af2",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "837eadaacf22c0666f3f9f52f63a33c024a5fec89e33afc2c983c55ca75b8f42",
+      "file": "heldout_ecoo.json.gz",
+      "sha256": "857f6061accbabaad9bc9f5640c0ac7f5349ee385610aea2f790584db36e76a3",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "11b24a12fc6a37e69ba9c95818b44cb405f8c75167f11f02393efc5b7c247e2f",
+      "file": "heldout_human.json.gz",
+      "sha256": "311ad255dc960d5eb6675248954bcc481d7d48f10a4d269fbc57ff855b872024",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "dae67ea1d2a7ccdbe578f5dbf9eaece98ff79c27fea89030cbcb68e6fc1ca7d6",
+      "file": "heldout_mtbrv.json.gz",
+      "sha256": "cf94061314b679a9489a6b14b827300f3f1d5f39a807bc5bf0d153165229bc24",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "81c255cabf2ef254e2f9c48fe77b7f79a7141b250f8bd8dddd98150548bb1e8e",
+      "file": "heldout_nasa.json.gz",
+      "sha256": "74fb319386e5bb6d5ac3ac66142495fcbdedefdb870aef69b3db4d9ad0a9df17",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "d42be1976af13984556d96684af8d304a2edc95ba9d9d182cc8bc41bd047ab1c",
+      "file": "heldout_vchocyc.json.gz",
+      "sha256": "e43de620d3d0a4debd286165f987cc1dfa971303755efd42edce3c61da9a067a",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "1df4bae6901a00d9c4cb36a6c7d4da0aedb5f772f1a0eb9bad93c7eea96b4057",
+      "file": "heldout_xmark.json.gz",
+      "sha256": "8f3d56a36f3b1f7523a96840e332c063d3d24cdec17eb59630613cb209550db4",
+      "cells": 4
+    },
+    {
+      "fixture_sha256": "0b4e5ffe37e311697ee4bbfed56f4a3fb8008a05ca880befd43cfd3a05c0c085",
+      "file": "kron_logn12.json.gz",
+      "sha256": "119b27f0f0cf343a22a64577343c7f1220a122edbfdf8229e94e664cc8e5bdc0",
+      "cells": 12
+    }
+  ],
+  "complete": true
+}

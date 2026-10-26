@@ -58,6 +58,14 @@ range. Selection uses SCC-coordinate width, not observed queries or original
 vertex frequency. This adds O(R) construction work over R stored ranges and no
 additional allocation or retained payload.
 
+The common query function performs endpoint validation, Bloom rejection and
+cached-range membership. Residual interval search and the other representation
+paths live in separate private helpers. GCC/Clang and MSVC receive a `noinline`
+hint on those helpers to prevent their bodies from enlarging the common path.
+Other compilers use their ordinary inlining policy. This changes neither
+answers, storage, construction nor asymptotic costs; its speed benefit depends
+on the compiler and workload. Phase XXX measures GCC 13.3 on one shared host.
+
 DFS subtree containment is an exact positive
 certificate. Remaining queries use the selected exact table or search.
 
@@ -111,7 +119,7 @@ plus constant object storage; shared SCC/input and temporary arrays are separate
 SCCs, chain/path reachability, bitset closure, sparse storage, Bloom-style negative pruning, DFS intervals and
 transitive-edge skipping are established techniques. This implementation combines
 them for TRIC; it does not establish new theory, algorithmic novelty, production
-readiness or generalized SOTA. See the [latest native qualification report](tric_research/PHASE_XXIX_RESEARCH_REPORT.md).
+readiness or generalized SOTA. See the [latest native qualification report](tric_research/PHASE_XXX_RESEARCH_REPORT.md).
 
 Run original and new correctness tests:
 
@@ -148,6 +156,9 @@ compiler-dependency checks and complete qualification are in
 The widest-range cache, rejected traversal/filter-order experiments, fresh
 synthetic checks and repeated external comparisons are in
 `tric_research/PHASE_XXIX_RESEARCH_REPORT.md` and `tric_research/evidence/phase29/`.
+The query-function separation, 15 alternative implementations, and complete
+paired qualification are in `tric_research/PHASE_XXX_RESEARCH_REPORT.md` and
+`tric_research/evidence/phase30/`.
 The benchmark-only BFL and PLL/PPL sources retain their upstream MIT licenses and are not
 runtime dependencies. Build the comparator with:
 

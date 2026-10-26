@@ -1,0 +1,72 @@
+{
+  "objective": "Improve exact TRIC query latency toward defensible SOTA without changing semantics or concealing regressions",
+  "baseline_commit": "c719c1973b47ad881a9a0cc25d5a5391c6335bdc",
+  "runtime_commit": "25f90656a27f1c0dd4d8295bb25b15ff581e575d",
+  "selected": "outline_minimal: retain endpoint checks, Bloom rejection and cached-range membership inline; outline residual and noninterval bodies with guarded compiler hints",
+  "rejected": {
+    "topological_filters": "Insufficient additional rejection and broad pilot regressions",
+    "single_interval_shortcuts": "Worse uniform/negative latency despite exact semantics",
+    "partition_first": "Unstable gains and regressions",
+    "split_signatures": "Limited benefits, regressions and 24-byte constant overhead",
+    "unhinted_outline": "Compiler folded helper bodies back into hot path; inconsistent gains",
+    "forceinline": "Direct-closure regressions and code growth",
+    "outline_search_and_noninterval_only": "Smaller pilot gains than outlining both noninterval and residual work"
+  },
+  "boundaries": [
+    "Exact reflexive reachability and endpoint exceptions unchanged",
+    "Graph-only routing; no query training",
+    "Same table payload, retained capacity, labels, preprocessing and scratch allowances",
+    "No compiler safety settings disabled for performance",
+    "No code tuning after qualification inputs/results exposed"
+  ],
+  "execution": {
+    "Elite_AGI": "Evidence-grounded engineering; no claimed AGI capability",
+    "Knowledge_Nexus": "Provenance, dependent-source grouping, hypothesis rejection and remaining SOTA gaps",
+    "Trillion_Developer": "Controlled pilots, frozen candidate, full qualification and publication",
+    "OmO_Controller": "Native recursive fallback; bridge installed=false; no real OmO execution or spawned workers"
+  },
+  "claims": [
+    {
+      "claim": "Exact behavior preserved",
+      "state": "source-equivalent moved bodies and executable-tested",
+      "evidence": [
+        "verify_phase30_evidence.py",
+        "tests.log",
+        "sanitizer.log"
+      ]
+    },
+    {
+      "claim": "No memory growth",
+      "state": "verified for every final paired process and unchanged representation",
+      "evidence": [
+        "build_manifest.json",
+        "qualification_protocol.json"
+      ]
+    },
+    {
+      "claim": "Speed improvement",
+      "state": "conditional local measurement",
+      "independence_group": "One shared host; related datasets, seeds, repeated query lists and compiler lineage",
+      "evidence": [
+        "result_metrics.json",
+        "native/aggregate_summary.csv",
+        "external/aggregate_summary.csv"
+      ]
+    },
+    {
+      "claim": "Global SOTA",
+      "state": "unresolved",
+      "gaps": [
+        "Remaining external losses",
+        "MLRQ/MLRQ-O not executed",
+        "Total-memory Pareto matching absent",
+        "No new real-world graph families or dedicated hardware replication"
+      ]
+    }
+  ],
+  "qualification_decision": "Accept as a general-query optimization with explicit cross-chain and single-pass forest regressions; no uniform no-regression or global SOTA claim",
+  "supplemental_checks": [
+    "forest_replication_protocol.json",
+    "forest_warm_replication_protocol.json"
+  ]
+}

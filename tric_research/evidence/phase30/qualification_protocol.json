@@ -1,0 +1,90 @@
+{
+  "baseline_commit": "c719c1973b47ad881a9a0cc25d5a5391c6335bdc",
+  "candidate": "outline_minimal",
+  "candidate_header_sha256": "cf414e68113cb142212f743e922a40e72a2e5ccfdcdedeeae9383cd7a155031b",
+  "cpu": 1,
+  "cap_bytes": 2097152,
+  "runs": [
+    {
+      "tag": "native",
+      "fixtures": "evidence/phase25/fixtures",
+      "trials": 4,
+      "horizons": [
+        2000
+      ],
+      "arms": [
+        "previous",
+        "candidate"
+      ]
+    },
+    {
+      "tag": "external",
+      "fixtures": "evidence/phase25/fixtures",
+      "trials": 7,
+      "horizons": [
+        100
+      ],
+      "arms": [
+        "previous",
+        "candidate",
+        "bfl",
+        "oreach-pdfs",
+        "oreach-pbibfs",
+        "pll",
+        "ppl"
+      ]
+    },
+    {
+      "tag": "fresh",
+      "fixtures": "evidence/phase30/fresh-fixtures",
+      "trials": 4,
+      "horizons": [
+        1,
+        1000
+      ],
+      "arms": [
+        "previous",
+        "candidate"
+      ]
+    },
+    {
+      "tag": "forest-warm",
+      "fixtures": "evidence/phase27/large-fixtures",
+      "trials": 4,
+      "horizons": [
+        1000
+      ],
+      "arms": [
+        "previous",
+        "candidate"
+      ]
+    },
+    {
+      "tag": "forest-fresh",
+      "fixtures": "evidence/phase27/fresh-fixtures",
+      "trials": 4,
+      "horizons": [
+        1
+      ],
+      "arms": [
+        "previous",
+        "candidate"
+      ]
+    }
+  ],
+  "selection_frozen_before_qualification": true,
+  "acceptance": [
+    "All independent BFS, unit and sanitizer checks pass",
+    "Exact table/retained-capacity equality and route equality",
+    "Native general-route median paired speedup >= 1.05",
+    "Ecoo-negative paired speedup >= 1.10",
+    "Native aggregate median query speedup >= 1.0 and lifecycle >= 0.97",
+    "Investigate any aggregate query regression over 10%; no silent exclusions or performance retuning on qualification inputs"
+  ],
+  "limitations": [
+    "Shared host; paired cyclic launch order does not create independent datasets",
+    "External means fastest of five executed implementations, not every published method",
+    "Fresh synthetic seed families are derived from phase29; no fresh real-world topology claimed",
+    "Performance compiler dependent; GCC13.3 is available; Clang/MSVC not executed"
+  ]
+}
