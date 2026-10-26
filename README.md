@@ -44,8 +44,10 @@ otherwise it uses compact forest labels when applicable, or partitioned
 chain/bitset labels, exact interval unions, lossless sparse-row compression,
 and exact search on table refusal. It needs no query training. Interval labels
 cache their widest complete range without adding memory.
+The common query path keeps residual lookup and fallback work in separate
+helpers, allowing supported compilers to inline the quick certificate checks.
 
 See [native runtime usage and limitations](NATIVE_RUNTIME.md). The table allowance
 is not a total-memory cap. The existing research algorithms and archives remain
-available. [Latest comparative evidence, regressions and remaining gaps](tric_research/PHASE_XXIX_RESEARCH_REPORT.md)
-are recorded in Phase XXIX; no universal SOTA or novel algorithm claim is made.
+available. [Latest comparative evidence, regressions and remaining gaps](tric_research/PHASE_XXX_RESEARCH_REPORT.md)
+are recorded in Phase XXX; no universal SOTA or novel algorithm claim is made.

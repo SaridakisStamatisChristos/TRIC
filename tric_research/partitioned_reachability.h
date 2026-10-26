@@ -385,10 +385,31 @@ public:
       if(target-static_cast<std::uint32_t>(from.local)<
          static_cast<std::uint32_t>(from.tree_end-from.local))return true;
       if(from.auxiliary==1)return false;
+      return reaches_residual(from,target);
+    }
+    return reaches_noninterval(from,to);
+  }
+private:
+  // Keep the common rejection/cached-range path small enough to inline.
+  // Residual lookup and other representations retain identical semantics;
+  // the hints prevent their larger bodies from being folded back into it.
+  // Unsupported compilers remain correct with their ordinary inlining policy.
+#if defined(_MSC_VER)
+  __declspec(noinline)
+#elif defined(__GNUC__) || defined(__clang__)
+  __attribute__((noinline))
+#endif
+  bool reaches_residual(const Label& from,std::uint32_t target)const {
       const auto first=intervals_.begin()+from.route+1,last=first+from.auxiliary-1;
       const auto it=std::upper_bound(first,last,target,[](std::uint32_t value,const Interval& range){return value<range.first;});
       return it!=first && target<(it-1)->end;
-    }
+  }
+#if defined(_MSC_VER)
+  __declspec(noinline)
+#elif defined(__GNUC__) || defined(__clang__)
+  __attribute__((noinline))
+#endif
+  bool reaches_noninterval(const Label& from,const Label& to) {
     if (from.tree_begin==to.tree_begin) return true;
     if (from.group!=to.group || from.local>to.local) return false;
     if(from.tree_begin<=to.tree_begin && to.tree_begin<from.tree_end)return true;
@@ -430,6 +451,7 @@ public:
     }
     return false;
   }
+public:
   std::size_t table_bytes() const {return interval_rows_.size()*sizeof(IntervalRow)+intervals_.size()*sizeof(Interval)+(labels_.size()+word_ids_.size())*sizeof(std::uint32_t)+bits_.size()*sizeof(std::uint64_t)+rows_.size()*sizeof(Row);}
   std::size_t retained_bytes() const {
     std::size_t total=interval_rows_.capacity()*sizeof(IntervalRow)+intervals_.capacity()*sizeof(Interval)+vertex_labels_.capacity()*sizeof(Label)+stack_.capacity()*sizeof(int)

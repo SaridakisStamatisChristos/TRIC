@@ -1,0 +1,16 @@
+{
+  "reason": "Investigate the warm CiteSeer positive-query regression revealed by aggregate review; keep all original measurements and unchanged binaries",
+  "fixtures": "evidence/phase27/large-fixtures",
+  "trials": 8,
+  "horizons": [
+    1000
+  ],
+  "cpu": 1,
+  "cap_bytes": 2097152,
+  "arms": [
+    "previous",
+    "candidate"
+  ],
+  "candidate_header_sha256": "cf414e68113cb142212f743e922a40e72a2e5ccfdcdedeeae9383cd7a155031b",
+  "stop": "One complete eight-trial replication over all eight forest cells, without runtime changes or retries until favorable"
+}

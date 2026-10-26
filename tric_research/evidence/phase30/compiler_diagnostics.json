@@ -1,0 +1,46 @@
+{
+  "previous": {
+    "binary_sha256": "33c3f8150b5e64b8a3e82e69014139ce1115927aa4e782db9662e8cbfb3b9a82",
+    "reaches_symbols": [
+      "0000000000007310 W PartitionedReachability::reaches(int, int)"
+    ],
+    "calls": [
+      "385f:\te8 ac 3a 00 00       \tcall   7310 <PartitionedReachability::reaches(int, int)>",
+      "38bf:\te8 4c 3a 00 00       \tcall   7310 <PartitionedReachability::reaches(int, int)>",
+      "3acb:\te8 40 38 00 00       \tcall   7310 <PartitionedReachability::reaches(int, int)>",
+      "3b18:\te8 f3 37 00 00       \tcall   7310 <PartitionedReachability::reaches(int, int)>"
+    ]
+  },
+  "outline": {
+    "binary_sha256": "32cfdf19265caec5bd3c69051add466d1f0f697d54b82f39441ba7babc97197c",
+    "reaches_symbols": [
+      "00000000000077d0 W PartitionedReachability::reaches(int, int)"
+    ],
+    "calls": [
+      "3ee1:\te8 ea 38 00 00       \tcall   77d0 <PartitionedReachability::reaches(int, int)>",
+      "3f1d:\te8 ae 38 00 00       \tcall   77d0 <PartitionedReachability::reaches(int, int)>"
+    ]
+  },
+  "forceinline": {
+    "binary_sha256": "ee40155a600dea207e942a2708151bae9c3e90a3342181a6fd8505d3230f9d5b",
+    "reaches_symbols": [],
+    "calls": []
+  },
+  "outline_minimal": {
+    "binary_sha256": "9a382be264c19acf1b131dc39620a2e8a8ab9a152ccf7fafa15b1f1520785a08",
+    "reaches_symbols": [
+      "00000000000076a0 W PartitionedReachability::reaches_noninterval(PartitionedReachability::Label const&, PartitionedReachability::Label const&)",
+      "0000000000005300 t PartitionedReachability::reaches_residual(PartitionedReachability::Label const&, unsigned int) const [clone .isra.0]"
+    ],
+    "calls": [
+      "3917:\te8 e4 19 00 00       \tcall   5300 <PartitionedReachability::reaches_residual(PartitionedReachability::Label const&, unsigned int) const [clone .isra.0]>",
+      "3a4e:\te8 ad 18 00 00       \tcall   5300 <PartitionedReachability::reaches_residual(PartitionedReachability::Label const&, unsigned int) const [clone .isra.0]>",
+      "3b09:\te8 f2 17 00 00       \tcall   5300 <PartitionedReachability::reaches_residual(PartitionedReachability::Label const&, unsigned int) const [clone .isra.0]>",
+      "3b4d:\te8 4e 3b 00 00       \tcall   76a0 <PartitionedReachability::reaches_noninterval(PartitionedReachability::Label const&, PartitionedReachability::Label const&)>",
+      "3c78:\te8 83 16 00 00       \tcall   5300 <PartitionedReachability::reaches_residual(PartitionedReachability::Label const&, unsigned int) const [clone .isra.0]>",
+      "3cf8:\te8 a3 39 00 00       \tcall   76a0 <PartitionedReachability::reaches_noninterval(PartitionedReachability::Label const&, PartitionedReachability::Label const&)>",
+      "488d:\te8 0e 2e 00 00       \tcall   76a0 <PartitionedReachability::reaches_noninterval(PartitionedReachability::Label const&, PartitionedReachability::Label const&)>",
+      "48a5:\te8 f6 2d 00 00       \tcall   76a0 <PartitionedReachability::reaches_noninterval(PartitionedReachability::Label const&, PartitionedReachability::Label const&)>"
+    ]
+  }
+}
