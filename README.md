@@ -4,7 +4,7 @@
 
 TRIC studies exact directed-graph reachability certificates, workload-aware pivot selection, efficient exact optimization on directed paths, and complexity boundaries for DAGs with a directed backbone.
 
-> **Research integrity:** The original three supportive-vertex reachability rules overlap O'Reach (2022) and must not be presented as novel. The reported timing results use local Python prototypes and do not establish superiority over existing graph reachability indexes. The novelty and publication status of the later exact-optimization results remain unresolved.
+> **Research integrity:** The original three supportive-vertex reachability rules overlap O'Reach (2022) and must not be presented as novel. The original Python timings and subsequent native comparisons have bounded experimental scope and do not establish generalized SOTA. The novelty and publication status of the later exact-optimization results remain unresolved.
 
 ## Research phases
 
@@ -40,11 +40,12 @@ The three original deliverable archives are preserved verbatim in [`archives/`](
 
 A dependency-free C++17 API now complements the Python pivot-optimization research.
 `TricReachability` uses direct SCC bitset closure when it fits the table allowance;
-otherwise it uses partitioned chain/bitset labels, lossless sparse-row compression,
-and exact search on table refusal. It needs no query training.
+otherwise it uses compact forest labels when applicable, or partitioned
+chain/bitset labels, exact interval unions, lossless sparse-row compression,
+and exact search on table refusal. It needs no query training. Interval labels
+cache their widest complete range without adding memory.
 
 See [native runtime usage and limitations](NATIVE_RUNTIME.md). The table allowance
 is not a total-memory cap. The existing research algorithms and archives remain
-available. [Detailed comparative evidence is maintained in the companion research
-PR](https://github.com/SaridakisStamatisChristos/TRIC/pull/23); no universal SOTA or
-novel algorithm claim is made.
+available. [Latest comparative evidence, regressions and remaining gaps](tric_research/PHASE_XXIX_RESEARCH_REPORT.md)
+are recorded in Phase XXIX; no universal SOTA or novel algorithm claim is made.

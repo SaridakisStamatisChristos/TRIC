@@ -39,14 +39,24 @@ tries exact unions of DFS intervals. These are built from complete child rows in
 reverse topological order, without a dense intermediate. A failed attempt rolls
 back its rows and payload before trying lossless word compression. If that also
 refuses the budget, the partition retains exact topologically bounded search.
+Chain construction skips a child merge only when a complete inherited row
+already covers that child. The source's own-chain membership threshold is
+tracked separately from inherited coverage, since membership alone does not
+prove that descendants on other chains were merged. Phase XXIX repairs a
+false-negative bug in this distinction and adds a 160-vertex counterexample.
 
 The general partitioned backend keeps one 32-byte label per original vertex. Its 64-bit signature packs a
 32-bit descendant filter and the complement of a 32-bit ancestor filter. One
 subset check tests both necessary conditions; collisions weaken rejection and
-never prove reachability. Interval-mode labels cache the first exact closure range in existing fields,
+never prove reachability. Interval-mode labels cache the widest exact closure range in existing fields,
 retain the same Bloom prefix, and search only the remaining ranges on a miss.
 Their negative group tag distinguishes this format; label/table sizes do not
 grow. Other modes retain the original local-order and DFS fields.
+After all closure unions finish, a stable rotation moves the widest range to
+row position zero. The remaining ranges stay sorted; ties keep the earliest
+range. Selection uses SCC-coordinate width, not observed queries or original
+vertex frequency. This adds O(R) construction work over R stored ranges and no
+additional allocation or retained payload.
 
 DFS subtree containment is an exact positive
 certificate. Remaining queries use the selected exact table or search.
@@ -84,8 +94,10 @@ No single strategy is fastest on every graph or request horizon.
 
 For a partition with s SCCs and k covering paths, chain storage is O(s*k) 32-bit
 entries; dense storage is O(s*ceil(s/64)) 64-bit words. An interval table with R
-stored ranges uses 8*s + 8*R bytes on the tested toolchain. Rows are sorted,
+stored ranges uses 8*s + 8*R bytes on the tested toolchain. Rows contain
 disjoint half-open intervals in DFS preorder, including all reachable SCCs.
+They are sorted during union construction; the final row has its cached range
+first and a sorted residual suffix.
 Interval construction merges child rows and may inspect many ranges per edge;
 it is not guaranteed linear. The table and scratch budgets bound storage, and
 refusal preserves exactness. Sparse-word and interval queries use binary search;
@@ -99,8 +111,7 @@ plus constant object storage; shared SCC/input and temporary arrays are separate
 SCCs, chain/path reachability, bitset closure, sparse storage, Bloom-style negative pruning, DFS intervals and
 transitive-edge skipping are established techniques. This implementation combines
 them for TRIC; it does not establish new theory, algorithmic novelty, production
-readiness or generalized SOTA. See [the companion research report and raw CI
-comparisons](https://github.com/SaridakisStamatisChristos/TRIC/pull/23).
+readiness or generalized SOTA. See the [latest native qualification report](tric_research/PHASE_XXIX_RESEARCH_REPORT.md).
 
 Run original and new correctness tests:
 
@@ -115,6 +126,8 @@ adversarial cases and 589,824 checks across all 4,096 members of a 12-variable-a
 DAG family extended to 160 vertices to exercise interval routing. Another 207,360
 checks enumerate both orientations of all 720 six-SCC forests with aliases and
 duplicate arcs; 1,296 coordinate cases test packed comparisons through INT_MAX.
+Another 153,600 all-pairs checks cover cross-linked chains, relabeling and
+three budgets to prevent recurrence of the chain inheritance error.
 Python tests additionally exercise random relabeled graphs,
 long paths, cycles, duplicate/transitive arcs, sparse/dense representation choice,
 partial refusal, interval rollback, 100,000-vertex indexing beyond the dense
@@ -132,6 +145,9 @@ comparisons, rejected variants and all regressions are documented in
 `tric_research/PHASE_XXVII_RESEARCH_REPORT.md` and `tric_research/evidence/phase27/`. The subsequent first-range cache, matched
 compiler-dependency checks and complete qualification are in
 `tric_research/PHASE_XXVIII_RESEARCH_REPORT.md` and `tric_research/evidence/phase28/`.
+The widest-range cache, rejected traversal/filter-order experiments, fresh
+synthetic checks and repeated external comparisons are in
+`tric_research/PHASE_XXIX_RESEARCH_REPORT.md` and `tric_research/evidence/phase29/`.
 The benchmark-only BFL and PLL/PPL sources retain their upstream MIT licenses and are not
 runtime dependencies. Build the comparator with:
 

@@ -28,7 +28,7 @@ class PartitionedReachability {
   };
   struct alignas(32) Label {
     // Interval labels tag group as -group_id-1; auxiliary=count, route=offset,
-    // local=first range begin, tree_end=first range end, tree_begin=self preorder.
+    // local=cached range begin, tree_end=cached range end, tree_begin=self preorder.
     // Other modes pack forward/backward depths in auxiliary; route is a chain
     // ID or SCC ID, and tree_begin/tree_end retain the DFS subtree.
     std::uint32_t auxiliary=0;
@@ -281,12 +281,19 @@ private:
           const int a=*it;
           auto* dst=labels_.data()+part.offset+std::size_t(local_[a])*chains;
           dst[chain_[a]]=static_cast<std::uint32_t>(local_[a]);
+          // The self-chain threshold proves membership of later chain nodes,
+          // but does NOT mean their off-chain descendants were inherited.
+          // Track only coverage obtained from complete child rows for this
+          // chain. Other chain thresholds already come from complete rows.
+          auto inherited_self_chain=std::numeric_limits<std::uint32_t>::max();
           // Increasing topological order lets already inherited descendants
           // eliminate redundant row merges without materializing reduction.
           for (int b:dag[a]) {
-            if (dst[chain_[b]]<=static_cast<std::uint32_t>(local_[b])) {++skipped_arcs_; continue;}
+            const auto covered=chain_[b]==chain_[a]?inherited_self_chain:dst[chain_[b]];
+            if (covered<=static_cast<std::uint32_t>(local_[b])) {++skipped_arcs_; continue;}
             ++merged_arcs_;
             const auto* src=labels_.data()+part.offset+std::size_t(local_[b])*chains;
+            inherited_self_chain=std::min(inherited_self_chain,src[chain_[a]]);
             for (std::size_t c=0;c<chains;++c) dst[c]=std::min(dst[c],src[c]);
           }
         }
@@ -308,6 +315,20 @@ private:
         }
       }
     }
+    // Closure union must see sorted complete rows. Only after ALL partitions
+    // are built, move the widest exact interval to the cache slot at row[0].
+    // Stable rotation keeps row[1..count) sorted for residual binary search.
+    // Rows are disjoint in storage; SCC aliases later share the same row.
+    // Strict comparison retains the first interval on ties. No query samples,
+    // allocations, table growth or change to the represented set is involved.
+    for(const auto& row:interval_rows_) {
+      auto first=intervals_.begin()+row.offset, last=first+row.count;
+      if(first==last)continue;
+      const auto chosen=std::max_element(first,last,[](const Interval& a,const Interval& b){
+        return a.end-a.first<b.end-b.first;
+      });
+      std::rotate(first,chosen,chosen+1);
+    }
     labels_.shrink_to_fit(); bits_.shrink_to_fit();
     rows_.shrink_to_fit(); word_ids_.shrink_to_fit();
     interval_rows_.shrink_to_fit();intervals_.shrink_to_fit();
@@ -325,7 +346,7 @@ private:
          (static_cast<std::uint32_t>(std::min(backward[a],65535))<<16));
       const auto route=part.mode==Mode::intervals?row.offset:
         static_cast<std::uint32_t>(part.mode==Mode::search?a:chain_[a]);
-      // Cache an exact first range in fields unused by interval membership.
+      // Cache the selected widest range in fields unused by membership.
       // Retain the Bloom signature and original SCC preorder for all labels.
       const bool interval=part.mode==Mode::intervals;
       const auto first=interval?intervals_[row.offset]:Interval{};

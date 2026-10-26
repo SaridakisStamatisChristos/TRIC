@@ -1,0 +1,60 @@
+{
+  "objective": "Continue TRIC performance work toward defensible SOTA, without asserting SOTA from a local improvement",
+  "baseline": "4baa1a8b9a19d86bff33e304849e76ed77a7d511",
+  "runtime_commit": "e5a63e8f429b089439d294362f2629145f349d85",
+  "selected": "Move the widest complete interval to row[0] after all unions; retain sorted residuals and unchanged Bloom-first query code",
+  "rejected": {
+    "last_interval": "Substantial positive and balanced regressions in pilot 1",
+    "early_exit_search": "No consistent targeted benefit in pilot 1",
+    "before_bloom": "General route and biological uniform regressions in pilot 2",
+    "without_bloom": "Larger general route and biological uniform regressions in pilot 2",
+    "degreehigh": "Higher query gains but construction and lifecycle regressions in pilot 3",
+    "degreelow": "Higher query gains but construction and lifecycle regressions in pilot 3"
+  },
+  "boundaries": [
+    "Exact reflexive reachability",
+    "Invalid endpoint behavior preserved",
+    "Owned immutable graph snapshot",
+    "One instance per query thread",
+    "C++17",
+    "No query-trained route selection",
+    "32-byte vertex labels",
+    "Unchanged table and scratch budgets"
+  ],
+  "execution": {
+    "Elite_AGI": "Scientific engineering lens",
+    "Knowledge_Nexus": "Separate measured claims, mechanism hypotheses and unresolved SOTA evidence",
+    "Trillion_Developer": "Baseline, controlled candidates, paired verification and preserved rejections",
+    "OmO_Controller": "Native recursive fallback; runtime probe installed=false; no real OmO run or additional worker claimed"
+  },
+  "claims": [
+    {
+      "id": "exactness",
+      "state": "reasoned and executable-tested",
+      "basis": "Stable rotation preserves the exact closure set; all rows finish before mutation; residuals remain sorted; independent BFS tests"
+    },
+    {
+      "id": "memory",
+      "state": "checked in qualified paired trials",
+      "basis": "No new containers or row elements; verifier requires exact table and retained-capacity equality"
+    },
+    {
+      "id": "performance",
+      "state": "local observation",
+      "basis": "Paired trial medians with regressions retained; related seeds and replayed queries are dependent"
+    },
+    {
+      "id": "SOTA",
+      "state": "unresolved",
+      "basis": "Remaining external losses, no total-memory Pareto matching, missing MLRQ/MLRQ-O execution and independent dedicated-hardware replication"
+    }
+  ],
+  "correctness_repair": {
+    "counterexample": "chain_counterexample.json",
+    "cause": "Self-chain membership does not prove inherited off-chain descendants",
+    "fix": "Separate scalar threshold for complete inherited self-chain coverage",
+    "additional_checks": 153600,
+    "superseded": "superseded.json.gz",
+    "control": "Corrected source without widest-range finalization"
+  }
+}

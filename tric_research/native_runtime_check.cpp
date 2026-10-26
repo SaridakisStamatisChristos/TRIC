@@ -74,6 +74,27 @@ static int selftest() {
       }
     }
   }
+  // Chain membership alone is not evidence that off-chain descendants were
+  // merged. Multiple cross edges make DFS subtree certificates insufficient.
+  std::uint64_t cross_chain_checks=0;
+  for(int permuted=0;permuted<2;++permuted) {
+    Graph g(160);
+    auto id=[&](int v){return permuted?(v*73+19)%160:v;};
+    for(int u=0;u<160;++u) {
+      if(u%80<79)g[id(u)].push_back(id(u+1));
+      if(u<80 && u%29==0)g[id(u)].push_back(id(u+80));
+    }
+    for(std::size_t cap:{std::size_t(0),std::size_t(1280),std::size_t(4096)}) {
+      PartitionedReachability index(g,cap);TricReachability automatic(g,cap);
+      if(cap==1280 && index.chain_partitions()!=1)throw std::runtime_error("chain regression route");
+      for(int a=0;a<160;++a)for(int b=0;b<160;++b) {
+        const bool truth=bfs(g,a,b);
+        if(index.reaches(a,b)!=truth || automatic.reaches(a,b)!=truth)
+          throw std::runtime_error("cross-chain inheritance mismatch");
+        ++cross_chain_checks;
+      }
+    }
+  }
   std::uint64_t forest_checks=0;
   // Enumerate all 6! increasing-parent forests, in both arc directions, with
   // SCC aliases and duplicate external arcs. No closure table is permitted.
@@ -101,7 +122,7 @@ static int selftest() {
     if(tric_detail::forest_dominates(a,b)!=(ax<=bx && ay<=by))throw std::runtime_error("packed dominance mismatch");
     ++packed_checks;
   }
-  std::cout<<"{\"exhaustive_checks\":"<<checks<<",\"adversarial_checks\":"<<adversarial<<",\"interval_checks\":"<<interval_checks<<",\"interval_indexes\":"<<interval_indexes<<",\"forest_checks\":"<<forest_checks<<",\"packed_checks\":"<<packed_checks<<"}\n"; return 0;
+  std::cout<<"{\"exhaustive_checks\":"<<checks<<",\"adversarial_checks\":"<<adversarial<<",\"interval_checks\":"<<interval_checks<<",\"interval_indexes\":"<<interval_indexes<<",\"cross_chain_checks\":"<<cross_chain_checks<<",\"forest_checks\":"<<forest_checks<<",\"packed_checks\":"<<packed_checks<<"}\n"; return 0;
 }
 int main(int argc,char** argv) {
   try {

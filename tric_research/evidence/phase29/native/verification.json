@@ -1,0 +1,12 @@
+{
+  "datasets": 19,
+  "graph_seed_experiments": 39,
+  "cells": 156,
+  "aggregate_cells": 76,
+  "fresh_process_trials": 2808,
+  "independent_BFS_pair_checks": 3369600,
+  "actual_query_calls": 10108800000,
+  "input_digest_checks": "all passed",
+  "result_digest_checks": "all passed",
+  "case_completeness": "all expected cases present"
+}
