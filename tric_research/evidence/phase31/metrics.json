@@ -1,0 +1,2569 @@
+{
+  "status": "PRESERVE_CURRENT",
+  "timing_processes": 1840,
+  "bfs_pair_executions": 2211840,
+  "repeated_query_calls": 3420487680,
+  "decisions": {
+    "branchless": {
+      "median_query": 0.9889398169121717,
+      "min_query": 0.6458813232206169,
+      "median_lifecycle": 0.9942971654524103,
+      "qualifies": false,
+      "regressions_below_floor": [
+        {
+          "dataset": "example",
+          "seed": 20261022,
+          "stratum": "uniform",
+          "horizon": 2000,
+          "query": 0.7010414552412623,
+          "cpu": 0.7009884547429707,
+          "lifecycle": 0.9000061130016719
+        },
+        {
+          "dataset": "example",
+          "seed": 20261022,
+          "stratum": "positive",
+          "horizon": 2000,
+          "query": 0.7404548589518946,
+          "cpu": 0.7404800079230061,
+          "lifecycle": 0.8825221574420112
+        },
+        {
+          "dataset": "example",
+          "seed": 20261022,
+          "stratum": "negative",
+          "horizon": 2000,
+          "query": 0.7768013630826861,
+          "cpu": 0.7768552705676939,
+          "lifecycle": 0.94297844603307
+        },
+        {
+          "dataset": "example",
+          "seed": 20261022,
+          "stratum": "balanced",
+          "horizon": 2000,
+          "query": 0.8713854508622811,
+          "cpu": 0.8709362786007064,
+          "lifecycle": 0.9857263091432422
+        },
+        {
+          "dataset": "grail_citeseer",
+          "seed": 20261022,
+          "stratum": "uniform",
+          "horizon": 2000,
+          "query": 0.8802874226554952,
+          "cpu": 0.8802883712731009,
+          "lifecycle": 0.9432569145380211
+        },
+        {
+          "dataset": "grail_citeseer",
+          "seed": 20261022,
+          "stratum": "positive",
+          "horizon": 2000,
+          "query": 0.8619091769906071,
+          "cpu": 0.8618826086360027,
+          "lifecycle": 0.9434992158884952
+        },
+        {
+          "dataset": "grail_citeseer",
+          "seed": 20261022,
+          "stratum": "negative",
+          "horizon": 2000,
+          "query": 0.8738479869923372,
+          "cpu": 0.8738397984241926,
+          "lifecycle": 0.9944957532453886
+        },
+        {
+          "dataset": "grail_citeseer",
+          "seed": 20261022,
+          "stratum": "balanced",
+          "horizon": 2000,
+          "query": 0.8964019049900994,
+          "cpu": 0.8963239762218771,
+          "lifecycle": 0.9780041923106877
+        },
+        {
+          "dataset": "grail_go",
+          "seed": 20261022,
+          "stratum": "positive",
+          "horizon": 2000,
+          "query": 0.8897860452022872,
+          "cpu": 0.8872597028817483,
+          "lifecycle": 0.9408543632010062
+        },
+        {
+          "dataset": "heldout_ecoo",
+          "seed": 20261025,
+          "stratum": "uniform",
+          "horizon": 2000,
+          "query": 0.8681222142716156,
+          "cpu": 0.8679906791940819,
+          "lifecycle": 0.8903578787755442
+        },
+        {
+          "dataset": "heldout_human",
+          "seed": 20261025,
+          "stratum": "positive",
+          "horizon": 2000,
+          "query": 0.8966140524630772,
+          "cpu": 0.8963334467283885,
+          "lifecycle": 0.9188977793966207
+        },
+        {
+          "dataset": "large_uniprot_22m",
+          "seed": 20261028,
+          "stratum": "uniform",
+          "horizon": 1000,
+          "query": 0.8857284802336776,
+          "cpu": 0.8866020271064128,
+          "lifecycle": 1.003260276582247
+        },
+        {
+          "dataset": "large_uniprot_22m",
+          "seed": 20261029,
+          "stratum": "uniform",
+          "horizon": 1,
+          "query": 0.6458813232206169,
+          "cpu": 0.6383477883419115,
+          "lifecycle": 0.994098577659432
+        }
+      ]
+    },
+    "linear4": {
+      "median_query": 0.986124443642483,
+      "min_query": 0.8130314995435126,
+      "median_lifecycle": 0.9949295291700013,
+      "qualifies": false,
+      "regressions_below_floor": [
+        {
+          "dataset": "grail_citeseer",
+          "seed": 20261022,
+          "stratum": "positive",
+          "horizon": 2000,
+          "query": 0.8991437777849983,
+          "cpu": 0.8990335324111332,
+          "lifecycle": 0.9593048770409053
+        },
+        {
+          "dataset": "heldout_human",
+          "seed": 20261025,
+          "stratum": "positive",
+          "horizon": 2000,
+          "query": 0.8130314995435126,
+          "cpu": 0.8129266568347782,
+          "lifecycle": 0.7787143245504112
+        },
+        {
+          "dataset": "large_citeseer",
+          "seed": 20261028,
+          "stratum": "uniform",
+          "horizon": 1000,
+          "query": 0.88767500254752,
+          "cpu": 0.8845772803264269,
+          "lifecycle": 0.9479366896850078
+        }
+      ]
+    },
+    "dispatch": {
+      "median_query": 1.0496187687641896,
+      "min_query": 0.8388415850273641,
+      "median_lifecycle": 1.015266713160955,
+      "qualifies": false,
+      "regressions_below_floor": [
+        {
+          "dataset": "large_citeseer",
+          "seed": 20261028,
+          "stratum": "uniform",
+          "horizon": 1000,
+          "query": 0.8388415850273641,
+          "cpu": 0.8354590229951293,
+          "lifecycle": 0.9697178355259746
+        }
+      ]
+    },
+    "eytzinger": {
+      "median_query": 0.997305306481667,
+      "min_query": 0.7347884801953144,
+      "median_lifecycle": 0.9748213942562303,
+      "qualifies": false,
+      "regressions_below_floor": [
+        {
+          "dataset": "example",
+          "seed": 20261022,
+          "stratum": "uniform",
+          "horizon": 2000,
+          "query": 0.7347884801953144,
+          "cpu": 0.7347588021142923,
+          "lifecycle": 0.8713300062728937
+        },
+        {
+          "dataset": "example",
+          "seed": 20261022,
+          "stratum": "positive",
+          "horizon": 2000,
+          "query": 0.7566134756368736,
+          "cpu": 0.7566154653480281,
+          "lifecycle": 0.9153189786335686
+        },
+        {
+          "dataset": "example",
+          "seed": 20261022,
+          "stratum": "negative",
+          "horizon": 2000,
+          "query": 0.7812767172358258,
+          "cpu": 0.7812629362457925,
+          "lifecycle": 0.9474478848345327
+        },
+        {
+          "dataset": "example",
+          "seed": 20261022,
+          "stratum": "balanced",
+          "horizon": 2000,
+          "query": 0.7957860050825629,
+          "cpu": 0.7957840999485541,
+          "lifecycle": 0.9329919070493122
+        },
+        {
+          "dataset": "grail_citeseer",
+          "seed": 20261022,
+          "stratum": "uniform",
+          "horizon": 2000,
+          "query": 0.8282079291101687,
+          "cpu": 0.8290816912229968,
+          "lifecycle": 0.9304384296156727
+        },
+        {
+          "dataset": "grail_citeseer",
+          "seed": 20261022,
+          "stratum": "positive",
+          "horizon": 2000,
+          "query": 0.8161431093408522,
+          "cpu": 0.8160882505681201,
+          "lifecycle": 0.9137091852051651
+        },
+        {
+          "dataset": "grail_citeseer",
+          "seed": 20261022,
+          "stratum": "balanced",
+          "horizon": 2000,
+          "query": 0.8334146174641078,
+          "cpu": 0.8333698376087407,
+          "lifecycle": 0.9535915571848602
+        },
+        {
+          "dataset": "grail_go",
+          "seed": 20261022,
+          "stratum": "positive",
+          "horizon": 2000,
+          "query": 0.824737403544883,
+          "cpu": 0.8247805689183159,
+          "lifecycle": 0.9052502812110297
+        },
+        {
+          "dataset": "grail_go",
+          "seed": 20261022,
+          "stratum": "balanced",
+          "horizon": 2000,
+          "query": 0.8588933357992311,
+          "cpu": 0.8588791846707926,
+          "lifecycle": 0.9232704126593947
+        },
+        {
+          "dataset": "phase30_cross_chains",
+          "seed": 30004,
+          "stratum": "uniform",
+          "horizon": 1000,
+          "query": 0.8803651397698411,
+          "cpu": 0.8811769428591444,
+          "lifecycle": 0.8352451619542733
+        },
+        {
+          "dataset": "large_citeseer",
+          "seed": 20261028,
+          "stratum": "negative",
+          "horizon": 1000,
+          "query": 0.8696384744168995,
+          "cpu": 0.8680133325585837,
+          "lifecycle": 0.9491983809354183
+        },
+        {
+          "dataset": "large_citeseer",
+          "seed": 20261029,
+          "stratum": "uniform",
+          "horizon": 1,
+          "query": 0.8995075289223804,
+          "cpu": 0.891896324962656,
+          "lifecycle": 1.0166000685862722
+        }
+      ]
+    }
+  },
+  "null_outside_band": [
+    {
+      "dataset": "large_uniprot_22m",
+      "seed": 20261028,
+      "stratum": "negative",
+      "horizon": 1000,
+      "query": 0.7729976301942137,
+      "cpu": 0.7694574272671217,
+      "lifecycle": 0.9935688868848891
+    }
+  ],
+  "campaigns": {
+    "pilot": {
+      "branchless": {
+        "median_query": 0.9697961574224736,
+        "median_cpu": 0.9697294778750425,
+        "median_lifecycle": 0.9836718799084045,
+        "wins": 12,
+        "cells": [
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.7010414552412623,
+            "cpu": 0.7009884547429707,
+            "lifecycle": 0.9000061130016719
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.7404548589518946,
+            "cpu": 0.7404800079230061,
+            "lifecycle": 0.8825221574420112
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.7768013630826861,
+            "cpu": 0.7768552705676939,
+            "lifecycle": 0.94297844603307
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.8713854508622811,
+            "cpu": 0.8709362786007064,
+            "lifecycle": 0.9857263091432422
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.8802874226554952,
+            "cpu": 0.8802883712731009,
+            "lifecycle": 0.9432569145380211
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.8619091769906071,
+            "cpu": 0.8618826086360027,
+            "lifecycle": 0.9434992158884952
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.8738479869923372,
+            "cpu": 0.8738397984241926,
+            "lifecycle": 0.9944957532453886
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.8964019049900994,
+            "cpu": 0.8963239762218771,
+            "lifecycle": 0.9780041923106877
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.9247777191527542,
+            "cpu": 0.9247111237140981,
+            "lifecycle": 0.9602862918062174
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.8897860452022872,
+            "cpu": 0.8872597028817483,
+            "lifecycle": 0.9408543632010062
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.0095790176156116,
+            "cpu": 1.0076689544864474,
+            "lifecycle": 1.0478091705581138
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.9190122471492903,
+            "cpu": 0.9190670821605731,
+            "lifecycle": 0.9376916484374556
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.051193367353787,
+            "cpu": 1.050830809881014,
+            "lifecycle": 1.0317635577441986
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.0168169907333886,
+            "cpu": 1.016832723780051,
+            "lifecycle": 1.0259342047858222
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9826275692474136,
+            "cpu": 0.9825321305192725,
+            "lifecycle": 0.9833592099794553
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0685101777487813,
+            "cpu": 1.0684903570857953,
+            "lifecycle": 1.0586996847919035
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.0153208549288186,
+            "cpu": 1.0129021625792756,
+            "lifecycle": 0.9727762159319482
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.008986672510367,
+            "cpu": 1.00876736576092,
+            "lifecycle": 1.0046095784195477
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9595853055727732,
+            "cpu": 0.95944900339256,
+            "lifecycle": 0.9583721599979412
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.9451805254707997,
+            "cpu": 0.9451778125404326,
+            "lifecycle": 0.989124924752799
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.993519675856879,
+            "cpu": 0.9934607488824481,
+            "lifecycle": 0.9839845498373537
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.0330029336234299,
+            "cpu": 1.0330894993723612,
+            "lifecycle": 1.056937248877627
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.1797728644774725,
+            "cpu": 1.179795844652791,
+            "lifecycle": 1.1277266812281497
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.980007009272174,
+            "cpu": 0.980009952357525,
+            "lifecycle": 0.9984733968250783
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.8681222142716156,
+            "cpu": 0.8679906791940819,
+            "lifecycle": 0.8903578787755442
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.0426210132720888,
+            "cpu": 1.0425870731667897,
+            "lifecycle": 1.0718045123256212
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.1527533407995179,
+            "cpu": 1.1529532363066783,
+            "lifecycle": 1.069131638807895
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0033933629601923,
+            "cpu": 1.0034236394113218,
+            "lifecycle": 1.0032967485095217
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.9290327643236029,
+            "cpu": 0.9290221009623216,
+            "lifecycle": 0.9446178552402313
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.8966140524630772,
+            "cpu": 0.8963334467283885,
+            "lifecycle": 0.9188977793966207
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9843599579674644,
+            "cpu": 0.9845299044264936,
+            "lifecycle": 0.9768517545510567
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0477669624382377,
+            "cpu": 1.0477735053010728,
+            "lifecycle": 1.03101015071323
+          }
+        ]
+      },
+      "linear4": {
+        "median_query": 0.9735268132361781,
+        "median_cpu": 0.9731054319861495,
+        "median_lifecycle": 0.989295142598142,
+        "wins": 10,
+        "cells": [
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.9133999605033458,
+            "cpu": 0.9501451313217157,
+            "lifecycle": 0.9728563281286409
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.9497351059121202,
+            "cpu": 0.9497966874129579,
+            "lifecycle": 0.9904065818162576
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9574814500907994,
+            "cpu": 0.9575758668198429,
+            "lifecycle": 0.9852300736549062
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.133318961389031,
+            "cpu": 1.1333780653631569,
+            "lifecycle": 1.0301793047232244
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.9707422977261618,
+            "cpu": 0.9707593570790085,
+            "lifecycle": 0.9362038002114236
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.8991437777849983,
+            "cpu": 0.8990335324111332,
+            "lifecycle": 0.9593048770409053
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9211029479610523,
+            "cpu": 0.9210347725833883,
+            "lifecycle": 1.0313892627658112
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.939219683545212,
+            "cpu": 0.939166972453464,
+            "lifecycle": 0.9963368856286332
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.944661973537247,
+            "cpu": 0.9408747360262378,
+            "lifecycle": 0.9798550116622851
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.9715712840318682,
+            "cpu": 0.9687337001067482,
+            "lifecycle": 1.010310888741412
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9854638826432247,
+            "cpu": 0.9854829510745089,
+            "lifecycle": 0.9652904267512559
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.9597793420490947,
+            "cpu": 0.9597486190708484,
+            "lifecycle": 0.9286914343314616
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.9867850046417413,
+            "cpu": 0.9864636610100457,
+            "lifecycle": 0.9965202238627708
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.9754823424404878,
+            "cpu": 0.9754515068932905,
+            "lifecycle": 0.935311534171012
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9509531180361465,
+            "cpu": 0.95092812329034,
+            "lifecycle": 0.9717831869979946
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0342354030964342,
+            "cpu": 1.0341561954213552,
+            "lifecycle": 1.0799322995816034
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.9879050008705099,
+            "cpu": 0.9878980623654671,
+            "lifecycle": 0.9079023535470027
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.0157646851340054,
+            "cpu": 1.0157816325709574,
+            "lifecycle": 1.008714984581336
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9657374925714729,
+            "cpu": 0.9656983855007808,
+            "lifecycle": 0.9996342702886947
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0325537826130722,
+            "cpu": 1.0324701280247512,
+            "lifecycle": 1.0041351784721917
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.9844015097382487,
+            "cpu": 0.9843996547389402,
+            "lifecycle": 0.9881837033800263
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.0104396156058584,
+            "cpu": 1.0104461915344662,
+            "lifecycle": 1.0317402942982654
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.2148127167746232,
+            "cpu": 1.2380602021420286,
+            "lifecycle": 1.1837139801925267
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.9181439357514009,
+            "cpu": 0.9181357815948477,
+            "lifecycle": 0.9056988592615277
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.9959202349292227,
+            "cpu": 0.9959526784965634,
+            "lifecycle": 0.9643824988448737
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.1184011105457208,
+            "cpu": 1.118418035815359,
+            "lifecycle": 1.1194380445598442
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.1128600804210316,
+            "cpu": 1.1129990828818124,
+            "lifecycle": 1.0297692954279736
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.9666156075490153,
+            "cpu": 0.9666206085641336,
+            "lifecycle": 0.9691043950036913
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.030566053535276,
+            "cpu": 1.0306721475783513,
+            "lifecycle": 1.01164757923314
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.8130314995435126,
+            "cpu": 0.8129266568347782,
+            "lifecycle": 0.7787143245504112
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9467358754365818,
+            "cpu": 0.9467514012622411,
+            "lifecycle": 0.9339526804766958
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.2202535483973207,
+            "cpu": 1.2204916839921933,
+            "lifecycle": 1.0651614979149828
+          }
+        ]
+      },
+      "dispatch": {
+        "median_query": 1.0450899728705054,
+        "median_cpu": 1.0435790023523177,
+        "median_lifecycle": 1.0145857450252636,
+        "wins": 25,
+        "cells": [
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.0026405677591255,
+            "cpu": 1.0026204560705685,
+            "lifecycle": 0.9537564187866867
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.9496275465461133,
+            "cpu": 0.9500759421458619,
+            "lifecycle": 0.9311793152793849
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.0009039127646924,
+            "cpu": 1.0009354837517972,
+            "lifecycle": 1.0144125953809233
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.262270206917993,
+            "cpu": 1.2623657022612629,
+            "lifecycle": 1.1102115246919078
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.9825569369572367,
+            "cpu": 0.9824987899226302,
+            "lifecycle": 0.9872368815907209
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.0431390835588155,
+            "cpu": 1.043072596227152,
+            "lifecycle": 1.035657251283676
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.1214542402242602,
+            "cpu": 1.1215696752617528,
+            "lifecycle": 1.0582956631551563
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0242484469874826,
+            "cpu": 1.024249395624563,
+            "lifecycle": 1.039948590096071
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.059863538990815,
+            "cpu": 1.0580835407511342,
+            "lifecycle": 1.035309016895273
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.0470408621821952,
+            "cpu": 1.0440854084774833,
+            "lifecycle": 1.0261030268433802
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.104375293241954,
+            "cpu": 1.1044188036651716,
+            "lifecycle": 0.9867809538627202
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.087600238073557,
+            "cpu": 1.087572470143813,
+            "lifecycle": 1.0369490953472795
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.048674833745375,
+            "cpu": 1.048757533715733,
+            "lifecycle": 1.0405836631496452
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.9710597991265362,
+            "cpu": 0.9710302977868419,
+            "lifecycle": 0.9665549881823485
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.0126309404836438,
+            "cpu": 1.01267691142992,
+            "lifecycle": 1.01138101860989
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.9933165185181104,
+            "cpu": 0.9931969771672322,
+            "lifecycle": 0.9865697986537418
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.0785242081228814,
+            "cpu": 1.0760012464952526,
+            "lifecycle": 1.0222871714818056
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.0907540642136304,
+            "cpu": 1.0961436833288212,
+            "lifecycle": 1.061982022380341
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.0200380297306328,
+            "cpu": 1.020045769382767,
+            "lifecycle": 0.9830792963411358
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0957367756285779,
+            "cpu": 1.0956553522962633,
+            "lifecycle": 1.0537077423991428
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.9922758632894814,
+            "cpu": 0.9914660127962809,
+            "lifecycle": 0.9855343715902776
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.9884422512728843,
+            "cpu": 0.988344358519412,
+            "lifecycle": 0.9918515805492183
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.2294796328909368,
+            "cpu": 1.22957429203569,
+            "lifecycle": 1.1992933472042202
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.9138746461666252,
+            "cpu": 0.9138041977905624,
+            "lifecycle": 0.9264039600566416
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.0246110891942708,
+            "cpu": 1.024556754409686,
+            "lifecycle": 0.9780196625500246
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.1380916027673749,
+            "cpu": 1.1381235814364121,
+            "lifecycle": 1.1057574097792215
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.122789935180439,
+            "cpu": 1.1228484061599624,
+            "lifecycle": 1.0090503635012302
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0335024919101914,
+            "cpu": 1.0335022788166564,
+            "lifecycle": 1.0147588946696038
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.0374827574614105,
+            "cpu": 1.0375649919507444,
+            "lifecycle": 1.0042048413608535
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.0772755755857015,
+            "cpu": 1.0450162664221985,
+            "lifecycle": 0.9706185379893786
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.0900835398446511,
+            "cpu": 1.0902355120150227,
+            "lifecycle": 1.0157745316523061
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.2792353706575519,
+            "cpu": 1.2793893184214513,
+            "lifecycle": 1.0973997119788323
+          }
+        ]
+      }
+    },
+    "pilot-cross": {
+      "branchless": {
+        "median_query": 0.9848775510713,
+        "median_cpu": 0.9848613625920641,
+        "median_lifecycle": 1.00135624868751,
+        "wins": 1,
+        "cells": [
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 1.0544588940660657,
+            "cpu": 1.0543487952471318,
+            "lifecycle": 1.055641362801203
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 0.9762330592978252,
+            "cpu": 0.9762993772355186,
+            "lifecycle": 0.9951089978094849
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 0.9152486610939613,
+            "cpu": 0.9152566542535281,
+            "lifecycle": 0.9426641917127794
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 0.9935220428447749,
+            "cpu": 0.9934233479486095,
+            "lifecycle": 1.0076034995655352
+          }
+        ]
+      },
+      "linear4": {
+        "median_query": 0.994080862492188,
+        "median_cpu": 0.9940995146777516,
+        "median_lifecycle": 0.9927832213648694,
+        "wins": 2,
+        "cells": [
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 1.0071361679853652,
+            "cpu": 1.007114901009247,
+            "lifecycle": 1.0120376087158194
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 0.9810255569990108,
+            "cpu": 0.9810841283462562,
+            "lifecycle": 0.9735288340139194
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 1.021902213945646,
+            "cpu": 1.0218107788770268,
+            "lifecycle": 1.0686040789376579
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 0.924212209622115,
+            "cpu": 0.9241567411921768,
+            "lifecycle": 0.940571287629664
+          }
+        ]
+      },
+      "dispatch": {
+        "median_query": 1.0366762795671292,
+        "median_cpu": 1.0366071894114117,
+        "median_lifecycle": 1.039207039972971,
+        "wins": 4,
+        "cells": [
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 1.0227898553512542,
+            "cpu": 1.0226939043939678,
+            "lifecycle": 1.0321392541117542
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 1.0582299961183548,
+            "cpu": 1.0582038052410363,
+            "lifecycle": 1.0342653145950527
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 1.0221010703141948,
+            "cpu": 1.0220810760167183,
+            "lifecycle": 1.044148765350889
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 1.050562703783004,
+            "cpu": 1.0505204744288557,
+            "lifecycle": 1.0451600485892647
+          }
+        ]
+      }
+    },
+    "pilot-forest": {
+      "branchless": {
+        "median_query": 1.0734754472666546,
+        "median_cpu": 1.0737021170436862,
+        "median_lifecycle": 1.008852875601018,
+        "wins": 7,
+        "cells": [
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 1.0007426658220597,
+            "cpu": 0.9998249461642561,
+            "lifecycle": 1.0264886564107445
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 1.1797222979797852,
+            "cpu": 1.184339157666404,
+            "lifecycle": 0.8521211510833288
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 1.0733715187310668,
+            "cpu": 1.0724063953564156,
+            "lifecycle": 0.9932991772036187
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 1.4009199932191816,
+            "cpu": 1.332188775744739,
+            "lifecycle": 1.0455709411567775
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 0.8857284802336776,
+            "cpu": 0.8866020271064128,
+            "lifecycle": 1.003260276582247
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 1.0036231826629551,
+            "cpu": 1.0010861540997458,
+            "lifecycle": 1.0071656881767643
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 1.073579375802242,
+            "cpu": 1.074997838730957,
+            "lifecycle": 1.051887576308729
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 1.0818753775871346,
+            "cpu": 1.0818691115899512,
+            "lifecycle": 1.0105400630252717
+          }
+        ]
+      },
+      "linear4": {
+        "median_query": 1.0399123264933614,
+        "median_cpu": 1.0406866904742325,
+        "median_lifecycle": 1.0047326967500365,
+        "wins": 4,
+        "cells": [
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 0.88767500254752,
+            "cpu": 0.8845772803264269,
+            "lifecycle": 0.9479366896850078
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 1.1873893526281807,
+            "cpu": 1.19153115504316,
+            "lifecycle": 1.0554668369652964
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 1.2221644132687703,
+            "cpu": 1.2276774513618454,
+            "lifecycle": 0.9745745478360841
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 1.4285229678292901,
+            "cpu": 1.3789389775971232,
+            "lifecycle": 1.0164584313088432
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 0.993407750889366,
+            "cpu": 0.9922176222280881,
+            "lifecycle": 0.9977388392100499
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 0.9999291592822706,
+            "cpu": 0.9965107052524502,
+            "lifecycle": 1.0701457045738436
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 0.9310635075053095,
+            "cpu": 0.9298837773045414,
+            "lifecycle": 0.9935221727113693
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 1.0798954937044523,
+            "cpu": 1.0848626756960145,
+            "lifecycle": 1.0117265542900231
+          }
+        ]
+      },
+      "dispatch": {
+        "median_query": 1.1508937068508462,
+        "median_cpu": 1.158330332528265,
+        "median_lifecycle": 1.0023788793583521,
+        "wins": 7,
+        "cells": [
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 0.8388415850273641,
+            "cpu": 0.8354590229951293,
+            "lifecycle": 0.9697178355259746
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 1.3762505986088636,
+            "cpu": 1.3822906350391337,
+            "lifecycle": 0.952207246512234
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 1.1703514738322058,
+            "cpu": 1.1797656470870987,
+            "lifecycle": 1.0074470339787518
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 1.3622712791770009,
+            "cpu": 1.2687862982818485,
+            "lifecycle": 1.070281588962968
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 1.1289781627097706,
+            "cpu": 1.1311642295499102,
+            "lifecycle": 0.9973107247379527
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 1.1314359398694864,
+            "cpu": 1.1368950179694313,
+            "lifecycle": 1.0367257764699689
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 1.0706234657445695,
+            "cpu": 1.0745343372365876,
+            "lifecycle": 0.9596388017210005
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 1.2365490243505046,
+            "cpu": 1.2448779909203354,
+            "lifecycle": 1.0239663738776263
+          }
+        ]
+      }
+    },
+    "pilot-cold": {
+      "branchless": {
+        "median_query": 0.9078984692176434,
+        "median_cpu": 0.9181589492825454,
+        "median_lifecycle": 1.0364282037695554,
+        "wins": 1,
+        "cells": [
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261029,
+            "stratum": "uniform",
+            "horizon": 1,
+            "query": 1.16991561521467,
+            "cpu": 1.1979701102231792,
+            "lifecycle": 1.0787578298796787
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261029,
+            "stratum": "uniform",
+            "horizon": 1,
+            "query": 0.6458813232206169,
+            "cpu": 0.6383477883419115,
+            "lifecycle": 0.994098577659432
+          }
+        ]
+      },
+      "linear4": {
+        "median_query": 1.093829678846815,
+        "median_cpu": 1.104223571646883,
+        "median_lifecycle": 1.0154152509239749,
+        "wins": 2,
+        "cells": [
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261029,
+            "stratum": "uniform",
+            "horizon": 1,
+            "query": 1.157337331691187,
+            "cpu": 1.1789775058601872,
+            "lifecycle": 1.0433543586619427
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261029,
+            "stratum": "uniform",
+            "horizon": 1,
+            "query": 1.0303220260024428,
+            "cpu": 1.0294696374335786,
+            "lifecycle": 0.9874761431860073
+          }
+        ]
+      },
+      "dispatch": {
+        "median_query": 1.037854467361548,
+        "median_cpu": 1.0383592523120204,
+        "median_lifecycle": 1.0509785256220623,
+        "wins": 2,
+        "cells": [
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261029,
+            "stratum": "uniform",
+            "horizon": 1,
+            "query": 1.043451756596462,
+            "cpu": 1.0441511617343657,
+            "lifecycle": 1.097590536421707
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261029,
+            "stratum": "uniform",
+            "horizon": 1,
+            "query": 1.032257178126634,
+            "cpu": 1.0325673428896749,
+            "lifecycle": 1.0043665148224177
+          }
+        ]
+      }
+    },
+    "layout": {
+      "eytzinger": {
+        "median_query": 0.98633949978495,
+        "median_cpu": 0.986347692577476,
+        "median_lifecycle": 0.9684402009583308,
+        "wins": 13,
+        "cells": [
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.7347884801953144,
+            "cpu": 0.7347588021142923,
+            "lifecycle": 0.8713300062728937
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.7566134756368736,
+            "cpu": 0.7566154653480281,
+            "lifecycle": 0.9153189786335686
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.7812767172358258,
+            "cpu": 0.7812629362457925,
+            "lifecycle": 0.9474478848345327
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.7957860050825629,
+            "cpu": 0.7957840999485541,
+            "lifecycle": 0.9329919070493122
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.8282079291101687,
+            "cpu": 0.8290816912229968,
+            "lifecycle": 0.9304384296156727
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.8161431093408522,
+            "cpu": 0.8160882505681201,
+            "lifecycle": 0.9137091852051651
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9352851267171827,
+            "cpu": 0.9353341373391179,
+            "lifecycle": 0.9285171478334779
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.8334146174641078,
+            "cpu": 0.8333698376087407,
+            "lifecycle": 0.9535915571848602
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.9820542155665061,
+            "cpu": 0.982085019007283,
+            "lifecycle": 0.951909394941505
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.824737403544883,
+            "cpu": 0.8247805689183159,
+            "lifecycle": 0.9052502812110297
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.01598975806077,
+            "cpu": 1.0160622942696216,
+            "lifecycle": 0.9647466778906801
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.8588933357992311,
+            "cpu": 0.8588791846707926,
+            "lifecycle": 0.9232704126593947
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.0958825432581538,
+            "cpu": 1.0958637341910493,
+            "lifecycle": 1.073460687837049
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.9906247840033937,
+            "cpu": 0.9906103661476691,
+            "lifecycle": 0.9796086023218633
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.0134205955293976,
+            "cpu": 1.0133935068689872,
+            "lifecycle": 1.049199012522547
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.9959382699749617,
+            "cpu": 0.995980415644232,
+            "lifecycle": 0.9895030118826861
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.0439511958611667,
+            "cpu": 1.0439081792060643,
+            "lifecycle": 1.0061195118488262
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.007018028296713,
+            "cpu": 1.006989896202828,
+            "lifecycle": 0.9907174609832167
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9603343765762078,
+            "cpu": 0.9602625590025717,
+            "lifecycle": 0.9322560480952576
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0005525797484234,
+            "cpu": 1.0119359416983573,
+            "lifecycle": 0.9725850245202562
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.0641875960979368,
+            "cpu": 1.0641798117179564,
+            "lifecycle": 1.0457285424178078
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.9986723429883725,
+            "cpu": 0.9986930902135387,
+            "lifecycle": 0.9909490759400189
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9543520501117206,
+            "cpu": 0.9544737816442863,
+            "lifecycle": 0.9147095451220928
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0271417455719976,
+            "cpu": 1.0270982222662322,
+            "lifecycle": 1.026950161826321
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.009970880742253,
+            "cpu": 1.009933402316061,
+            "lifecycle": 1.0232570216885177
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.0224538087972173,
+            "cpu": 1.0225191126135886,
+            "lifecycle": 1.0126013913732317
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.0273446083170579,
+            "cpu": 1.0273763209468783,
+            "lifecycle": 0.933968956810313
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.9524749156511992,
+            "cpu": 0.9523861717537978,
+            "lifecycle": 0.9721337240259815
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.9776154160566225,
+            "cpu": 0.9776958532293827,
+            "lifecycle": 1.018025177216897
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.9511955167683601,
+            "cpu": 0.9501323586407595,
+            "lifecycle": 1.0774167287816496
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.0299752755836864,
+            "cpu": 1.0299816245750777,
+            "lifecycle": 1.0573400420430787
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0057111028798655,
+            "cpu": 1.0056575680640147,
+            "lifecycle": 0.9123549950392684
+          }
+        ]
+      }
+    },
+    "layout-cross": {
+      "eytzinger": {
+        "median_query": 1.013626054292044,
+        "median_cpu": 1.0121832082270605,
+        "median_lifecycle": 1.0447760225768388,
+        "wins": 3,
+        "cells": [
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 0.8803651397698411,
+            "cpu": 0.8811769428591444,
+            "lifecycle": 0.8352451619542733
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 1.0058546979097682,
+            "cpu": 1.0060764378026072,
+            "lifecycle": 1.0357250609250976
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 1.02139741067432,
+            "cpu": 1.0182899786515138,
+            "lifecycle": 1.0822410608997495
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 1.068026318594875,
+            "cpu": 1.0681230128347894,
+            "lifecycle": 1.0538269842285801
+          }
+        ]
+      }
+    },
+    "layout-forest": {
+      "eytzinger": {
+        "median_query": 1.0488310853043945,
+        "median_cpu": 1.0476448805089875,
+        "median_lifecycle": 1.0037726642306781,
+        "wins": 5,
+        "cells": [
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 0.9949112524444497,
+            "cpu": 0.9973184040603481,
+            "lifecycle": 1.0304875644691518
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 1.0754647262317376,
+            "cpu": 1.0764362443728523,
+            "lifecycle": 1.0460611989586819
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 0.8696384744168995,
+            "cpu": 0.8680133325585837,
+            "lifecycle": 0.9491983809354183
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 1.2229275942145543,
+            "cpu": 1.2279205725824252,
+            "lifecycle": 1.0761478456866294
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 0.9999366129437629,
+            "cpu": 0.9958292238485045,
+            "lifecycle": 0.9341777858529501
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 1.4296214564852778,
+            "cpu": 1.433646184594117,
+            "lifecycle": 1.0490958133172723
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 1.0729210441191852,
+            "cpu": 1.0738360289310354,
+            "lifecycle": 0.9770577639922042
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 1.0247411264896038,
+            "cpu": 1.0214537320869397,
+            "lifecycle": 0.9557337222438695
+          }
+        ]
+      }
+    },
+    "layout-cold": {
+      "eytzinger": {
+        "median_query": 0.9245292776329019,
+        "median_cpu": 0.9207423430681649,
+        "median_lifecycle": 0.9792164056650638,
+        "wins": 0,
+        "cells": [
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261029,
+            "stratum": "uniform",
+            "horizon": 1,
+            "query": 0.8995075289223804,
+            "cpu": 0.891896324962656,
+            "lifecycle": 1.0166000685862722
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261029,
+            "stratum": "uniform",
+            "horizon": 1,
+            "query": 0.9495510263434235,
+            "cpu": 0.9495883611736738,
+            "lifecycle": 0.9418327427438555
+          }
+        ]
+      }
+    },
+    "null": {
+      "identical": {
+        "median_query": 1.001070814369597,
+        "median_cpu": 1.0027179054929756,
+        "median_lifecycle": 0.9946700379440814,
+        "wins": 17,
+        "cells": [
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.9940366221021122,
+            "cpu": 0.9944103207346795,
+            "lifecycle": 1.0134800130822008
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.0640969726263854,
+            "cpu": 1.0642282515077275,
+            "lifecycle": 1.0189507560733193
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9955735336006886,
+            "cpu": 0.9955393872206297,
+            "lifecycle": 1.0055479485540828
+          },
+          {
+            "dataset": "example",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0547016442754034,
+            "cpu": 1.0546968568932358,
+            "lifecycle": 1.0251832315589047
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.981294756026639,
+            "cpu": 0.9803597643689254,
+            "lifecycle": 0.9741006619440533
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.99657953894511,
+            "cpu": 0.99661625289831,
+            "lifecycle": 1.0079100015895517
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.0020955032932193,
+            "cpu": 1.0019372089586231,
+            "lifecycle": 0.961991179322026
+          },
+          {
+            "dataset": "grail_citeseer",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0067412922954717,
+            "cpu": 1.007093456977675,
+            "lifecycle": 0.985725898903021
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.0171524133422647,
+            "cpu": 1.0375445723051306,
+            "lifecycle": 0.9898327563777749
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.9686596148133131,
+            "cpu": 0.9711108835105817,
+            "lifecycle": 0.9888800417319217
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9705311880288089,
+            "cpu": 0.970648589777138,
+            "lifecycle": 0.9759547593498881
+          },
+          {
+            "dataset": "grail_go",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.008601875774434,
+            "cpu": 1.00866523607047,
+            "lifecycle": 1.0234298044659984
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.0477033005257832,
+            "cpu": 1.0474140696389065,
+            "lifecycle": 1.0617715503076945
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.9732840511717746,
+            "cpu": 0.9732432822660282,
+            "lifecycle": 0.9903785646060179
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.0098093469897687,
+            "cpu": 1.009778457472824,
+            "lifecycle": 1.0148716959655557
+          },
+          {
+            "dataset": "grail_kegg",
+            "seed": 20261022,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0134607235597652,
+            "cpu": 1.0131652593268843,
+            "lifecycle": 1.0049830572807807
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.0095879117051272,
+            "cpu": 1.0095743864996316,
+            "lifecycle": 1.0046763631818068
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.9972006415659918,
+            "cpu": 1.0057155678345133,
+            "lifecycle": 0.9796211623461384
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9628824885821439,
+            "cpu": 0.9629005177790178,
+            "lifecycle": 0.9590523163160024
+          },
+          {
+            "dataset": "heldout_agrocyc",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0000461254459747,
+            "cpu": 0.9999500893425608,
+            "lifecycle": 1.0257617612821575
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 0.9940919871170395,
+            "cpu": 0.9941149483875527,
+            "lifecycle": 0.9881552773989792
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.9719435890243857,
+            "cpu": 0.9720648285787175,
+            "lifecycle": 0.9025657076192117
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9926201828105712,
+            "cpu": 0.9922938169518916,
+            "lifecycle": 0.9809944847599918
+          },
+          {
+            "dataset": "heldout_amaze",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.008947147296798,
+            "cpu": 1.00892563237208,
+            "lifecycle": 0.9923948448763884
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.0197891648966086,
+            "cpu": 1.0196486471495299,
+            "lifecycle": 1.0499166277987104
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 0.9650760729337909,
+            "cpu": 0.9649620010954174,
+            "lifecycle": 0.9961891582070941
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 1.013869250819359,
+            "cpu": 1.0139256935487049,
+            "lifecycle": 0.9824598336351349
+          },
+          {
+            "dataset": "heldout_ecoo",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 1.0034448721780245,
+            "cpu": 1.003498602027328,
+            "lifecycle": 1.0275660298141136
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "uniform",
+            "horizon": 2000,
+            "query": 1.0190712883373374,
+            "cpu": 1.0191397331917735,
+            "lifecycle": 0.971957170533301
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "positive",
+            "horizon": 2000,
+            "query": 1.0662425153264543,
+            "cpu": 1.0662194645945373,
+            "lifecycle": 0.9990676061360839
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "negative",
+            "horizon": 2000,
+            "query": 0.9998265033928985,
+            "cpu": 0.9997194303149015,
+            "lifecycle": 0.9931509176810688
+          },
+          {
+            "dataset": "heldout_human",
+            "seed": 20261025,
+            "stratum": "balanced",
+            "horizon": 2000,
+            "query": 0.9603383064805988,
+            "cpu": 0.9602892480287958,
+            "lifecycle": 0.9962408312069218
+          }
+        ]
+      }
+    },
+    "null-cross": {
+      "identical": {
+        "median_query": 0.9907984000290483,
+        "median_cpu": 0.9900624864770182,
+        "median_lifecycle": 1.0159486285746837,
+        "wins": 1,
+        "cells": [
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 0.9671823749974835,
+            "cpu": 0.9671795218869617,
+            "lifecycle": 1.040484179213179
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 0.9962773561383169,
+            "cpu": 0.9947927292785956,
+            "lifecycle": 1.028165425982548
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 0.9853194439197797,
+            "cpu": 0.9853322436754408,
+            "lifecycle": 0.9853249263522796
+          },
+          {
+            "dataset": "phase30_cross_chains",
+            "seed": 30004,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 1.0260862630216934,
+            "cpu": 1.02618545594453,
+            "lifecycle": 1.0037318311668195
+          }
+        ]
+      }
+    },
+    "null-forest": {
+      "identical": {
+        "median_query": 0.9880234101216202,
+        "median_cpu": 0.9898633872130087,
+        "median_lifecycle": 1.0025833829030986,
+        "wins": 2,
+        "cells": [
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 1.0053288683281627,
+            "cpu": 1.0032742164838537,
+            "lifecycle": 0.9866589270430931
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 0.985689968735684,
+            "cpu": 0.9883021755614448,
+            "lifecycle": 1.0466445728882183
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 1.0682241102055046,
+            "cpu": 1.0691435569258463,
+            "lifecycle": 0.9552381306959788
+          },
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261028,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 0.9890794993980689,
+            "cpu": 0.9909302833412132,
+            "lifecycle": 1.011688185683619
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "uniform",
+            "horizon": 1000,
+            "query": 0.9813219647347747,
+            "cpu": 0.9787060647197385,
+            "lifecycle": 0.9389514193177065
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "positive",
+            "horizon": 1000,
+            "query": 0.9966632568580001,
+            "cpu": 0.9993310314685466,
+            "lifecycle": 1.016863285266037
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "negative",
+            "horizon": 1000,
+            "query": 0.7729976301942137,
+            "cpu": 0.7694574272671217,
+            "lifecycle": 0.9935688868848891
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261028,
+            "stratum": "balanced",
+            "horizon": 1000,
+            "query": 0.9869673208451715,
+            "cpu": 0.988796491084804,
+            "lifecycle": 1.0115978789213078
+          }
+        ]
+      }
+    },
+    "null-cold": {
+      "identical": {
+        "median_query": 1.009410164062782,
+        "median_cpu": 1.009924183149257,
+        "median_lifecycle": 1.0242954513615428,
+        "wins": 1,
+        "cells": [
+          {
+            "dataset": "large_citeseer",
+            "seed": 20261029,
+            "stratum": "uniform",
+            "horizon": 1,
+            "query": 1.0675547690389315,
+            "cpu": 1.073065942159102,
+            "lifecycle": 1.0574988307982425
+          },
+          {
+            "dataset": "large_uniprot_22m",
+            "seed": 20261029,
+            "stratum": "uniform",
+            "horizon": 1,
+            "query": 0.9512655590866321,
+            "cpu": 0.9467824241394116,
+            "lifecycle": 0.9910920719248432
+          }
+        ]
+      }
+    }
+  },
+  "uncertainty": "Descriptive paired medians; confidence intervals not estimated. One shared host and exposed related inputs."
+}
