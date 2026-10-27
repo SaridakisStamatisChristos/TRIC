@@ -1,5 +1,6 @@
 """Verify Phase XXX source provenance, complete trials, memory and pilot history."""
 import base64
+import argparse
 import gzip
 import hashlib
 import json
@@ -13,20 +14,21 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def verify():
+def verify(source_root=None):
     source = Path(__file__).resolve().parent
+    candidate = Path(source_root).resolve() / 'tric_research' if source_root else source
     root = source / 'evidence/phase30'
     frozen = root / 'baseline-sources/tric_research'
     hashes = json.loads((root / 'source_hashes.json').read_text())
     for name, expected in hashes['sources'].items():
-        assert sha((source / name).read_bytes()) == expected, name
+        assert sha((candidate / name).read_bytes()) == expected, name
     for name, expected in hashes['artifacts'].items():
         assert sha((root / name).read_bytes()) == expected, name
     prior_hashes = json.loads((source / 'evidence/phase29/source_hashes.json').read_text())
     for name, expected in prior_hashes['sources'].items():
         assert sha((frozen / name).read_bytes()) == expected, name
     protocol = json.loads((root / 'qualification_protocol.json').read_text())
-    assert sha((source / 'partitioned_reachability.h').read_bytes()) == protocol['candidate_header_sha256']
+    assert sha((candidate / 'partitioned_reachability.h').read_bytes()) == protocol['candidate_header_sha256']
     build = json.loads((root / 'build_manifest.json').read_text())
     prior = json.loads((source / 'evidence/phase29/build_manifest.json').read_text())
     for key in ('compiler', 'source_sha256', 'oreach_sha', 'bfl_commit',
@@ -39,7 +41,7 @@ def verify():
     binaries = {}
     for arm in build['commands']:
         binaries[arm['name']] = arm['executable_sha256']
-        headers = frozen if arm['name'] == 'previous' else source
+        headers = frozen if arm['name'] == 'previous' else candidate
         assert len(arm['selected_runtime_dependencies']) == 8
         for name, expected in arm['runtime_source_hashes'].items():
             assert sha((headers / name).read_bytes()) == expected, name
@@ -50,7 +52,7 @@ def verify():
     # Construction, representations and accounting are unchanged. Both moved
     # bodies must remain exactly the baseline bodies, including branch order.
     before = (frozen / 'partitioned_reachability.h').read_text()
-    after = (source / 'partitioned_reachability.h').read_text()
+    after = (candidate / 'partitioned_reachability.h').read_text()
     residual = '      const auto first=intervals_.begin()+from.route+1'
     noninterval = '    if (from.tree_begin==to.tree_begin) return true;'
     accounting = '  std::size_t table_bytes() const'
@@ -138,4 +140,6 @@ def verify():
 
 
 if __name__ == '__main__':
-    print(json.dumps(verify(), indent=2))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--source-root', help='Repository-shaped frozen source snapshot')
+    print(json.dumps(verify(parser.parse_args().source_root), indent=2))

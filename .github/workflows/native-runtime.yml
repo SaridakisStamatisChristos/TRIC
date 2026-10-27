@@ -36,7 +36,7 @@ jobs:
           python summarize_native_changes.py evidence/phase28/forest-fresh --fixtures evidence/phase27/fresh-fixtures
           python verify_phase28_evidence.py --source-root evidence/phase29/baseline-sources
           python verify_phase29_evidence.py --source-root evidence/phase30/baseline-sources
-          python verify_phase30_evidence.py
+          python verify_phase30_evidence.py --source-root evidence/phase32/baseline-sources
       - name: Native address and undefined behavior checks
         working-directory: tric_research
         run: |
