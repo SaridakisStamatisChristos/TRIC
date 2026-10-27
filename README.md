@@ -46,8 +46,14 @@ and exact search on table refusal. It needs no query training. Interval labels
 cache their widest complete range without adding memory.
 The common query path keeps residual lookup and fallback work in separate
 helpers, allowing supported compilers to inline the quick certificate checks.
+The interval construction directory is released after its offsets and counts
+have been copied into vertex labels, saving eight retained bytes per interval
+SCC on the tested toolchain without changing admission or query code.
 
 See [native runtime usage and limitations](NATIVE_RUNTIME.md). The table allowance
 is not a total-memory cap. The existing research algorithms and archives remain
 available. [Latest comparative evidence, regressions and remaining gaps](tric_research/PHASE_XXX_RESEARCH_REPORT.md)
 are recorded in Phase XXX; no universal SOTA or novel algorithm claim is made.
+Phase XXXI rejected four query optimizations. [Phase XXXII](tric_research/PHASE_XXXII_RESEARCH_REPORT.md)
+validates the directory release with independent allocation tracking; it makes
+no new latency or external-comparator claim. See [current status](RESEARCH_STATUS.md).

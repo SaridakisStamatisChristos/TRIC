@@ -72,8 +72,10 @@ certificate. Remaining queries use the selected exact table or search.
 Interval partitions copy their row offset and count into existing label fields,
 avoiding a dependent row lookup. Other modes reuse those fields for the chain or
 SCC ID and two saturating 16-bit longest-path bounds. Saturation weakens search
-pruning without changing answers. The interval row directory remains retained
-and counted against the table budget; this change does not increase capacity.
+pruning without changing answers. After all labels are materialized, the interval
+row directory is released. Its bytes still count during construction admission;
+they are not re-spent on later partitions. This reduces retained storage without
+changing the selected representations or increasing admission capacity.
 Ancestor construction adds a temporary 8-byte entry per SCC and one DAG pass.
 The full label still occupies 32 bytes.
 
@@ -102,7 +104,8 @@ No single strategy is fastest on every graph or request horizon.
 
 For a partition with s SCCs and k covering paths, chain storage is O(s*k) 32-bit
 entries; dense storage is O(s*ceil(s/64)) 64-bit words. An interval table with R
-stored ranges uses 8*s + 8*R bytes on the tested toolchain. Rows contain
+stored ranges uses 8*s + 8*R bytes during construction admission and retains 8*R
+table bytes after releasing the directory, on the tested toolchain. Rows contain
 disjoint half-open intervals in DFS preorder, including all reachable SCCs.
 They are sorted during union construction; the final row has its cached range
 first and a sorted residual suffix.

@@ -24,10 +24,14 @@ def load_archive():
     return json.loads(gzip.decompress((EVIDENCE / 'experiments.json.gz').read_bytes()))
 
 
-def verify_seal():
+def verify_seal(source_root=None):
+    # A sparse historical snapshot can preserve files that later phases edit.
+    # Every chosen byte stream is still checked against the original seal.
     manifest = json.loads((EVIDENCE/'sealed_manifest.json').read_text())
     for name, expected in manifest['files'].items():
-        assert sha((ROOT.parent/name).read_bytes()) == expected, name
+        archived = Path(source_root)/name if source_root else None
+        path = archived if archived is not None and archived.is_file() else ROOT.parent/name
+        assert sha(path.read_bytes()) == expected, name
 
 
 def verify(archive):
@@ -188,9 +192,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--rebuild-checks', action='store_true')
     parser.add_argument('--write-metrics', action='store_true')
+    parser.add_argument('--source-root', help='Sparse repository-shaped historical source snapshot')
     args = parser.parse_args()
     if not args.write_metrics:
-        verify_seal()
+        verify_seal(args.source_root)
     archive = load_archive(); metrics = verify(archive)
     if args.write_metrics:
         (EVIDENCE/'metrics.json').write_text(json.dumps(metrics, indent=2)+'\n')

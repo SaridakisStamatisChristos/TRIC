@@ -354,6 +354,11 @@ private:
         interval?static_cast<int>(first.first):local_[a],route,
         tree_begin[a],interval?static_cast<int>(first.end):tree_end[a],signature[a]};
     }
+    // Every interval offset/count is now copied into vertex_labels_. Queries
+    // use those labels directly; the construction directory has no remaining
+    // readers. Release its allocation, not just its size. Keep admission and
+    // rollback accounting above unchanged: reclaimed bytes are not re-spent.
+    std::vector<IntervalRow>().swap(interval_rows_);
     if (needs_search) {
       // Free reverse adjacency before allocating compact forward CSR.
       Graph().swap(incoming);
