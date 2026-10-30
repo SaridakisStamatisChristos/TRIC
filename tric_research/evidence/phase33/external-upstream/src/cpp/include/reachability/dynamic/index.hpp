@@ -1,0 +1,81 @@
+#pragma once
+
+#include "reachability/dynamic/xy_ordering.hpp"
+#include "reachability/dynamic/graph.hpp"
+
+#include <cstddef>
+#include <cstdint>
+#include <unordered_map>
+#include <vector>
+
+namespace reachability::dynamic {
+
+// The dynamic index: two topological orderings (X, Y), stored as GAP-TOLERANT signed
+// integer coordinates (the original 2014 integer-coordinate representation). The index
+// maps VERTICES, not just DAG representatives: a folded member (see FelinePK::fold_cycle)
+// keeps the coordinate it held before folding, retained and inert for as long as it is
+// not a representative — reachability queries map through the union-find representative
+// first, and reorders only walk E_DAG neighbours, which are always representatives — so
+// that a later component split (see FelinePK::split_component) can re-elect it and resume
+// from a coordinate that already exists instead of needing a fresh one. Only the RELATIVE
+// order of coordinate values is meaningful; removals leave gaps (O(1)) instead of
+// compacting a dense 0..k-1 permutation. No operation ever needs a value strictly between
+// two existing ones: reorders only permute a set's own existing coordinate values among
+// themselves, and append_isolated only mints new values at the extremes, so with int64_t
+// there is no exhaustion and no relabeling is ever needed.
+class DynIndex {
+public:
+    bool has(vertex_t r) const { return x_coord_.find(r) != x_coord_.end(); }
+    int64_t x(vertex_t r) const { return x_coord_.at(r); }
+    int64_t y(vertex_t r) const { return y_coord_.at(r); }
+    // Number of vertices that have coordinates — NOT the number of representatives
+    // (folded members keep theirs). For the representative count use
+    // graph().dag_out_all().size().
+    uint32_t size() const { return static_cast<uint32_t>(x_coord_.size()); }
+
+    // Alg. 7: append at the end of X and the front of Y (bottom-right corner). O(1).
+    void append_isolated(vertex_t r);
+    // Alg. 8: remove r from both orders. O(1) — leaves a gap, no compaction.
+    void remove(vertex_t r);
+
+    // Rebuild all coordinates from two topological orders of the current reps.
+    //
+    // NOT on the insert/remove/query path — only tests call this. Kept because the
+    // reference keeps it. Do not wire it into a reorder: see build_suborder below.
+    void set_from_scratch(const std::vector<vertex_t>& order_x,
+                          const std::vector<vertex_t>& order_y);
+
+    // Reposition only the vertices in `delta` using their previous coordinate VALUES
+    // as the slot set, ordered by the new relative ranks in `sub` (indexed positionally
+    // by `delta`). Vertices outside `delta` keep their coordinates.
+    void permute(const std::vector<vertex_t>& delta, const XYOrdering& sub);
+
+    // Estimated resident size of x_coord_ and y_coord_ (new code, not in the reference; see
+    // FelinePK::index_size_bytes for the estimate's caveats).
+    std::size_t size_bytes() const;
+
+private:
+    std::unordered_map<vertex_t, int64_t> x_coord_, y_coord_; // rep -> gap-tolerant coord
+    int64_t next_x_ = 0; // next X coord to hand out at the high end (increments)
+    int64_t next_y_ = 0; // next Y coord to hand out at the low end (decrements)
+};
+
+// Algorithm 6: build (X, Y) for the sub-DAG induced by `reps` (edges of E_DAG whose
+// both endpoints are in `reps`). Ranks are returned positionally by `reps`.
+//
+// DO NOT CALL THIS FROM A REORDER PATH. It is not on the insert/remove/query path at all
+// — only tests reach it — and that is deliberate, not an oversight to fix.
+//
+// This function IS the thesis's `constrói_indice(δ, E_DAG ∩ δ²)`: the Alg. 10 line-11
+// operator that FelinePK deliberately does NOT use. Re-sorting δ's sub-DAG from scratch
+// can rank two δ-vertices that are incomparable in it differently from before, letting a
+// δ-vertex jump over a vertex inside the affected band but outside δ — which stays fixed —
+// and inverting a live edge. feline_pk.cpp uses a structured merge instead, per axis.
+// Wiring this back into a reorder reintroduces exactly the defect that was corrected.
+// The analysis, both counterexamples and the evidence are in docs/fidelity.md.
+//
+// It stays because the reference keeps it, and because it is the artefact that NAMES the
+// divergence: deleting it would erase what fidelity.md's claim is about.
+XYOrdering build_suborder(const DynamicGraph& g, const std::vector<vertex_t>& reps);
+
+} // namespace reachability::dynamic

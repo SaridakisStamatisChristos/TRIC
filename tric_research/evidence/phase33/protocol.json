@@ -1,0 +1,68 @@
+{
+  "baseline_commit": "02a91849193e12266785ecfd1d49cd8d87b458f2",
+  "arms": [
+    "previous",
+    "csr",
+    "closure",
+    "buffers",
+    "identical"
+  ],
+  "trials": 5,
+  "cpu": 1,
+  "target_build_cpu_ns": 200000000,
+  "cap": 2097152,
+  "gates": {
+    "median_build_cpu_ratio_min": 1.05,
+    "minimum_build_cpu_ratio": 0.9,
+    "null_control_band": [
+      0.9,
+      1.1111111111111112
+    ],
+    "retained_and_table_equal": true,
+    "BFS_and_sanitizers": true
+  },
+  "scope": "Pilot: repeated destruction/construction of frozen parsed graphs; no cold-start/query speed/SOTA claim. Each graph equally weighted; all failures retained. No tuning after output. Successful pilot requires separate qualification.",
+  "headers": {
+    "previous": {
+      "tric_reachability.h": "fa3a846aee3c11870edc9c63eaedadaf1288010d33d849758f7db8c3a5257f2b",
+      "partitioned_reachability.h": "cd707556f9ac20d9fb299fcee8222663a603bac84d12c326def25caf0b9cccb5",
+      "oreach_adapter.h": "694ba424d9b7c5df4fe1be3821ab12a579afbfce647e904980391e2d5c75fb51",
+      "forest_reachability.h": "b49f05e9d0f24f48e792b485ab05d66f738a438f0f9778d224db53ea7e028c7d",
+      "pruned_labeling_adapter.h": "ca19a66f7dab1ae0bd5e75ee3266033f3422fec49a341da25e0c213471761840",
+      "bfl_adapter.h": "5d63bd722435ef8dddb3a04e75bda5277d8cba5d2c03ac9a42cda956487316a2",
+      "closure_index.h": "bbdeb40c467817fc95e99213ad00fc61b125f6c988901cd14fb0a5afa0faf154",
+      "scc_decomposition.h": "c751356abf39e1d52b3310b3fc3c630c1813302a17c1cbebdae47262399b73ec"
+    },
+    "csr": {
+      "tric_reachability.h": "fa3a846aee3c11870edc9c63eaedadaf1288010d33d849758f7db8c3a5257f2b",
+      "partitioned_reachability.h": "cd707556f9ac20d9fb299fcee8222663a603bac84d12c326def25caf0b9cccb5",
+      "oreach_adapter.h": "694ba424d9b7c5df4fe1be3821ab12a579afbfce647e904980391e2d5c75fb51",
+      "forest_reachability.h": "b49f05e9d0f24f48e792b485ab05d66f738a438f0f9778d224db53ea7e028c7d",
+      "pruned_labeling_adapter.h": "ca19a66f7dab1ae0bd5e75ee3266033f3422fec49a341da25e0c213471761840",
+      "bfl_adapter.h": "5d63bd722435ef8dddb3a04e75bda5277d8cba5d2c03ac9a42cda956487316a2",
+      "closure_index.h": "bbdeb40c467817fc95e99213ad00fc61b125f6c988901cd14fb0a5afa0faf154",
+      "scc_decomposition.h": "4540b68fe358cd34475fccf09c812e157f33b800ed682f0638f0140c418cc587"
+    },
+    "closure": {
+      "tric_reachability.h": "fa3a846aee3c11870edc9c63eaedadaf1288010d33d849758f7db8c3a5257f2b",
+      "partitioned_reachability.h": "cd707556f9ac20d9fb299fcee8222663a603bac84d12c326def25caf0b9cccb5",
+      "oreach_adapter.h": "694ba424d9b7c5df4fe1be3821ab12a579afbfce647e904980391e2d5c75fb51",
+      "forest_reachability.h": "b49f05e9d0f24f48e792b485ab05d66f738a438f0f9778d224db53ea7e028c7d",
+      "pruned_labeling_adapter.h": "ca19a66f7dab1ae0bd5e75ee3266033f3422fec49a341da25e0c213471761840",
+      "bfl_adapter.h": "5d63bd722435ef8dddb3a04e75bda5277d8cba5d2c03ac9a42cda956487316a2",
+      "closure_index.h": "126dd10684ade1e1d90137c50ac0a61896b9e824acc2b4abb88a05fed8ea0edc",
+      "scc_decomposition.h": "c751356abf39e1d52b3310b3fc3c630c1813302a17c1cbebdae47262399b73ec"
+    },
+    "buffers": {
+      "tric_reachability.h": "fa3a846aee3c11870edc9c63eaedadaf1288010d33d849758f7db8c3a5257f2b",
+      "partitioned_reachability.h": "efb71e34a400f10de50b8be9ab3fe360069d71fba5180a6358a8cf45b02662f3",
+      "oreach_adapter.h": "694ba424d9b7c5df4fe1be3821ab12a579afbfce647e904980391e2d5c75fb51",
+      "forest_reachability.h": "b49f05e9d0f24f48e792b485ab05d66f738a438f0f9778d224db53ea7e028c7d",
+      "pruned_labeling_adapter.h": "ca19a66f7dab1ae0bd5e75ee3266033f3422fec49a341da25e0c213471761840",
+      "bfl_adapter.h": "5d63bd722435ef8dddb3a04e75bda5277d8cba5d2c03ac9a42cda956487316a2",
+      "closure_index.h": "bbdeb40c467817fc95e99213ad00fc61b125f6c988901cd14fb0a5afa0faf154",
+      "scc_decomposition.h": "c751356abf39e1d52b3310b3fc3c630c1813302a17c1cbebdae47262399b73ec"
+    }
+  },
+  "harness_sha256": "daee0016e2ccbfa8a85cd6e4b7c283420ee403c414ea7cdaeea751a267d1759a"
+}

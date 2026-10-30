@@ -1,0 +1,563 @@
+{
+  "upstream": "reneveloso/PyReachability",
+  "upstream_commit": "0c84ca38de2d384c561690f4782f93e19fc76816",
+  "arms": [
+    "tric",
+    "feline",
+    "grail",
+    "preach",
+    "ferrari",
+    "tflabel",
+    "tol",
+    "identical"
+  ],
+  "cpu": 1,
+  "trials": 8,
+  "query_target_cpu_ns": 100000000,
+  "cases": [
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/example.json.gz",
+      "dataset": "example",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "input_sha256": "1fe85ea0e7ed2f38a2fc8363a2f841e5bd474bb881e73e6c4664eed84f097868"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/example.json.gz",
+      "dataset": "example",
+      "seed": 20261022,
+      "stratum": "positive",
+      "input_sha256": "84d968ce862dcf5136ea0d3a5e3834a9a02584e33ade4688ac3669faf7068ad3"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/example.json.gz",
+      "dataset": "example",
+      "seed": 20261022,
+      "stratum": "negative",
+      "input_sha256": "5516e65bd671b43912af73896359ee7440a598287990b78acf07337d1acd800d"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/example.json.gz",
+      "dataset": "example",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "input_sha256": "2e3b75e694a64cee3567c24d0396226a33f151d358afa2ab76b5fd45dd71e2b2"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/generated_blocks.json.gz",
+      "dataset": "generated_blocks",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "input_sha256": "bab85d465e53ce7b2c674de0ea78c50f9b63069d789070c6da8325bb6c4a29c3"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/generated_blocks.json.gz",
+      "dataset": "generated_blocks",
+      "seed": 20261022,
+      "stratum": "positive",
+      "input_sha256": "f039ecdaa09ff4973209f1c05177867fb8c170a041f900688815e1391612d7a4"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/generated_blocks.json.gz",
+      "dataset": "generated_blocks",
+      "seed": 20261022,
+      "stratum": "negative",
+      "input_sha256": "0455dff974fba05fc82cb0dc510e769444c9984c2bb285d3af90b16e57a5663e"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/generated_blocks.json.gz",
+      "dataset": "generated_blocks",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "input_sha256": "095d4e51623b021f3abcd7d6eaea9a68fe618d73994fb6d2241aa22766ff6968"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/generated_communities.json.gz",
+      "dataset": "generated_communities",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "input_sha256": "1e6652613d8f92bf6e46cf2afe04311104cd9238cd56e4bf42468546258235e0"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/generated_communities.json.gz",
+      "dataset": "generated_communities",
+      "seed": 20261022,
+      "stratum": "positive",
+      "input_sha256": "b51edc3864ebf944463247ec4e753806d2f074cbd4d87e967361992ad692fb00"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/generated_communities.json.gz",
+      "dataset": "generated_communities",
+      "seed": 20261022,
+      "stratum": "negative",
+      "input_sha256": "5b7c1be8b8addb25be17ea62b72133240a6cb6c652b86edbeea6ca2c41eb9c9f"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/generated_communities.json.gz",
+      "dataset": "generated_communities",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "input_sha256": "7eda9f5af9a6f4b1f63bb34882e9279a4c8fcfcf004243fd8244da92a8cfbeca"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/generated_dag.json.gz",
+      "dataset": "generated_dag",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "input_sha256": "cfd88cb3129591050d78dbfafd61dda4e5b1596a57f598a946bad719aeadfa9a"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/generated_dag.json.gz",
+      "dataset": "generated_dag",
+      "seed": 20261022,
+      "stratum": "positive",
+      "input_sha256": "a67765fcabca57b1659405e63b9cd11f1ef12d388a882a0c1c65d27775865729"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/generated_dag.json.gz",
+      "dataset": "generated_dag",
+      "seed": 20261022,
+      "stratum": "negative",
+      "input_sha256": "3bc189b057b5e6b4ad8798ddf4743fe0627bbdbf905cbb0ef9a86df825527d1b"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/generated_dag.json.gz",
+      "dataset": "generated_dag",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "input_sha256": "866c28129f934684e9e5c19a8efcceac270a303ece97a3427c7a21c83314c5f4"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_citeseer.json.gz",
+      "dataset": "grail_citeseer",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "input_sha256": "896e7fd4d2339c4a1f156c054708916417cd428ddb21189b1920daa99050690d"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_citeseer.json.gz",
+      "dataset": "grail_citeseer",
+      "seed": 20261022,
+      "stratum": "positive",
+      "input_sha256": "3e37a3bf34231d6e6ae126866565f4e81b9b0b91106769bf5e00a0f22492cc03"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_citeseer.json.gz",
+      "dataset": "grail_citeseer",
+      "seed": 20261022,
+      "stratum": "negative",
+      "input_sha256": "0976eb6deb180723297aa9ba784d1065809ae0d8d7d806922b554cf9fae1c45b"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_citeseer.json.gz",
+      "dataset": "grail_citeseer",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "input_sha256": "64647f57afd75957d8001669a253e99c82e7d81330af41ee9ee4f600861be6cd"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_go.json.gz",
+      "dataset": "grail_go",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "input_sha256": "423acf5d8f71243e3a752e7eefa58f362b6e6925a9a5738b18ecaba963ecd1cf"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_go.json.gz",
+      "dataset": "grail_go",
+      "seed": 20261022,
+      "stratum": "positive",
+      "input_sha256": "75a2949d95b7e506342e3c072ecb864c24f792cfbb19156a07d31822812317e8"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_go.json.gz",
+      "dataset": "grail_go",
+      "seed": 20261022,
+      "stratum": "negative",
+      "input_sha256": "8b03e8747a2d6bb8b30057be5de6849266cac910f9ce9be35553d400a9239136"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_go.json.gz",
+      "dataset": "grail_go",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "input_sha256": "9fc8dc63c336eae722b105e86e611b03467af407af437e76414c719ea106d655"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_kegg.json.gz",
+      "dataset": "grail_kegg",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "input_sha256": "1a9814defd1a231aeba83c30051679c210a0c0cfc1fb744c41ea591bd9f45670"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_kegg.json.gz",
+      "dataset": "grail_kegg",
+      "seed": 20261022,
+      "stratum": "positive",
+      "input_sha256": "1e87a34565dbe0ef7e2234f5618e879b7b03db6632865bb1b8791a01bccc5615"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_kegg.json.gz",
+      "dataset": "grail_kegg",
+      "seed": 20261022,
+      "stratum": "negative",
+      "input_sha256": "3d90ab96f5f62b518036e6caecc2b77bb45e3ae0cb7bd12289b413ed983e54c5"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_kegg.json.gz",
+      "dataset": "grail_kegg",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "input_sha256": "c76f523d7d783e5c2aec79c6c91991224246e4978b24dc167a56bacabcab048a"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_pubmed.json.gz",
+      "dataset": "grail_pubmed",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "input_sha256": "2228de94615b6164141a9aaa5b6e0956361abe3ed25d8d82cb0bd9dc7890ef3a"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_pubmed.json.gz",
+      "dataset": "grail_pubmed",
+      "seed": 20261022,
+      "stratum": "positive",
+      "input_sha256": "06d1003eb1c80c51fb9fdca889ad4b9b69f6ff06305e27a78ccda9408c05d9db"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_pubmed.json.gz",
+      "dataset": "grail_pubmed",
+      "seed": 20261022,
+      "stratum": "negative",
+      "input_sha256": "f53220b51c5963d0fbe16e6bf9b5065c2006f7f68b8d9a2bae0fdb46cffe7879"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_pubmed.json.gz",
+      "dataset": "grail_pubmed",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "input_sha256": "9202a1425a6bfd88cf3fb51334e6afbcc32d5302b48ac211985180795f82dbef"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_yago.json.gz",
+      "dataset": "grail_yago",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "input_sha256": "d9948995fb76f7423bf58a623096775358dfe8b23292ea4bdedc1898103cfea5"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_yago.json.gz",
+      "dataset": "grail_yago",
+      "seed": 20261022,
+      "stratum": "positive",
+      "input_sha256": "c10351fb49d333fbba64d0118a9a627e9634f595c6e7366ab2e2d516a66ba6e6"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_yago.json.gz",
+      "dataset": "grail_yago",
+      "seed": 20261022,
+      "stratum": "negative",
+      "input_sha256": "b7936ff78f8c9f14553c19ee127e136869d9bc276b80d33a81e924f5c1355910"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/grail_yago.json.gz",
+      "dataset": "grail_yago",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "input_sha256": "70e35c9f57e53316875bd88387a064c309d8435923afd28efb651fb547619c6a"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_agrocyc.json.gz",
+      "dataset": "heldout_agrocyc",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "input_sha256": "d400d9bb55a5837b04fa47cb2b40502176b09f12963f0fc7b0fcf05dfa7b8586"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_agrocyc.json.gz",
+      "dataset": "heldout_agrocyc",
+      "seed": 20261025,
+      "stratum": "positive",
+      "input_sha256": "d7314a305c3ca20e53f131b04a3dde9a8338cd7bc3998887b1e87f1cf828be8d"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_agrocyc.json.gz",
+      "dataset": "heldout_agrocyc",
+      "seed": 20261025,
+      "stratum": "negative",
+      "input_sha256": "4fb39aa459d1b98609df1f0a194ce4d0a4e65bbe191b56cba0e9892ce33c2f63"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_agrocyc.json.gz",
+      "dataset": "heldout_agrocyc",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "input_sha256": "8359046060e6afe8f51d160676540618c61bf42b8c02480e5f0767e5727d2319"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_amaze.json.gz",
+      "dataset": "heldout_amaze",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "input_sha256": "ed7e41e47dc82e0ed2249843685ee6bcf20847b93678ada36d4e429eb5a4efa1"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_amaze.json.gz",
+      "dataset": "heldout_amaze",
+      "seed": 20261025,
+      "stratum": "positive",
+      "input_sha256": "23722f18c924cbda47c40bb9bc8c4e41105e99f402eb97bb3c8b8d0c252ef79c"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_amaze.json.gz",
+      "dataset": "heldout_amaze",
+      "seed": 20261025,
+      "stratum": "negative",
+      "input_sha256": "0f755133ca9a883a04121958f9a83d0bdbd01e9c9ef246c72905318eb81f6f3c"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_amaze.json.gz",
+      "dataset": "heldout_amaze",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "input_sha256": "ad82de8351701ffc196ea40b95d8390faf96a0343ab0ea5c3b9370295f282ad4"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_anthra.json.gz",
+      "dataset": "heldout_anthra",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "input_sha256": "85c5d52cd65aac85c0199859e8c27f3d2c10f15944c001c9426f62e7062cb19c"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_anthra.json.gz",
+      "dataset": "heldout_anthra",
+      "seed": 20261025,
+      "stratum": "positive",
+      "input_sha256": "fe54b54a82599e72f28ec8a9fb993eeb2dbbed4ea875f67ab820ae2ba840ad5a"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_anthra.json.gz",
+      "dataset": "heldout_anthra",
+      "seed": 20261025,
+      "stratum": "negative",
+      "input_sha256": "4d80b5205e0d8ce813947a95ed8ea776e64f5214720ce1647598732c42e8d581"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_anthra.json.gz",
+      "dataset": "heldout_anthra",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "input_sha256": "3123aee22e2fd4e5fb79e87b8e96e4cf9ae4cca835fdd3ef9dd95aae67d9efbe"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_ecoo.json.gz",
+      "dataset": "heldout_ecoo",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "input_sha256": "49189f1d3e69d8670efcd3a3e663b3989eda8697c2addd8ee6f5f6dacb8b33a9"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_ecoo.json.gz",
+      "dataset": "heldout_ecoo",
+      "seed": 20261025,
+      "stratum": "positive",
+      "input_sha256": "e61cb0ccda1021f305243873e336cedc30529207a5a959ae2d11fe04feb18df1"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_ecoo.json.gz",
+      "dataset": "heldout_ecoo",
+      "seed": 20261025,
+      "stratum": "negative",
+      "input_sha256": "3cce7082ec5f77d350733af5700cddcdbe4b190279c460d914dfd7100518e3e6"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_ecoo.json.gz",
+      "dataset": "heldout_ecoo",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "input_sha256": "dab25b06f4566d4779f10df806f6a0530b6f7e9ba2554bf87a0216f13c899b53"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_human.json.gz",
+      "dataset": "heldout_human",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "input_sha256": "22ab95d7e9369866b108f48c437c53cb0fe1fbef1149e94dab9df009df7c4373"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_human.json.gz",
+      "dataset": "heldout_human",
+      "seed": 20261025,
+      "stratum": "positive",
+      "input_sha256": "5ce4b619ed2cbeca21514ac5bc07688d2f582d700cee0a6eaaf6707a8092b4b5"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_human.json.gz",
+      "dataset": "heldout_human",
+      "seed": 20261025,
+      "stratum": "negative",
+      "input_sha256": "13cb4305a5fbccad41f35d1ce2c3fa339d17f6b2857774fe51cee22731986774"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_human.json.gz",
+      "dataset": "heldout_human",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "input_sha256": "5a6eda53d741313dc381c0fb207d48e0ff4e58a4ef0fcca4837f41b141a10c52"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_mtbrv.json.gz",
+      "dataset": "heldout_mtbrv",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "input_sha256": "72b82d7f5e70058cac210ebf5bd5fb907438d349b545be73ee2c48e5189a1857"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_mtbrv.json.gz",
+      "dataset": "heldout_mtbrv",
+      "seed": 20261025,
+      "stratum": "positive",
+      "input_sha256": "ecf13fb86867ea170e6b92e35ed50c851b8dea7f19fa35b37ed6fb6fc01b1d33"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_mtbrv.json.gz",
+      "dataset": "heldout_mtbrv",
+      "seed": 20261025,
+      "stratum": "negative",
+      "input_sha256": "372c578655e51f203669bb6096cb28e9dfc665f45f4b7cc21890268dd22143d7"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_mtbrv.json.gz",
+      "dataset": "heldout_mtbrv",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "input_sha256": "c9e7a3e6ad6719549e938a63776bb1fbe5aee302695495d1ab467f0e56deae31"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_nasa.json.gz",
+      "dataset": "heldout_nasa",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "input_sha256": "3f1efe6c75bf1572e1285fa7b1cc934f39f41da1b67ee921260f5a1968f193ed"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_nasa.json.gz",
+      "dataset": "heldout_nasa",
+      "seed": 20261025,
+      "stratum": "positive",
+      "input_sha256": "3b5b8a93aff4ff3da89f2dbb849c958436b64085aed83dbc6d61b6dec6f149a3"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_nasa.json.gz",
+      "dataset": "heldout_nasa",
+      "seed": 20261025,
+      "stratum": "negative",
+      "input_sha256": "611038bb527d2e86a5dbbc42aca6e7e43beff330b5f3120fa2dc399c1896b667"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_nasa.json.gz",
+      "dataset": "heldout_nasa",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "input_sha256": "a7700da52bbf7046204912e406a9d0a80cf48830fa4daf9d52f2fcf1c23a9c11"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_vchocyc.json.gz",
+      "dataset": "heldout_vchocyc",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "input_sha256": "424526f530b193f500b0de724610de91b7adb0ebd00f359f6bd34c9963eef518"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_vchocyc.json.gz",
+      "dataset": "heldout_vchocyc",
+      "seed": 20261025,
+      "stratum": "positive",
+      "input_sha256": "7920e94766869be4dace0da92c63bd0aa27b2a9933f4b00c74ada606df2e2f59"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_vchocyc.json.gz",
+      "dataset": "heldout_vchocyc",
+      "seed": 20261025,
+      "stratum": "negative",
+      "input_sha256": "6a045509ee7c95ffc48429d604acbe31196305830ebe584194fbe519a10ca4bf"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_vchocyc.json.gz",
+      "dataset": "heldout_vchocyc",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "input_sha256": "d685814824443496488344d257fe0dc288dfae2626848ae48ea96939e95aee2f"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_xmark.json.gz",
+      "dataset": "heldout_xmark",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "input_sha256": "b4d0a1b042ceb2fcd9efc838d3791dbf344726850cc136d334d1bb0e47cf7257"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_xmark.json.gz",
+      "dataset": "heldout_xmark",
+      "seed": 20261025,
+      "stratum": "positive",
+      "input_sha256": "5a3b0afa53efbec446608dc93116396f5a23d4cb26de7f98774ed28bfa5321df"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_xmark.json.gz",
+      "dataset": "heldout_xmark",
+      "seed": 20261025,
+      "stratum": "negative",
+      "input_sha256": "a5464898af2fe444ac940105fb04296018ac90de9eebb234bc4287012ac63855"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/heldout_xmark.json.gz",
+      "dataset": "heldout_xmark",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "input_sha256": "7f500c18bc262603b01245c9fae21ec1a7deba8d46924f669d8ec557e617db37"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/kron_logn12.json.gz",
+      "dataset": "kron_logn12",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "input_sha256": "2fec0ee5b015da489fc59fad14f6f0c6136558982f38d71cf59cf27558dcf478"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/kron_logn12.json.gz",
+      "dataset": "kron_logn12",
+      "seed": 20261022,
+      "stratum": "positive",
+      "input_sha256": "21e483b2aed70af5119915dba09aea9d20395ea9a8683e5f22a5cdf532f3b593"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/kron_logn12.json.gz",
+      "dataset": "kron_logn12",
+      "seed": 20261022,
+      "stratum": "negative",
+      "input_sha256": "b4e3020e0b361dc46dbd6c648317ad4120b3a36d0be4cf48fd33be7abe518160"
+    },
+    {
+      "fixture": "/workspace/scratch/750cc954fdb8/TRIC/tric_research/evidence/phase25/fixtures/kron_logn12.json.gz",
+      "dataset": "kron_logn12",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "input_sha256": "e9857bb4b5ee95a2c1fc49b549478c7d2143d639499cbe0813f97dcc276c44cb"
+    }
+  ],
+  "query_warmup": "one complete pass per process, identical query list",
+  "controls": "identical calls same TRIC implementation in same executable; per-case normalized median ratio required in [0.90,1/0.90] before a speed comparison is qualified",
+  "resource_scope": "TRIC uses 2 MiB table allowance; competitor defaults are NOT total-memory matched. Report implementation-owned payload estimates separately from measured VmHWM. No global SOTA or author-original performance claim.",
+  "defaults": {
+    "feline": "one-direction",
+    "grail": "5 dimensions, seed1, one-direction",
+    "ferrari": "k5,c4,seeds32",
+    "preach": "upstream default",
+    "tflabel": "upstream default",
+    "tol": "upstream default"
+  },
+  "failure_policy": "preflight every preserved pilot fixture with <=40000 vertices; any wrong answer disqualifies method; 120s/4GiB process budget failures recorded, not wins. No tuning defaults after observation."
+}

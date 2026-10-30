@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/750cc954fdb8/tric-phase33/resource_checks.py", line 22, in <module>
+    assert b['construction_peak_heap_bytes']<=a['construction_peak_heap_bytes'],(name,arm,'peak')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('empty', 'csr', 'peak')

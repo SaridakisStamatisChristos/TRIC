@@ -1,0 +1,262 @@
+{
+  "schema": 1,
+  "arms": [
+    {
+      "name": "previous",
+      "executable": "/workspace/scratch/750cc954fdb8/tric-phase33/standard-build/previous",
+      "mode": "auto",
+      "executable_sha256": "4c74844f13e660d2ce17dc2359a8e5487b56cb9aef2cb867010cf0e25b4a52fe"
+    },
+    {
+      "name": "csr_v2",
+      "executable": "/workspace/scratch/750cc954fdb8/tric-phase33/csr_v2/cold-bench",
+      "mode": "auto",
+      "executable_sha256": "4f708604eea84aaeedf369244ce34650264804fe1146b66655ac44b89fdbed04"
+    },
+    {
+      "name": "identical",
+      "executable": "/workspace/scratch/750cc954fdb8/tric-phase33/standard-build/previous",
+      "mode": "auto",
+      "executable_sha256": "4c74844f13e660d2ce17dc2359a8e5487b56cb9aef2cb867010cf0e25b4a52fe"
+    }
+  ],
+  "cap_bytes": 2097152,
+  "trials": 27,
+  "horizons": [
+    1
+  ],
+  "environment": {
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "cpu_affinity": [
+      1
+    ],
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "timing_scope": "Paired fresh-process comparisons on pinned native input bytes.\n\nEach available arm BFS-verifies every query after its timed region. Repeats\nexecute frozen query pairs; they are not independent new requests. Includes\nparsing/build/query costs, excludes process startup, verification and teardown.\n",
+  "files": [
+    {
+      "fixture_sha256": "22e46915d2ae79d5c21b43613fdb32fe3521a8a7faa4a4bb698b52f5d76b99d3",
+      "file": "example.json.gz",
+      "sha256": "bce4ac20d5babc28099602ad0ca7fc5ec76a9654967291dc434433027cb6b778",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "f6e09bdb130b270497a72b522b8b9b339bce8a1e8789706212d7d45e71688b9a",
+      "file": "generated_blocks.json.gz",
+      "sha256": "142d358b7ff3ad7393553880d85d97516fd5037c9f0ed3719399061aec23657d",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "c9093c6f32511b9c392b1ed80c51fd714b9dbd2ef48bf37e681843dd7503decf",
+      "file": "generated_communities.json.gz",
+      "sha256": "bb5bf3285d2858d5c72e6c9b71d0b09681f27fcd654b2d3178adc162a933fe0b",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "98b2cda45b1e6f1f204677ee049045e62432108f0e19845789ed95e35f4e6d0d",
+      "file": "generated_dag.json.gz",
+      "sha256": "d2aba879ef03098c458fe6f6b998ae080fecddb2cd9890a44f55ff480623c788",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "83fd70ab16f182a7deb29a250b72bca22c5f4576b58a2c8c8fbb121a4dfd4e29",
+      "file": "grail_citeseer.json.gz",
+      "sha256": "e08e29bebdf54fd0dc05e05f565f8efec2ee6fcfac95b856a22db4f2eaa94842",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "48be66577d748261ecce13d76c20a506dadfa305fcffd84776c875a87eecf425",
+      "file": "grail_go.json.gz",
+      "sha256": "92b23af5ef3328635ff07bfc15fe6eba4c81f94409a31db3b47867f5ca3718a7",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "d2f8e405eb9b117e925d7fedc527104a20b1d1841a4b922b3221c6fcea4eb14e",
+      "file": "grail_kegg.json.gz",
+      "sha256": "57aed8511f6cecf559b0bbb3da30c5ee2cdebabbb73b73d80587f157ad498616",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "0b10f07d49516e126c73b70455e5dbee24a299b4e73ee3ab661943af66b8b1c1",
+      "file": "grail_pubmed.json.gz",
+      "sha256": "a93626d0f55dc76cef8be1555ae59e288362182e9f78bbe6fb0b3509829bb852",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "1ed70e227900ebe43f6b3a4e1f8595daa520730df1654bb3655cf8d331ed64e5",
+      "file": "grail_yago.json.gz",
+      "sha256": "a87e41d723580f940003bfd98100ff29d512db0f03f0d4c68b7bac4dbaa0231b",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "08d07925ad5dfb24c1b063a7d7c5f6af6bf09d87f4e3bfbbd848645e037a7d50",
+      "file": "heldout_agrocyc.json.gz",
+      "sha256": "82439a7a688a46ea6d1cc22717fbae42047c9c0207fb796cde5fe9e4a57c74f5",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "b4322fb863ad17e47bb54115b074219588f95f2beffc0ce66dedc66ca56a0536",
+      "file": "heldout_amaze.json.gz",
+      "sha256": "65ee5d29c422922e90e29069dbff5b178c57ad6be237c25471ce193819626c07",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "4ae27d3cba0d70ec85051c07befadf92c18118a9585418def3d3af8701bb7fa9",
+      "file": "heldout_anthra.json.gz",
+      "sha256": "dfc3098b8a53b7935b73aba19ddf1e6f1d356cf9fe11077ac48c5bc88432aaa4",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "42cc482d6e120b6f3922735957513b4376423cb8fc50a43f2010e29571b8bea8",
+      "file": "heldout_ecoo.json.gz",
+      "sha256": "2f802abe32a5b71b2ecb2bfec649693264cf6001143521f4c5cde139ca1037a9",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "6470ffa30194ed9e8d7e3bab3199cafb95c9a88e3c05f2811d01b37938361697",
+      "file": "heldout_human.json.gz",
+      "sha256": "e68c8f6b197f1f4dd173d34de08aa5e2d1104e00258a25fbaecb1131b509889c",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "8a884ac1c2a6ca926581d99628b95512ca85d19083c93ce3a0d9c6a73e045d86",
+      "file": "heldout_mtbrv.json.gz",
+      "sha256": "8d9dad750cc8cb7a65d6b27b8573de8ba34198c03362e6944868d2bf2e31b89b",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "8212c78b0e1a5a53af29680d8c33c51a227c43203bb6c68ff629ed2b169f79da",
+      "file": "heldout_nasa.json.gz",
+      "sha256": "635381e0e6bbdf276fd55954f7c4c0edaedf3e5a7e19dbb8b138ecb5b4e05acf",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "25a5d3e544d936936c0a321be73836ae2464e2911b81a63302c0dffcb3d9d16d",
+      "file": "heldout_vchocyc.json.gz",
+      "sha256": "348779891eb4fae9bcdcb79679183b02c8cca716d2a5b78ffc5a85f6b3a6b13d",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "3d1a7382392736ae7acbaf97da3cef712a0d46f17d13d845cc67cae56ab1bfd1",
+      "file": "heldout_xmark.json.gz",
+      "sha256": "9080ab3c8a06372234e31dcb5128a47dd90ef6df16f85b157f9912c0cac83e3f",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "7265df26496a6b83a4acac1974ca306e90dfc839ef4a6b51fb855e568def33e5",
+      "file": "kron_logn12.json.gz",
+      "sha256": "694479f5c5ff2bb3bfa21a157204c5b0a979af83638dabfe7c804d663a21a11b",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "6e191c4d01b8323ead6ffa936ea6e7306455fff948527c5321aa468358af30f9",
+      "file": "large_citeseer.json.gz",
+      "sha256": "06b35589296e3c9ac7111712979d9cf68286d09f753157d395df65f8a74496ad",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "3738844438f1287e6729bb17fdd836d6b5f6c0ed6cf32aaeb3b18a64a9ec6350",
+      "file": "large_uniprot_22m.json.gz",
+      "sha256": "a81993f93311689d26f6a993c61d2665ba9e1fbe889296240e14ad3657cd5e37",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "309e3f6bde3bd091e10eb4bd00670c8c6b04aee160851f6f9511d14d9fff7910",
+      "file": "phase30_cross_chains.json.gz",
+      "sha256": "cdb5429ae2cad5f0fe671986bfc4c8719bdc685416bfdcc720ecb6793b613326",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "5f226cfccf6e77ccccf13648ffa15e88f0bc9a1312a62e022a911b8534cb4421",
+      "file": "phase30_fragmented.json.gz",
+      "sha256": "3f89e79f8b83272fecb0d7dcb3971f8ce185ad922b1479f0d38ffd0de33a3a2d",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "d047ecda5c6202f491ad68b7c1bc825166b1503e9bd48b500a35ab7c04ffe31a",
+      "file": "phase30_scc_aliases.json.gz",
+      "sha256": "060b1bf93caf2759b3f2b94f6659d53c5c0a8c164e27e17f2527f69b04cf05ab",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "181217590e1a3b2fb960e234723d17abc3fb7ae20de8698f3f5d74ab55126347",
+      "file": "phase30_shared_hubs.json.gz",
+      "sha256": "3b3f72f7ccd78d6f6a7be4c474c6c729550bcd28723ccdb44db540b4053b9fc7",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "9881ca6cfbac8ada3893b9789318365ba1bffd27da8bdf64b5f9206397bcf908",
+      "file": "phase33_dense_order.json.gz",
+      "sha256": "6be1ba7ad8c09212aec152ee3f8d18c4f5a3b76c9f6ce6af9d24e4f42cdda946",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "f72aa51245304facb841048f17ee679251b658309c4b5b1e7e5199cf5a4488a3",
+      "file": "phase33_holdout_cycle_bags.json.gz",
+      "sha256": "96b8fc3abe1b866b7470febb46c9ac9f7c78b010bde865f8e192288f9b1509c2",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "e592b1d89a21baaa1493e0bd8304ea3916e2f006411d2cba2e2fc240b1b1831a",
+      "file": "phase33_holdout_duplicate_bipartite.json.gz",
+      "sha256": "ca152ab6aa232ad51d0ec681ed2551794794a0a2cdd8827c49b80f705161dc74",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "ceb5e2f481c16dddd597a83e0695c67bef8355c13e65740bb3e8758e471864eb",
+      "file": "phase33_holdout_isolates.json.gz",
+      "sha256": "702ea3c9c52ae2aa8d8e4942765958a9647a96a78deefac3c69864f372945124",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "11fe9e686fec5e8fa61cfc5f549839af91f24dd500f2c840835b70cb4c888376",
+      "file": "phase33_holdout_permuted_chain.json.gz",
+      "sha256": "9ef091ea6122d2ebcab1582afdf659cff58b1b3a935da8f17b1bed095dcfa746",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "75df9db97c99059ec638c03cf9c817f211a4757d148cc25f9b0bb7eb3e7848b6",
+      "file": "phase33_holdout_reverse_trees.json.gz",
+      "sha256": "473bba8df63f11578b791ec3e6b944726505d31b294d0e1031d25da856001960",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "6805eb292b1f5f19bb30d13bae4b7d8f6005b84c2532c986d77df8535909cc48",
+      "file": "phase33_holdout_sparse_random.json.gz",
+      "sha256": "4ddd47376c05776d82029b5a88162b6b0eab7527fe1c2fba8c1ea35a71c4e855",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "541c959fc2da2d8fcd6dcadd9327aa01fb6d4b3ec17f1232827e61e169802b69",
+      "file": "phase33_many_weak_parts.json.gz",
+      "sha256": "f06fc7246f761636b75b0527634fadb01975797734a19e231d4e69477e5db7ec",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "028261f8bb724f21454504d0afddc9d18c6e211288e0d522ddd26cf3057184d5",
+      "file": "phase33_repeated_arcs.json.gz",
+      "sha256": "7e21969e1bf976be61b57c9d0a2721fc5786a9d354d52f3d1d55269229d3099e",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "f06bc05a92a4623ab63fc1b066d5130058659372bbbe9ca6df743d6c4e470e75",
+      "file": "phase33_scc_ladder.json.gz",
+      "sha256": "bb346ecc03ee03ca5aed00b9ec2d7da4aa65efb697c7c4aebe649f65b3b082f0",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "9db88ff9bbd9aa710d9751cad85d7041ffeab1a58e8d1957d82ab2a2a1ec7c36",
+      "file": "phase33_shuffled_sparse.json.gz",
+      "sha256": "67fd6e00fc4a2a210bc9067325f81186caf717967fc71c46188f3a3e9b818e97",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "3251e895a825a571dfaaebe581858d78d362f0af9cb011c16d41b40bdcae0b66",
+      "file": "phase33_wide_layers.json.gz",
+      "sha256": "acbee2e8fb5d670f29950b7864f51bdcee815e701360bf0e8dfc902a9af6b476",
+      "cells": 1
+    }
+  ],
+  "complete": true
+}

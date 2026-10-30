@@ -1,0 +1,4610 @@
+{
+  "strata": {
+    "balanced": {
+      "feline": {
+        "qualified_cases": 19,
+        "median": 6.623222115212455
+      },
+      "grail": {
+        "qualified_cases": 19,
+        "median": 6.356950970649173
+      },
+      "preach": {
+        "qualified_cases": 19,
+        "median": 3.178911716700689
+      },
+      "ferrari": {
+        "qualified_cases": 19,
+        "median": 2.1059641944110084
+      },
+      "tflabel": {
+        "qualified_cases": 18,
+        "median": 6.6117145219664994
+      },
+      "tol": {
+        "qualified_cases": 19,
+        "median": 2.830928570091455
+      }
+    },
+    "negative": {
+      "feline": {
+        "qualified_cases": 19,
+        "median": 2.058832224281344
+      },
+      "grail": {
+        "qualified_cases": 19,
+        "median": 1.6931098269388427
+      },
+      "preach": {
+        "qualified_cases": 19,
+        "median": 4.079770505733164
+      },
+      "ferrari": {
+        "qualified_cases": 19,
+        "median": 2.3117492722470416
+      },
+      "tflabel": {
+        "qualified_cases": 18,
+        "median": 2.5005546715369187
+      },
+      "tol": {
+        "qualified_cases": 19,
+        "median": 1.9883485493523612
+      }
+    },
+    "positive": {
+      "feline": {
+        "qualified_cases": 19,
+        "median": 10.349744599789162
+      },
+      "grail": {
+        "qualified_cases": 19,
+        "median": 11.813854201260696
+      },
+      "preach": {
+        "qualified_cases": 19,
+        "median": 2.2303798477191092
+      },
+      "ferrari": {
+        "qualified_cases": 19,
+        "median": 1.9974607195469365
+      },
+      "tflabel": {
+        "qualified_cases": 18,
+        "median": 8.78614602767902
+      },
+      "tol": {
+        "qualified_cases": 19,
+        "median": 2.787220901438147
+      }
+    },
+    "uniform": {
+      "feline": {
+        "qualified_cases": 19,
+        "median": 3.4651341415472823
+      },
+      "grail": {
+        "qualified_cases": 19,
+        "median": 2.694923675632894
+      },
+      "preach": {
+        "qualified_cases": 19,
+        "median": 4.179575876050961
+      },
+      "ferrari": {
+        "qualified_cases": 19,
+        "median": 2.1670293198911192
+      },
+      "tflabel": {
+        "qualified_cases": 18,
+        "median": 2.6760050901599994
+      },
+      "tol": {
+        "qualified_cases": 19,
+        "median": 2.059042500728394
+      }
+    }
+  },
+  "cases": 76,
+  "timing_processes": 4840,
+  "oracle_checks": 6041774,
+  "protocol_deviation": {
+    "reason": "Four of eight TF-Label builds on kron_logn12 uniform exceeded the original 120-second per-process limit. Stop additional builds of that method on the identical graph; remaining three query strata are explicitly unqualified, not wins.",
+    "protocol_deviation": true,
+    "skipped_method": "tflabel",
+    "dataset": "kron_logn12",
+    "skip_strata": [
+      "positive",
+      "negative",
+      "balanced"
+    ],
+    "skipped_attempts": 24,
+    "prior_manifest_sha256": "d6497f17882577d4a66d637971b2a6bfc37ddde14b56b9495ae38223b2dadfce",
+    "original_uniform_sha256": "f5e98a3feccd3cee51f9e0f3a0d2d04bac97f5df89878e699ac84cfea37d4df1"
+  },
+  "control_failures": [],
+  "failures": [
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "uniform",
+      "arm": "tflabel",
+      "status": "timeout"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "uniform",
+      "arm": "tflabel",
+      "status": "timeout"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "uniform",
+      "arm": "tflabel",
+      "status": "timeout"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "uniform",
+      "arm": "tflabel",
+      "status": "timeout"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "positive",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "positive",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "positive",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "positive",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "positive",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "positive",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "positive",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "positive",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "negative",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "negative",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "negative",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "negative",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "negative",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "negative",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "negative",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "negative",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "balanced",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "balanced",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "balanced",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "balanced",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "balanced",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "balanced",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "balanced",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    },
+    {
+      "stage": "timing",
+      "dataset": "kron_logn12",
+      "stratum": "balanced",
+      "arm": "tflabel",
+      "status": "not_attempted_after_resource_failure"
+    }
+  ],
+  "disqualified": [],
+  "methods": {
+    "feline": {
+      "complete_cases": 76,
+      "qualified_cases": 76,
+      "all_median": 6.726591314582841,
+      "qualified_median": 6.726591314582841,
+      "qualified_tric_faster": 76,
+      "qualified_comparator_faster": 0
+    },
+    "grail": {
+      "complete_cases": 76,
+      "qualified_cases": 76,
+      "all_median": 4.606119069822679,
+      "qualified_median": 4.606119069822679,
+      "qualified_tric_faster": 76,
+      "qualified_comparator_faster": 0
+    },
+    "preach": {
+      "complete_cases": 76,
+      "qualified_cases": 76,
+      "all_median": 3.780035134240805,
+      "qualified_median": 3.780035134240805,
+      "qualified_tric_faster": 76,
+      "qualified_comparator_faster": 0
+    },
+    "ferrari": {
+      "complete_cases": 76,
+      "qualified_cases": 76,
+      "all_median": 2.1469223168915392,
+      "qualified_median": 2.1469223168915392,
+      "qualified_tric_faster": 76,
+      "qualified_comparator_faster": 0
+    },
+    "tflabel": {
+      "complete_cases": 72,
+      "qualified_cases": 72,
+      "all_median": 3.794248109496075,
+      "qualified_median": 3.794248109496075,
+      "qualified_tric_faster": 72,
+      "qualified_comparator_faster": 0
+    },
+    "tol": {
+      "complete_cases": 76,
+      "qualified_cases": 76,
+      "all_median": 2.621868880186778,
+      "qualified_median": 2.621868880186778,
+      "qualified_tric_faster": 76,
+      "qualified_comparator_faster": 0
+    }
+  },
+  "cells": [
+    {
+      "dataset": "example",
+      "stratum": "uniform",
+      "identical_ratio": 1.002474362056668,
+      "control_pass": true,
+      "ratios": {
+        "feline": 64.06866229441951,
+        "grail": 22.872609629075775,
+        "preach": 19.251737816384647,
+        "ferrari": 4.474220264661008,
+        "tflabel": 40.119185019475175,
+        "tol": 20.555014188223353
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 9594603.0,
+          "reported_bytes": 1163136.0,
+          "peak_rss_kib": 5888.0
+        },
+        "feline": {
+          "build_cpu_ns": 5813097.5,
+          "reported_bytes": 144000.0,
+          "peak_rss_kib": 4908.0
+        },
+        "grail": {
+          "build_cpu_ns": 8083339.0,
+          "reported_bytes": 408000.0,
+          "peak_rss_kib": 4904.0
+        },
+        "preach": {
+          "build_cpu_ns": 10467524.5,
+          "reported_bytes": 626828.0,
+          "peak_rss_kib": 6000.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 23882425.5,
+          "reported_bytes": 437946.0,
+          "peak_rss_kib": 6124.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 10986451355.0,
+          "reported_bytes": 16876112.0,
+          "peak_rss_kib": 643288.0
+        },
+        "tol": {
+          "build_cpu_ns": 215562478.0,
+          "reported_bytes": 5306220.0,
+          "peak_rss_kib": 13168.0
+        },
+        "identical": {
+          "build_cpu_ns": 10088602.0,
+          "reported_bytes": 1163136.0,
+          "peak_rss_kib": 5884.0
+        }
+      }
+    },
+    {
+      "dataset": "example",
+      "stratum": "positive",
+      "identical_ratio": 0.9934724225013258,
+      "control_pass": true,
+      "ratios": {
+        "feline": 169.3237484867342,
+        "grail": 62.21019445887319,
+        "preach": 70.77944233393731,
+        "ferrari": 11.734131202650065,
+        "tflabel": 39.70070780241508,
+        "tol": 70.83775556335414
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 9314482.5,
+          "reported_bytes": 1163136.0,
+          "peak_rss_kib": 5884.0
+        },
+        "feline": {
+          "build_cpu_ns": 5888114.0,
+          "reported_bytes": 144000.0,
+          "peak_rss_kib": 4904.0
+        },
+        "grail": {
+          "build_cpu_ns": 7960876.5,
+          "reported_bytes": 408000.0,
+          "peak_rss_kib": 4904.0
+        },
+        "preach": {
+          "build_cpu_ns": 10392217.5,
+          "reported_bytes": 626828.0,
+          "peak_rss_kib": 5998.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 24827980.0,
+          "reported_bytes": 437946.0,
+          "peak_rss_kib": 6124.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 11187373473.5,
+          "reported_bytes": 16876112.0,
+          "peak_rss_kib": 643286.0
+        },
+        "tol": {
+          "build_cpu_ns": 213475180.5,
+          "reported_bytes": 5306220.0,
+          "peak_rss_kib": 13166.0
+        },
+        "identical": {
+          "build_cpu_ns": 9810023.0,
+          "reported_bytes": 1163136.0,
+          "peak_rss_kib": 5886.0
+        }
+      }
+    },
+    {
+      "dataset": "example",
+      "stratum": "negative",
+      "identical_ratio": 0.9881846775958837,
+      "control_pass": true,
+      "ratios": {
+        "feline": 13.301271578499279,
+        "grail": 11.995620809574348,
+        "preach": 11.421899019300547,
+        "ferrari": 2.726614184718816,
+        "tflabel": 33.64883327503284,
+        "tol": 18.073277026828205
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 9623701.0,
+          "reported_bytes": 1163136.0,
+          "peak_rss_kib": 5888.0
+        },
+        "feline": {
+          "build_cpu_ns": 6306870.5,
+          "reported_bytes": 144000.0,
+          "peak_rss_kib": 4904.0
+        },
+        "grail": {
+          "build_cpu_ns": 8381571.5,
+          "reported_bytes": 408000.0,
+          "peak_rss_kib": 4904.0
+        },
+        "preach": {
+          "build_cpu_ns": 11636722.5,
+          "reported_bytes": 626828.0,
+          "peak_rss_kib": 6000.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 26477224.0,
+          "reported_bytes": 437946.0,
+          "peak_rss_kib": 6124.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 11877477120.5,
+          "reported_bytes": 16876112.0,
+          "peak_rss_kib": 643288.0
+        },
+        "tol": {
+          "build_cpu_ns": 220664286.5,
+          "reported_bytes": 5306220.0,
+          "peak_rss_kib": 13166.0
+        },
+        "identical": {
+          "build_cpu_ns": 10212280.5,
+          "reported_bytes": 1163136.0,
+          "peak_rss_kib": 5884.0
+        }
+      }
+    },
+    {
+      "dataset": "example",
+      "stratum": "balanced",
+      "identical_ratio": 1.0045482172141382,
+      "control_pass": true,
+      "ratios": {
+        "feline": 95.945300186069,
+        "grail": 35.81681473043313,
+        "preach": 36.262604280379776,
+        "ferrari": 6.973124074940328,
+        "tflabel": 38.22259132183746,
+        "tol": 44.108602248900304
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 11221443.5,
+          "reported_bytes": 1163136.0,
+          "peak_rss_kib": 5888.0
+        },
+        "feline": {
+          "build_cpu_ns": 6972559.5,
+          "reported_bytes": 144000.0,
+          "peak_rss_kib": 4906.0
+        },
+        "grail": {
+          "build_cpu_ns": 8650000.0,
+          "reported_bytes": 408000.0,
+          "peak_rss_kib": 4904.0
+        },
+        "preach": {
+          "build_cpu_ns": 12303505.5,
+          "reported_bytes": 626828.0,
+          "peak_rss_kib": 6000.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 26902004.5,
+          "reported_bytes": 437946.0,
+          "peak_rss_kib": 6124.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 12222280013.0,
+          "reported_bytes": 16876112.0,
+          "peak_rss_kib": 643284.0
+        },
+        "tol": {
+          "build_cpu_ns": 222935063.5,
+          "reported_bytes": 5306220.0,
+          "peak_rss_kib": 13166.0
+        },
+        "identical": {
+          "build_cpu_ns": 11067089.5,
+          "reported_bytes": 1163136.0,
+          "peak_rss_kib": 5884.0
+        }
+      }
+    },
+    {
+      "dataset": "generated_blocks",
+      "stratum": "uniform",
+      "identical_ratio": 1.01798145737098,
+      "control_pass": true,
+      "ratios": {
+        "feline": 1.6205615651261034,
+        "grail": 1.122002619860095,
+        "preach": 2.791554231761025,
+        "ferrari": 2.31281115074046,
+        "tflabel": 1.6640334490891582,
+        "tol": 1.6717336190832968
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 479131.5,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 2614.0
+        },
+        "feline": {
+          "build_cpu_ns": 749693.0,
+          "reported_bytes": 48000.0,
+          "peak_rss_kib": 2220.0
+        },
+        "grail": {
+          "build_cpu_ns": 960065.5,
+          "reported_bytes": 136000.0,
+          "peak_rss_kib": 2314.0
+        },
+        "preach": {
+          "build_cpu_ns": 1284963.5,
+          "reported_bytes": 129920.0,
+          "peak_rss_kib": 2376.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 1158455.5,
+          "reported_bytes": 85691.0,
+          "peak_rss_kib": 2780.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 2240747.5,
+          "reported_bytes": 50228.0,
+          "peak_rss_kib": 3088.0
+        },
+        "tol": {
+          "build_cpu_ns": 1354086.0,
+          "reported_bytes": 43616.0,
+          "peak_rss_kib": 2504.0
+        },
+        "identical": {
+          "build_cpu_ns": 535285.0,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 2608.0
+        }
+      }
+    },
+    {
+      "dataset": "generated_blocks",
+      "stratum": "positive",
+      "identical_ratio": 0.9625275746527275,
+      "control_pass": true,
+      "ratios": {
+        "feline": 7.945255870613619,
+        "grail": 4.678040232441065,
+        "preach": 3.150779509167096,
+        "ferrari": 3.1837801593661137,
+        "tflabel": 2.664886252025643,
+        "tol": 2.2444838871434385
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 499391.5,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 2614.0
+        },
+        "feline": {
+          "build_cpu_ns": 722062.0,
+          "reported_bytes": 48000.0,
+          "peak_rss_kib": 2246.0
+        },
+        "grail": {
+          "build_cpu_ns": 966470.5,
+          "reported_bytes": 136000.0,
+          "peak_rss_kib": 2304.0
+        },
+        "preach": {
+          "build_cpu_ns": 1292359.5,
+          "reported_bytes": 129920.0,
+          "peak_rss_kib": 2370.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 1153352.5,
+          "reported_bytes": 85691.0,
+          "peak_rss_kib": 2774.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 2174484.0,
+          "reported_bytes": 50228.0,
+          "peak_rss_kib": 3088.0
+        },
+        "tol": {
+          "build_cpu_ns": 1386474.0,
+          "reported_bytes": 43616.0,
+          "peak_rss_kib": 2502.0
+        },
+        "identical": {
+          "build_cpu_ns": 492126.0,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 2604.0
+        }
+      }
+    },
+    {
+      "dataset": "generated_blocks",
+      "stratum": "negative",
+      "identical_ratio": 0.994810880707363,
+      "control_pass": true,
+      "ratios": {
+        "feline": 1.5543972389660938,
+        "grail": 1.1829651667010717,
+        "preach": 2.7869307196624837,
+        "ferrari": 2.2165725518142594,
+        "tflabel": 1.7408104567993379,
+        "tol": 1.6141934855232272
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 464104.0,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 2600.0
+        },
+        "feline": {
+          "build_cpu_ns": 719818.5,
+          "reported_bytes": 48000.0,
+          "peak_rss_kib": 2208.0
+        },
+        "grail": {
+          "build_cpu_ns": 1025959.0,
+          "reported_bytes": 136000.0,
+          "peak_rss_kib": 2328.0
+        },
+        "preach": {
+          "build_cpu_ns": 1387625.0,
+          "reported_bytes": 129920.0,
+          "peak_rss_kib": 2358.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 1247492.5,
+          "reported_bytes": 85691.0,
+          "peak_rss_kib": 2776.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 2279470.0,
+          "reported_bytes": 50228.0,
+          "peak_rss_kib": 3088.0
+        },
+        "tol": {
+          "build_cpu_ns": 1390675.5,
+          "reported_bytes": 43616.0,
+          "peak_rss_kib": 2500.0
+        },
+        "identical": {
+          "build_cpu_ns": 461420.5,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 2610.0
+        }
+      }
+    },
+    {
+      "dataset": "generated_blocks",
+      "stratum": "balanced",
+      "identical_ratio": 0.971752163198768,
+      "control_pass": true,
+      "ratios": {
+        "feline": 4.933583759014258,
+        "grail": 3.036978189350183,
+        "preach": 3.178911716700689,
+        "ferrari": 2.789090927725015,
+        "tflabel": 2.242462497207262,
+        "tol": 1.9983608870304952
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 505020.0,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 2594.0
+        },
+        "feline": {
+          "build_cpu_ns": 746068.0,
+          "reported_bytes": 48000.0,
+          "peak_rss_kib": 2232.0
+        },
+        "grail": {
+          "build_cpu_ns": 989880.0,
+          "reported_bytes": 136000.0,
+          "peak_rss_kib": 2306.0
+        },
+        "preach": {
+          "build_cpu_ns": 1330560.5,
+          "reported_bytes": 129920.0,
+          "peak_rss_kib": 2356.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 1213732.5,
+          "reported_bytes": 85691.0,
+          "peak_rss_kib": 2772.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 2169301.5,
+          "reported_bytes": 50228.0,
+          "peak_rss_kib": 3088.0
+        },
+        "tol": {
+          "build_cpu_ns": 1281092.5,
+          "reported_bytes": 43616.0,
+          "peak_rss_kib": 2500.0
+        },
+        "identical": {
+          "build_cpu_ns": 492866.5,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 2606.0
+        }
+      }
+    },
+    {
+      "dataset": "generated_communities",
+      "stratum": "uniform",
+      "identical_ratio": 1.0191072413784272,
+      "control_pass": true,
+      "ratios": {
+        "feline": 22.01732300671702,
+        "grail": 2.876961732079094,
+        "preach": 2.82287146166552,
+        "ferrari": 2.037441197062348,
+        "tflabel": 3.788810869905351,
+        "tol": 2.895382394696095
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 74315.5,
+          "reported_bytes": 19452.0,
+          "peak_rss_kib": 1930.0
+        },
+        "feline": {
+          "build_cpu_ns": 143273.0,
+          "reported_bytes": 8808.0,
+          "peak_rss_kib": 2000.0
+        },
+        "grail": {
+          "build_cpu_ns": 199291.5,
+          "reported_bytes": 24956.0,
+          "peak_rss_kib": 2006.0
+        },
+        "preach": {
+          "build_cpu_ns": 239555.5,
+          "reported_bytes": 24168.0,
+          "peak_rss_kib": 2026.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 219411.0,
+          "reported_bytes": 14830.0,
+          "peak_rss_kib": 2102.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 985473.0,
+          "reported_bytes": 22160.0,
+          "peak_rss_kib": 2328.0
+        },
+        "tol": {
+          "build_cpu_ns": 373445.0,
+          "reported_bytes": 15624.0,
+          "peak_rss_kib": 2068.0
+        },
+        "identical": {
+          "build_cpu_ns": 73980.0,
+          "reported_bytes": 19452.0,
+          "peak_rss_kib": 1950.0
+        }
+      }
+    },
+    {
+      "dataset": "generated_communities",
+      "stratum": "positive",
+      "identical_ratio": 1.0281673867720462,
+      "control_pass": true,
+      "ratios": {
+        "feline": 74.55104743903551,
+        "grail": 4.534197907204293,
+        "preach": 2.2303798477191092,
+        "ferrari": 1.9179972363513538,
+        "tflabel": 3.799685349086799,
+        "tol": 3.5291241986045483
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 74120.0,
+          "reported_bytes": 19452.0,
+          "peak_rss_kib": 1940.0
+        },
+        "feline": {
+          "build_cpu_ns": 144610.0,
+          "reported_bytes": 8808.0,
+          "peak_rss_kib": 1976.0
+        },
+        "grail": {
+          "build_cpu_ns": 231649.0,
+          "reported_bytes": 24956.0,
+          "peak_rss_kib": 1996.0
+        },
+        "preach": {
+          "build_cpu_ns": 255253.5,
+          "reported_bytes": 24168.0,
+          "peak_rss_kib": 2024.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 217152.5,
+          "reported_bytes": 14830.0,
+          "peak_rss_kib": 2088.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 945915.0,
+          "reported_bytes": 22160.0,
+          "peak_rss_kib": 2330.0
+        },
+        "tol": {
+          "build_cpu_ns": 295433.0,
+          "reported_bytes": 15624.0,
+          "peak_rss_kib": 2064.0
+        },
+        "identical": {
+          "build_cpu_ns": 74726.0,
+          "reported_bytes": 19452.0,
+          "peak_rss_kib": 1946.0
+        }
+      }
+    },
+    {
+      "dataset": "generated_communities",
+      "stratum": "negative",
+      "identical_ratio": 1.0181119760425161,
+      "control_pass": true,
+      "ratios": {
+        "feline": 1.9629092859124109,
+        "grail": 1.989187692537071,
+        "preach": 2.8844789172430065,
+        "ferrari": 2.153252155728988,
+        "tflabel": 3.136261931835109,
+        "tol": 2.617284991796489
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 74661.0,
+          "reported_bytes": 19452.0,
+          "peak_rss_kib": 1948.0
+        },
+        "feline": {
+          "build_cpu_ns": 146032.0,
+          "reported_bytes": 8808.0,
+          "peak_rss_kib": 1980.0
+        },
+        "grail": {
+          "build_cpu_ns": 211354.0,
+          "reported_bytes": 24956.0,
+          "peak_rss_kib": 1990.0
+        },
+        "preach": {
+          "build_cpu_ns": 238980.0,
+          "reported_bytes": 24168.0,
+          "peak_rss_kib": 2020.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 234453.5,
+          "reported_bytes": 14830.0,
+          "peak_rss_kib": 2100.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 989108.5,
+          "reported_bytes": 22160.0,
+          "peak_rss_kib": 2328.0
+        },
+        "tol": {
+          "build_cpu_ns": 326285.0,
+          "reported_bytes": 15624.0,
+          "peak_rss_kib": 2064.0
+        },
+        "identical": {
+          "build_cpu_ns": 73293.5,
+          "reported_bytes": 19452.0,
+          "peak_rss_kib": 1948.0
+        }
+      }
+    },
+    {
+      "dataset": "generated_communities",
+      "stratum": "balanced",
+      "identical_ratio": 0.9808363347144786,
+      "control_pass": true,
+      "ratios": {
+        "feline": 38.059881124144894,
+        "grail": 3.338051576960863,
+        "preach": 2.649346072232224,
+        "ferrari": 2.026156156403676,
+        "tflabel": 3.854735030009369,
+        "tol": 3.2316641641988175
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 73644.0,
+          "reported_bytes": 19452.0,
+          "peak_rss_kib": 1948.0
+        },
+        "feline": {
+          "build_cpu_ns": 142516.5,
+          "reported_bytes": 8808.0,
+          "peak_rss_kib": 1980.0
+        },
+        "grail": {
+          "build_cpu_ns": 200057.5,
+          "reported_bytes": 24956.0,
+          "peak_rss_kib": 2012.0
+        },
+        "preach": {
+          "build_cpu_ns": 252620.0,
+          "reported_bytes": 24168.0,
+          "peak_rss_kib": 2036.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 220207.0,
+          "reported_bytes": 14830.0,
+          "peak_rss_kib": 2096.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 1010811.5,
+          "reported_bytes": 22160.0,
+          "peak_rss_kib": 2328.0
+        },
+        "tol": {
+          "build_cpu_ns": 294362.5,
+          "reported_bytes": 15624.0,
+          "peak_rss_kib": 2064.0
+        },
+        "identical": {
+          "build_cpu_ns": 74956.0,
+          "reported_bytes": 19452.0,
+          "peak_rss_kib": 1960.0
+        }
+      }
+    },
+    {
+      "dataset": "generated_dag",
+      "stratum": "uniform",
+      "identical_ratio": 0.9931590524427021,
+      "control_pass": true,
+      "ratios": {
+        "feline": 147.17531022856383,
+        "grail": 99.09985060865583,
+        "preach": 29.06635349530427,
+        "ferrari": 15.79074437319841,
+        "tflabel": 38.756803232783135,
+        "tol": 29.930419113146154
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1822582.0,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 3072.0
+        },
+        "feline": {
+          "build_cpu_ns": 2404701.0,
+          "reported_bytes": 48000.0,
+          "peak_rss_kib": 3216.0
+        },
+        "grail": {
+          "build_cpu_ns": 3602064.0,
+          "reported_bytes": 136000.0,
+          "peak_rss_kib": 3216.0
+        },
+        "preach": {
+          "build_cpu_ns": 4932074.0,
+          "reported_bytes": 270792.0,
+          "peak_rss_kib": 3916.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 14217338.0,
+          "reported_bytes": 145955.0,
+          "peak_rss_kib": 3792.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 7117276297.5,
+          "reported_bytes": 7307196.0,
+          "peak_rss_kib": 512782.0
+        },
+        "tol": {
+          "build_cpu_ns": 71152496.5,
+          "reported_bytes": 2344368.0,
+          "peak_rss_kib": 7632.0
+        },
+        "identical": {
+          "build_cpu_ns": 1845656.0,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 3046.0
+        }
+      }
+    },
+    {
+      "dataset": "generated_dag",
+      "stratum": "positive",
+      "identical_ratio": 1.009300155918782,
+      "control_pass": true,
+      "ratios": {
+        "feline": 305.9860516468051,
+        "grail": 177.17548628611408,
+        "preach": 146.1226522490737,
+        "ferrari": 35.70921390669774,
+        "tflabel": 30.68336855854878,
+        "tol": 127.88490883554022
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1641638.0,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 3068.0
+        },
+        "feline": {
+          "build_cpu_ns": 2512881.5,
+          "reported_bytes": 48000.0,
+          "peak_rss_kib": 3216.0
+        },
+        "grail": {
+          "build_cpu_ns": 3704826.5,
+          "reported_bytes": 136000.0,
+          "peak_rss_kib": 3216.0
+        },
+        "preach": {
+          "build_cpu_ns": 5169862.0,
+          "reported_bytes": 270792.0,
+          "peak_rss_kib": 4048.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 14261839.0,
+          "reported_bytes": 145955.0,
+          "peak_rss_kib": 3792.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 7466876707.5,
+          "reported_bytes": 7307196.0,
+          "peak_rss_kib": 512780.0
+        },
+        "tol": {
+          "build_cpu_ns": 73231649.0,
+          "reported_bytes": 2344368.0,
+          "peak_rss_kib": 7632.0
+        },
+        "identical": {
+          "build_cpu_ns": 1656545.0,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 3056.0
+        }
+      }
+    },
+    {
+      "dataset": "generated_dag",
+      "stratum": "negative",
+      "identical_ratio": 1.0369874706299624,
+      "control_pass": true,
+      "ratios": {
+        "feline": 26.3082949136006,
+        "grail": 22.46381874760308,
+        "preach": 16.680299373958633,
+        "ferrari": 8.768066391688816,
+        "tflabel": 55.69419384802656,
+        "tol": 29.816501501502554
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1752076.5,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 3064.0
+        },
+        "feline": {
+          "build_cpu_ns": 2490268.0,
+          "reported_bytes": 48000.0,
+          "peak_rss_kib": 3216.0
+        },
+        "grail": {
+          "build_cpu_ns": 3628393.0,
+          "reported_bytes": 136000.0,
+          "peak_rss_kib": 3216.0
+        },
+        "preach": {
+          "build_cpu_ns": 4988192.5,
+          "reported_bytes": 270792.0,
+          "peak_rss_kib": 3920.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 14620882.0,
+          "reported_bytes": 145955.0,
+          "peak_rss_kib": 3790.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 7582593170.5,
+          "reported_bytes": 7307196.0,
+          "peak_rss_kib": 512784.0
+        },
+        "tol": {
+          "build_cpu_ns": 80612459.0,
+          "reported_bytes": 2344368.0,
+          "peak_rss_kib": 7634.0
+        },
+        "identical": {
+          "build_cpu_ns": 1669705.0,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 3076.0
+        }
+      }
+    },
+    {
+      "dataset": "generated_dag",
+      "stratum": "balanced",
+      "identical_ratio": 1.0084243010083376,
+      "control_pass": true,
+      "ratios": {
+        "feline": 164.63346134025346,
+        "grail": 95.93775798449417,
+        "preach": 67.72677360954644,
+        "ferrari": 22.393513758080573,
+        "tflabel": 47.09564410839316,
+        "tol": 79.74341387581569
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1737901.0,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 3076.0
+        },
+        "feline": {
+          "build_cpu_ns": 2602074.0,
+          "reported_bytes": 48000.0,
+          "peak_rss_kib": 3216.0
+        },
+        "grail": {
+          "build_cpu_ns": 3778631.0,
+          "reported_bytes": 136000.0,
+          "peak_rss_kib": 3216.0
+        },
+        "preach": {
+          "build_cpu_ns": 5090690.0,
+          "reported_bytes": 270792.0,
+          "peak_rss_kib": 3982.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 14314612.5,
+          "reported_bytes": 145955.0,
+          "peak_rss_kib": 3792.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 7672213294.0,
+          "reported_bytes": 7307196.0,
+          "peak_rss_kib": 512780.0
+        },
+        "tol": {
+          "build_cpu_ns": 76537793.5,
+          "reported_bytes": 2344368.0,
+          "peak_rss_kib": 7632.0
+        },
+        "identical": {
+          "build_cpu_ns": 1760194.0,
+          "reported_bytes": 520368.0,
+          "peak_rss_kib": 3078.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_citeseer",
+      "stratum": "uniform",
+      "identical_ratio": 0.999232788860906,
+      "control_pass": true,
+      "ratios": {
+        "feline": 7.463259735162396,
+        "grail": 3.8812499354053474,
+        "preach": 6.682172600338792,
+        "ferrari": 2.7856458516397247,
+        "tflabel": 4.06442739383708,
+        "tol": 2.7206572846614536
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 9651457.5,
+          "reported_bytes": 1054248.0,
+          "peak_rss_kib": 5828.0
+        },
+        "feline": {
+          "build_cpu_ns": 6262064.0,
+          "reported_bytes": 257280.0,
+          "peak_rss_kib": 4328.0
+        },
+        "grail": {
+          "build_cpu_ns": 8560167.0,
+          "reported_bytes": 728960.0,
+          "peak_rss_kib": 4586.0
+        },
+        "preach": {
+          "build_cpu_ns": 11614763.5,
+          "reported_bytes": 820232.0,
+          "peak_rss_kib": 5480.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 16482051.0,
+          "reported_bytes": 782524.0,
+          "peak_rss_kib": 7532.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 111040639.5,
+          "reported_bytes": 1176968.0,
+          "peak_rss_kib": 16644.0
+        },
+        "tol": {
+          "build_cpu_ns": 13888640.0,
+          "reported_bytes": 419692.0,
+          "peak_rss_kib": 6120.0
+        },
+        "identical": {
+          "build_cpu_ns": 9968072.5,
+          "reported_bytes": 1054248.0,
+          "peak_rss_kib": 5824.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_citeseer",
+      "stratum": "positive",
+      "identical_ratio": 0.9829338663204968,
+      "control_pass": true,
+      "ratios": {
+        "feline": 23.6932049833946,
+        "grail": 13.81160073811226,
+        "preach": 10.284863981933913,
+        "ferrari": 3.450895528733502,
+        "tflabel": 4.423464270795131,
+        "tol": 4.2539802106824975
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 10912970.5,
+          "reported_bytes": 1054248.0,
+          "peak_rss_kib": 5824.0
+        },
+        "feline": {
+          "build_cpu_ns": 6197633.0,
+          "reported_bytes": 257280.0,
+          "peak_rss_kib": 4328.0
+        },
+        "grail": {
+          "build_cpu_ns": 8551724.5,
+          "reported_bytes": 728960.0,
+          "peak_rss_kib": 4586.0
+        },
+        "preach": {
+          "build_cpu_ns": 11425757.0,
+          "reported_bytes": 820232.0,
+          "peak_rss_kib": 5482.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 16536772.5,
+          "reported_bytes": 782524.0,
+          "peak_rss_kib": 7528.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 106064711.0,
+          "reported_bytes": 1176968.0,
+          "peak_rss_kib": 16644.0
+        },
+        "tol": {
+          "build_cpu_ns": 15968473.0,
+          "reported_bytes": 419692.0,
+          "peak_rss_kib": 6120.0
+        },
+        "identical": {
+          "build_cpu_ns": 10446963.5,
+          "reported_bytes": 1054248.0,
+          "peak_rss_kib": 5824.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_citeseer",
+      "stratum": "negative",
+      "identical_ratio": 0.9928100972947894,
+      "control_pass": true,
+      "ratios": {
+        "feline": 6.780160707207169,
+        "grail": 3.9586915485149916,
+        "preach": 8.272361944405326,
+        "ferrari": 2.9942459516763473,
+        "tflabel": 3.920282194007215,
+        "tol": 2.7893449190870223
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 9705318.0,
+          "reported_bytes": 1054248.0,
+          "peak_rss_kib": 5826.0
+        },
+        "feline": {
+          "build_cpu_ns": 6181817.5,
+          "reported_bytes": 257280.0,
+          "peak_rss_kib": 4328.0
+        },
+        "grail": {
+          "build_cpu_ns": 8342744.5,
+          "reported_bytes": 728960.0,
+          "peak_rss_kib": 4584.0
+        },
+        "preach": {
+          "build_cpu_ns": 12655623.5,
+          "reported_bytes": 820232.0,
+          "peak_rss_kib": 5482.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 16144159.0,
+          "reported_bytes": 782524.0,
+          "peak_rss_kib": 7528.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 97366639.5,
+          "reported_bytes": 1176968.0,
+          "peak_rss_kib": 16644.0
+        },
+        "tol": {
+          "build_cpu_ns": 13796458.0,
+          "reported_bytes": 419692.0,
+          "peak_rss_kib": 6120.0
+        },
+        "identical": {
+          "build_cpu_ns": 9749277.5,
+          "reported_bytes": 1054248.0,
+          "peak_rss_kib": 5824.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_citeseer",
+      "stratum": "balanced",
+      "identical_ratio": 0.9890786567010555,
+      "control_pass": true,
+      "ratios": {
+        "feline": 15.531513802631135,
+        "grail": 9.68654712149528,
+        "preach": 8.946917818856466,
+        "ferrari": 3.694152432085844,
+        "tflabel": 4.15795244975345,
+        "tol": 3.546637004502185
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 10808410.5,
+          "reported_bytes": 1054248.0,
+          "peak_rss_kib": 5826.0
+        },
+        "feline": {
+          "build_cpu_ns": 6063609.5,
+          "reported_bytes": 257280.0,
+          "peak_rss_kib": 4328.0
+        },
+        "grail": {
+          "build_cpu_ns": 10179897.0,
+          "reported_bytes": 728960.0,
+          "peak_rss_kib": 4584.0
+        },
+        "preach": {
+          "build_cpu_ns": 11776008.0,
+          "reported_bytes": 820232.0,
+          "peak_rss_kib": 5480.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 17618093.0,
+          "reported_bytes": 782524.0,
+          "peak_rss_kib": 7528.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 109418827.0,
+          "reported_bytes": 1176968.0,
+          "peak_rss_kib": 16646.0
+        },
+        "tol": {
+          "build_cpu_ns": 14624031.5,
+          "reported_bytes": 419692.0,
+          "peak_rss_kib": 6124.0
+        },
+        "identical": {
+          "build_cpu_ns": 12296070.0,
+          "reported_bytes": 1054248.0,
+          "peak_rss_kib": 5824.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_go",
+      "stratum": "uniform",
+      "identical_ratio": 0.985372012171248,
+      "control_pass": true,
+      "ratios": {
+        "feline": 8.135213050763436,
+        "grail": 1.7771654702578683,
+        "preach": 5.295183959955385,
+        "ferrari": 2.6204103015872313,
+        "tflabel": 3.452738030199962,
+        "tol": 2.936158265693317
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 3855740.5,
+          "reported_bytes": 406816.0,
+          "peak_rss_kib": 3804.0
+        },
+        "feline": {
+          "build_cpu_ns": 2917067.0,
+          "reported_bytes": 163032.0,
+          "peak_rss_kib": 3074.0
+        },
+        "grail": {
+          "build_cpu_ns": 3720254.5,
+          "reported_bytes": 461924.0,
+          "peak_rss_kib": 3472.0
+        },
+        "preach": {
+          "build_cpu_ns": 4899190.0,
+          "reported_bytes": 461024.0,
+          "peak_rss_kib": 3634.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 5965333.0,
+          "reported_bytes": 347974.0,
+          "peak_rss_kib": 5008.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 16565465.0,
+          "reported_bytes": 305724.0,
+          "peak_rss_kib": 7038.0
+        },
+        "tol": {
+          "build_cpu_ns": 6256606.5,
+          "reported_bytes": 225132.0,
+          "peak_rss_kib": 4076.0
+        },
+        "identical": {
+          "build_cpu_ns": 4203728.0,
+          "reported_bytes": 406816.0,
+          "peak_rss_kib": 3806.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_go",
+      "stratum": "positive",
+      "identical_ratio": 1.0102137852822413,
+      "control_pass": true,
+      "ratios": {
+        "feline": 7.4258880157713705,
+        "grail": 4.404689039605838,
+        "preach": 4.587245183164918,
+        "ferrari": 2.900673787862022,
+        "tflabel": 2.281660365508066,
+        "tol": 2.6676389581737054
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 4006985.0,
+          "reported_bytes": 406816.0,
+          "peak_rss_kib": 3822.0
+        },
+        "feline": {
+          "build_cpu_ns": 2675493.0,
+          "reported_bytes": 163032.0,
+          "peak_rss_kib": 3080.0
+        },
+        "grail": {
+          "build_cpu_ns": 3738010.5,
+          "reported_bytes": 461924.0,
+          "peak_rss_kib": 3476.0
+        },
+        "preach": {
+          "build_cpu_ns": 4816232.0,
+          "reported_bytes": 461024.0,
+          "peak_rss_kib": 3646.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 5537813.5,
+          "reported_bytes": 347974.0,
+          "peak_rss_kib": 5012.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 16192826.5,
+          "reported_bytes": 305724.0,
+          "peak_rss_kib": 7100.0
+        },
+        "tol": {
+          "build_cpu_ns": 5969069.0,
+          "reported_bytes": 225132.0,
+          "peak_rss_kib": 4076.0
+        },
+        "identical": {
+          "build_cpu_ns": 3953160.5,
+          "reported_bytes": 406816.0,
+          "peak_rss_kib": 3800.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_go",
+      "stratum": "negative",
+      "identical_ratio": 1.0077208959658759,
+      "control_pass": true,
+      "ratios": {
+        "feline": 7.4135308155336705,
+        "grail": 1.6931098269388427,
+        "preach": 4.944403893053064,
+        "ferrari": 2.558062329456221,
+        "tflabel": 3.17722028682208,
+        "tol": 3.0733896001008767
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 4011947.5,
+          "reported_bytes": 406816.0,
+          "peak_rss_kib": 3828.0
+        },
+        "feline": {
+          "build_cpu_ns": 2658834.0,
+          "reported_bytes": 163032.0,
+          "peak_rss_kib": 3076.0
+        },
+        "grail": {
+          "build_cpu_ns": 3608629.0,
+          "reported_bytes": 461924.0,
+          "peak_rss_kib": 3462.0
+        },
+        "preach": {
+          "build_cpu_ns": 4827473.5,
+          "reported_bytes": 461024.0,
+          "peak_rss_kib": 3642.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 5562635.0,
+          "reported_bytes": 347974.0,
+          "peak_rss_kib": 5012.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 15683790.5,
+          "reported_bytes": 305724.0,
+          "peak_rss_kib": 7098.0
+        },
+        "tol": {
+          "build_cpu_ns": 6045583.0,
+          "reported_bytes": 225132.0,
+          "peak_rss_kib": 4078.0
+        },
+        "identical": {
+          "build_cpu_ns": 4251413.0,
+          "reported_bytes": 406816.0,
+          "peak_rss_kib": 3832.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_go",
+      "stratum": "balanced",
+      "identical_ratio": 1.0127993336083168,
+      "control_pass": true,
+      "ratios": {
+        "feline": 6.623222115212455,
+        "grail": 3.3365103068049438,
+        "preach": 4.60964374928097,
+        "ferrari": 2.565171571346073,
+        "tflabel": 2.3666620889819407,
+        "tol": 2.830928570091455
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 3850237.5,
+          "reported_bytes": 406816.0,
+          "peak_rss_kib": 3804.0
+        },
+        "feline": {
+          "build_cpu_ns": 2524689.5,
+          "reported_bytes": 163032.0,
+          "peak_rss_kib": 3088.0
+        },
+        "grail": {
+          "build_cpu_ns": 3638197.5,
+          "reported_bytes": 461924.0,
+          "peak_rss_kib": 3478.0
+        },
+        "preach": {
+          "build_cpu_ns": 4916624.0,
+          "reported_bytes": 461024.0,
+          "peak_rss_kib": 3636.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 6249956.5,
+          "reported_bytes": 347974.0,
+          "peak_rss_kib": 5012.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 14793639.0,
+          "reported_bytes": 305724.0,
+          "peak_rss_kib": 7100.0
+        },
+        "tol": {
+          "build_cpu_ns": 6598158.0,
+          "reported_bytes": 225132.0,
+          "peak_rss_kib": 4076.0
+        },
+        "identical": {
+          "build_cpu_ns": 3923151.0,
+          "reported_bytes": 406816.0,
+          "peak_rss_kib": 3822.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_kegg",
+      "stratum": "uniform",
+      "identical_ratio": 0.9908230561392861,
+      "control_pass": true,
+      "ratios": {
+        "feline": 3.4651341415472823,
+        "grail": 3.1679097771270985,
+        "preach": 2.618967012519895,
+        "ferrari": 1.8246239584321953,
+        "tflabel": 63.99626665707631,
+        "tol": 1.3160866698056055
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1119998.0,
+          "reported_bytes": 1664188.0,
+          "peak_rss_kib": 3876.0
+        },
+        "feline": {
+          "build_cpu_ns": 1129196.5,
+          "reported_bytes": 86808.0,
+          "peak_rss_kib": 2446.0
+        },
+        "grail": {
+          "build_cpu_ns": 1234027.5,
+          "reported_bytes": 245956.0,
+          "peak_rss_kib": 2614.0
+        },
+        "preach": {
+          "build_cpu_ns": 1576846.5,
+          "reported_bytes": 232652.0,
+          "peak_rss_kib": 2698.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 1648178.0,
+          "reported_bytes": 147284.0,
+          "peak_rss_kib": 3444.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 715283301.0,
+          "reported_bytes": 8158284.0,
+          "peak_rss_kib": 180796.0
+        },
+        "tol": {
+          "build_cpu_ns": 1680741.0,
+          "reported_bytes": 78872.0,
+          "peak_rss_kib": 2944.0
+        },
+        "identical": {
+          "build_cpu_ns": 998162.5,
+          "reported_bytes": 1664188.0,
+          "peak_rss_kib": 3878.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_kegg",
+      "stratum": "positive",
+      "identical_ratio": 0.9419144249295761,
+      "control_pass": true,
+      "ratios": {
+        "feline": 8.127149923450098,
+        "grail": 10.698947608937807,
+        "preach": 1.588781051649432,
+        "ferrari": 2.0976695821855706,
+        "tflabel": 133.25495854879068,
+        "tol": 2.131183595048029
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1040054.5,
+          "reported_bytes": 1664188.0,
+          "peak_rss_kib": 3878.0
+        },
+        "feline": {
+          "build_cpu_ns": 966630.5,
+          "reported_bytes": 86808.0,
+          "peak_rss_kib": 2452.0
+        },
+        "grail": {
+          "build_cpu_ns": 1294968.5,
+          "reported_bytes": 245956.0,
+          "peak_rss_kib": 2626.0
+        },
+        "preach": {
+          "build_cpu_ns": 1612595.0,
+          "reported_bytes": 232652.0,
+          "peak_rss_kib": 2710.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 1814545.0,
+          "reported_bytes": 147284.0,
+          "peak_rss_kib": 3440.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 812142371.0,
+          "reported_bytes": 8158284.0,
+          "peak_rss_kib": 180836.0
+        },
+        "tol": {
+          "build_cpu_ns": 1704115.5,
+          "reported_bytes": 78872.0,
+          "peak_rss_kib": 2944.0
+        },
+        "identical": {
+          "build_cpu_ns": 1092457.0,
+          "reported_bytes": 1664188.0,
+          "peak_rss_kib": 3874.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_kegg",
+      "stratum": "negative",
+      "identical_ratio": 1.0079379259550412,
+      "control_pass": true,
+      "ratios": {
+        "feline": 2.058832224281344,
+        "grail": 1.0862262627978967,
+        "preach": 2.7440788929924267,
+        "ferrari": 1.9823227461477746,
+        "tflabel": 34.678054792730876,
+        "tol": 1.2268373853184706
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1127078.5,
+          "reported_bytes": 1664188.0,
+          "peak_rss_kib": 3868.0
+        },
+        "feline": {
+          "build_cpu_ns": 967316.0,
+          "reported_bytes": 86808.0,
+          "peak_rss_kib": 2448.0
+        },
+        "grail": {
+          "build_cpu_ns": 1464329.5,
+          "reported_bytes": 245956.0,
+          "peak_rss_kib": 2606.0
+        },
+        "preach": {
+          "build_cpu_ns": 1578594.5,
+          "reported_bytes": 232652.0,
+          "peak_rss_kib": 2720.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 1719999.5,
+          "reported_bytes": 147284.0,
+          "peak_rss_kib": 3440.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 714389282.5,
+          "reported_bytes": 8158284.0,
+          "peak_rss_kib": 180760.0
+        },
+        "tol": {
+          "build_cpu_ns": 1557393.0,
+          "reported_bytes": 78872.0,
+          "peak_rss_kib": 2944.0
+        },
+        "identical": {
+          "build_cpu_ns": 990851.0,
+          "reported_bytes": 1664188.0,
+          "peak_rss_kib": 3882.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_kegg",
+      "stratum": "balanced",
+      "identical_ratio": 1.0471592154110536,
+      "control_pass": true,
+      "ratios": {
+        "feline": 4.4193446239665874,
+        "grail": 4.843372855818567,
+        "preach": 1.9743046282405823,
+        "ferrari": 1.8361839532123356,
+        "tflabel": 89.15002032949707,
+        "tol": 1.7400128477066852
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1063033.5,
+          "reported_bytes": 1664188.0,
+          "peak_rss_kib": 3870.0
+        },
+        "feline": {
+          "build_cpu_ns": 1016715.0,
+          "reported_bytes": 86808.0,
+          "peak_rss_kib": 2444.0
+        },
+        "grail": {
+          "build_cpu_ns": 1443107.5,
+          "reported_bytes": 245956.0,
+          "peak_rss_kib": 2632.0
+        },
+        "preach": {
+          "build_cpu_ns": 1501369.0,
+          "reported_bytes": 232652.0,
+          "peak_rss_kib": 2720.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 1728877.5,
+          "reported_bytes": 147284.0,
+          "peak_rss_kib": 3440.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 767871335.0,
+          "reported_bytes": 8158284.0,
+          "peak_rss_kib": 180752.0
+        },
+        "tol": {
+          "build_cpu_ns": 1751421.0,
+          "reported_bytes": 78872.0,
+          "peak_rss_kib": 2948.0
+        },
+        "identical": {
+          "build_cpu_ns": 958558.0,
+          "reported_bytes": 1664188.0,
+          "peak_rss_kib": 3854.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_pubmed",
+      "stratum": "uniform",
+      "identical_ratio": 0.9660481834060567,
+      "control_pass": true,
+      "ratios": {
+        "feline": 6.379756320022562,
+        "grail": 3.5201730486999976,
+        "preach": 6.818485865476617,
+        "ferrari": 3.3809753393609956,
+        "tflabel": 4.349131887273222,
+        "tol": 3.1426919719698665
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 9926656.0,
+          "reported_bytes": 1109360.0,
+          "peak_rss_kib": 5536.0
+        },
+        "feline": {
+          "build_cpu_ns": 4531064.0,
+          "reported_bytes": 216000.0,
+          "peak_rss_kib": 3992.0
+        },
+        "grail": {
+          "build_cpu_ns": 6122918.0,
+          "reported_bytes": 612000.0,
+          "peak_rss_kib": 4120.0
+        },
+        "preach": {
+          "build_cpu_ns": 9115216.0,
+          "reported_bytes": 700112.0,
+          "peak_rss_kib": 5016.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 14674672.0,
+          "reported_bytes": 656982.0,
+          "peak_rss_kib": 6680.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 79394196.0,
+          "reported_bytes": 1046860.0,
+          "peak_rss_kib": 12936.0
+        },
+        "tol": {
+          "build_cpu_ns": 11397531.0,
+          "reported_bytes": 360820.0,
+          "peak_rss_kib": 5528.0
+        },
+        "identical": {
+          "build_cpu_ns": 9558639.5,
+          "reported_bytes": 1109360.0,
+          "peak_rss_kib": 5538.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_pubmed",
+      "stratum": "positive",
+      "identical_ratio": 0.9999959855459626,
+      "control_pass": true,
+      "ratios": {
+        "feline": 43.75995861143144,
+        "grail": 19.103991763720707,
+        "preach": 13.395178268955558,
+        "ferrari": 5.3757985908753865,
+        "tflabel": 8.454066100446102,
+        "tol": 4.753494293146389
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 9678473.0,
+          "reported_bytes": 1109360.0,
+          "peak_rss_kib": 5540.0
+        },
+        "feline": {
+          "build_cpu_ns": 4423308.5,
+          "reported_bytes": 216000.0,
+          "peak_rss_kib": 3992.0
+        },
+        "grail": {
+          "build_cpu_ns": 6199666.5,
+          "reported_bytes": 612000.0,
+          "peak_rss_kib": 4120.0
+        },
+        "preach": {
+          "build_cpu_ns": 9447194.0,
+          "reported_bytes": 700112.0,
+          "peak_rss_kib": 5016.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 14049278.0,
+          "reported_bytes": 656982.0,
+          "peak_rss_kib": 6680.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 79607096.5,
+          "reported_bytes": 1046860.0,
+          "peak_rss_kib": 12936.0
+        },
+        "tol": {
+          "build_cpu_ns": 11329244.0,
+          "reported_bytes": 360820.0,
+          "peak_rss_kib": 5528.0
+        },
+        "identical": {
+          "build_cpu_ns": 10161770.0,
+          "reported_bytes": 1109360.0,
+          "peak_rss_kib": 5536.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_pubmed",
+      "stratum": "negative",
+      "identical_ratio": 1.023249028890025,
+      "control_pass": true,
+      "ratios": {
+        "feline": 6.249209656430404,
+        "grail": 3.955524671119667,
+        "preach": 7.021007085968121,
+        "ferrari": 2.9043139097700728,
+        "tflabel": 3.724847287548406,
+        "tol": 3.1375865560007616
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 11048539.5,
+          "reported_bytes": 1109360.0,
+          "peak_rss_kib": 5536.0
+        },
+        "feline": {
+          "build_cpu_ns": 5043900.0,
+          "reported_bytes": 216000.0,
+          "peak_rss_kib": 3992.0
+        },
+        "grail": {
+          "build_cpu_ns": 6754836.0,
+          "reported_bytes": 612000.0,
+          "peak_rss_kib": 4120.0
+        },
+        "preach": {
+          "build_cpu_ns": 10041271.5,
+          "reported_bytes": 700112.0,
+          "peak_rss_kib": 5016.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 16023175.0,
+          "reported_bytes": 656982.0,
+          "peak_rss_kib": 6680.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 93702143.0,
+          "reported_bytes": 1046860.0,
+          "peak_rss_kib": 12938.0
+        },
+        "tol": {
+          "build_cpu_ns": 11624663.0,
+          "reported_bytes": 360820.0,
+          "peak_rss_kib": 5528.0
+        },
+        "identical": {
+          "build_cpu_ns": 10750639.5,
+          "reported_bytes": 1109360.0,
+          "peak_rss_kib": 5538.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_pubmed",
+      "stratum": "balanced",
+      "identical_ratio": 1.041420356934211,
+      "control_pass": true,
+      "ratios": {
+        "feline": 25.476931063983905,
+        "grail": 14.056919124645608,
+        "preach": 11.632876234455633,
+        "ferrari": 3.9194684917400098,
+        "tflabel": 5.926941648242147,
+        "tol": 3.8885216912367935
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 9777279.5,
+          "reported_bytes": 1109360.0,
+          "peak_rss_kib": 5540.0
+        },
+        "feline": {
+          "build_cpu_ns": 4799637.5,
+          "reported_bytes": 216000.0,
+          "peak_rss_kib": 3992.0
+        },
+        "grail": {
+          "build_cpu_ns": 6569901.5,
+          "reported_bytes": 612000.0,
+          "peak_rss_kib": 4120.0
+        },
+        "preach": {
+          "build_cpu_ns": 9242500.0,
+          "reported_bytes": 700112.0,
+          "peak_rss_kib": 5016.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 15662253.5,
+          "reported_bytes": 656982.0,
+          "peak_rss_kib": 6680.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 84590406.5,
+          "reported_bytes": 1046860.0,
+          "peak_rss_kib": 12936.0
+        },
+        "tol": {
+          "build_cpu_ns": 11139993.0,
+          "reported_bytes": 360820.0,
+          "peak_rss_kib": 5528.0
+        },
+        "identical": {
+          "build_cpu_ns": 10362618.5,
+          "reported_bytes": 1109360.0,
+          "peak_rss_kib": 5538.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_yago",
+      "stratum": "uniform",
+      "identical_ratio": 0.9124538152992955,
+      "control_pass": true,
+      "ratios": {
+        "feline": 3.3316922403683136,
+        "grail": 2.84730943699786,
+        "preach": 4.960028667288681,
+        "ferrari": 2.635470033228544,
+        "tflabel": 2.7257248350913685,
+        "tol": 1.868853414906892
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 4961523.0,
+          "reported_bytes": 473352.0,
+          "peak_rss_kib": 4332.0
+        },
+        "feline": {
+          "build_cpu_ns": 4291262.5,
+          "reported_bytes": 159408.0,
+          "peak_rss_kib": 3864.0
+        },
+        "grail": {
+          "build_cpu_ns": 6142146.5,
+          "reported_bytes": 451656.0,
+          "peak_rss_kib": 4032.0
+        },
+        "preach": {
+          "build_cpu_ns": 7396879.5,
+          "reported_bytes": 568088.0,
+          "peak_rss_kib": 4932.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 8801175.0,
+          "reported_bytes": 458892.0,
+          "peak_rss_kib": 5570.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 81593190.5,
+          "reported_bytes": 411308.0,
+          "peak_rss_kib": 12244.0
+        },
+        "tol": {
+          "build_cpu_ns": 8338157.0,
+          "reported_bytes": 180952.0,
+          "peak_rss_kib": 5184.0
+        },
+        "identical": {
+          "build_cpu_ns": 5197303.0,
+          "reported_bytes": 473352.0,
+          "peak_rss_kib": 4328.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_yago",
+      "stratum": "positive",
+      "identical_ratio": 1.007996903176939,
+      "control_pass": true,
+      "ratios": {
+        "feline": 8.148448273293484,
+        "grail": 12.279295505883988,
+        "preach": 3.369560122659859,
+        "ferrari": 1.5139310842687559,
+        "tflabel": 8.299491541519963,
+        "tol": 8.303988937124053
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 4334962.0,
+          "reported_bytes": 473352.0,
+          "peak_rss_kib": 4328.0
+        },
+        "feline": {
+          "build_cpu_ns": 4265374.5,
+          "reported_bytes": 159408.0,
+          "peak_rss_kib": 3864.0
+        },
+        "grail": {
+          "build_cpu_ns": 5498895.5,
+          "reported_bytes": 451656.0,
+          "peak_rss_kib": 4036.0
+        },
+        "preach": {
+          "build_cpu_ns": 6957446.5,
+          "reported_bytes": 568088.0,
+          "peak_rss_kib": 4928.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 7084701.0,
+          "reported_bytes": 458892.0,
+          "peak_rss_kib": 5568.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 52959539.5,
+          "reported_bytes": 411308.0,
+          "peak_rss_kib": 12244.0
+        },
+        "tol": {
+          "build_cpu_ns": 7460739.5,
+          "reported_bytes": 180952.0,
+          "peak_rss_kib": 5186.0
+        },
+        "identical": {
+          "build_cpu_ns": 4420174.0,
+          "reported_bytes": 473352.0,
+          "peak_rss_kib": 4344.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_yago",
+      "stratum": "negative",
+      "identical_ratio": 0.9672052880390762,
+      "control_pass": true,
+      "ratios": {
+        "feline": 3.247251886641817,
+        "grail": 2.4697004437804653,
+        "preach": 4.420756009481879,
+        "ferrari": 2.531720069395203,
+        "tflabel": 2.244260033599484,
+        "tol": 1.6732680512281424
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 4217353.5,
+          "reported_bytes": 473352.0,
+          "peak_rss_kib": 4346.0
+        },
+        "feline": {
+          "build_cpu_ns": 4385747.5,
+          "reported_bytes": 159408.0,
+          "peak_rss_kib": 3864.0
+        },
+        "grail": {
+          "build_cpu_ns": 5902190.0,
+          "reported_bytes": 451656.0,
+          "peak_rss_kib": 4032.0
+        },
+        "preach": {
+          "build_cpu_ns": 6700525.5,
+          "reported_bytes": 568088.0,
+          "peak_rss_kib": 4932.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 7962777.5,
+          "reported_bytes": 458892.0,
+          "peak_rss_kib": 5570.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 61625203.5,
+          "reported_bytes": 411308.0,
+          "peak_rss_kib": 12244.0
+        },
+        "tol": {
+          "build_cpu_ns": 7449187.0,
+          "reported_bytes": 180952.0,
+          "peak_rss_kib": 5186.0
+        },
+        "identical": {
+          "build_cpu_ns": 4580457.0,
+          "reported_bytes": 473352.0,
+          "peak_rss_kib": 4326.0
+        }
+      }
+    },
+    {
+      "dataset": "grail_yago",
+      "stratum": "balanced",
+      "identical_ratio": 0.9616176424939116,
+      "control_pass": true,
+      "ratios": {
+        "feline": 6.347138013868395,
+        "grail": 7.8871586640876234,
+        "preach": 3.561082432305083,
+        "ferrari": 1.836541913854954,
+        "tflabel": 5.138275732261438,
+        "tol": 6.348553427409268
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 4270897.5,
+          "reported_bytes": 473352.0,
+          "peak_rss_kib": 4340.0
+        },
+        "feline": {
+          "build_cpu_ns": 4157083.0,
+          "reported_bytes": 159408.0,
+          "peak_rss_kib": 3864.0
+        },
+        "grail": {
+          "build_cpu_ns": 5705513.0,
+          "reported_bytes": 451656.0,
+          "peak_rss_kib": 4034.0
+        },
+        "preach": {
+          "build_cpu_ns": 7232901.0,
+          "reported_bytes": 568088.0,
+          "peak_rss_kib": 4932.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 7241278.0,
+          "reported_bytes": 458892.0,
+          "peak_rss_kib": 5568.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 56918288.0,
+          "reported_bytes": 411308.0,
+          "peak_rss_kib": 12174.0
+        },
+        "tol": {
+          "build_cpu_ns": 7827038.0,
+          "reported_bytes": 180952.0,
+          "peak_rss_kib": 5184.0
+        },
+        "identical": {
+          "build_cpu_ns": 4455231.0,
+          "reported_bytes": 473352.0,
+          "peak_rss_kib": 4352.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_agrocyc",
+      "stratum": "uniform",
+      "identical_ratio": 1.0548423306408665,
+      "control_pass": true,
+      "ratios": {
+        "feline": 1.8777379966809606,
+        "grail": 1.280924039042292,
+        "preach": 3.6912544347939877,
+        "ferrari": 1.9565174720043714,
+        "tflabel": 1.9558425278586404,
+        "tol": 1.8765805693125754
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 2870127.0,
+          "reported_bytes": 519072.0,
+          "peak_rss_kib": 5044.0
+        },
+        "feline": {
+          "build_cpu_ns": 2131705.5,
+          "reported_bytes": 304416.0,
+          "peak_rss_kib": 3504.0
+        },
+        "grail": {
+          "build_cpu_ns": 2563266.5,
+          "reported_bytes": 862512.0,
+          "peak_rss_kib": 4126.0
+        },
+        "preach": {
+          "build_cpu_ns": 4159046.5,
+          "reported_bytes": 814672.0,
+          "peak_rss_kib": 4408.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 4614102.0,
+          "reported_bytes": 476445.0,
+          "peak_rss_kib": 6916.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 10255234.0,
+          "reported_bytes": 620408.0,
+          "peak_rss_kib": 8074.0
+        },
+        "tol": {
+          "build_cpu_ns": 4701467.0,
+          "reported_bytes": 269804.0,
+          "peak_rss_kib": 5228.0
+        },
+        "identical": {
+          "build_cpu_ns": 2998152.0,
+          "reported_bytes": 519072.0,
+          "peak_rss_kib": 5020.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_agrocyc",
+      "stratum": "positive",
+      "identical_ratio": 1.0004562961612409,
+      "control_pass": true,
+      "ratios": {
+        "feline": 9.704561123933852,
+        "grail": 11.472743324877209,
+        "preach": 1.776715610460116,
+        "ferrari": 1.95592557116769,
+        "tflabel": 39.19007535848566,
+        "tol": 2.2758106312376043
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 3203938.0,
+          "reported_bytes": 519072.0,
+          "peak_rss_kib": 5058.0
+        },
+        "feline": {
+          "build_cpu_ns": 2418326.5,
+          "reported_bytes": 304416.0,
+          "peak_rss_kib": 3534.0
+        },
+        "grail": {
+          "build_cpu_ns": 2633791.0,
+          "reported_bytes": 862512.0,
+          "peak_rss_kib": 4106.0
+        },
+        "preach": {
+          "build_cpu_ns": 4322123.0,
+          "reported_bytes": 814672.0,
+          "peak_rss_kib": 4400.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 5001707.0,
+          "reported_bytes": 476445.0,
+          "peak_rss_kib": 6918.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 10770930.0,
+          "reported_bytes": 620408.0,
+          "peak_rss_kib": 8128.0
+        },
+        "tol": {
+          "build_cpu_ns": 5416733.5,
+          "reported_bytes": 269804.0,
+          "peak_rss_kib": 5228.0
+        },
+        "identical": {
+          "build_cpu_ns": 3193017.0,
+          "reported_bytes": 519072.0,
+          "peak_rss_kib": 5046.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_agrocyc",
+      "stratum": "negative",
+      "identical_ratio": 0.9878479740572237,
+      "control_pass": true,
+      "ratios": {
+        "feline": 1.9983785187549414,
+        "grail": 1.2775223047831559,
+        "preach": 4.079770505733164,
+        "ferrari": 2.1405924780540904,
+        "tflabel": 2.008359046727729,
+        "tol": 1.8271079778818153
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 2946811.0,
+          "reported_bytes": 519072.0,
+          "peak_rss_kib": 5042.0
+        },
+        "feline": {
+          "build_cpu_ns": 2270491.5,
+          "reported_bytes": 304416.0,
+          "peak_rss_kib": 3530.0
+        },
+        "grail": {
+          "build_cpu_ns": 2499837.0,
+          "reported_bytes": 862512.0,
+          "peak_rss_kib": 4102.0
+        },
+        "preach": {
+          "build_cpu_ns": 4146667.5,
+          "reported_bytes": 814672.0,
+          "peak_rss_kib": 4416.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 5186041.5,
+          "reported_bytes": 476445.0,
+          "peak_rss_kib": 6916.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 10924943.0,
+          "reported_bytes": 620408.0,
+          "peak_rss_kib": 8130.0
+        },
+        "tol": {
+          "build_cpu_ns": 4822040.5,
+          "reported_bytes": 269804.0,
+          "peak_rss_kib": 5230.0
+        },
+        "identical": {
+          "build_cpu_ns": 3225474.5,
+          "reported_bytes": 519072.0,
+          "peak_rss_kib": 5040.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_agrocyc",
+      "stratum": "balanced",
+      "identical_ratio": 0.967983626335877,
+      "control_pass": true,
+      "ratios": {
+        "feline": 5.68388398632866,
+        "grail": 6.200917596000343,
+        "preach": 2.8239120587365347,
+        "ferrari": 2.0138655953524482,
+        "tflabel": 23.981895791696992,
+        "tol": 2.285039384956261
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 3360470.5,
+          "reported_bytes": 519072.0,
+          "peak_rss_kib": 5038.0
+        },
+        "feline": {
+          "build_cpu_ns": 2723860.0,
+          "reported_bytes": 304416.0,
+          "peak_rss_kib": 3536.0
+        },
+        "grail": {
+          "build_cpu_ns": 2782456.5,
+          "reported_bytes": 862512.0,
+          "peak_rss_kib": 4098.0
+        },
+        "preach": {
+          "build_cpu_ns": 5006094.0,
+          "reported_bytes": 814672.0,
+          "peak_rss_kib": 4416.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 5659960.0,
+          "reported_bytes": 476445.0,
+          "peak_rss_kib": 6914.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 11609199.0,
+          "reported_bytes": 620408.0,
+          "peak_rss_kib": 8128.0
+        },
+        "tol": {
+          "build_cpu_ns": 5070730.5,
+          "reported_bytes": 269804.0,
+          "peak_rss_kib": 5228.0
+        },
+        "identical": {
+          "build_cpu_ns": 3176106.5,
+          "reported_bytes": 519072.0,
+          "peak_rss_kib": 5052.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_amaze",
+      "stratum": "uniform",
+      "identical_ratio": 1.0139373722792606,
+      "control_pass": true,
+      "ratios": {
+        "feline": 3.1025657225206213,
+        "grail": 2.743003533144832,
+        "preach": 2.5961300640711285,
+        "ferrari": 1.8391831578060285,
+        "tflabel": 1.4382237101258815,
+        "tol": 1.3046655525810609
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1058662.5,
+          "reported_bytes": 1736648.0,
+          "peak_rss_kib": 3930.0
+        },
+        "feline": {
+          "build_cpu_ns": 862000.5,
+          "reported_bytes": 89040.0,
+          "peak_rss_kib": 2410.0
+        },
+        "grail": {
+          "build_cpu_ns": 1209065.5,
+          "reported_bytes": 252280.0,
+          "peak_rss_kib": 2606.0
+        },
+        "preach": {
+          "build_cpu_ns": 1704987.0,
+          "reported_bytes": 237000.0,
+          "peak_rss_kib": 2694.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 1648803.5,
+          "reported_bytes": 150383.0,
+          "peak_rss_kib": 3440.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 3757344.5,
+          "reported_bytes": 92176.0,
+          "peak_rss_kib": 4112.0
+        },
+        "tol": {
+          "build_cpu_ns": 1529616.5,
+          "reported_bytes": 76392.0,
+          "peak_rss_kib": 2928.0
+        },
+        "identical": {
+          "build_cpu_ns": 1021912.5,
+          "reported_bytes": 1736648.0,
+          "peak_rss_kib": 3940.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_amaze",
+      "stratum": "positive",
+      "identical_ratio": 0.9783756150039493,
+      "control_pass": true,
+      "ratios": {
+        "feline": 7.845704686406096,
+        "grail": 10.54381616549741,
+        "preach": 1.6586715660753433,
+        "ferrari": 1.7843027705091676,
+        "tflabel": 2.271959057437374,
+        "tol": 1.9829009078707651
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1153112.5,
+          "reported_bytes": 1736648.0,
+          "peak_rss_kib": 3952.0
+        },
+        "feline": {
+          "build_cpu_ns": 890052.0,
+          "reported_bytes": 89040.0,
+          "peak_rss_kib": 2426.0
+        },
+        "grail": {
+          "build_cpu_ns": 1282420.0,
+          "reported_bytes": 252280.0,
+          "peak_rss_kib": 2576.0
+        },
+        "preach": {
+          "build_cpu_ns": 1456263.0,
+          "reported_bytes": 237000.0,
+          "peak_rss_kib": 2702.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 1845220.0,
+          "reported_bytes": 150383.0,
+          "peak_rss_kib": 3440.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 4264452.5,
+          "reported_bytes": 92176.0,
+          "peak_rss_kib": 4112.0
+        },
+        "tol": {
+          "build_cpu_ns": 1661202.0,
+          "reported_bytes": 76392.0,
+          "peak_rss_kib": 2930.0
+        },
+        "identical": {
+          "build_cpu_ns": 1138209.5,
+          "reported_bytes": 1736648.0,
+          "peak_rss_kib": 3950.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_amaze",
+      "stratum": "negative",
+      "identical_ratio": 0.9457675809705195,
+      "control_pass": true,
+      "ratios": {
+        "feline": 1.8447862385971745,
+        "grail": 1.0412811830586812,
+        "preach": 2.9688281976770066,
+        "ferrari": 2.1048004379367145,
+        "tflabel": 1.3229447598214943,
+        "tol": 1.1684422962854488
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 988363.0,
+          "reported_bytes": 1736648.0,
+          "peak_rss_kib": 3940.0
+        },
+        "feline": {
+          "build_cpu_ns": 881889.5,
+          "reported_bytes": 89040.0,
+          "peak_rss_kib": 2410.0
+        },
+        "grail": {
+          "build_cpu_ns": 1148035.0,
+          "reported_bytes": 252280.0,
+          "peak_rss_kib": 2592.0
+        },
+        "preach": {
+          "build_cpu_ns": 1713925.5,
+          "reported_bytes": 237000.0,
+          "peak_rss_kib": 2690.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 1702192.5,
+          "reported_bytes": 150383.0,
+          "peak_rss_kib": 3442.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 4003119.5,
+          "reported_bytes": 92176.0,
+          "peak_rss_kib": 4112.0
+        },
+        "tol": {
+          "build_cpu_ns": 1785491.5,
+          "reported_bytes": 76392.0,
+          "peak_rss_kib": 2928.0
+        },
+        "identical": {
+          "build_cpu_ns": 1137183.5,
+          "reported_bytes": 1736648.0,
+          "peak_rss_kib": 3932.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_amaze",
+      "stratum": "balanced",
+      "identical_ratio": 1.0278911110659572,
+      "control_pass": true,
+      "ratios": {
+        "feline": 4.827862909160422,
+        "grail": 6.167596873315814,
+        "preach": 2.1393873722489616,
+        "ferrari": 1.805346026924409,
+        "tflabel": 1.8370102452460695,
+        "tol": 1.5584302703669126
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1032909.0,
+          "reported_bytes": 1736648.0,
+          "peak_rss_kib": 3958.0
+        },
+        "feline": {
+          "build_cpu_ns": 879952.0,
+          "reported_bytes": 89040.0,
+          "peak_rss_kib": 2410.0
+        },
+        "grail": {
+          "build_cpu_ns": 1137769.5,
+          "reported_bytes": 252280.0,
+          "peak_rss_kib": 2598.0
+        },
+        "preach": {
+          "build_cpu_ns": 1440629.0,
+          "reported_bytes": 237000.0,
+          "peak_rss_kib": 2690.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 1603351.0,
+          "reported_bytes": 150383.0,
+          "peak_rss_kib": 3440.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 3656675.5,
+          "reported_bytes": 92176.0,
+          "peak_rss_kib": 4112.0
+        },
+        "tol": {
+          "build_cpu_ns": 1523232.0,
+          "reported_bytes": 76392.0,
+          "peak_rss_kib": 2928.0
+        },
+        "identical": {
+          "build_cpu_ns": 1024481.5,
+          "reported_bytes": 1736648.0,
+          "peak_rss_kib": 3960.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_anthra",
+      "stratum": "uniform",
+      "identical_ratio": 0.9748395739016051,
+      "control_pass": true,
+      "ratios": {
+        "feline": 1.9402785262863755,
+        "grail": 1.2716686217559656,
+        "preach": 3.787557901545178,
+        "ferrari": 2.036130225287603,
+        "tflabel": 2.089698664267708,
+        "tol": 2.059042500728394
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 2937572.0,
+          "reported_bytes": 505960.0,
+          "peak_rss_kib": 5004.0
+        },
+        "feline": {
+          "build_cpu_ns": 2206817.0,
+          "reported_bytes": 299976.0,
+          "peak_rss_kib": 3526.0
+        },
+        "grail": {
+          "build_cpu_ns": 2637947.5,
+          "reported_bytes": 849932.0,
+          "peak_rss_kib": 4110.0
+        },
+        "preach": {
+          "build_cpu_ns": 4027185.5,
+          "reported_bytes": 802356.0,
+          "peak_rss_kib": 4476.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 4853447.5,
+          "reported_bytes": 468043.0,
+          "peak_rss_kib": 6848.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 25735337.0,
+          "reported_bytes": 559520.0,
+          "peak_rss_kib": 11264.0
+        },
+        "tol": {
+          "build_cpu_ns": 4814329.0,
+          "reported_bytes": 263904.0,
+          "peak_rss_kib": 5182.0
+        },
+        "identical": {
+          "build_cpu_ns": 3021777.5,
+          "reported_bytes": 505960.0,
+          "peak_rss_kib": 5002.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_anthra",
+      "stratum": "positive",
+      "identical_ratio": 0.9741420573040298,
+      "control_pass": true,
+      "ratios": {
+        "feline": 9.71813920870814,
+        "grail": 11.813854201260696,
+        "preach": 1.5773988654749207,
+        "ferrari": 1.9398177956282465,
+        "tflabel": 37.83833674625671,
+        "tol": 2.335662139934846
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 2896957.0,
+          "reported_bytes": 505960.0,
+          "peak_rss_kib": 4996.0
+        },
+        "feline": {
+          "build_cpu_ns": 2321572.5,
+          "reported_bytes": 299976.0,
+          "peak_rss_kib": 3512.0
+        },
+        "grail": {
+          "build_cpu_ns": 2551398.5,
+          "reported_bytes": 849932.0,
+          "peak_rss_kib": 4116.0
+        },
+        "preach": {
+          "build_cpu_ns": 4144459.5,
+          "reported_bytes": 802356.0,
+          "peak_rss_kib": 4490.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 4939059.5,
+          "reported_bytes": 468043.0,
+          "peak_rss_kib": 6844.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 26127269.0,
+          "reported_bytes": 559520.0,
+          "peak_rss_kib": 11264.0
+        },
+        "tol": {
+          "build_cpu_ns": 4621108.0,
+          "reported_bytes": 263904.0,
+          "peak_rss_kib": 5182.0
+        },
+        "identical": {
+          "build_cpu_ns": 2943872.0,
+          "reported_bytes": 505960.0,
+          "peak_rss_kib": 4976.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_anthra",
+      "stratum": "negative",
+      "identical_ratio": 0.9973513973385304,
+      "control_pass": true,
+      "ratios": {
+        "feline": 1.8830525871829105,
+        "grail": 1.3210170145941211,
+        "preach": 3.772512366936432,
+        "ferrari": 2.0281554260666215,
+        "tflabel": 1.9823557664433145,
+        "tol": 1.9111415676802577
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 3003926.0,
+          "reported_bytes": 505960.0,
+          "peak_rss_kib": 4998.0
+        },
+        "feline": {
+          "build_cpu_ns": 2192130.5,
+          "reported_bytes": 299976.0,
+          "peak_rss_kib": 3510.0
+        },
+        "grail": {
+          "build_cpu_ns": 2883046.0,
+          "reported_bytes": 849932.0,
+          "peak_rss_kib": 4112.0
+        },
+        "preach": {
+          "build_cpu_ns": 4001031.5,
+          "reported_bytes": 802356.0,
+          "peak_rss_kib": 4474.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 4811700.5,
+          "reported_bytes": 468043.0,
+          "peak_rss_kib": 6842.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 24861860.0,
+          "reported_bytes": 559520.0,
+          "peak_rss_kib": 11264.0
+        },
+        "tol": {
+          "build_cpu_ns": 4684646.5,
+          "reported_bytes": 263904.0,
+          "peak_rss_kib": 5182.0
+        },
+        "identical": {
+          "build_cpu_ns": 3086283.0,
+          "reported_bytes": 505960.0,
+          "peak_rss_kib": 4990.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_anthra",
+      "stratum": "balanced",
+      "identical_ratio": 1.023808861645847,
+      "control_pass": true,
+      "ratios": {
+        "feline": 5.887483655325335,
+        "grail": 6.533458574580306,
+        "preach": 2.6685714770315214,
+        "ferrari": 2.1059641944110084,
+        "tflabel": 21.45637208025155,
+        "tol": 2.314159424951808
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 3046774.5,
+          "reported_bytes": 505960.0,
+          "peak_rss_kib": 5008.0
+        },
+        "feline": {
+          "build_cpu_ns": 2134124.5,
+          "reported_bytes": 299976.0,
+          "peak_rss_kib": 3516.0
+        },
+        "grail": {
+          "build_cpu_ns": 2510072.5,
+          "reported_bytes": 849932.0,
+          "peak_rss_kib": 4108.0
+        },
+        "preach": {
+          "build_cpu_ns": 4383755.0,
+          "reported_bytes": 802356.0,
+          "peak_rss_kib": 4482.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 5344397.0,
+          "reported_bytes": 468043.0,
+          "peak_rss_kib": 6848.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 24800643.5,
+          "reported_bytes": 559520.0,
+          "peak_rss_kib": 11264.0
+        },
+        "tol": {
+          "build_cpu_ns": 4703755.0,
+          "reported_bytes": 263904.0,
+          "peak_rss_kib": 5180.0
+        },
+        "identical": {
+          "build_cpu_ns": 3188239.5,
+          "reported_bytes": 505960.0,
+          "peak_rss_kib": 4978.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_ecoo",
+      "stratum": "uniform",
+      "identical_ratio": 0.955313068302239,
+      "control_pass": true,
+      "ratios": {
+        "feline": 2.0446923100987346,
+        "grail": 1.3086780329889458,
+        "preach": 3.7981502097467144,
+        "ferrari": 2.0400850916760414,
+        "tflabel": 1.8300527181544468,
+        "tol": 1.8292746300737326
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 3102072.0,
+          "reported_bytes": 516344.0,
+          "peak_rss_kib": 5032.0
+        },
+        "feline": {
+          "build_cpu_ns": 2351552.0,
+          "reported_bytes": 302880.0,
+          "peak_rss_kib": 3436.0
+        },
+        "grail": {
+          "build_cpu_ns": 2535445.0,
+          "reported_bytes": 858160.0,
+          "peak_rss_kib": 4048.0
+        },
+        "preach": {
+          "build_cpu_ns": 4202270.0,
+          "reported_bytes": 810600.0,
+          "peak_rss_kib": 4328.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 5186487.0,
+          "reported_bytes": 474023.0,
+          "peak_rss_kib": 6884.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 10847578.5,
+          "reported_bytes": 631364.0,
+          "peak_rss_kib": 8108.0
+        },
+        "tol": {
+          "build_cpu_ns": 5129377.0,
+          "reported_bytes": 268840.0,
+          "peak_rss_kib": 5208.0
+        },
+        "identical": {
+          "build_cpu_ns": 3372788.5,
+          "reported_bytes": 516344.0,
+          "peak_rss_kib": 5036.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_ecoo",
+      "stratum": "positive",
+      "identical_ratio": 0.9976919030391806,
+      "control_pass": true,
+      "ratios": {
+        "feline": 10.93983870644816,
+        "grail": 12.417191198484954,
+        "preach": 1.6662919260134128,
+        "ferrari": 1.9176637365655007,
+        "tflabel": 39.90323401291281,
+        "tol": 2.550196273037097
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 3062207.5,
+          "reported_bytes": 516344.0,
+          "peak_rss_kib": 5036.0
+        },
+        "feline": {
+          "build_cpu_ns": 2347246.0,
+          "reported_bytes": 302880.0,
+          "peak_rss_kib": 3450.0
+        },
+        "grail": {
+          "build_cpu_ns": 2814169.5,
+          "reported_bytes": 858160.0,
+          "peak_rss_kib": 4054.0
+        },
+        "preach": {
+          "build_cpu_ns": 4305899.5,
+          "reported_bytes": 810600.0,
+          "peak_rss_kib": 4332.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 4856116.5,
+          "reported_bytes": 474023.0,
+          "peak_rss_kib": 6884.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 11276511.0,
+          "reported_bytes": 631364.0,
+          "peak_rss_kib": 8108.0
+        },
+        "tol": {
+          "build_cpu_ns": 5105411.5,
+          "reported_bytes": 268840.0,
+          "peak_rss_kib": 5210.0
+        },
+        "identical": {
+          "build_cpu_ns": 3008042.0,
+          "reported_bytes": 516344.0,
+          "peak_rss_kib": 5050.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_ecoo",
+      "stratum": "negative",
+      "identical_ratio": 1.0167848550345022,
+      "control_pass": true,
+      "ratios": {
+        "feline": 1.8365068730610477,
+        "grail": 1.2349967455477056,
+        "preach": 3.6853285297268488,
+        "ferrari": 1.9577846606407263,
+        "tflabel": 1.8607517573688237,
+        "tol": 1.8371302784376495
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 2957706.5,
+          "reported_bytes": 516344.0,
+          "peak_rss_kib": 5042.0
+        },
+        "feline": {
+          "build_cpu_ns": 2454920.5,
+          "reported_bytes": 302880.0,
+          "peak_rss_kib": 3462.0
+        },
+        "grail": {
+          "build_cpu_ns": 2515630.5,
+          "reported_bytes": 858160.0,
+          "peak_rss_kib": 4032.0
+        },
+        "preach": {
+          "build_cpu_ns": 4144760.0,
+          "reported_bytes": 810600.0,
+          "peak_rss_kib": 4336.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 4977596.5,
+          "reported_bytes": 474023.0,
+          "peak_rss_kib": 6884.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 11168395.5,
+          "reported_bytes": 631364.0,
+          "peak_rss_kib": 8108.0
+        },
+        "tol": {
+          "build_cpu_ns": 4880597.5,
+          "reported_bytes": 268840.0,
+          "peak_rss_kib": 5208.0
+        },
+        "identical": {
+          "build_cpu_ns": 3074159.5,
+          "reported_bytes": 516344.0,
+          "peak_rss_kib": 5034.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_ecoo",
+      "stratum": "balanced",
+      "identical_ratio": 1.0033957892063183,
+      "control_pass": true,
+      "ratios": {
+        "feline": 6.673021921958513,
+        "grail": 6.91689203599663,
+        "preach": 2.6884795859289934,
+        "ferrari": 2.060362221225354,
+        "tflabel": 23.855565605559406,
+        "tol": 2.439165856453683
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 3085998.0,
+          "reported_bytes": 516344.0,
+          "peak_rss_kib": 5036.0
+        },
+        "feline": {
+          "build_cpu_ns": 2302965.0,
+          "reported_bytes": 302880.0,
+          "peak_rss_kib": 3458.0
+        },
+        "grail": {
+          "build_cpu_ns": 2518545.5,
+          "reported_bytes": 858160.0,
+          "peak_rss_kib": 4038.0
+        },
+        "preach": {
+          "build_cpu_ns": 4063334.0,
+          "reported_bytes": 810600.0,
+          "peak_rss_kib": 4346.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 5273250.5,
+          "reported_bytes": 474023.0,
+          "peak_rss_kib": 6876.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 10927132.0,
+          "reported_bytes": 631364.0,
+          "peak_rss_kib": 8108.0
+        },
+        "tol": {
+          "build_cpu_ns": 4801405.0,
+          "reported_bytes": 268840.0,
+          "peak_rss_kib": 5210.0
+        },
+        "identical": {
+          "build_cpu_ns": 2893797.5,
+          "reported_bytes": 516344.0,
+          "peak_rss_kib": 5032.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_human",
+      "stratum": "uniform",
+      "identical_ratio": 1.0594555380249704,
+      "control_pass": true,
+      "ratios": {
+        "feline": 1.7912199431028608,
+        "grail": 1.232015536492896,
+        "preach": 4.179575876050961,
+        "ferrari": 2.1670293198911192,
+        "tflabel": 1.7708000428810158,
+        "tol": 1.5558820627795833
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 8730951.0,
+          "reported_bytes": 1559328.0,
+          "peak_rss_kib": 10824.0
+        },
+        "feline": {
+          "build_cpu_ns": 6311357.0,
+          "reported_bytes": 931464.0,
+          "peak_rss_kib": 6268.0
+        },
+        "grail": {
+          "build_cpu_ns": 7557322.5,
+          "reported_bytes": 2639148.0,
+          "peak_rss_kib": 8060.0
+        },
+        "preach": {
+          "build_cpu_ns": 12741080.5,
+          "reported_bytes": 2486964.0,
+          "peak_rss_kib": 9342.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 15523537.5,
+          "reported_bytes": 1442532.0,
+          "peak_rss_kib": 16894.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 56116482.5,
+          "reported_bytes": 1346348.0,
+          "peak_rss_kib": 22740.0
+        },
+        "tol": {
+          "build_cpu_ns": 14219931.5,
+          "reported_bytes": 791780.0,
+          "peak_rss_kib": 11516.0
+        },
+        "identical": {
+          "build_cpu_ns": 8332113.5,
+          "reported_bytes": 1559328.0,
+          "peak_rss_kib": 10820.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_human",
+      "stratum": "positive",
+      "identical_ratio": 0.9657832096662702,
+      "control_pass": true,
+      "ratios": {
+        "feline": 10.32461321425853,
+        "grail": 12.29262398919697,
+        "preach": 1.8128898665800661,
+        "ferrari": 1.8945278967480401,
+        "tflabel": 41.981974520792804,
+        "tol": 2.4744493283717723
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 8169096.0,
+          "reported_bytes": 1559328.0,
+          "peak_rss_kib": 10820.0
+        },
+        "feline": {
+          "build_cpu_ns": 6544829.0,
+          "reported_bytes": 931464.0,
+          "peak_rss_kib": 6272.0
+        },
+        "grail": {
+          "build_cpu_ns": 7782026.5,
+          "reported_bytes": 2639148.0,
+          "peak_rss_kib": 8062.0
+        },
+        "preach": {
+          "build_cpu_ns": 12643200.5,
+          "reported_bytes": 2486964.0,
+          "peak_rss_kib": 9340.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 14280176.0,
+          "reported_bytes": 1442532.0,
+          "peak_rss_kib": 16892.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 54019363.5,
+          "reported_bytes": 1346348.0,
+          "peak_rss_kib": 22780.0
+        },
+        "tol": {
+          "build_cpu_ns": 14242319.5,
+          "reported_bytes": 791780.0,
+          "peak_rss_kib": 11516.0
+        },
+        "identical": {
+          "build_cpu_ns": 8820663.5,
+          "reported_bytes": 1559328.0,
+          "peak_rss_kib": 10824.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_human",
+      "stratum": "negative",
+      "identical_ratio": 0.9943402050192788,
+      "control_pass": true,
+      "ratios": {
+        "feline": 1.8432456190840019,
+        "grail": 1.3613712986936892,
+        "preach": 4.555966158985765,
+        "ferrari": 2.4202007313648024,
+        "tflabel": 1.6839067930205254,
+        "tol": 1.6803943155353849
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 8422207.0,
+          "reported_bytes": 1559328.0,
+          "peak_rss_kib": 10820.0
+        },
+        "feline": {
+          "build_cpu_ns": 6763599.0,
+          "reported_bytes": 931464.0,
+          "peak_rss_kib": 6268.0
+        },
+        "grail": {
+          "build_cpu_ns": 7842330.5,
+          "reported_bytes": 2639148.0,
+          "peak_rss_kib": 8060.0
+        },
+        "preach": {
+          "build_cpu_ns": 13050715.0,
+          "reported_bytes": 2486964.0,
+          "peak_rss_kib": 9340.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 15765095.5,
+          "reported_bytes": 1442532.0,
+          "peak_rss_kib": 16896.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 56560147.0,
+          "reported_bytes": 1346348.0,
+          "peak_rss_kib": 22780.0
+        },
+        "tol": {
+          "build_cpu_ns": 13555069.0,
+          "reported_bytes": 791780.0,
+          "peak_rss_kib": 11520.0
+        },
+        "identical": {
+          "build_cpu_ns": 8581108.0,
+          "reported_bytes": 1559328.0,
+          "peak_rss_kib": 10820.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_human",
+      "stratum": "balanced",
+      "identical_ratio": 1.0015634311739272,
+      "control_pass": true,
+      "ratios": {
+        "feline": 6.107210140861243,
+        "grail": 6.561935769661613,
+        "preach": 2.8497242443594795,
+        "ferrari": 2.1276371632109035,
+        "tflabel": 24.609936370340964,
+        "tol": 2.1450938089283387
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 7885109.5,
+          "reported_bytes": 1559328.0,
+          "peak_rss_kib": 10822.0
+        },
+        "feline": {
+          "build_cpu_ns": 6473889.0,
+          "reported_bytes": 931464.0,
+          "peak_rss_kib": 6268.0
+        },
+        "grail": {
+          "build_cpu_ns": 7657190.5,
+          "reported_bytes": 2639148.0,
+          "peak_rss_kib": 8060.0
+        },
+        "preach": {
+          "build_cpu_ns": 12288779.0,
+          "reported_bytes": 2486964.0,
+          "peak_rss_kib": 9340.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 14547342.5,
+          "reported_bytes": 1442532.0,
+          "peak_rss_kib": 16894.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 60728742.0,
+          "reported_bytes": 1346348.0,
+          "peak_rss_kib": 22780.0
+        },
+        "tol": {
+          "build_cpu_ns": 13968207.5,
+          "reported_bytes": 791780.0,
+          "peak_rss_kib": 11516.0
+        },
+        "identical": {
+          "build_cpu_ns": 7975053.5,
+          "reported_bytes": 1559328.0,
+          "peak_rss_kib": 10820.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_mtbrv",
+      "stratum": "uniform",
+      "identical_ratio": 1.0095606728676105,
+      "control_pass": true,
+      "ratios": {
+        "feline": 2.0096569717713093,
+        "grail": 1.3156238132278981,
+        "preach": 3.6924903616401434,
+        "ferrari": 2.0539105868039007,
+        "tflabel": 1.9659477137686188,
+        "tol": 2.011862933063528
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 2381657.0,
+          "reported_bytes": 390072.0,
+          "peak_rss_kib": 4236.0
+        },
+        "feline": {
+          "build_cpu_ns": 1771040.0,
+          "reported_bytes": 230448.0,
+          "peak_rss_kib": 3194.0
+        },
+        "grail": {
+          "build_cpu_ns": 2181088.5,
+          "reported_bytes": 652936.0,
+          "peak_rss_kib": 3608.0
+        },
+        "preach": {
+          "build_cpu_ns": 3463774.0,
+          "reported_bytes": 617100.0,
+          "peak_rss_kib": 3932.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 3558694.5,
+          "reported_bytes": 361061.0,
+          "peak_rss_kib": 5704.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 7191239.0,
+          "reported_bytes": 251040.0,
+          "peak_rss_kib": 6752.0
+        },
+        "tol": {
+          "build_cpu_ns": 3858519.5,
+          "reported_bytes": 206332.0,
+          "peak_rss_kib": 4432.0
+        },
+        "identical": {
+          "build_cpu_ns": 2342428.0,
+          "reported_bytes": 390072.0,
+          "peak_rss_kib": 4238.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_mtbrv",
+      "stratum": "positive",
+      "identical_ratio": 1.030748276749903,
+      "control_pass": true,
+      "ratios": {
+        "feline": 10.349744599789162,
+        "grail": 11.862165533240997,
+        "preach": 1.5802885762683254,
+        "ferrari": 1.8414964957391962,
+        "tflabel": 3.7460486327778466,
+        "tol": 2.1258541179267008
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 2614077.0,
+          "reported_bytes": 390072.0,
+          "peak_rss_kib": 4252.0
+        },
+        "feline": {
+          "build_cpu_ns": 2290106.0,
+          "reported_bytes": 230448.0,
+          "peak_rss_kib": 3202.0
+        },
+        "grail": {
+          "build_cpu_ns": 2073083.0,
+          "reported_bytes": 652936.0,
+          "peak_rss_kib": 3610.0
+        },
+        "preach": {
+          "build_cpu_ns": 3333761.0,
+          "reported_bytes": 617100.0,
+          "peak_rss_kib": 3928.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 4219236.0,
+          "reported_bytes": 361061.0,
+          "peak_rss_kib": 5706.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 8276676.0,
+          "reported_bytes": 251040.0,
+          "peak_rss_kib": 6752.0
+        },
+        "tol": {
+          "build_cpu_ns": 3820138.0,
+          "reported_bytes": 206332.0,
+          "peak_rss_kib": 4432.0
+        },
+        "identical": {
+          "build_cpu_ns": 2560562.5,
+          "reported_bytes": 390072.0,
+          "peak_rss_kib": 4232.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_mtbrv",
+      "stratum": "negative",
+      "identical_ratio": 1.0013606037347467,
+      "control_pass": true,
+      "ratios": {
+        "feline": 1.8825350514294128,
+        "grail": 1.268296811445866,
+        "preach": 3.651703232448017,
+        "ferrari": 1.9198338849658922,
+        "tflabel": 1.7810235303913742,
+        "tol": 1.790696173469632
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 2763233.5,
+          "reported_bytes": 390072.0,
+          "peak_rss_kib": 4234.0
+        },
+        "feline": {
+          "build_cpu_ns": 2131675.0,
+          "reported_bytes": 230448.0,
+          "peak_rss_kib": 3170.0
+        },
+        "grail": {
+          "build_cpu_ns": 2371697.0,
+          "reported_bytes": 652936.0,
+          "peak_rss_kib": 3612.0
+        },
+        "preach": {
+          "build_cpu_ns": 3550277.0,
+          "reported_bytes": 617100.0,
+          "peak_rss_kib": 3904.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 4129928.0,
+          "reported_bytes": 361061.0,
+          "peak_rss_kib": 5712.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 8185470.5,
+          "reported_bytes": 251040.0,
+          "peak_rss_kib": 6752.0
+        },
+        "tol": {
+          "build_cpu_ns": 4135065.5,
+          "reported_bytes": 206332.0,
+          "peak_rss_kib": 4434.0
+        },
+        "identical": {
+          "build_cpu_ns": 2521134.0,
+          "reported_bytes": 390072.0,
+          "peak_rss_kib": 4236.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_mtbrv",
+      "stratum": "balanced",
+      "identical_ratio": 1.0382516762030403,
+      "control_pass": true,
+      "ratios": {
+        "feline": 6.082272690652232,
+        "grail": 6.356950970649173,
+        "preach": 2.638029658522812,
+        "ferrari": 2.007553994240767,
+        "tflabel": 2.9921378148787006,
+        "tol": 1.9354112561980514
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 2378417.0,
+          "reported_bytes": 390072.0,
+          "peak_rss_kib": 4246.0
+        },
+        "feline": {
+          "build_cpu_ns": 1886546.0,
+          "reported_bytes": 230448.0,
+          "peak_rss_kib": 3196.0
+        },
+        "grail": {
+          "build_cpu_ns": 2407950.5,
+          "reported_bytes": 652936.0,
+          "peak_rss_kib": 3606.0
+        },
+        "preach": {
+          "build_cpu_ns": 3560387.0,
+          "reported_bytes": 617100.0,
+          "peak_rss_kib": 3904.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 4092728.5,
+          "reported_bytes": 361061.0,
+          "peak_rss_kib": 5714.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 7860242.5,
+          "reported_bytes": 251040.0,
+          "peak_rss_kib": 6752.0
+        },
+        "tol": {
+          "build_cpu_ns": 3885830.5,
+          "reported_bytes": 206332.0,
+          "peak_rss_kib": 4436.0
+        },
+        "identical": {
+          "build_cpu_ns": 2509592.5,
+          "reported_bytes": 390072.0,
+          "peak_rss_kib": 4220.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_nasa",
+      "stratum": "uniform",
+      "identical_ratio": 1.0078594478037743,
+      "control_pass": true,
+      "ratios": {
+        "feline": 5.616795032670127,
+        "grail": 2.375772452406669,
+        "preach": 4.834270544203032,
+        "ferrari": 2.585970373953027,
+        "tflabel": 2.6262853452286308,
+        "tol": 2.6264527685770673
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1887828.5,
+          "reported_bytes": 260384.0,
+          "peak_rss_kib": 3352.0
+        },
+        "feline": {
+          "build_cpu_ns": 1593366.0,
+          "reported_bytes": 134520.0,
+          "peak_rss_kib": 2692.0
+        },
+        "grail": {
+          "build_cpu_ns": 2122847.5,
+          "reported_bytes": 381140.0,
+          "peak_rss_kib": 2952.0
+        },
+        "preach": {
+          "build_cpu_ns": 2918271.5,
+          "reported_bytes": 362448.0,
+          "peak_rss_kib": 3122.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 3324071.0,
+          "reported_bytes": 235528.0,
+          "peak_rss_kib": 4266.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 6820013.0,
+          "reported_bytes": 225024.0,
+          "peak_rss_kib": 5036.0
+        },
+        "tol": {
+          "build_cpu_ns": 3559936.5,
+          "reported_bytes": 163488.0,
+          "peak_rss_kib": 3508.0
+        },
+        "identical": {
+          "build_cpu_ns": 2095176.0,
+          "reported_bytes": 260384.0,
+          "peak_rss_kib": 3358.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_nasa",
+      "stratum": "positive",
+      "identical_ratio": 1.0376377015813243,
+      "control_pass": true,
+      "ratios": {
+        "feline": 13.37394697781524,
+        "grail": 6.144225183556603,
+        "preach": 2.0465563483930493,
+        "ferrari": 2.8810018812268527,
+        "tflabel": 3.597162641173446,
+        "tol": 3.146858358310801
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1874353.5,
+          "reported_bytes": 260384.0,
+          "peak_rss_kib": 3358.0
+        },
+        "feline": {
+          "build_cpu_ns": 1491485.0,
+          "reported_bytes": 134520.0,
+          "peak_rss_kib": 2694.0
+        },
+        "grail": {
+          "build_cpu_ns": 1915704.5,
+          "reported_bytes": 381140.0,
+          "peak_rss_kib": 2954.0
+        },
+        "preach": {
+          "build_cpu_ns": 2685548.5,
+          "reported_bytes": 362448.0,
+          "peak_rss_kib": 3122.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 3043800.0,
+          "reported_bytes": 235528.0,
+          "peak_rss_kib": 4268.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 6764970.5,
+          "reported_bytes": 225024.0,
+          "peak_rss_kib": 5036.0
+        },
+        "tol": {
+          "build_cpu_ns": 3369553.5,
+          "reported_bytes": 163488.0,
+          "peak_rss_kib": 3510.0
+        },
+        "identical": {
+          "build_cpu_ns": 1825215.0,
+          "reported_bytes": 260384.0,
+          "peak_rss_kib": 3364.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_nasa",
+      "stratum": "negative",
+      "identical_ratio": 1.0003410377392952,
+      "control_pass": true,
+      "ratios": {
+        "feline": 4.5271527277990025,
+        "grail": 1.8306649442261569,
+        "preach": 4.796311103739491,
+        "ferrari": 2.867715925302572,
+        "tflabel": 2.7568493094743536,
+        "tol": 2.726500830318572
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 2019574.5,
+          "reported_bytes": 260384.0,
+          "peak_rss_kib": 3360.0
+        },
+        "feline": {
+          "build_cpu_ns": 1412151.5,
+          "reported_bytes": 134520.0,
+          "peak_rss_kib": 2696.0
+        },
+        "grail": {
+          "build_cpu_ns": 2158630.5,
+          "reported_bytes": 381140.0,
+          "peak_rss_kib": 2948.0
+        },
+        "preach": {
+          "build_cpu_ns": 2709188.0,
+          "reported_bytes": 362448.0,
+          "peak_rss_kib": 3124.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 3250322.0,
+          "reported_bytes": 235528.0,
+          "peak_rss_kib": 4268.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 6625364.0,
+          "reported_bytes": 225024.0,
+          "peak_rss_kib": 5036.0
+        },
+        "tol": {
+          "build_cpu_ns": 3698247.0,
+          "reported_bytes": 163488.0,
+          "peak_rss_kib": 3508.0
+        },
+        "identical": {
+          "build_cpu_ns": 1974231.5,
+          "reported_bytes": 260384.0,
+          "peak_rss_kib": 3362.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_nasa",
+      "stratum": "balanced",
+      "identical_ratio": 1.0127388401942468,
+      "control_pass": true,
+      "ratios": {
+        "feline": 10.461847799498932,
+        "grail": 5.017121545717211,
+        "preach": 3.224591859552892,
+        "ferrari": 2.8513133653856957,
+        "tflabel": 3.0663188847566545,
+        "tol": 3.029370757493666
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1988833.5,
+          "reported_bytes": 260384.0,
+          "peak_rss_kib": 3368.0
+        },
+        "feline": {
+          "build_cpu_ns": 1475015.5,
+          "reported_bytes": 134520.0,
+          "peak_rss_kib": 2666.0
+        },
+        "grail": {
+          "build_cpu_ns": 1967942.5,
+          "reported_bytes": 381140.0,
+          "peak_rss_kib": 2954.0
+        },
+        "preach": {
+          "build_cpu_ns": 2763278.5,
+          "reported_bytes": 362448.0,
+          "peak_rss_kib": 3096.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 2996284.5,
+          "reported_bytes": 235528.0,
+          "peak_rss_kib": 4266.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 6478230.0,
+          "reported_bytes": 225024.0,
+          "peak_rss_kib": 5036.0
+        },
+        "tol": {
+          "build_cpu_ns": 3352027.5,
+          "reported_bytes": 163488.0,
+          "peak_rss_kib": 3508.0
+        },
+        "identical": {
+          "build_cpu_ns": 1852751.5,
+          "reported_bytes": 260384.0,
+          "peak_rss_kib": 3372.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_vchocyc",
+      "stratum": "uniform",
+      "identical_ratio": 0.9926897304923868,
+      "control_pass": true,
+      "ratios": {
+        "feline": 1.9459915557850782,
+        "grail": 1.3384525282722985,
+        "preach": 3.900451655217048,
+        "ferrari": 2.10476656043278,
+        "tflabel": 2.0267001203896418,
+        "tol": 1.8683892219856566
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 2227097.5,
+          "reported_bytes": 385616.0,
+          "peak_rss_kib": 4218.0
+        },
+        "feline": {
+          "build_cpu_ns": 2100800.0,
+          "reported_bytes": 227784.0,
+          "peak_rss_kib": 3138.0
+        },
+        "grail": {
+          "build_cpu_ns": 2424044.5,
+          "reported_bytes": 645388.0,
+          "peak_rss_kib": 3658.0
+        },
+        "preach": {
+          "build_cpu_ns": 3671422.0,
+          "reported_bytes": 610032.0,
+          "peak_rss_kib": 3866.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 4211664.0,
+          "reported_bytes": 360833.0,
+          "peak_rss_kib": 5676.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 25557252.5,
+          "reported_bytes": 517432.0,
+          "peak_rss_kib": 10436.0
+        },
+        "tol": {
+          "build_cpu_ns": 3822005.5,
+          "reported_bytes": 203912.0,
+          "peak_rss_kib": 4410.0
+        },
+        "identical": {
+          "build_cpu_ns": 2313425.5,
+          "reported_bytes": 385616.0,
+          "peak_rss_kib": 4200.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_vchocyc",
+      "stratum": "positive",
+      "identical_ratio": 1.001779521546072,
+      "control_pass": true,
+      "ratios": {
+        "feline": 9.470481909136709,
+        "grail": 10.721822513002337,
+        "preach": 1.8666387049892357,
+        "ferrari": 1.9974607195469365,
+        "tflabel": 39.797947403542565,
+        "tol": 2.787220901438147
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 2231203.0,
+          "reported_bytes": 385616.0,
+          "peak_rss_kib": 4218.0
+        },
+        "feline": {
+          "build_cpu_ns": 2112051.5,
+          "reported_bytes": 227784.0,
+          "peak_rss_kib": 3124.0
+        },
+        "grail": {
+          "build_cpu_ns": 2637281.0,
+          "reported_bytes": 645388.0,
+          "peak_rss_kib": 3670.0
+        },
+        "preach": {
+          "build_cpu_ns": 4094806.0,
+          "reported_bytes": 610032.0,
+          "peak_rss_kib": 3856.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 4195580.5,
+          "reported_bytes": 360833.0,
+          "peak_rss_kib": 5672.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 29379420.5,
+          "reported_bytes": 517432.0,
+          "peak_rss_kib": 10390.0
+        },
+        "tol": {
+          "build_cpu_ns": 4232285.0,
+          "reported_bytes": 203912.0,
+          "peak_rss_kib": 4410.0
+        },
+        "identical": {
+          "build_cpu_ns": 2401636.5,
+          "reported_bytes": 385616.0,
+          "peak_rss_kib": 4198.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_vchocyc",
+      "stratum": "negative",
+      "identical_ratio": 1.0340466021071233,
+      "control_pass": true,
+      "ratios": {
+        "feline": 1.945316056324631,
+        "grail": 1.2750495948308795,
+        "preach": 3.845530976628025,
+        "ferrari": 2.111958982311325,
+        "tflabel": 2.0168168868222724,
+        "tol": 1.9883485493523612
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 2435006.5,
+          "reported_bytes": 385616.0,
+          "peak_rss_kib": 4218.0
+        },
+        "feline": {
+          "build_cpu_ns": 2175801.0,
+          "reported_bytes": 227784.0,
+          "peak_rss_kib": 3148.0
+        },
+        "grail": {
+          "build_cpu_ns": 2344902.5,
+          "reported_bytes": 645388.0,
+          "peak_rss_kib": 3668.0
+        },
+        "preach": {
+          "build_cpu_ns": 3533547.5,
+          "reported_bytes": 610032.0,
+          "peak_rss_kib": 3874.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 4034420.5,
+          "reported_bytes": 360833.0,
+          "peak_rss_kib": 5670.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 29832346.0,
+          "reported_bytes": 517432.0,
+          "peak_rss_kib": 10440.0
+        },
+        "tol": {
+          "build_cpu_ns": 4041627.0,
+          "reported_bytes": 203912.0,
+          "peak_rss_kib": 4408.0
+        },
+        "identical": {
+          "build_cpu_ns": 2306826.0,
+          "reported_bytes": 385616.0,
+          "peak_rss_kib": 4210.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_vchocyc",
+      "stratum": "balanced",
+      "identical_ratio": 0.9937329606487744,
+      "control_pass": true,
+      "ratios": {
+        "feline": 5.596211415011913,
+        "grail": 5.723388471218089,
+        "preach": 2.7129723774552366,
+        "ferrari": 1.9872618103927988,
+        "tflabel": 22.812228974920103,
+        "tol": 2.2904254377034494
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 2427575.0,
+          "reported_bytes": 385616.0,
+          "peak_rss_kib": 4224.0
+        },
+        "feline": {
+          "build_cpu_ns": 2120338.5,
+          "reported_bytes": 227784.0,
+          "peak_rss_kib": 3136.0
+        },
+        "grail": {
+          "build_cpu_ns": 2346860.0,
+          "reported_bytes": 645388.0,
+          "peak_rss_kib": 3672.0
+        },
+        "preach": {
+          "build_cpu_ns": 3641718.0,
+          "reported_bytes": 610032.0,
+          "peak_rss_kib": 3850.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 3793468.5,
+          "reported_bytes": 360833.0,
+          "peak_rss_kib": 5676.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 23983831.0,
+          "reported_bytes": 517432.0,
+          "peak_rss_kib": 10414.0
+        },
+        "tol": {
+          "build_cpu_ns": 4150859.5,
+          "reported_bytes": 203912.0,
+          "peak_rss_kib": 4408.0
+        },
+        "identical": {
+          "build_cpu_ns": 2291272.5,
+          "reported_bytes": 385616.0,
+          "peak_rss_kib": 4210.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_xmark",
+      "stratum": "uniform",
+      "identical_ratio": 0.9675652133712174,
+      "control_pass": true,
+      "ratios": {
+        "feline": 9.77790028547108,
+        "grail": 2.694923675632894,
+        "preach": 4.422073885002346,
+        "ferrari": 2.3881134579927306,
+        "tflabel": 4.55729737558994,
+        "tol": 2.9745038478761625
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1882100.0,
+          "reported_bytes": 265656.0,
+          "peak_rss_kib": 3442.0
+        },
+        "feline": {
+          "build_cpu_ns": 1599876.0,
+          "reported_bytes": 145920.0,
+          "peak_rss_kib": 2786.0
+        },
+        "grail": {
+          "build_cpu_ns": 2516577.5,
+          "reported_bytes": 413440.0,
+          "peak_rss_kib": 3086.0
+        },
+        "preach": {
+          "build_cpu_ns": 2630751.5,
+          "reported_bytes": 392900.0,
+          "peak_rss_kib": 3262.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 3053759.5,
+          "reported_bytes": 243455.0,
+          "peak_rss_kib": 4432.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 15914506.0,
+          "reported_bytes": 615868.0,
+          "peak_rss_kib": 6212.0
+        },
+        "tol": {
+          "build_cpu_ns": 3721961.5,
+          "reported_bytes": 209100.0,
+          "peak_rss_kib": 3700.0
+        },
+        "identical": {
+          "build_cpu_ns": 1917522.5,
+          "reported_bytes": 265656.0,
+          "peak_rss_kib": 3450.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_xmark",
+      "stratum": "positive",
+      "identical_ratio": 0.99458220173987,
+      "control_pass": true,
+      "ratios": {
+        "feline": 26.405694718047087,
+        "grail": 8.558675249550962,
+        "preach": 5.755279777600088,
+        "ferrari": 2.3938359258720334,
+        "tflabel": 9.11822595491194,
+        "tol": 34.68825962833097
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1739293.0,
+          "reported_bytes": 265656.0,
+          "peak_rss_kib": 3454.0
+        },
+        "feline": {
+          "build_cpu_ns": 1448551.0,
+          "reported_bytes": 145920.0,
+          "peak_rss_kib": 2792.0
+        },
+        "grail": {
+          "build_cpu_ns": 2070835.5,
+          "reported_bytes": 413440.0,
+          "peak_rss_kib": 3088.0
+        },
+        "preach": {
+          "build_cpu_ns": 2427525.0,
+          "reported_bytes": 392900.0,
+          "peak_rss_kib": 3254.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 2893211.5,
+          "reported_bytes": 243455.0,
+          "peak_rss_kib": 4432.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 14429152.5,
+          "reported_bytes": 615868.0,
+          "peak_rss_kib": 6212.0
+        },
+        "tol": {
+          "build_cpu_ns": 3309790.5,
+          "reported_bytes": 209100.0,
+          "peak_rss_kib": 3702.0
+        },
+        "identical": {
+          "build_cpu_ns": 1784149.5,
+          "reported_bytes": 265656.0,
+          "peak_rss_kib": 3456.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_xmark",
+      "stratum": "negative",
+      "identical_ratio": 0.9842215545581583,
+      "control_pass": true,
+      "ratios": {
+        "feline": 4.4032937633051565,
+        "grail": 2.1147679669464168,
+        "preach": 4.360852028504013,
+        "ferrari": 2.3117492722470416,
+        "tflabel": 3.354090889698969,
+        "tol": 3.038045802565566
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1861930.0,
+          "reported_bytes": 265656.0,
+          "peak_rss_kib": 3458.0
+        },
+        "feline": {
+          "build_cpu_ns": 1651182.0,
+          "reported_bytes": 145920.0,
+          "peak_rss_kib": 2796.0
+        },
+        "grail": {
+          "build_cpu_ns": 2008658.0,
+          "reported_bytes": 413440.0,
+          "peak_rss_kib": 3084.0
+        },
+        "preach": {
+          "build_cpu_ns": 2612855.0,
+          "reported_bytes": 392900.0,
+          "peak_rss_kib": 3264.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 2865110.0,
+          "reported_bytes": 243455.0,
+          "peak_rss_kib": 4432.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 14415397.0,
+          "reported_bytes": 615868.0,
+          "peak_rss_kib": 6212.0
+        },
+        "tol": {
+          "build_cpu_ns": 3340000.0,
+          "reported_bytes": 209100.0,
+          "peak_rss_kib": 3700.0
+        },
+        "identical": {
+          "build_cpu_ns": 1891844.0,
+          "reported_bytes": 265656.0,
+          "peak_rss_kib": 3444.0
+        }
+      }
+    },
+    {
+      "dataset": "heldout_xmark",
+      "stratum": "balanced",
+      "identical_ratio": 0.9774808085464978,
+      "control_pass": true,
+      "ratios": {
+        "feline": 16.63342222242828,
+        "grail": 5.573671892733605,
+        "preach": 4.306616214754024,
+        "ferrari": 2.4804561050958416,
+        "tflabel": 7.296487395690851,
+        "tol": 20.827244735558907
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 1795871.5,
+          "reported_bytes": 265656.0,
+          "peak_rss_kib": 3464.0
+        },
+        "feline": {
+          "build_cpu_ns": 1426969.0,
+          "reported_bytes": 145920.0,
+          "peak_rss_kib": 2802.0
+        },
+        "grail": {
+          "build_cpu_ns": 2084355.0,
+          "reported_bytes": 413440.0,
+          "peak_rss_kib": 3088.0
+        },
+        "preach": {
+          "build_cpu_ns": 2554168.0,
+          "reported_bytes": 392900.0,
+          "peak_rss_kib": 3254.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 3188620.0,
+          "reported_bytes": 243455.0,
+          "peak_rss_kib": 4432.0
+        },
+        "tflabel": {
+          "build_cpu_ns": 15592530.0,
+          "reported_bytes": 615868.0,
+          "peak_rss_kib": 6212.0
+        },
+        "tol": {
+          "build_cpu_ns": 3406208.0,
+          "reported_bytes": 209100.0,
+          "peak_rss_kib": 3702.0
+        },
+        "identical": {
+          "build_cpu_ns": 1846557.0,
+          "reported_bytes": 265656.0,
+          "peak_rss_kib": 3468.0
+        }
+      }
+    },
+    {
+      "dataset": "kron_logn12",
+      "stratum": "uniform",
+      "identical_ratio": 0.9857236637223358,
+      "control_pass": true,
+      "ratios": {
+        "feline": 45.37366967577168,
+        "grail": 30.90530310681867,
+        "preach": 4.755758894514502,
+        "ferrari": 2.1110461102983407,
+        "tol": 61.85069513872604
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 10187089.0,
+          "reported_bytes": 2113904.0,
+          "peak_rss_kib": 5658.0
+        },
+        "feline": {
+          "build_cpu_ns": 20204501.0,
+          "reported_bytes": 98304.0,
+          "peak_rss_kib": 6216.0
+        },
+        "grail": {
+          "build_cpu_ns": 23702075.5,
+          "reported_bytes": 278528.0,
+          "peak_rss_kib": 6218.0
+        },
+        "preach": {
+          "build_cpu_ns": 30392833.0,
+          "reported_bytes": 713568.0,
+          "peak_rss_kib": 8588.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 35409781.5,
+          "reported_bytes": 199009.0,
+          "peak_rss_kib": 6352.0
+        },
+        "tol": {
+          "build_cpu_ns": 2500434705.0,
+          "reported_bytes": 10281044.0,
+          "peak_rss_kib": 22800.0
+        },
+        "identical": {
+          "build_cpu_ns": 11227237.5,
+          "reported_bytes": 2113904.0,
+          "peak_rss_kib": 5660.0
+        }
+      }
+    },
+    {
+      "dataset": "kron_logn12",
+      "stratum": "positive",
+      "identical_ratio": 0.9940459109819306,
+      "control_pass": true,
+      "ratios": {
+        "feline": 230.17358911415334,
+        "grail": 99.85561337127703,
+        "preach": 9.646539641938084,
+        "ferrari": 1.7659895998504558,
+        "tol": 123.5903247380204
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 12687025.0,
+          "reported_bytes": 2113904.0,
+          "peak_rss_kib": 5650.0
+        },
+        "feline": {
+          "build_cpu_ns": 18335076.5,
+          "reported_bytes": 98304.0,
+          "peak_rss_kib": 6216.0
+        },
+        "grail": {
+          "build_cpu_ns": 25201405.5,
+          "reported_bytes": 278528.0,
+          "peak_rss_kib": 6218.0
+        },
+        "preach": {
+          "build_cpu_ns": 27373575.0,
+          "reported_bytes": 713568.0,
+          "peak_rss_kib": 8590.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 35276854.0,
+          "reported_bytes": 199009.0,
+          "peak_rss_kib": 6284.0
+        },
+        "tol": {
+          "build_cpu_ns": 2495931541.0,
+          "reported_bytes": 10281044.0,
+          "peak_rss_kib": 22800.0
+        },
+        "identical": {
+          "build_cpu_ns": 12187662.5,
+          "reported_bytes": 2113904.0,
+          "peak_rss_kib": 5658.0
+        }
+      }
+    },
+    {
+      "dataset": "kron_logn12",
+      "stratum": "negative",
+      "identical_ratio": 0.9450694332265877,
+      "control_pass": true,
+      "ratios": {
+        "feline": 4.039886023683822,
+        "grail": 3.963670504374484,
+        "preach": 3.233815691696253,
+        "ferrari": 2.34517924047882,
+        "tol": 40.01325236412737
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 13233821.0,
+          "reported_bytes": 2113904.0,
+          "peak_rss_kib": 5658.0
+        },
+        "feline": {
+          "build_cpu_ns": 20007111.5,
+          "reported_bytes": 98304.0,
+          "peak_rss_kib": 6216.0
+        },
+        "grail": {
+          "build_cpu_ns": 26727533.0,
+          "reported_bytes": 278528.0,
+          "peak_rss_kib": 6220.0
+        },
+        "preach": {
+          "build_cpu_ns": 38439448.0,
+          "reported_bytes": 713568.0,
+          "peak_rss_kib": 8588.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 44833470.0,
+          "reported_bytes": 199009.0,
+          "peak_rss_kib": 6396.0
+        },
+        "tol": {
+          "build_cpu_ns": 3098581966.0,
+          "reported_bytes": 10281044.0,
+          "peak_rss_kib": 22800.0
+        },
+        "identical": {
+          "build_cpu_ns": 13389279.5,
+          "reported_bytes": 2113904.0,
+          "peak_rss_kib": 5664.0
+        }
+      }
+    },
+    {
+      "dataset": "kron_logn12",
+      "stratum": "balanced",
+      "identical_ratio": 0.9804988482762107,
+      "control_pass": true,
+      "ratios": {
+        "feline": 80.53170116580549,
+        "grail": 46.710066476610336,
+        "preach": 5.863902717304993,
+        "ferrari": 1.953014805122046,
+        "tol": 88.05747656104724
+      },
+      "measurements": {
+        "tric": {
+          "build_cpu_ns": 12951884.5,
+          "reported_bytes": 2113904.0,
+          "peak_rss_kib": 5670.0
+        },
+        "feline": {
+          "build_cpu_ns": 21027190.0,
+          "reported_bytes": 98304.0,
+          "peak_rss_kib": 6216.0
+        },
+        "grail": {
+          "build_cpu_ns": 21322435.0,
+          "reported_bytes": 278528.0,
+          "peak_rss_kib": 6220.0
+        },
+        "preach": {
+          "build_cpu_ns": 28563354.0,
+          "reported_bytes": 713568.0,
+          "peak_rss_kib": 8590.0
+        },
+        "ferrari": {
+          "build_cpu_ns": 32941979.5,
+          "reported_bytes": 199009.0,
+          "peak_rss_kib": 6352.0
+        },
+        "tol": {
+          "build_cpu_ns": 2854839114.0,
+          "reported_bytes": 10281044.0,
+          "peak_rss_kib": 22800.0
+        },
+        "identical": {
+          "build_cpu_ns": 14704086.0,
+          "reported_bytes": 2113904.0,
+          "peak_rss_kib": 5662.0
+        }
+      }
+    }
+  ],
+  "scope": "Repeated warm queries, specific default implementations, no total-memory matching or global SOTA claim."
+}

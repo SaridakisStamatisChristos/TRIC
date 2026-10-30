@@ -3,13 +3,18 @@ import copy
 import json
 import unittest
 
-from verify_interval_storage import EVIDENCE, validate_pair, verify
+from verify_interval_storage import EVIDENCE, validate_pair, verify, set_source_root
 
 
 class EvidenceTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        set_source_root(EVIDENCE.parent/'phase33/baseline-sources')
         cls.data=json.loads((EVIDENCE/'results.json').read_text())
+
+    @classmethod
+    def tearDownClass(cls):
+        set_source_root()
 
     def pair(self):
         return copy.deepcopy(next(r for r in self.data['records'] if r['name']=='directory_exact_budget'))

@@ -1,0 +1,861 @@
+{
+  "warm": {
+    "replication": {
+      "median": 1.2512810680465167,
+      "worst": 1.0624137825212543,
+      "null_failures": [],
+      "passes": true
+    },
+    "pooled": {
+      "median": 1.2420264743992417,
+      "worst": 1.0661784165097554,
+      "null_failures": [],
+      "passes": true
+    },
+    "cells": [
+      {
+        "dataset": "example",
+        "pooled": {
+          "csr_v2": 1.1084910454047234,
+          "identical": 1.0049143713512523
+        },
+        "replication": {
+          "csr_v2": 1.121724292786866,
+          "identical": 1.0062167644325268
+        }
+      },
+      {
+        "dataset": "generated_blocks",
+        "pooled": {
+          "csr_v2": 1.762158474073261,
+          "identical": 1.0044321522818955
+        },
+        "replication": {
+          "csr_v2": 1.7713827918947431,
+          "identical": 1.0015824337328527
+        }
+      },
+      {
+        "dataset": "generated_communities",
+        "pooled": {
+          "csr_v2": 1.5091794153939704,
+          "identical": 0.9991350026273993
+        },
+        "replication": {
+          "csr_v2": 1.5065905220417999,
+          "identical": 0.9964419614019701
+        }
+      },
+      {
+        "dataset": "generated_dag",
+        "pooled": {
+          "csr_v2": 1.642094688157028,
+          "identical": 1.0098875090519983
+        },
+        "replication": {
+          "csr_v2": 1.6268495178335154,
+          "identical": 1.0068624994072457
+        }
+      },
+      {
+        "dataset": "grail_citeseer",
+        "pooled": {
+          "csr_v2": 1.1548511870478495,
+          "identical": 1.012811357106664
+        },
+        "replication": {
+          "csr_v2": 1.146058768103655,
+          "identical": 1.003750261173544
+        }
+      },
+      {
+        "dataset": "grail_go",
+        "pooled": {
+          "csr_v2": 1.1413082493536704,
+          "identical": 1.0054433103888147
+        },
+        "replication": {
+          "csr_v2": 1.1362572930706567,
+          "identical": 1.0031266729888266
+        }
+      },
+      {
+        "dataset": "grail_kegg",
+        "pooled": {
+          "csr_v2": 1.5403228450661608,
+          "identical": 0.9963183080363109
+        },
+        "replication": {
+          "csr_v2": 1.5356789178315675,
+          "identical": 1.0007307539664783
+        }
+      },
+      {
+        "dataset": "grail_pubmed",
+        "pooled": {
+          "csr_v2": 1.0911098709766809,
+          "identical": 1.0085117626711564
+        },
+        "replication": {
+          "csr_v2": 1.0887844670619977,
+          "identical": 1.0111284158407066
+        }
+      },
+      {
+        "dataset": "grail_yago",
+        "pooled": {
+          "csr_v2": 1.0661784165097554,
+          "identical": 0.99820383443999
+        },
+        "replication": {
+          "csr_v2": 1.0624137825212543,
+          "identical": 0.9968622806533335
+        }
+      },
+      {
+        "dataset": "heldout_agrocyc",
+        "pooled": {
+          "csr_v2": 1.2778026923186914,
+          "identical": 1.0146697655015462
+        },
+        "replication": {
+          "csr_v2": 1.2743297611631659,
+          "identical": 1.0003808238894472
+        }
+      },
+      {
+        "dataset": "heldout_amaze",
+        "pooled": {
+          "csr_v2": 1.5232850511103146,
+          "identical": 1.0134043466124374
+        },
+        "replication": {
+          "csr_v2": 1.542301214058929,
+          "identical": 1.0309155881545633
+        }
+      },
+      {
+        "dataset": "heldout_anthra",
+        "pooled": {
+          "csr_v2": 1.2401617831746063,
+          "identical": 0.9996576837222476
+        },
+        "replication": {
+          "csr_v2": 1.2373868857924915,
+          "identical": 0.9772312982487983
+        }
+      },
+      {
+        "dataset": "heldout_ecoo",
+        "pooled": {
+          "csr_v2": 1.2420264743992417,
+          "identical": 0.9960750549548169
+        },
+        "replication": {
+          "csr_v2": 1.2542085376329393,
+          "identical": 0.9952769813431371
+        }
+      },
+      {
+        "dataset": "heldout_human",
+        "pooled": {
+          "csr_v2": 1.2198848574643524,
+          "identical": 0.9980708949236297
+        },
+        "replication": {
+          "csr_v2": 1.2072725787882066,
+          "identical": 0.9983996598507587
+        }
+      },
+      {
+        "dataset": "heldout_mtbrv",
+        "pooled": {
+          "csr_v2": 1.2141938240986048,
+          "identical": 0.9998893103779433
+        },
+        "replication": {
+          "csr_v2": 1.2117848058334626,
+          "identical": 0.9999002222323907
+        }
+      },
+      {
+        "dataset": "heldout_nasa",
+        "pooled": {
+          "csr_v2": 1.1441760367879619,
+          "identical": 0.9899476374271124
+        },
+        "replication": {
+          "csr_v2": 1.141340168963463,
+          "identical": 0.98978848955178
+        }
+      },
+      {
+        "dataset": "heldout_vchocyc",
+        "pooled": {
+          "csr_v2": 1.2415475749998224,
+          "identical": 1.000271091710863
+        },
+        "replication": {
+          "csr_v2": 1.2261671236143745,
+          "identical": 0.9991437431227378
+        }
+      },
+      {
+        "dataset": "heldout_xmark",
+        "pooled": {
+          "csr_v2": 1.1778762601603512,
+          "identical": 1.002465206222539
+        },
+        "replication": {
+          "csr_v2": 1.17940972540568,
+          "identical": 1.0073720492026537
+        }
+      },
+      {
+        "dataset": "kron_logn12",
+        "pooled": {
+          "csr_v2": 1.5064633985693057,
+          "identical": 1.0019222619931762
+        },
+        "replication": {
+          "csr_v2": 1.4944818320066766,
+          "identical": 0.9938724553968519
+        }
+      },
+      {
+        "dataset": "large_citeseer",
+        "pooled": {
+          "csr_v2": 1.3735204403085999,
+          "identical": 1.002027721582798
+        },
+        "replication": {
+          "csr_v2": 1.3686925924183588,
+          "identical": 0.9957769234297107
+        }
+      },
+      {
+        "dataset": "large_uniprot_22m",
+        "pooled": {
+          "csr_v2": 1.1353962648531026,
+          "identical": 0.9894796299652175
+        },
+        "replication": {
+          "csr_v2": 1.1715788665143658,
+          "identical": 1.0195225738645033
+        }
+      },
+      {
+        "dataset": "phase30_cross_chains",
+        "pooled": {
+          "csr_v2": 1.1584956828414752,
+          "identical": 1.0215898399954426
+        },
+        "replication": {
+          "csr_v2": 1.1574591787582258,
+          "identical": 1.022733447938943
+        }
+      },
+      {
+        "dataset": "phase30_fragmented",
+        "pooled": {
+          "csr_v2": 1.191395973225144,
+          "identical": 0.9696542091610956
+        },
+        "replication": {
+          "csr_v2": 1.19051967704421,
+          "identical": 0.9643248921674474
+        }
+      },
+      {
+        "dataset": "phase30_scc_aliases",
+        "pooled": {
+          "csr_v2": 1.3900509671918027,
+          "identical": 0.988475499026146
+        },
+        "replication": {
+          "csr_v2": 1.4082880837322402,
+          "identical": 0.9968827846650933
+        }
+      },
+      {
+        "dataset": "phase30_shared_hubs",
+        "pooled": {
+          "csr_v2": 1.0949742647122016,
+          "identical": 0.9803542159486581
+        },
+        "replication": {
+          "csr_v2": 1.131995264932278,
+          "identical": 0.9847640921548368
+        }
+      },
+      {
+        "dataset": "phase33_dense_order",
+        "pooled": {
+          "csr_v2": 1.241064345385429,
+          "identical": 0.9752307139997325
+        },
+        "replication": {
+          "csr_v2": 1.2454713056690885,
+          "identical": 0.9848931960384231
+        }
+      },
+      {
+        "dataset": "phase33_holdout_cycle_bags",
+        "pooled": {
+          "csr_v2": 2.475678444432604,
+          "identical": 0.9991345299270149
+        },
+        "replication": {
+          "csr_v2": 2.4542982552038457,
+          "identical": 0.990218248875688
+        }
+      },
+      {
+        "dataset": "phase33_holdout_duplicate_bipartite",
+        "pooled": {
+          "csr_v2": 1.5339566637382447,
+          "identical": 0.9878279336673756
+        },
+        "replication": {
+          "csr_v2": 1.5403333158418553,
+          "identical": 0.9929044929704081
+        }
+      },
+      {
+        "dataset": "phase33_holdout_isolates",
+        "pooled": {
+          "csr_v2": 1.1325653293928681,
+          "identical": 1.0122828130762729
+        },
+        "replication": {
+          "csr_v2": 1.1320463435952757,
+          "identical": 1.0098707849749757
+        }
+      },
+      {
+        "dataset": "phase33_holdout_permuted_chain",
+        "pooled": {
+          "csr_v2": 1.37600445510026,
+          "identical": 1.0018058566447698
+        },
+        "replication": {
+          "csr_v2": 1.3753722302488345,
+          "identical": 1.0038451958179226
+        }
+      },
+      {
+        "dataset": "phase33_holdout_reverse_trees",
+        "pooled": {
+          "csr_v2": 1.4833739441693259,
+          "identical": 0.983899890696287
+        },
+        "replication": {
+          "csr_v2": 1.4707361155445207,
+          "identical": 0.9876316998705511
+        }
+      },
+      {
+        "dataset": "phase33_holdout_sparse_random",
+        "pooled": {
+          "csr_v2": 3.0755938463167656,
+          "identical": 1.0064303195400244
+        },
+        "replication": {
+          "csr_v2": 3.0669501490215074,
+          "identical": 1.0132277617037553
+        }
+      },
+      {
+        "dataset": "phase33_many_weak_parts",
+        "pooled": {
+          "csr_v2": 1.1412987706257454,
+          "identical": 1.01537185340722
+        },
+        "replication": {
+          "csr_v2": 1.1354738744052102,
+          "identical": 1.0139690824138066
+        }
+      },
+      {
+        "dataset": "phase33_repeated_arcs",
+        "pooled": {
+          "csr_v2": 1.244671597320132,
+          "identical": 1.0017349419470154
+        },
+        "replication": {
+          "csr_v2": 1.2512810680465167,
+          "identical": 1.0027454060951726
+        }
+      },
+      {
+        "dataset": "phase33_scc_ladder",
+        "pooled": {
+          "csr_v2": 1.9189883403150279,
+          "identical": 0.9802678719677991
+        },
+        "replication": {
+          "csr_v2": 1.911345109673518,
+          "identical": 0.9793829893483665
+        }
+      },
+      {
+        "dataset": "phase33_shuffled_sparse",
+        "pooled": {
+          "csr_v2": 1.629600763888746,
+          "identical": 0.9713351705188906
+        },
+        "replication": {
+          "csr_v2": 1.6292120411007947,
+          "identical": 0.972454291556577
+        }
+      },
+      {
+        "dataset": "phase33_wide_layers",
+        "pooled": {
+          "csr_v2": 1.9276991286974892,
+          "identical": 0.9974913260445145
+        },
+        "replication": {
+          "csr_v2": 1.9292644661634875,
+          "identical": 0.9995566172395056
+        }
+      }
+    ]
+  },
+  "cold": {
+    "replication": {
+      "median": 1.1815238456956003,
+      "worst": 0.8982352679872413,
+      "null_failures": [
+        {
+          "dataset": "phase33_holdout_sparse_random",
+          "pooled": {
+            "csr_v2": 1.742290894437237,
+            "identical": 1.03788012587393
+          },
+          "replication": {
+            "csr_v2": 1.777273082404541,
+            "identical": 1.1184358382502184
+          }
+        }
+      ],
+      "passes": false
+    },
+    "pooled": {
+      "median": 1.1744569920586567,
+      "worst": 0.9205834620201838,
+      "null_failures": [],
+      "passes": true
+    },
+    "cells": [
+      {
+        "dataset": "example",
+        "pooled": {
+          "csr_v2": 1.0793379086835007,
+          "identical": 1.0105730990070696
+        },
+        "replication": {
+          "csr_v2": 1.0989615079453818,
+          "identical": 1.0090402654814248
+        }
+      },
+      {
+        "dataset": "generated_blocks",
+        "pooled": {
+          "csr_v2": 1.1660350865937863,
+          "identical": 1.0127077373247846
+        },
+        "replication": {
+          "csr_v2": 1.1472454483822474,
+          "identical": 0.9938192204843959
+        }
+      },
+      {
+        "dataset": "generated_communities",
+        "pooled": {
+          "csr_v2": 1.3224892568872262,
+          "identical": 1.0049254542336563
+        },
+        "replication": {
+          "csr_v2": 1.3222989586346543,
+          "identical": 1.0018916362653696
+        }
+      },
+      {
+        "dataset": "generated_dag",
+        "pooled": {
+          "csr_v2": 1.3723380285606708,
+          "identical": 0.9994267434132131
+        },
+        "replication": {
+          "csr_v2": 1.455539860306076,
+          "identical": 0.9684200395952486
+        }
+      },
+      {
+        "dataset": "grail_citeseer",
+        "pooled": {
+          "csr_v2": 1.1149350797726671,
+          "identical": 0.9918829958618023
+        },
+        "replication": {
+          "csr_v2": 1.1130619655537708,
+          "identical": 0.9932089339608874
+        }
+      },
+      {
+        "dataset": "grail_go",
+        "pooled": {
+          "csr_v2": 1.144973012975007,
+          "identical": 1.004670274867299
+        },
+        "replication": {
+          "csr_v2": 1.1247400572190775,
+          "identical": 1.0004626098723877
+        }
+      },
+      {
+        "dataset": "grail_kegg",
+        "pooled": {
+          "csr_v2": 1.1044985863035097,
+          "identical": 0.958552879678818
+        },
+        "replication": {
+          "csr_v2": 1.1121813215325125,
+          "identical": 0.9872493368873132
+        }
+      },
+      {
+        "dataset": "grail_pubmed",
+        "pooled": {
+          "csr_v2": 1.0949075012011629,
+          "identical": 1.0186722578337135
+        },
+        "replication": {
+          "csr_v2": 1.0401695384121987,
+          "identical": 1.0184799262535966
+        }
+      },
+      {
+        "dataset": "grail_yago",
+        "pooled": {
+          "csr_v2": 0.9863245108575602,
+          "identical": 0.9819904960878306
+        },
+        "replication": {
+          "csr_v2": 1.0050326787497352,
+          "identical": 0.9839207333812844
+        }
+      },
+      {
+        "dataset": "heldout_agrocyc",
+        "pooled": {
+          "csr_v2": 1.2247725990893492,
+          "identical": 1.0210052420163724
+        },
+        "replication": {
+          "csr_v2": 1.2476224037177372,
+          "identical": 1.0361841504827254
+        }
+      },
+      {
+        "dataset": "heldout_amaze",
+        "pooled": {
+          "csr_v2": 1.1557950053956225,
+          "identical": 1.0084678679484682
+        },
+        "replication": {
+          "csr_v2": 1.1428873604628946,
+          "identical": 0.9836811984353251
+        }
+      },
+      {
+        "dataset": "heldout_anthra",
+        "pooled": {
+          "csr_v2": 1.2096830047435536,
+          "identical": 1.0236402785507006
+        },
+        "replication": {
+          "csr_v2": 1.223749844561869,
+          "identical": 1.0512588596571535
+        }
+      },
+      {
+        "dataset": "heldout_ecoo",
+        "pooled": {
+          "csr_v2": 1.209954345531092,
+          "identical": 0.9761787708760685
+        },
+        "replication": {
+          "csr_v2": 1.2099354240054547,
+          "identical": 0.9819794194244715
+        }
+      },
+      {
+        "dataset": "heldout_human",
+        "pooled": {
+          "csr_v2": 1.1583730742987977,
+          "identical": 0.9869223440785604
+        },
+        "replication": {
+          "csr_v2": 1.1607151493142644,
+          "identical": 0.9819977739491058
+        }
+      },
+      {
+        "dataset": "heldout_mtbrv",
+        "pooled": {
+          "csr_v2": 1.2145519724497982,
+          "identical": 0.9916599888596276
+        },
+        "replication": {
+          "csr_v2": 1.2188349704146373,
+          "identical": 0.9949080024415625
+        }
+      },
+      {
+        "dataset": "heldout_nasa",
+        "pooled": {
+          "csr_v2": 1.1805407386878497,
+          "identical": 1.0048225062703282
+        },
+        "replication": {
+          "csr_v2": 1.1677301695134576,
+          "identical": 1.0073497661255255
+        }
+      },
+      {
+        "dataset": "heldout_vchocyc",
+        "pooled": {
+          "csr_v2": 1.2263625643681342,
+          "identical": 0.9865309007749115
+        },
+        "replication": {
+          "csr_v2": 1.203789518853507,
+          "identical": 0.9809694764225046
+        }
+      },
+      {
+        "dataset": "heldout_xmark",
+        "pooled": {
+          "csr_v2": 1.1744569920586567,
+          "identical": 1.0245712448408928
+        },
+        "replication": {
+          "csr_v2": 1.1815238456956003,
+          "identical": 1.0354347260409997
+        }
+      },
+      {
+        "dataset": "kron_logn12",
+        "pooled": {
+          "csr_v2": 1.0820839943040679,
+          "identical": 0.9593034334995991
+        },
+        "replication": {
+          "csr_v2": 1.0666574914271336,
+          "identical": 0.965699425671665
+        }
+      },
+      {
+        "dataset": "large_citeseer",
+        "pooled": {
+          "csr_v2": 1.4420778863005095,
+          "identical": 0.9810482471860392
+        },
+        "replication": {
+          "csr_v2": 1.4413750959415546,
+          "identical": 0.9624316165043016
+        }
+      },
+      {
+        "dataset": "large_uniprot_22m",
+        "pooled": {
+          "csr_v2": 1.0865482096253292,
+          "identical": 0.9901200445927214
+        },
+        "replication": {
+          "csr_v2": 1.0876729196868706,
+          "identical": 0.9831157523939048
+        }
+      },
+      {
+        "dataset": "phase30_cross_chains",
+        "pooled": {
+          "csr_v2": 1.1506980141347012,
+          "identical": 0.9964438327197297
+        },
+        "replication": {
+          "csr_v2": 1.1621103027835367,
+          "identical": 0.9986978567550406
+        }
+      },
+      {
+        "dataset": "phase30_fragmented",
+        "pooled": {
+          "csr_v2": 1.2309606325533768,
+          "identical": 1.0171765903674133
+        },
+        "replication": {
+          "csr_v2": 1.2251256850907146,
+          "identical": 1.031171231176091
+        }
+      },
+      {
+        "dataset": "phase30_scc_aliases",
+        "pooled": {
+          "csr_v2": 1.3852033410508198,
+          "identical": 0.9999562517737204
+        },
+        "replication": {
+          "csr_v2": 1.3862658310542912,
+          "identical": 1.0312024601151208
+        }
+      },
+      {
+        "dataset": "phase30_shared_hubs",
+        "pooled": {
+          "csr_v2": 1.1670450255346214,
+          "identical": 1.0097622937584072
+        },
+        "replication": {
+          "csr_v2": 1.1911529883297167,
+          "identical": 1.023644451043889
+        }
+      },
+      {
+        "dataset": "phase33_dense_order",
+        "pooled": {
+          "csr_v2": 0.9205834620201838,
+          "identical": 0.9894988757174366
+        },
+        "replication": {
+          "csr_v2": 0.8982352679872413,
+          "identical": 0.9699953107108165
+        }
+      },
+      {
+        "dataset": "phase33_holdout_cycle_bags",
+        "pooled": {
+          "csr_v2": 1.745630715463819,
+          "identical": 1.011508454337556
+        },
+        "replication": {
+          "csr_v2": 1.7436458542461353,
+          "identical": 1.0121857132534782
+        }
+      },
+      {
+        "dataset": "phase33_holdout_duplicate_bipartite",
+        "pooled": {
+          "csr_v2": 1.1427450718814351,
+          "identical": 0.9746117267026946
+        },
+        "replication": {
+          "csr_v2": 1.182118774767231,
+          "identical": 0.9834347735196661
+        }
+      },
+      {
+        "dataset": "phase33_holdout_isolates",
+        "pooled": {
+          "csr_v2": 1.032049700635019,
+          "identical": 1.015760694627962
+        },
+        "replication": {
+          "csr_v2": 1.0332142832310862,
+          "identical": 0.9782994739604856
+        }
+      },
+      {
+        "dataset": "phase33_holdout_permuted_chain",
+        "pooled": {
+          "csr_v2": 1.175888628288491,
+          "identical": 1.0294293926192233
+        },
+        "replication": {
+          "csr_v2": 1.1562564190098161,
+          "identical": 1.0198185265141968
+        }
+      },
+      {
+        "dataset": "phase33_holdout_reverse_trees",
+        "pooled": {
+          "csr_v2": 1.1969477342504125,
+          "identical": 0.9920248314976157
+        },
+        "replication": {
+          "csr_v2": 1.2321195846759756,
+          "identical": 0.9992871686915291
+        }
+      },
+      {
+        "dataset": "phase33_holdout_sparse_random",
+        "pooled": {
+          "csr_v2": 1.742290894437237,
+          "identical": 1.03788012587393
+        },
+        "replication": {
+          "csr_v2": 1.777273082404541,
+          "identical": 1.1184358382502184
+        }
+      },
+      {
+        "dataset": "phase33_many_weak_parts",
+        "pooled": {
+          "csr_v2": 1.1333977593305837,
+          "identical": 1.0189967973511962
+        },
+        "replication": {
+          "csr_v2": 1.1464782054518696,
+          "identical": 0.9986471071211448
+        }
+      },
+      {
+        "dataset": "phase33_repeated_arcs",
+        "pooled": {
+          "csr_v2": 0.9884671680184544,
+          "identical": 0.9946066311845618
+        },
+        "replication": {
+          "csr_v2": 0.9850698187652224,
+          "identical": 0.9903488903459101
+        }
+      },
+      {
+        "dataset": "phase33_scc_ladder",
+        "pooled": {
+          "csr_v2": 1.6044216225916368,
+          "identical": 1.0000308404693405
+        },
+        "replication": {
+          "csr_v2": 1.60613679323191,
+          "identical": 1.0045669863299513
+        }
+      },
+      {
+        "dataset": "phase33_shuffled_sparse",
+        "pooled": {
+          "csr_v2": 1.237429392605277,
+          "identical": 1.0021004903032957
+        },
+        "replication": {
+          "csr_v2": 1.2451091600878978,
+          "identical": 1.026245724431256
+        }
+      },
+      {
+        "dataset": "phase33_wide_layers",
+        "pooled": {
+          "csr_v2": 1.3549671869107234,
+          "identical": 0.9708001669841642
+        },
+        "replication": {
+          "csr_v2": 1.3374580267200114,
+          "identical": 1.0018268153714067
+        }
+      }
+    ]
+  },
+  "promotable": false
+}

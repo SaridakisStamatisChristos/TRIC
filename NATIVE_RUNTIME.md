@@ -169,3 +169,13 @@ runtime dependencies. Build the comparator with:
 g++ -std=c++17 -O3 -DNDEBUG -DTRIC_WITH_BFL \
   tric_research/native_compare_bench.cpp -o /tmp/tric-compare
 ```
+
+## Construction qualification and additional comparators
+
+[Phase XXXIII](tric_research/PHASE_XXXIII_RESEARCH_REPORT.md) leaves this runtime
+unchanged. Stable CSR transpose storage, closure pruning and smaller interval
+merge buffers did not pass their frozen promotion gates. A favorable pooled
+construction result did not supersede a failed separate replication gate.
+The same phase adds pinned C++ FELINE/GRAIL/PReaCH/FERRARI/TF-Label/TOL adapters
+for warm repeated-query comparisons. Those default implementations are not
+matched for total memory and do not establish generalized SOTA.
