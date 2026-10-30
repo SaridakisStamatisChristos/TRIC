@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/750cc954fdb8/tric-phase33/build_external.py", line 13, in <module>
+    p=subprocess.run(cmd,capture_output=True,text=True);(O/'external-sanitizer.compile.log').write_text(p.stderr);p.check_returncode();p=subprocess.run([str(O/'external-sanitizer'),'--self-test'],capture_output=True,text=True);(O/'external-sanitizer.log').write_text(p.stdout+p.stderr);p.check_returncode();assert not p.stderr
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1209, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 2157, in _communicate
+    stderr = self._translate_newlines(stderr,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 1086, in _translate_newlines
+    data = data.decode(encoding, errors)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf0 in position 6581: invalid continuation byte

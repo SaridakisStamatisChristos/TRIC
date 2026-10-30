@@ -13,6 +13,8 @@ from pathlib import Path
 from test_native_runtime import serialize
 
 ROOT = Path(__file__).resolve().parent
+SOURCE = ROOT
+HISTORICAL_ROOT = None
 EVIDENCE = ROOT / 'evidence/phase32'
 BASELINE = EVIDENCE / 'baseline-sources/tric_research'
 FIXTURES = ('evidence/phase25/fixtures', 'evidence/phase30/fresh-fixtures',
@@ -30,15 +32,22 @@ def sha(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
+def set_source_root(path=None):
+    """Select an explicit repository-shaped snapshot for historical evidence."""
+    global SOURCE, HISTORICAL_ROOT
+    HISTORICAL_ROOT = Path(path).resolve() if path else None
+    SOURCE = HISTORICAL_ROOT/'tric_research' if HISTORICAL_ROOT else ROOT
+
+
 def source_check():
     protocol = json.loads((EVIDENCE/'protocol.json').read_text())
     before = (BASELINE/HEADER).read_text()
-    after = (ROOT/HEADER).read_text()
+    after = (SOURCE/HEADER).read_text()
     assert after.count(CHANGE) == 1 and after.replace(CHANGE, '') == before
     assert sha(after.encode()) == protocol['candidate_header_sha256']
     for path in BASELINE.glob('*.h'):
         if path.name != HEADER:
-            assert path.read_bytes() == (ROOT/path.name).read_bytes(), path.name
+            assert path.read_bytes() == (SOURCE/path.name).read_bytes(), path.name
     return protocol
 
 
@@ -140,7 +149,7 @@ def build_probes(output):
     source = output/'interval_storage_check.cpp'
     shutil.copyfile(ROOT/source.name,source)
     builds = {}
-    for arm,headers in (('previous',BASELINE),('candidate',ROOT)):
+    for arm,headers in (('previous',BASELINE),('candidate',SOURCE)):
         dependency = output/(arm+'.d')
         cmd = ['g++','-std=c++17','-O2','-Wall','-Wextra','-Wpedantic','-fsanitize=undefined',
                '-MMD','-MF',str(dependency),'-I'+str(headers),str(source),'-o',str(output/arm)]
@@ -207,7 +216,7 @@ def verify(data):
         savings[record['name']]=validate_pair(record)
         checks+=2*queries
     assert seen==set(expected)
-    for arm,headers in (('previous',BASELINE),('candidate',ROOT)):
+    for arm,headers in (('previous',BASELINE),('candidate',SOURCE)):
         build=data['builds'][arm]
         assert set(build['sources'])=={'tric_reachability.h','partitioned_reachability.h',
                                       'closure_index.h','scc_decomposition.h','forest_reachability.h'}
@@ -226,7 +235,7 @@ def verify_full_build(data):
         assert build[key]==prior[key],key
     hashes={}
     for arm in build['commands']:
-        headers=BASELINE if arm['name']=='previous' else ROOT
+        headers=BASELINE if arm['name']=='previous' else SOURCE
         hashes[arm['name']]=arm['executable_sha256']
         assert len(arm['selected_runtime_dependencies'])==8
         for name,digest in arm['runtime_source_hashes'].items():
@@ -266,14 +275,18 @@ def verify_full_build(data):
 def verify_seal():
     manifest=json.loads((EVIDENCE/'sealed_manifest.json').read_text())
     for name,digest in manifest['files'].items():
-        assert sha((ROOT.parent/name).read_bytes())==digest,name
+        archived = HISTORICAL_ROOT/name if HISTORICAL_ROOT else None
+        path = archived if archived is not None and archived.is_file() else ROOT.parent/name
+        assert sha(path.read_bytes())==digest,name
 
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--run',help='Empty output folder for fresh probes')
     parser.add_argument('--quick',action='store_true',help='Purpose-built cases only')
+    parser.add_argument('--source-root',help='Explicit repository-shaped historical source snapshot')
     args=parser.parse_args()
+    set_source_root(args.source_root)
     if args.run:
         execute(args.run,not args.quick)
     else:

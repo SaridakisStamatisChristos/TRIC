@@ -52,8 +52,11 @@ SCC on the tested toolchain without changing admission or query code.
 
 See [native runtime usage and limitations](NATIVE_RUNTIME.md). The table allowance
 is not a total-memory cap. The existing research algorithms and archives remain
-available. [Latest comparative evidence, regressions and remaining gaps](tric_research/PHASE_XXX_RESEARCH_REPORT.md)
+available. [Original-author comparative evidence and regressions](tric_research/PHASE_XXX_RESEARCH_REPORT.md)
 are recorded in Phase XXX; no universal SOTA or novel algorithm claim is made.
 Phase XXXI rejected four query optimizations. [Phase XXXII](tric_research/PHASE_XXXII_RESEARCH_REPORT.md)
 validates the directory release with independent allocation tracking; it makes
-no new latency or external-comparator claim. See [current status](RESEARCH_STATUS.md).
+no new latency or external-comparator claim. [Phase XXXIII](tric_research/PHASE_XXXIII_RESEARCH_REPORT.md)
+rejects three construction candidates and adds six pinned external implementation
+comparisons with oracle and control checks. The production runtime remains unchanged.
+See [current status](RESEARCH_STATUS.md).

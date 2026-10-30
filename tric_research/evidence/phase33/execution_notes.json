@@ -1,0 +1,5 @@
+{
+  "interruptions": "Construction stopped after 25 completed warm replication graphs; external comparison stopped after 72 completed cases. Completed output files and manifests are preserved byte-for-byte.",
+  "partial_cells": "The original runners checkpoint only complete graph/case cells. Any in-flight partial cell at interruption was not recoverable and is rerun in full. Process totals count archived complete cells, not unknown interrupted partial work.",
+  "selection": "No completed cell was discarded, replaced, or selected based on its timing result."
+}

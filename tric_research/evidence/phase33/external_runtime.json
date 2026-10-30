@@ -1,0 +1,16 @@
+{
+  "runtime": "PR32 baseline unchanged",
+  "executable_sha256": "be734cc5eabb766d199aeb97f90d541ad707579689210bd1fc993261fb9aaae5",
+  "runtime_headers": {
+    "forest_reachability.h": "b49f05e9d0f24f48e792b485ab05d66f738a438f0f9778d224db53ea7e028c7d",
+    "closure_index.h": "bbdeb40c467817fc95e99213ad00fc61b125f6c988901cd14fb0a5afa0faf154",
+    "oreach_adapter.h": "694ba424d9b7c5df4fe1be3821ab12a579afbfce647e904980391e2d5c75fb51",
+    "scc_decomposition.h": "c751356abf39e1d52b3310b3fc3c630c1813302a17c1cbebdae47262399b73ec",
+    "partitioned_reachability.h": "cd707556f9ac20d9fb299fcee8222663a603bac84d12c326def25caf0b9cccb5",
+    "bfl_adapter.h": "5d63bd722435ef8dddb3a04e75bda5277d8cba5d2c03ac9a42cda956487316a2",
+    "pruned_labeling_adapter.h": "ca19a66f7dab1ae0bd5e75ee3266033f3422fec49a341da25e0c213471761840",
+    "tric_reachability.h": "fa3a846aee3c11870edc9c63eaedadaf1288010d33d849758f7db8c3a5257f2b"
+  },
+  "promotion_decision": "RETAIN_BASELINE",
+  "reason": "Frozen replication and pooled gates both required; original qualification remains failed."
+}

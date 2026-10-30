@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "arms": [
+    {
+      "name": "previous",
+      "executable": "/workspace/scratch/750cc954fdb8/tric-phase33/previous/bench",
+      "mode": "auto",
+      "executable_sha256": "2ad4af2a07f1d5edbef1dd47eb0cd4a68ff256e483634a37bbf96655dd7808ee"
+    },
+    {
+      "name": "csr_v2",
+      "executable": "/workspace/scratch/750cc954fdb8/tric-phase33/csr_v2/warm-bench",
+      "mode": "auto",
+      "executable_sha256": "1968bfba04940df57028492ed40ce6627c9a117c309115f850d7998e8c96ae98"
+    },
+    {
+      "name": "identical",
+      "executable": "/workspace/scratch/750cc954fdb8/tric-phase33/previous/bench",
+      "mode": "auto",
+      "executable_sha256": "2ad4af2a07f1d5edbef1dd47eb0cd4a68ff256e483634a37bbf96655dd7808ee"
+    }
+  ],
+  "cap_bytes": 2097152,
+  "trials": 27,
+  "horizons": [
+    1
+  ],
+  "environment": {
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "cpu_affinity": [
+      1
+    ],
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "timing_scope": "Paired fresh-process comparisons on pinned native input bytes.\n\nEach available arm BFS-verifies every query after its timed region. Repeats\nexecute frozen query pairs; they are not independent new requests. Includes\nparsing/build/query costs, excludes process startup, verification and teardown.\n",
+  "files": [
+    {
+      "fixture_sha256": "9881ca6cfbac8ada3893b9789318365ba1bffd27da8bdf64b5f9206397bcf908",
+      "file": "phase33_dense_order.json.gz",
+      "sha256": "792c4c1036276abe1cca9a3dd5bd1e329355304a5222c9c7384ba3072aec1d1b",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "f72aa51245304facb841048f17ee679251b658309c4b5b1e7e5199cf5a4488a3",
+      "file": "phase33_holdout_cycle_bags.json.gz",
+      "sha256": "0f8b85b9b9bee55a8f313841054f6af18643f81e67b550ebb98ad4ee1d4740dd",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "e592b1d89a21baaa1493e0bd8304ea3916e2f006411d2cba2e2fc240b1b1831a",
+      "file": "phase33_holdout_duplicate_bipartite.json.gz",
+      "sha256": "4a064f5b3087830bbef75ca9ba0914339364cd5c6b1ea5c70ee6734e9a0e2f72",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "ceb5e2f481c16dddd597a83e0695c67bef8355c13e65740bb3e8758e471864eb",
+      "file": "phase33_holdout_isolates.json.gz",
+      "sha256": "6b1bb4d852c857716bbcdd1a5f26425f4ee3d4048e0da5ec41fd6b99eb0fab3c",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "11fe9e686fec5e8fa61cfc5f549839af91f24dd500f2c840835b70cb4c888376",
+      "file": "phase33_holdout_permuted_chain.json.gz",
+      "sha256": "366c462595751fce5586dce04ebbfc073179754c3247ae07ab1a95936b5be867",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "75df9db97c99059ec638c03cf9c817f211a4757d148cc25f9b0bb7eb3e7848b6",
+      "file": "phase33_holdout_reverse_trees.json.gz",
+      "sha256": "16339678bf1b0201fe199084151c35d388fec2ff054f1cc90cbeb54d37957008",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "6805eb292b1f5f19bb30d13bae4b7d8f6005b84c2532c986d77df8535909cc48",
+      "file": "phase33_holdout_sparse_random.json.gz",
+      "sha256": "e67d1933f988ef17ce7e9b68784518aeeb41d6ba9c42320cef6d0df4148038d3",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "541c959fc2da2d8fcd6dcadd9327aa01fb6d4b3ec17f1232827e61e169802b69",
+      "file": "phase33_many_weak_parts.json.gz",
+      "sha256": "0bd11df5a14423db7ddd51346d9dcb34c77ac2044ad1461d995ced58d4f39a1a",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "028261f8bb724f21454504d0afddc9d18c6e211288e0d522ddd26cf3057184d5",
+      "file": "phase33_repeated_arcs.json.gz",
+      "sha256": "1fa6f5e9cec9a4b04679bcbd1a04ff079ee10c42c037557b55e241adc4d32111",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "f06bc05a92a4623ab63fc1b066d5130058659372bbbe9ca6df743d6c4e470e75",
+      "file": "phase33_scc_ladder.json.gz",
+      "sha256": "fbe15446006e5aba3c97015a7e06d9a5fdbbf6887dc94a92d3e09b7fb4c6409b",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "9db88ff9bbd9aa710d9751cad85d7041ffeab1a58e8d1957d82ab2a2a1ec7c36",
+      "file": "phase33_shuffled_sparse.json.gz",
+      "sha256": "3cc3746e0a7fe84fe305cc8bfaf1d2e1b1e4b040c783875e501792e99cd719b6",
+      "cells": 1
+    },
+    {
+      "fixture_sha256": "3251e895a825a571dfaaebe581858d78d362f0af9cb011c16d41b40bdcae0b66",
+      "file": "phase33_wide_layers.json.gz",
+      "sha256": "b52cb4bf82f6f75a03fd93605e4566e78e619f2f97f962b68d81ee9037a3c741",
+      "cells": 1
+    }
+  ],
+  "complete": true
+}

@@ -31,6 +31,14 @@ jobs:
         run: python verify_phase31_evidence.py --source-root evidence/phase32/baseline-sources --rebuild-checks
       - name: Verify interval directory release and independent allocation evidence
         run: |
-          python verify_interval_storage.py
+          python verify_interval_storage.py --source-root evidence/phase33/baseline-sources
           python -m unittest -q test_interval_storage_evidence
-          python verify_interval_storage.py --quick --run /tmp/tric-interval-storage
+          python verify_interval_storage.py --source-root evidence/phase33/baseline-sources --quick --run /tmp/tric-interval-storage
+      - name: Verify construction qualification, failures, and external comparison
+        run: |
+          python verify_phase33_evidence.py
+          python verify_phase33_external.py
+          python -m unittest -q test_phase33_evidence
+      - name: Rebuild construction prototypes and external oracle adapters
+        if: matrix.python-version == '3.13'
+        run: python rebuild_phase33_checks.py /tmp/tric-phase33-checks --external

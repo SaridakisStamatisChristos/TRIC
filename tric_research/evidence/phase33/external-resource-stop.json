@@ -1,0 +1,14 @@
+{
+  "reason": "Four of eight TF-Label builds on kron_logn12 uniform exceeded the original 120-second per-process limit. Stop additional builds of that method on the identical graph; remaining three query strata are explicitly unqualified, not wins.",
+  "protocol_deviation": true,
+  "skipped_method": "tflabel",
+  "dataset": "kron_logn12",
+  "skip_strata": [
+    "positive",
+    "negative",
+    "balanced"
+  ],
+  "skipped_attempts": 24,
+  "prior_manifest_sha256": "d6497f17882577d4a66d637971b2a6bfc37ddde14b56b9495ae38223b2dadfce",
+  "original_uniform_sha256": "f5e98a3feccd3cee51f9e0f3a0d2d04bac97f5df89878e699ac84cfea37d4df1"
+}

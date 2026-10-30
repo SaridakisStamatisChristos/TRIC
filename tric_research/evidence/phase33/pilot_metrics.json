@@ -1,0 +1,657 @@
+{
+  "arms": {
+    "csr": {
+      "median": 1.24300563925063,
+      "worst": 1.0670679279081254,
+      "best": 1.9323759906657698,
+      "cells": [
+        {
+          "dataset": "example",
+          "ratio": 1.1494973987443735,
+          "direct": false
+        },
+        {
+          "dataset": "generated_blocks",
+          "ratio": 1.6722209658997684,
+          "direct": true
+        },
+        {
+          "dataset": "generated_communities",
+          "ratio": 1.4942474733268498,
+          "direct": true
+        },
+        {
+          "dataset": "generated_dag",
+          "ratio": 1.7019058840795969,
+          "direct": true
+        },
+        {
+          "dataset": "grail_citeseer",
+          "ratio": 1.1175258933047754,
+          "direct": false
+        },
+        {
+          "dataset": "grail_go",
+          "ratio": 1.162855953338733,
+          "direct": false
+        },
+        {
+          "dataset": "grail_kegg",
+          "ratio": 1.5280964538923811,
+          "direct": true
+        },
+        {
+          "dataset": "grail_pubmed",
+          "ratio": 1.1889048163773381,
+          "direct": false
+        },
+        {
+          "dataset": "grail_yago",
+          "ratio": 1.0693917932596486,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_agrocyc",
+          "ratio": 1.2731341658144095,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_amaze",
+          "ratio": 1.5433133744689431,
+          "direct": true
+        },
+        {
+          "dataset": "heldout_anthra",
+          "ratio": 1.2037323034902967,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_ecoo",
+          "ratio": 1.250034590546734,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_human",
+          "ratio": 1.1891532030724274,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_mtbrv",
+          "ratio": 1.155289936972578,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_nasa",
+          "ratio": 1.24300563925063,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_vchocyc",
+          "ratio": 1.211581717568263,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_xmark",
+          "ratio": 1.2235818260581008,
+          "direct": false
+        },
+        {
+          "dataset": "kron_logn12",
+          "ratio": 1.6274728625792536,
+          "direct": true
+        },
+        {
+          "dataset": "large_citeseer",
+          "ratio": 1.3657265106979481,
+          "direct": false
+        },
+        {
+          "dataset": "large_uniprot_22m",
+          "ratio": 1.1523259811441584,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_cross_chains",
+          "ratio": 1.1639380096223264,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_fragmented",
+          "ratio": 1.2944980326822697,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_scc_aliases",
+          "ratio": 1.3319317990484607,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_shared_hubs",
+          "ratio": 1.0670679279081254,
+          "direct": false
+        },
+        {
+          "dataset": "phase33_dense_order",
+          "ratio": 1.2293550753045488,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_many_weak_parts",
+          "ratio": 1.1974077359441293,
+          "direct": false
+        },
+        {
+          "dataset": "phase33_repeated_arcs",
+          "ratio": 1.264399327940559,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_scc_ladder",
+          "ratio": 1.8894288482645243,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_shuffled_sparse",
+          "ratio": 1.6388670947350197,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_wide_layers",
+          "ratio": 1.9323759906657698,
+          "direct": true
+        }
+      ],
+      "passes_pilot": true
+    },
+    "closure": {
+      "median": 1.010898763043742,
+      "worst": 0.8984859345555227,
+      "best": 1.2771105549875996,
+      "cells": [
+        {
+          "dataset": "example",
+          "ratio": 1.0396972738985106,
+          "direct": false
+        },
+        {
+          "dataset": "generated_blocks",
+          "ratio": 1.2167505870356339,
+          "direct": true
+        },
+        {
+          "dataset": "generated_communities",
+          "ratio": 1.079257058765275,
+          "direct": true
+        },
+        {
+          "dataset": "generated_dag",
+          "ratio": 0.9454552681845659,
+          "direct": true
+        },
+        {
+          "dataset": "grail_citeseer",
+          "ratio": 0.9637192680178799,
+          "direct": false
+        },
+        {
+          "dataset": "grail_go",
+          "ratio": 1.010097881946041,
+          "direct": false
+        },
+        {
+          "dataset": "grail_kegg",
+          "ratio": 1.0673518477013297,
+          "direct": true
+        },
+        {
+          "dataset": "grail_pubmed",
+          "ratio": 1.0522190800253512,
+          "direct": false
+        },
+        {
+          "dataset": "grail_yago",
+          "ratio": 0.9855277594747812,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_agrocyc",
+          "ratio": 0.9528752490036887,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_amaze",
+          "ratio": 1.0087863056607325,
+          "direct": true
+        },
+        {
+          "dataset": "heldout_anthra",
+          "ratio": 0.9745985462785458,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_ecoo",
+          "ratio": 1.0716267695618498,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_human",
+          "ratio": 1.04531627070095,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_mtbrv",
+          "ratio": 1.0547727791044845,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_nasa",
+          "ratio": 1.013902837728483,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_vchocyc",
+          "ratio": 1.0225545091992625,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_xmark",
+          "ratio": 0.9724208529594407,
+          "direct": false
+        },
+        {
+          "dataset": "kron_logn12",
+          "ratio": 1.1442475183235572,
+          "direct": true
+        },
+        {
+          "dataset": "large_citeseer",
+          "ratio": 0.9838179879005873,
+          "direct": false
+        },
+        {
+          "dataset": "large_uniprot_22m",
+          "ratio": 0.9843053308723438,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_cross_chains",
+          "ratio": 0.993284610152544,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_fragmented",
+          "ratio": 1.010898763043742,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_scc_aliases",
+          "ratio": 0.972847323625154,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_shared_hubs",
+          "ratio": 0.9727201173863635,
+          "direct": false
+        },
+        {
+          "dataset": "phase33_dense_order",
+          "ratio": 0.9637488588688622,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_many_weak_parts",
+          "ratio": 1.0392155740980882,
+          "direct": false
+        },
+        {
+          "dataset": "phase33_repeated_arcs",
+          "ratio": 1.2771105549875996,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_scc_ladder",
+          "ratio": 1.1374797636607503,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_shuffled_sparse",
+          "ratio": 1.0992913025354485,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_wide_layers",
+          "ratio": 0.8984859345555227,
+          "direct": true
+        }
+      ],
+      "passes_pilot": false
+    },
+    "buffers": {
+      "median": 1.015459887937476,
+      "worst": 0.8966940828072643,
+      "best": 1.3215173705453265,
+      "cells": [
+        {
+          "dataset": "example",
+          "ratio": 0.9828106063143018,
+          "direct": false
+        },
+        {
+          "dataset": "generated_blocks",
+          "ratio": 1.1059260381207099,
+          "direct": true
+        },
+        {
+          "dataset": "generated_communities",
+          "ratio": 1.012455401862521,
+          "direct": true
+        },
+        {
+          "dataset": "generated_dag",
+          "ratio": 1.0387291982394955,
+          "direct": true
+        },
+        {
+          "dataset": "grail_citeseer",
+          "ratio": 0.9692000957847611,
+          "direct": false
+        },
+        {
+          "dataset": "grail_go",
+          "ratio": 1.0314155383004384,
+          "direct": false
+        },
+        {
+          "dataset": "grail_kegg",
+          "ratio": 1.0144153503083957,
+          "direct": true
+        },
+        {
+          "dataset": "grail_pubmed",
+          "ratio": 1.1153481867349526,
+          "direct": false
+        },
+        {
+          "dataset": "grail_yago",
+          "ratio": 1.0173627304030113,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_agrocyc",
+          "ratio": 0.9621796827812074,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_amaze",
+          "ratio": 1.1221015828028365,
+          "direct": true
+        },
+        {
+          "dataset": "heldout_anthra",
+          "ratio": 0.9243002177110217,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_ecoo",
+          "ratio": 0.9304119457591851,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_human",
+          "ratio": 1.0041606495027595,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_mtbrv",
+          "ratio": 1.0128433524715952,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_nasa",
+          "ratio": 1.0456869659988148,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_vchocyc",
+          "ratio": 0.9727392968240252,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_xmark",
+          "ratio": 0.9416632059962645,
+          "direct": false
+        },
+        {
+          "dataset": "kron_logn12",
+          "ratio": 1.3215173705453265,
+          "direct": true
+        },
+        {
+          "dataset": "large_citeseer",
+          "ratio": 0.9627753882421012,
+          "direct": false
+        },
+        {
+          "dataset": "large_uniprot_22m",
+          "ratio": 1.0425440039127207,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_cross_chains",
+          "ratio": 1.0406332892688939,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_fragmented",
+          "ratio": 1.015459887937476,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_scc_aliases",
+          "ratio": 0.8966940828072643,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_shared_hubs",
+          "ratio": 0.9607566608081062,
+          "direct": false
+        },
+        {
+          "dataset": "phase33_dense_order",
+          "ratio": 1.0712046156821147,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_many_weak_parts",
+          "ratio": 1.070886398038249,
+          "direct": false
+        },
+        {
+          "dataset": "phase33_repeated_arcs",
+          "ratio": 1.1500322916651882,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_scc_ladder",
+          "ratio": 1.0004050176693537,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_shuffled_sparse",
+          "ratio": 1.016950657381463,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_wide_layers",
+          "ratio": 1.0901661194950152,
+          "direct": true
+        }
+      ],
+      "passes_pilot": false
+    },
+    "identical": {
+      "median": 1.0053807567243256,
+      "worst": 0.9213275095702566,
+      "best": 1.1046042077485916,
+      "cells": [
+        {
+          "dataset": "example",
+          "ratio": 0.9782806213390337,
+          "direct": false
+        },
+        {
+          "dataset": "generated_blocks",
+          "ratio": 1.0053807567243256,
+          "direct": true
+        },
+        {
+          "dataset": "generated_communities",
+          "ratio": 1.1046042077485916,
+          "direct": true
+        },
+        {
+          "dataset": "generated_dag",
+          "ratio": 0.9331611270008645,
+          "direct": true
+        },
+        {
+          "dataset": "grail_citeseer",
+          "ratio": 1.0055178160566887,
+          "direct": false
+        },
+        {
+          "dataset": "grail_go",
+          "ratio": 1.0083387842894107,
+          "direct": false
+        },
+        {
+          "dataset": "grail_kegg",
+          "ratio": 1.0114421376020395,
+          "direct": true
+        },
+        {
+          "dataset": "grail_pubmed",
+          "ratio": 1.051669583756924,
+          "direct": false
+        },
+        {
+          "dataset": "grail_yago",
+          "ratio": 1.0134293941570496,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_agrocyc",
+          "ratio": 0.9480357619906417,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_amaze",
+          "ratio": 0.9918910089479648,
+          "direct": true
+        },
+        {
+          "dataset": "heldout_anthra",
+          "ratio": 0.994368612988749,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_ecoo",
+          "ratio": 1.000352614422506,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_human",
+          "ratio": 0.9848171159381633,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_mtbrv",
+          "ratio": 1.0562733968071958,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_nasa",
+          "ratio": 1.0346102565466284,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_vchocyc",
+          "ratio": 1.0314721472350534,
+          "direct": false
+        },
+        {
+          "dataset": "heldout_xmark",
+          "ratio": 1.0332004233890646,
+          "direct": false
+        },
+        {
+          "dataset": "kron_logn12",
+          "ratio": 0.9898160113327743,
+          "direct": true
+        },
+        {
+          "dataset": "large_citeseer",
+          "ratio": 1.0333416336087597,
+          "direct": false
+        },
+        {
+          "dataset": "large_uniprot_22m",
+          "ratio": 1.0401424734263416,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_cross_chains",
+          "ratio": 1.0040537005702952,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_fragmented",
+          "ratio": 1.017900345782497,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_scc_aliases",
+          "ratio": 1.0039358537483132,
+          "direct": false
+        },
+        {
+          "dataset": "phase30_shared_hubs",
+          "ratio": 1.0121179187573706,
+          "direct": false
+        },
+        {
+          "dataset": "phase33_dense_order",
+          "ratio": 0.9870547417128586,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_many_weak_parts",
+          "ratio": 0.9964405498580404,
+          "direct": false
+        },
+        {
+          "dataset": "phase33_repeated_arcs",
+          "ratio": 1.00098409265382,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_scc_ladder",
+          "ratio": 1.0276318444975794,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_shuffled_sparse",
+          "ratio": 0.937225468466233,
+          "direct": true
+        },
+        {
+          "dataset": "phase33_wide_layers",
+          "ratio": 0.9213275095702566,
+          "direct": true
+        }
+      ]
+    }
+  },
+  "null_failures": [],
+  "processes": 775
+}

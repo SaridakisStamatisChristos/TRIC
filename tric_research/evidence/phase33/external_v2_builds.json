@@ -1,0 +1,60 @@
+{
+  "v2": {
+    "command": [
+      "g++",
+      "-std=c++17",
+      "-O3",
+      "-DNDEBUG",
+      "-I/workspace/scratch/750cc954fdb8/tric-phase33/csr_v2",
+      "-I/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/include",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/external.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/csr_graph.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/scc.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/levels.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/minpost.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/feline.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/grail.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/preach.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/ferrari.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/tflabel.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/tol.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/two_hop.cpp",
+      "-o",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/external-v2"
+    ],
+    "binary_sha256": "ad8dfc9e87de35f82de7b8b5cfd4b561df8b8aa222098436b9ac36557fd67ac7",
+    "checks": {
+      "exhaustive_checks": 32256
+    }
+  },
+  "ubsan-v2": {
+    "command": [
+      "g++",
+      "-std=c++17",
+      "-O1",
+      "-fsanitize=undefined",
+      "-I/workspace/scratch/750cc954fdb8/tric-phase33/csr_v2",
+      "-I/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/include",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/external.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/csr_graph.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/scc.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/levels.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/minpost.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/feline.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/grail.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/preach.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/ferrari.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/tflabel.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/tol.cpp",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/upstream-pyreach/src/cpp/two_hop.cpp",
+      "-o",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/external-ubsan-v2"
+    ],
+    "binary_sha256": "fd63186e8ca7657c75a8b8261ede2765f54a043b394d5a02639891807cc7f408",
+    "checks": {
+      "exhaustive_checks": 32256
+    }
+  },
+  "upstream_commit": "0c84ca38de2d384c561690f4782f93e19fc76816",
+  "source_sha256": "b9e2618e2014a06a4014951a4c934e36403cd6b925ed76760c4f137e47c6c8de"
+}

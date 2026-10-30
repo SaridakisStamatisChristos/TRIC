@@ -1,0 +1,9 @@
+{
+  "executable_sha256": "be734cc5eabb766d199aeb97f90d541ad707579689210bd1fc993261fb9aaae5",
+  "runtime": "PR32 unchanged baseline",
+  "source_sha256": "b9e2618e2014a06a4014951a4c934e36403cd6b925ed76760c4f137e47c6c8de",
+  "checks": {
+    "exhaustive_checks": 32256
+  },
+  "note": "Original optimized build completed before sanitizer build failed due header shadowing. Full source/command preserved in campaign-sources/build_external.py."
+}

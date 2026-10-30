@@ -1,0 +1,5 @@
+{
+  "cause": "Allocation probe named memory in -I staging directory shadowed standard C++ <memory>; compiled ELF was parsed as a header.",
+  "remedy": "Rename probes memory-probe; preserve failed logs and rebuild exact commands without source changes.",
+  "affected": "v2 warm build and external sanitizer build; no qualification timing had started."
+}

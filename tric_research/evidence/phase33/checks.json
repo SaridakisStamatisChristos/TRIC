@@ -1,0 +1,86 @@
+{
+  "previous": {
+    "command": [
+      "g++",
+      "-std=c++17",
+      "-O2",
+      "-fsanitize=undefined",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/previous/native_runtime_check.cpp",
+      "-o",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/previous/check"
+    ],
+    "result": {
+      "exhaustive_checks": 18432,
+      "adversarial_checks": 1440,
+      "interval_checks": 589824,
+      "interval_indexes": 9248,
+      "cross_chain_checks": 153600,
+      "forest_checks": 207360,
+      "packed_checks": 1296
+    },
+    "binary_sha256": "f2bfb2e551a4c27c7001db08e6d5b4dc14ff3e040b8926e7ec90f77e3817d80b"
+  },
+  "csr": {
+    "command": [
+      "g++",
+      "-std=c++17",
+      "-O2",
+      "-fsanitize=undefined",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/csr/native_runtime_check.cpp",
+      "-o",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/csr/check"
+    ],
+    "result": {
+      "exhaustive_checks": 18432,
+      "adversarial_checks": 1440,
+      "interval_checks": 589824,
+      "interval_indexes": 9248,
+      "cross_chain_checks": 153600,
+      "forest_checks": 207360,
+      "packed_checks": 1296
+    },
+    "binary_sha256": "88d81251116b6def02107202456f71514d44f1adce8b48110a3009027cc82511"
+  },
+  "closure": {
+    "command": [
+      "g++",
+      "-std=c++17",
+      "-O2",
+      "-fsanitize=undefined",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/closure/native_runtime_check.cpp",
+      "-o",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/closure/check"
+    ],
+    "result": {
+      "exhaustive_checks": 18432,
+      "adversarial_checks": 1440,
+      "interval_checks": 589824,
+      "interval_indexes": 9248,
+      "cross_chain_checks": 153600,
+      "forest_checks": 207360,
+      "packed_checks": 1296
+    },
+    "binary_sha256": "7f78b5963b95edf1ff8836440e71c890c8e91879d32cee9e61bc3683c8b02712"
+  },
+  "buffers": {
+    "command": [
+      "g++",
+      "-std=c++17",
+      "-O2",
+      "-fsanitize=undefined",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/buffers/native_runtime_check.cpp",
+      "-o",
+      "/workspace/scratch/750cc954fdb8/tric-phase33/buffers/check"
+    ],
+    "result": {
+      "exhaustive_checks": 18432,
+      "adversarial_checks": 1440,
+      "interval_checks": 589824,
+      "interval_indexes": 9248,
+      "cross_chain_checks": 153600,
+      "forest_checks": 207360,
+      "packed_checks": 1296
+    },
+    "binary_sha256": "4a4e2a62ca0b5a7e8dd0280d071a8b5d8b42963ffd4dce4133633403fa65adf5"
+  }
+}
