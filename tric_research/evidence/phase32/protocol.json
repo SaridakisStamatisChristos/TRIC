@@ -1,0 +1,16 @@
+{
+  "baseline_commit": "09003cb9d7b915516767894f4881542bb8ff4c44",
+  "candidate": "release_interval_directory",
+  "candidate_header_sha256": "cd707556f9ac20d9fb299fcee8222663a603bac84d12c326def25caf0b9cccb5",
+  "objective": "Reduce live retained allocation after construction; no latency or global SOTA claim.",
+  "gates": [
+    "Current native oracle and sanitizer suites pass",
+    "All query method bodies, admission rules and route selection remain unchanged",
+    "Independent allocation tracker agrees with retained_bytes after construction and after move; destruction releases all index allocations",
+    "Each successful interval SCC removes exactly one 8-byte directory entry on the tested toolchain; all other retained storage is unchanged",
+    "All 25 preserved graph fixtures, all their query cases, and purpose-built mixed-mode, rollback, alias and budget-boundary graphs match independent BFS",
+    "Historical evidence remains verifiable against original source snapshots"
+  ],
+  "timing_policy": "Instrumented allocation probe is not a timing benchmark. Full comparator-enabled build is smoke-tested on preserved inputs; no speed threshold or superiority claim is used to accept a deterministic memory release.",
+  "resource_scope": "Requested live C++ allocation bytes plus index object; excludes allocator metadata, graph, RSS and all-constructor peak memory."
+}

@@ -1,0 +1,44 @@
+name: Native exact reachability
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Preserve original Python research and verify native exactness
+        working-directory: tric_research
+        run: python -m unittest -q test_tric test_path_monge test_path_sweep test_backbone test_native_runtime
+      - name: Validate preserved benchmark inputs, trials and completeness
+        working-directory: tric_research
+        run: |
+          python summarize_native_changes.py evidence/phase25
+          python summarize_native_changes.py evidence/phase26 --fixtures evidence/phase25/fixtures
+          python summarize_native_changes.py evidence/phase27/small --fixtures evidence/phase25/fixtures
+          python summarize_native_changes.py evidence/phase27/large --fixtures evidence/phase27/large-fixtures
+          python summarize_native_changes.py evidence/phase27/fresh --fixtures evidence/phase27/fresh-fixtures
+          python summarize_native_changes.py evidence/phase27/csr --fixtures evidence/phase27/csr-fixtures
+          python verify_phase27_evidence.py --source-root evidence/phase28/baseline-sources
+          python summarize_native_changes.py evidence/phase28/native --fixtures evidence/phase25/fixtures
+          python summarize_native_changes.py evidence/phase28/small --fixtures evidence/phase25/fixtures
+          python summarize_native_changes.py evidence/phase28/forest-warm --fixtures evidence/phase27/large-fixtures
+          python summarize_native_changes.py evidence/phase28/forest-fresh --fixtures evidence/phase27/fresh-fixtures
+          python verify_phase28_evidence.py --source-root evidence/phase29/baseline-sources
+          python verify_phase29_evidence.py --source-root evidence/phase30/baseline-sources
+          python verify_phase30_evidence.py
+      - name: Native address and undefined behavior checks
+        working-directory: tric_research
+        run: |
+          g++ -std=c++17 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer native_runtime_check.cpp -o /tmp/tric-native
+          /tmp/tric-native --self-test

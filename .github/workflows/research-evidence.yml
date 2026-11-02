@@ -22,10 +22,15 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Verify complete archived trials and original gates
         run: |
-          python verify_phase31_evidence.py
+          python verify_phase31_evidence.py --source-root evidence/phase32/baseline-sources
           python verify_phase31_stability.py
           python verify_phase31_qualification.py
       - name: Reject coordinated evidence corruption
         run: python -m unittest -q test_phase31_evidence
       - name: Rebuild every prototype and check exact answers with UBSan
-        run: python verify_phase31_evidence.py --rebuild-checks
+        run: python verify_phase31_evidence.py --source-root evidence/phase32/baseline-sources --rebuild-checks
+      - name: Verify interval directory release and independent allocation evidence
+        run: |
+          python verify_interval_storage.py
+          python -m unittest -q test_interval_storage_evidence
+          python verify_interval_storage.py --quick --run /tmp/tric-interval-storage

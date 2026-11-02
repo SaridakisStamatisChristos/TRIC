@@ -1,33 +1,33 @@
-# TRIC research continuation
+# TRIC research continuation — Phase XXXII
 
-Current accepted runtime: PR #30, commit
-`ac810f576d9dbc6ef2b9579725e6603d3ad4e049`.
+Baseline: PR #31, `09003cb9d7b915516767894f4881542bb8ff4c44`, whose runtime is
+identical to PR #30. Phase XXXII releases the interval construction directory
+after its final use. This is a retained-memory improvement, not a new reachability
+algorithm or latency qualification. Read [the report](tric_research/PHASE_XXXII_RESEARCH_REPORT.md)
+and [reproduction instructions](tric_research/evidence/phase32/README.md).
 
-Phase XXXI is a completed falsification and measurement campaign, not a promoted
-runtime optimization. Read [its report](tric_research/PHASE_XXXI_RESEARCH_REPORT.md),
-[proof obligations](tric_research/PHASE_XXXI_PROOF_NOTES.md), and
-[current comparator gaps](tric_research/PHASE_XXXI_SOTA_SCOPE.md).
+The allocation campaign covers 15 purpose-built cases and 27 preserved fixture
+files, including every distinct pair from every original query case. Independent
+allocation tracking, BFS, move/destruction checks and a separate full-build smoke
+campaign support the change. Admission rules and query source remain unchanged.
+Freed directory bytes are not re-spent. Direct closure and forest routes do not
+benefit from this change. Generalized SOTA remains unestablished.
 
-Do not resurrect branchless residual search, the four-interval scan, Eytzinger
-residual layout, or switch dispatch as accepted changes. Their source trees,
-all losses, negative controls, diagnostics and full qualification are archived.
-The favorable narrow dispatch diagnostic did not supersede its failed broader
-qualification. No global SOTA claim is established.
+Phase XXXI's four rejected candidates remain rejected: branchless residual
+search, four-interval scan, Eytzinger residual layout and switch dispatch. The
+favorable narrow dispatch diagnostic never superseded failed qualification.
+Historical evidence and source snapshots remain intact and independently checked.
 
-Before another optimization campaign:
+Next priorities:
 
-1. Verify all Phase XXXI evidence and run its evidence-tampering tests.
-2. Use the full comparator-enabled compiler configuration from the start.
-3. Preflight repeat bounds against the minimum timed-duration requirement.
-4. Include an identical-binary control, actual memory accounting, original
-   cohorts, new query/topology inputs and genuine single-pass tests.
-5. Freeze candidate code and acceptance criteria before qualification. Retain
-   failed trials and protocols; do not tune on qualification results.
-6. Only promote an implementation after correctness, resource and performance
-   gates pass. External superiority requires fresh comparator measurements on
-   that exact accepted source and a clearly named workload/resource regime.
+1. Investigate construction work or a different representation using explicit
+   correctness and resource contracts.
+2. For any speed claim, start with the full comparator-enabled compiler settings,
+   preflight replay bounds, freeze acceptance criteria and include an identical
+   binary control plus genuine single-pass workloads.
+3. Fresh external comparisons must use the exact changed runtime and match total
+   memory as well as table allowance; Phase XXX wins cannot be reassigned to a
+   later implementation without execution.
+4. Broaden real-world topology coverage and reproduce on an independent host.
 
-The next runtime experiment should test a structurally different hypothesis.
-The current priority is representation or construction efficiency with a
-complete correctness argument, rather than another unqualified code-layout
-micro-optimization. No background execution is implied by this checkpoint.
+This checkpoint does not imply background execution.
