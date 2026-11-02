@@ -1,0 +1,23 @@
+{
+  "baseline_commit": "ac810f576d9dbc6ef2b9579725e6603d3ad4e049",
+  "files": {
+    "RESEARCH_STATUS.md": "2d0dd220f67e84f67547c75012975ebf50068f4bb49e3640f2c605d604374253",
+    ".github/workflows/research-evidence.yml": "520cb2810890a0b84f4a54716cf6dad5ada78a1ffd5b1469275ce23b7b724ae4",
+    "tric_research/PHASE_XXXI_PROOF_NOTES.md": "8628ea2c02bb2bd86c1b9121a16025bf1279b233b29b402ff48e17bedecf7db3",
+    "tric_research/PHASE_XXXI_RESEARCH_REPORT.md": "fea7d0720a1879138a324ad2e94682ccae2b19ad45e1f9f15c48f084b2aae946",
+    "tric_research/PHASE_XXXI_SOTA_SCOPE.md": "410553ad55810c6fc232ffb6f4195569d32d5c948ae60ef26e9354c7d94c0e6a",
+    "tric_research/verify_phase31_evidence.py": "374bfd4fd9903dd98a39a6551b45db01f81bdf67ee94d375f0ea1803e9f88c8e",
+    "tric_research/verify_phase31_qualification.py": "cc0fff1e588eed1410dfa28c5541ebed394b3d214a754a00d11d8ad39f424db2",
+    "tric_research/verify_phase31_stability.py": "8cfa289f9d81a721de1bbef663f095c516285de360e9af716839d09e2d8aab5b",
+    "tric_research/test_phase31_evidence.py": "4e7fa23b83283609de8c2cb1b552c2fe7d994ec815a9c93f6aaaece404440adb",
+    "tric_research/evidence/phase31/README.md": "490db6e538efe5b50ce87e1cdcf5184ca058afb7167a667b9d0b969b0acb5335",
+    "tric_research/evidence/phase31/experiments.json.gz": "4f9dcecd32e072bfb30fea3aeb9599379ca7eef8e7d50d0a9c73240afbbe0e05",
+    "tric_research/evidence/phase31/metrics.json": "eeadb4fc56d9445146911a2d4c88d5a53eff738a0f3282a31637c5930f1346a1",
+    "tric_research/evidence/phase31/qualification.json.gz": "a38f86826a7f944ecf29849710fea887e6d0f60b92fdaf77105c17ecc13aa084",
+    "tric_research/evidence/phase31/qualification_metrics.json": "57ad7859211cd22f8d1d08fb22117e708b5eb18832a7f8b6e7f9d4fb19379c0e",
+    "tric_research/evidence/phase31/rebuilt_checks.json": "0bf2f27b7ed3258863abfeb706c063159cea46461dce1dddbc3c88697448ee9c",
+    "tric_research/evidence/phase31/stability.json.gz": "d73cd8b0f8cc5fb935c771dc0fc2558862bf38b5adf5e17fa9da40312a854bee",
+    "tric_research/evidence/phase31/stability_metrics.json": "63cab9c3b09d1dc22b74fbf5acbef8120b155b8c002ede3f3397778bdc549aec",
+    "tric_research/evidence/phase31/unit_tests.log": "a73fe33b42542f99153816cd4a51ed3647e20a0b15bf4a80e1af7793ee34932a"
+  }
+}

@@ -1,0 +1,3158 @@
+{
+  "status": "PRESERVE_CURRENT",
+  "gates": {
+    "duration": true,
+    "null_control": false,
+    "median": true,
+    "floor": false,
+    "lifecycle": true
+  },
+  "groups": {
+    "native": {
+      "cells": 156,
+      "median_query": 1.0281509249525778,
+      "min_query": 0.8331707560902712,
+      "wins": 89
+    },
+    "fresh": {
+      "cells": 16,
+      "median_query": 1.0489622702327834,
+      "min_query": 1.0083102275679,
+      "wins": 16
+    },
+    "forest": {
+      "cells": 8,
+      "median_query": 1.0363790254963,
+      "min_query": 1.0144851526151006,
+      "wins": 8
+    },
+    "cold": {
+      "cells": 2,
+      "median_query": 1.02882823280543,
+      "min_query": 1.0134408479090615,
+      "wins": 2
+    }
+  },
+  "median_warm_query": 1.0331569966107108,
+  "minimum_query": 0.8331707560902712,
+  "median_warm_lifecycle": 1.028960240114022,
+  "minimum_warm_query_cpu_ns": 123883252,
+  "null_failures": [
+    {
+      "tag": "native",
+      "dataset": "grail_go",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "horizon": 70370,
+      "dispatch": {
+        "query_ns": 1.1042512306526864,
+        "query_thread_cpu_ns": 1.1043025470137255,
+        "lifecycle_ns": 1.0933901601242655
+      },
+      "identical": {
+        "query_ns": 0.8817878327218633,
+        "query_thread_cpu_ns": 0.8817988056579091,
+        "lifecycle_ns": 0.882114076829626
+      }
+    }
+  ],
+  "processes": 3384,
+  "bfs_pair_executions": 4558464,
+  "repeated_query_calls": 230803394112,
+  "cells": [
+    {
+      "tag": "native",
+      "dataset": "example",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "horizon": 39231,
+      "dispatch": {
+        "query_ns": 0.9767382989906754,
+        "query_thread_cpu_ns": 0.9768039161137165,
+        "lifecycle_ns": 0.974700237461207
+      },
+      "identical": {
+        "query_ns": 0.9911054724945476,
+        "query_thread_cpu_ns": 0.9910406800377745,
+        "lifecycle_ns": 0.9912053840353042
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "example",
+      "seed": 20261022,
+      "stratum": "positive",
+      "horizon": 28426,
+      "dispatch": {
+        "query_ns": 1.0305358780074807,
+        "query_thread_cpu_ns": 1.0305521388339571,
+        "lifecycle_ns": 1.0225694393212672
+      },
+      "identical": {
+        "query_ns": 0.9935618720426467,
+        "query_thread_cpu_ns": 0.9935048236203126,
+        "lifecycle_ns": 0.9912012360682604
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "example",
+      "seed": 20261022,
+      "stratum": "negative",
+      "horizon": 33850,
+      "dispatch": {
+        "query_ns": 0.9977693674047463,
+        "query_thread_cpu_ns": 0.9978022283424971,
+        "lifecycle_ns": 0.9962834927999111
+      },
+      "identical": {
+        "query_ns": 0.9943901126457688,
+        "query_thread_cpu_ns": 0.9943968179543483,
+        "lifecycle_ns": 0.9973056005640186
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "example",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "horizon": 32974,
+      "dispatch": {
+        "query_ns": 1.0340776155553044,
+        "query_thread_cpu_ns": 1.0340483085999779,
+        "lifecycle_ns": 1.0193143178724147
+      },
+      "identical": {
+        "query_ns": 0.9965888461391634,
+        "query_thread_cpu_ns": 0.9965723717651453,
+        "lifecycle_ns": 1.0064403981205323
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "example",
+      "seed": 20261023,
+      "stratum": "uniform",
+      "horizon": 35569,
+      "dispatch": {
+        "query_ns": 1.0219402190393159,
+        "query_thread_cpu_ns": 1.0218756183585915,
+        "lifecycle_ns": 1.0407359810986119
+      },
+      "identical": {
+        "query_ns": 0.9670689686341989,
+        "query_thread_cpu_ns": 0.9670619132577001,
+        "lifecycle_ns": 0.9800752297491213
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "example",
+      "seed": 20261023,
+      "stratum": "positive",
+      "horizon": 29312,
+      "dispatch": {
+        "query_ns": 1.0220707769464028,
+        "query_thread_cpu_ns": 1.0221690793176688,
+        "lifecycle_ns": 1.0325835355747015
+      },
+      "identical": {
+        "query_ns": 1.0358821309812347,
+        "query_thread_cpu_ns": 1.0357202812182886,
+        "lifecycle_ns": 1.0384179698727207
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "example",
+      "seed": 20261023,
+      "stratum": "negative",
+      "horizon": 39446,
+      "dispatch": {
+        "query_ns": 1.084282214566496,
+        "query_thread_cpu_ns": 1.0842502508160812,
+        "lifecycle_ns": 1.074150048836975
+      },
+      "identical": {
+        "query_ns": 1.038341733824932,
+        "query_thread_cpu_ns": 1.0387377858361462,
+        "lifecycle_ns": 1.03159265020046
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "example",
+      "seed": 20261023,
+      "stratum": "balanced",
+      "horizon": 36558,
+      "dispatch": {
+        "query_ns": 1.0380045298047182,
+        "query_thread_cpu_ns": 1.0379726621654928,
+        "lifecycle_ns": 1.0367967003044383
+      },
+      "identical": {
+        "query_ns": 0.9978512468030618,
+        "query_thread_cpu_ns": 0.9978276896074061,
+        "lifecycle_ns": 0.999364786972939
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "example",
+      "seed": 20261024,
+      "stratum": "uniform",
+      "horizon": 35707,
+      "dispatch": {
+        "query_ns": 1.013557707403963,
+        "query_thread_cpu_ns": 1.0135739585097965,
+        "lifecycle_ns": 1.0068167948048514
+      },
+      "identical": {
+        "query_ns": 1.0045369081169235,
+        "query_thread_cpu_ns": 1.0043403109740694,
+        "lifecycle_ns": 1.005391156534798
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "example",
+      "seed": 20261024,
+      "stratum": "positive",
+      "horizon": 23064,
+      "dispatch": {
+        "query_ns": 1.0447467465758589,
+        "query_thread_cpu_ns": 1.0450788423332074,
+        "lifecycle_ns": 1.0380928401610525
+      },
+      "identical": {
+        "query_ns": 0.996172805833704,
+        "query_thread_cpu_ns": 0.9962444091805307,
+        "lifecycle_ns": 0.991691450149303
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "example",
+      "seed": 20261024,
+      "stratum": "negative",
+      "horizon": 33563,
+      "dispatch": {
+        "query_ns": 1.0297117274667706,
+        "query_thread_cpu_ns": 1.0298650752545866,
+        "lifecycle_ns": 1.0263955426900107
+      },
+      "identical": {
+        "query_ns": 1.0123129215829592,
+        "query_thread_cpu_ns": 1.0124465229954729,
+        "lifecycle_ns": 1.0034522764912588
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "example",
+      "seed": 20261024,
+      "stratum": "balanced",
+      "horizon": 36015,
+      "dispatch": {
+        "query_ns": 1.0497498168379125,
+        "query_thread_cpu_ns": 1.0497619056217968,
+        "lifecycle_ns": 1.0202339110312386
+      },
+      "identical": {
+        "query_ns": 1.0039592803029311,
+        "query_thread_cpu_ns": 1.0039566927000447,
+        "lifecycle_ns": 1.0028233096279835
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_blocks",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "horizon": 65894,
+      "dispatch": {
+        "query_ns": 0.9431228306164119,
+        "query_thread_cpu_ns": 0.9431074078360919,
+        "lifecycle_ns": 0.9454119974805352
+      },
+      "identical": {
+        "query_ns": 1.0175912685679553,
+        "query_thread_cpu_ns": 1.01764251113131,
+        "lifecycle_ns": 1.0178576996588324
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_blocks",
+      "seed": 20261022,
+      "stratum": "positive",
+      "horizon": 68589,
+      "dispatch": {
+        "query_ns": 0.9313095118370448,
+        "query_thread_cpu_ns": 0.9312958289272273,
+        "lifecycle_ns": 0.9310953110392133
+      },
+      "identical": {
+        "query_ns": 1.0119504088429883,
+        "query_thread_cpu_ns": 1.0119799532078049,
+        "lifecycle_ns": 1.011010535291338
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_blocks",
+      "seed": 20261022,
+      "stratum": "negative",
+      "horizon": 69131,
+      "dispatch": {
+        "query_ns": 0.9443805107720282,
+        "query_thread_cpu_ns": 0.9443918076385769,
+        "lifecycle_ns": 0.9443986484014992
+      },
+      "identical": {
+        "query_ns": 0.9935752175180163,
+        "query_thread_cpu_ns": 0.9935880784862339,
+        "lifecycle_ns": 0.9938537127209357
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_blocks",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "horizon": 67727,
+      "dispatch": {
+        "query_ns": 0.9285600326911787,
+        "query_thread_cpu_ns": 0.9285812007953043,
+        "lifecycle_ns": 0.9286884456380744
+      },
+      "identical": {
+        "query_ns": 0.9868564883296267,
+        "query_thread_cpu_ns": 0.9868210404194854,
+        "lifecycle_ns": 0.9862841413064178
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_blocks",
+      "seed": 20261023,
+      "stratum": "uniform",
+      "horizon": 62629,
+      "dispatch": {
+        "query_ns": 0.9619934103391035,
+        "query_thread_cpu_ns": 0.9614509887451161,
+        "lifecycle_ns": 0.9624778843282473
+      },
+      "identical": {
+        "query_ns": 0.983772905037634,
+        "query_thread_cpu_ns": 0.9838591272532182,
+        "lifecycle_ns": 0.9830990112537895
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_blocks",
+      "seed": 20261023,
+      "stratum": "positive",
+      "horizon": 61635,
+      "dispatch": {
+        "query_ns": 0.957128796579896,
+        "query_thread_cpu_ns": 0.9571453401797715,
+        "lifecycle_ns": 0.9577008359003417
+      },
+      "identical": {
+        "query_ns": 0.9897465499823859,
+        "query_thread_cpu_ns": 0.9897896181016894,
+        "lifecycle_ns": 0.9899699428983104
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_blocks",
+      "seed": 20261023,
+      "stratum": "negative",
+      "horizon": 66383,
+      "dispatch": {
+        "query_ns": 0.9495656721310456,
+        "query_thread_cpu_ns": 0.9495136199927231,
+        "lifecycle_ns": 0.9498808398812733
+      },
+      "identical": {
+        "query_ns": 0.997660255137504,
+        "query_thread_cpu_ns": 0.9976455585128836,
+        "lifecycle_ns": 0.9974654981736044
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_blocks",
+      "seed": 20261023,
+      "stratum": "balanced",
+      "horizon": 66825,
+      "dispatch": {
+        "query_ns": 0.9711569187528747,
+        "query_thread_cpu_ns": 0.9711630437227468,
+        "lifecycle_ns": 0.971334848485157
+      },
+      "identical": {
+        "query_ns": 0.9902220910267023,
+        "query_thread_cpu_ns": 0.9901032135742,
+        "lifecycle_ns": 0.9892343342558454
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_blocks",
+      "seed": 20261024,
+      "stratum": "uniform",
+      "horizon": 64153,
+      "dispatch": {
+        "query_ns": 0.9350990876880634,
+        "query_thread_cpu_ns": 0.9352232118629047,
+        "lifecycle_ns": 0.9355945032278765
+      },
+      "identical": {
+        "query_ns": 0.9921095766531889,
+        "query_thread_cpu_ns": 0.9921046707479582,
+        "lifecycle_ns": 0.9931951366856456
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_blocks",
+      "seed": 20261024,
+      "stratum": "positive",
+      "horizon": 64719,
+      "dispatch": {
+        "query_ns": 0.9286044382555294,
+        "query_thread_cpu_ns": 0.928614835008522,
+        "lifecycle_ns": 0.9293165282614404
+      },
+      "identical": {
+        "query_ns": 0.9898107527546673,
+        "query_thread_cpu_ns": 0.9897792409362477,
+        "lifecycle_ns": 0.9879320626794488
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_blocks",
+      "seed": 20261024,
+      "stratum": "negative",
+      "horizon": 62499,
+      "dispatch": {
+        "query_ns": 0.9419771850835011,
+        "query_thread_cpu_ns": 0.9420450773715403,
+        "lifecycle_ns": 0.9422120238770573
+      },
+      "identical": {
+        "query_ns": 0.9964168603124007,
+        "query_thread_cpu_ns": 0.996423034628438,
+        "lifecycle_ns": 0.9963963450341312
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_blocks",
+      "seed": 20261024,
+      "stratum": "balanced",
+      "horizon": 63479,
+      "dispatch": {
+        "query_ns": 0.9522793742811149,
+        "query_thread_cpu_ns": 0.9523257442788036,
+        "lifecycle_ns": 0.9526992787247636
+      },
+      "identical": {
+        "query_ns": 1.0064306243052166,
+        "query_thread_cpu_ns": 1.0059180480017726,
+        "lifecycle_ns": 1.0057620418956201
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_communities",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "horizon": 87018,
+      "dispatch": {
+        "query_ns": 0.8475173999348771,
+        "query_thread_cpu_ns": 0.8475373912093025,
+        "lifecycle_ns": 0.8478563125473564
+      },
+      "identical": {
+        "query_ns": 0.9917076144564976,
+        "query_thread_cpu_ns": 0.9921056003480938,
+        "lifecycle_ns": 0.991743770959434
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_communities",
+      "seed": 20261022,
+      "stratum": "positive",
+      "horizon": 95763,
+      "dispatch": {
+        "query_ns": 0.8502021317813381,
+        "query_thread_cpu_ns": 0.8499904227732697,
+        "lifecycle_ns": 0.8496583019570388
+      },
+      "identical": {
+        "query_ns": 1.0335464227849527,
+        "query_thread_cpu_ns": 1.0362430362241595,
+        "lifecycle_ns": 1.0315467895046815
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_communities",
+      "seed": 20261022,
+      "stratum": "negative",
+      "horizon": 95834,
+      "dispatch": {
+        "query_ns": 0.8381756646667349,
+        "query_thread_cpu_ns": 0.838180060545731,
+        "lifecycle_ns": 0.8384563910461578
+      },
+      "identical": {
+        "query_ns": 0.9652986740179171,
+        "query_thread_cpu_ns": 0.9653135110140596,
+        "lifecycle_ns": 0.9642183053697739
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_communities",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "horizon": 89024,
+      "dispatch": {
+        "query_ns": 0.8505971104013594,
+        "query_thread_cpu_ns": 0.8506130661513249,
+        "lifecycle_ns": 0.8507424007394044
+      },
+      "identical": {
+        "query_ns": 0.9905875410176702,
+        "query_thread_cpu_ns": 0.9906363041575887,
+        "lifecycle_ns": 0.9905047982649966
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_communities",
+      "seed": 20261023,
+      "stratum": "uniform",
+      "horizon": 88265,
+      "dispatch": {
+        "query_ns": 0.8470983244143482,
+        "query_thread_cpu_ns": 0.8471944883988591,
+        "lifecycle_ns": 0.8471357565147589
+      },
+      "identical": {
+        "query_ns": 0.9943074884205059,
+        "query_thread_cpu_ns": 0.9943290675821774,
+        "lifecycle_ns": 0.9931084707335791
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_communities",
+      "seed": 20261023,
+      "stratum": "positive",
+      "horizon": 85744,
+      "dispatch": {
+        "query_ns": 0.8470608209897103,
+        "query_thread_cpu_ns": 0.8470506898364547,
+        "lifecycle_ns": 0.8476123335999273
+      },
+      "identical": {
+        "query_ns": 1.0161714787969327,
+        "query_thread_cpu_ns": 1.0162356641984636,
+        "lifecycle_ns": 1.016105068878907
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_communities",
+      "seed": 20261023,
+      "stratum": "negative",
+      "horizon": 89867,
+      "dispatch": {
+        "query_ns": 0.8544156584475632,
+        "query_thread_cpu_ns": 0.854407044763816,
+        "lifecycle_ns": 0.8547933586773473
+      },
+      "identical": {
+        "query_ns": 0.9982453715702888,
+        "query_thread_cpu_ns": 0.9979309736640816,
+        "lifecycle_ns": 0.9983997184411997
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_communities",
+      "seed": 20261023,
+      "stratum": "balanced",
+      "horizon": 80287,
+      "dispatch": {
+        "query_ns": 0.8481765109223625,
+        "query_thread_cpu_ns": 0.8480974759349129,
+        "lifecycle_ns": 0.8488386840570056
+      },
+      "identical": {
+        "query_ns": 0.9944291827273282,
+        "query_thread_cpu_ns": 0.9942890255389175,
+        "lifecycle_ns": 0.9944929380577054
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_communities",
+      "seed": 20261024,
+      "stratum": "uniform",
+      "horizon": 85197,
+      "dispatch": {
+        "query_ns": 0.8382044211816777,
+        "query_thread_cpu_ns": 0.8379564339604746,
+        "lifecycle_ns": 0.8385893865680243
+      },
+      "identical": {
+        "query_ns": 0.9989507086855004,
+        "query_thread_cpu_ns": 0.9986713293918599,
+        "lifecycle_ns": 0.9994772796093336
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_communities",
+      "seed": 20261024,
+      "stratum": "positive",
+      "horizon": 75768,
+      "dispatch": {
+        "query_ns": 0.8459801927372803,
+        "query_thread_cpu_ns": 0.8460107191875988,
+        "lifecycle_ns": 0.8465142134332868
+      },
+      "identical": {
+        "query_ns": 1.0049753261983567,
+        "query_thread_cpu_ns": 1.0049414878204095,
+        "lifecycle_ns": 1.0052287906227892
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_communities",
+      "seed": 20261024,
+      "stratum": "negative",
+      "horizon": 88462,
+      "dispatch": {
+        "query_ns": 0.8520334271400627,
+        "query_thread_cpu_ns": 0.851732183043166,
+        "lifecycle_ns": 0.8519095639479279
+      },
+      "identical": {
+        "query_ns": 1.016938423861001,
+        "query_thread_cpu_ns": 1.017413165279601,
+        "lifecycle_ns": 1.016280426282312
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_communities",
+      "seed": 20261024,
+      "stratum": "balanced",
+      "horizon": 80261,
+      "dispatch": {
+        "query_ns": 0.8331707560902712,
+        "query_thread_cpu_ns": 0.8331222271198573,
+        "lifecycle_ns": 0.8333974548509724
+      },
+      "identical": {
+        "query_ns": 0.9816627688822239,
+        "query_thread_cpu_ns": 0.9816518714135001,
+        "lifecycle_ns": 0.9815066063594711
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_dag",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "horizon": 63230,
+      "dispatch": {
+        "query_ns": 0.9573430897898121,
+        "query_thread_cpu_ns": 0.9573931319888156,
+        "lifecycle_ns": 0.960770278247142
+      },
+      "identical": {
+        "query_ns": 1.0125499183776392,
+        "query_thread_cpu_ns": 1.0125598367813513,
+        "lifecycle_ns": 1.0079020692287397
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_dag",
+      "seed": 20261022,
+      "stratum": "positive",
+      "horizon": 63019,
+      "dispatch": {
+        "query_ns": 0.914006080005739,
+        "query_thread_cpu_ns": 0.9139997287563582,
+        "lifecycle_ns": 0.9173652474878233
+      },
+      "identical": {
+        "query_ns": 0.9691064371497426,
+        "query_thread_cpu_ns": 0.9690846258197165,
+        "lifecycle_ns": 0.9629403877637348
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_dag",
+      "seed": 20261022,
+      "stratum": "negative",
+      "horizon": 63142,
+      "dispatch": {
+        "query_ns": 0.9312879219352337,
+        "query_thread_cpu_ns": 0.9312618021471688,
+        "lifecycle_ns": 0.9377625881227669
+      },
+      "identical": {
+        "query_ns": 1.014291875857827,
+        "query_thread_cpu_ns": 1.014330357957322,
+        "lifecycle_ns": 1.0117406640577602
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_dag",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "horizon": 68197,
+      "dispatch": {
+        "query_ns": 0.9427162667791302,
+        "query_thread_cpu_ns": 0.9427701131688184,
+        "lifecycle_ns": 0.9435146927031093
+      },
+      "identical": {
+        "query_ns": 0.9773119553422421,
+        "query_thread_cpu_ns": 0.9776972534934089,
+        "lifecycle_ns": 0.976576569105809
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_dag",
+      "seed": 20261023,
+      "stratum": "uniform",
+      "horizon": 66465,
+      "dispatch": {
+        "query_ns": 0.9840997632544568,
+        "query_thread_cpu_ns": 0.9840883466758658,
+        "lifecycle_ns": 0.9854891656652804
+      },
+      "identical": {
+        "query_ns": 1.0451263595879734,
+        "query_thread_cpu_ns": 1.0451699136764305,
+        "lifecycle_ns": 1.0382515821672147
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_dag",
+      "seed": 20261023,
+      "stratum": "positive",
+      "horizon": 68228,
+      "dispatch": {
+        "query_ns": 1.0024000642246569,
+        "query_thread_cpu_ns": 1.0026985129162669,
+        "lifecycle_ns": 1.002148613468911
+      },
+      "identical": {
+        "query_ns": 1.0329474289460627,
+        "query_thread_cpu_ns": 1.0334711366225426,
+        "lifecycle_ns": 1.0297030287446773
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_dag",
+      "seed": 20261023,
+      "stratum": "negative",
+      "horizon": 67427,
+      "dispatch": {
+        "query_ns": 0.9347605167248432,
+        "query_thread_cpu_ns": 0.934700158286825,
+        "lifecycle_ns": 0.9361374205052797
+      },
+      "identical": {
+        "query_ns": 1.0124421562620594,
+        "query_thread_cpu_ns": 1.0123113436961797,
+        "lifecycle_ns": 1.0152338824412148
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_dag",
+      "seed": 20261023,
+      "stratum": "balanced",
+      "horizon": 66838,
+      "dispatch": {
+        "query_ns": 0.9473618810495965,
+        "query_thread_cpu_ns": 0.94732196089373,
+        "lifecycle_ns": 0.9503339452145467
+      },
+      "identical": {
+        "query_ns": 1.0075886984657436,
+        "query_thread_cpu_ns": 1.0076925390689717,
+        "lifecycle_ns": 1.0118190825097018
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_dag",
+      "seed": 20261024,
+      "stratum": "uniform",
+      "horizon": 60528,
+      "dispatch": {
+        "query_ns": 0.9405810976456472,
+        "query_thread_cpu_ns": 0.9405841018680658,
+        "lifecycle_ns": 0.9458407913025597
+      },
+      "identical": {
+        "query_ns": 0.9938779737825225,
+        "query_thread_cpu_ns": 0.9939172912777852,
+        "lifecycle_ns": 0.9951235413351736
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_dag",
+      "seed": 20261024,
+      "stratum": "positive",
+      "horizon": 54950,
+      "dispatch": {
+        "query_ns": 0.959122332776015,
+        "query_thread_cpu_ns": 0.9591194561484101,
+        "lifecycle_ns": 0.9665206623237069
+      },
+      "identical": {
+        "query_ns": 1.0034251785250083,
+        "query_thread_cpu_ns": 1.0034054212317884,
+        "lifecycle_ns": 1.0098907056662698
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_dag",
+      "seed": 20261024,
+      "stratum": "negative",
+      "horizon": 66971,
+      "dispatch": {
+        "query_ns": 0.9630338158423539,
+        "query_thread_cpu_ns": 0.9630624325652034,
+        "lifecycle_ns": 0.9631715161864933
+      },
+      "identical": {
+        "query_ns": 1.0249441073230043,
+        "query_thread_cpu_ns": 1.0249582563562085,
+        "lifecycle_ns": 1.0238470383962734
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "generated_dag",
+      "seed": 20261024,
+      "stratum": "balanced",
+      "horizon": 63429,
+      "dispatch": {
+        "query_ns": 0.9529441434802912,
+        "query_thread_cpu_ns": 0.9529283013014311,
+        "lifecycle_ns": 0.9548505643608167
+      },
+      "identical": {
+        "query_ns": 1.0443332638203302,
+        "query_thread_cpu_ns": 1.0443629477461598,
+        "lifecycle_ns": 1.0414004852159904
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_citeseer",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "horizon": 63165,
+      "dispatch": {
+        "query_ns": 1.086821459526914,
+        "query_thread_cpu_ns": 1.086779243695369,
+        "lifecycle_ns": 1.0780262310789155
+      },
+      "identical": {
+        "query_ns": 1.0059647118814543,
+        "query_thread_cpu_ns": 1.0059460598984196,
+        "lifecycle_ns": 0.9963735160061421
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_citeseer",
+      "seed": 20261022,
+      "stratum": "positive",
+      "horizon": 29802,
+      "dispatch": {
+        "query_ns": 1.0001563889927862,
+        "query_thread_cpu_ns": 1.000745579364523,
+        "lifecycle_ns": 0.9996522017287045
+      },
+      "identical": {
+        "query_ns": 0.985376672850373,
+        "query_thread_cpu_ns": 0.9857743222508656,
+        "lifecycle_ns": 0.9808263456271321
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_citeseer",
+      "seed": 20261022,
+      "stratum": "negative",
+      "horizon": 62446,
+      "dispatch": {
+        "query_ns": 0.9906004713543206,
+        "query_thread_cpu_ns": 0.9910305019425771,
+        "lifecycle_ns": 0.9969191551853932
+      },
+      "identical": {
+        "query_ns": 0.9792137259189195,
+        "query_thread_cpu_ns": 0.9791657111819427,
+        "lifecycle_ns": 0.9772879454817905
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_citeseer",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "horizon": 38933,
+      "dispatch": {
+        "query_ns": 1.0862782705335388,
+        "query_thread_cpu_ns": 1.0867711731875498,
+        "lifecycle_ns": 1.0716667979890955
+      },
+      "identical": {
+        "query_ns": 0.9115074959395769,
+        "query_thread_cpu_ns": 0.9114964070899388,
+        "lifecycle_ns": 0.9229398351873537
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_citeseer",
+      "seed": 20261023,
+      "stratum": "uniform",
+      "horizon": 62986,
+      "dispatch": {
+        "query_ns": 1.0763015643940688,
+        "query_thread_cpu_ns": 1.0767783870160386,
+        "lifecycle_ns": 1.067451066171
+      },
+      "identical": {
+        "query_ns": 0.9931960677400439,
+        "query_thread_cpu_ns": 0.9932148815625647,
+        "lifecycle_ns": 0.9964858607774472
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_citeseer",
+      "seed": 20261023,
+      "stratum": "positive",
+      "horizon": 26984,
+      "dispatch": {
+        "query_ns": 0.9707456828457885,
+        "query_thread_cpu_ns": 0.9710761160371106,
+        "lifecycle_ns": 0.9622263214734997
+      },
+      "identical": {
+        "query_ns": 0.9746266012474842,
+        "query_thread_cpu_ns": 0.9745656708886505,
+        "lifecycle_ns": 0.9720109610049924
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_citeseer",
+      "seed": 20261023,
+      "stratum": "negative",
+      "horizon": 47015,
+      "dispatch": {
+        "query_ns": 1.0651887327398997,
+        "query_thread_cpu_ns": 1.065224888032763,
+        "lifecycle_ns": 1.0565803220971879
+      },
+      "identical": {
+        "query_ns": 0.9599742889554543,
+        "query_thread_cpu_ns": 0.9599532655386822,
+        "lifecycle_ns": 0.9706144265879955
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_citeseer",
+      "seed": 20261023,
+      "stratum": "balanced",
+      "horizon": 38261,
+      "dispatch": {
+        "query_ns": 1.0558496975405398,
+        "query_thread_cpu_ns": 1.0562639051000837,
+        "lifecycle_ns": 1.053470271364751
+      },
+      "identical": {
+        "query_ns": 1.0130137663282763,
+        "query_thread_cpu_ns": 1.0130137409517341,
+        "lifecycle_ns": 1.0075368284898645
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_citeseer",
+      "seed": 20261024,
+      "stratum": "uniform",
+      "horizon": 67441,
+      "dispatch": {
+        "query_ns": 1.0093426507667098,
+        "query_thread_cpu_ns": 1.0093988810215295,
+        "lifecycle_ns": 1.0093596405683294
+      },
+      "identical": {
+        "query_ns": 1.004431621484184,
+        "query_thread_cpu_ns": 1.0038001200654278,
+        "lifecycle_ns": 1.0039643075273668
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_citeseer",
+      "seed": 20261024,
+      "stratum": "positive",
+      "horizon": 28044,
+      "dispatch": {
+        "query_ns": 1.0265901224383849,
+        "query_thread_cpu_ns": 1.0270224976167208,
+        "lifecycle_ns": 1.0243840808197446
+      },
+      "identical": {
+        "query_ns": 0.9880215863485284,
+        "query_thread_cpu_ns": 0.9877999762938234,
+        "lifecycle_ns": 0.9903934070657477
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_citeseer",
+      "seed": 20261024,
+      "stratum": "negative",
+      "horizon": 65855,
+      "dispatch": {
+        "query_ns": 1.0554763193024264,
+        "query_thread_cpu_ns": 1.055445211448363,
+        "lifecycle_ns": 1.0410930997879793
+      },
+      "identical": {
+        "query_ns": 1.0068668775301688,
+        "query_thread_cpu_ns": 1.0069297023256814,
+        "lifecycle_ns": 1.0105096841606727
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_citeseer",
+      "seed": 20261024,
+      "stratum": "balanced",
+      "horizon": 39422,
+      "dispatch": {
+        "query_ns": 1.0435234591150846,
+        "query_thread_cpu_ns": 1.044465924245353,
+        "lifecycle_ns": 1.0345382725048395
+      },
+      "identical": {
+        "query_ns": 1.0022335625801708,
+        "query_thread_cpu_ns": 1.0022841187100942,
+        "lifecycle_ns": 1.003032325864948
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_go",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "horizon": 70370,
+      "dispatch": {
+        "query_ns": 1.1042512306526864,
+        "query_thread_cpu_ns": 1.1043025470137255,
+        "lifecycle_ns": 1.0933901601242655
+      },
+      "identical": {
+        "query_ns": 0.8817878327218633,
+        "query_thread_cpu_ns": 0.8817988056579091,
+        "lifecycle_ns": 0.882114076829626
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_go",
+      "seed": 20261022,
+      "stratum": "positive",
+      "horizon": 34613,
+      "dispatch": {
+        "query_ns": 1.0534451801738132,
+        "query_thread_cpu_ns": 1.0530228297180795,
+        "lifecycle_ns": 1.0524633112465311
+      },
+      "identical": {
+        "query_ns": 1.0146497264625611,
+        "query_thread_cpu_ns": 1.0140440821872783,
+        "lifecycle_ns": 1.0137613478197696
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_go",
+      "seed": 20261022,
+      "stratum": "negative",
+      "horizon": 69388,
+      "dispatch": {
+        "query_ns": 1.151719598143574,
+        "query_thread_cpu_ns": 1.151586476025994,
+        "lifecycle_ns": 1.1441909829074044
+      },
+      "identical": {
+        "query_ns": 1.0140620204702477,
+        "query_thread_cpu_ns": 1.0140646085935134,
+        "lifecycle_ns": 1.013310792558217
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_go",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "horizon": 47755,
+      "dispatch": {
+        "query_ns": 1.0598825472158897,
+        "query_thread_cpu_ns": 1.0598755880540478,
+        "lifecycle_ns": 1.0568010967085237
+      },
+      "identical": {
+        "query_ns": 0.9990042671192012,
+        "query_thread_cpu_ns": 0.9990123741867455,
+        "lifecycle_ns": 0.9973626280613359
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_go",
+      "seed": 20261023,
+      "stratum": "uniform",
+      "horizon": 75181,
+      "dispatch": {
+        "query_ns": 1.1718610365259838,
+        "query_thread_cpu_ns": 1.1718546353081938,
+        "lifecycle_ns": 1.1603615790239317
+      },
+      "identical": {
+        "query_ns": 0.9986153933625767,
+        "query_thread_cpu_ns": 0.9985933360759991,
+        "lifecycle_ns": 0.9979582222396111
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_go",
+      "seed": 20261023,
+      "stratum": "positive",
+      "horizon": 33798,
+      "dispatch": {
+        "query_ns": 1.0541347396940854,
+        "query_thread_cpu_ns": 1.0543621835695711,
+        "lifecycle_ns": 1.0530122579654848
+      },
+      "identical": {
+        "query_ns": 0.9967828947056798,
+        "query_thread_cpu_ns": 0.9966426543541324,
+        "lifecycle_ns": 0.9959425855572572
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_go",
+      "seed": 20261023,
+      "stratum": "negative",
+      "horizon": 74454,
+      "dispatch": {
+        "query_ns": 1.1331639498684627,
+        "query_thread_cpu_ns": 1.133089956266414,
+        "lifecycle_ns": 1.125947462538412
+      },
+      "identical": {
+        "query_ns": 0.9991671074958219,
+        "query_thread_cpu_ns": 0.9992252558183443,
+        "lifecycle_ns": 1.0004710987730432
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_go",
+      "seed": 20261023,
+      "stratum": "balanced",
+      "horizon": 49575,
+      "dispatch": {
+        "query_ns": 1.044435728300991,
+        "query_thread_cpu_ns": 1.0444524424505937,
+        "lifecycle_ns": 1.041673237525464
+      },
+      "identical": {
+        "query_ns": 0.9978742329626707,
+        "query_thread_cpu_ns": 0.9978984331081856,
+        "lifecycle_ns": 0.9965892488339254
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_go",
+      "seed": 20261024,
+      "stratum": "uniform",
+      "horizon": 71694,
+      "dispatch": {
+        "query_ns": 1.1311500676220896,
+        "query_thread_cpu_ns": 1.1312235816198584,
+        "lifecycle_ns": 1.124907649723657
+      },
+      "identical": {
+        "query_ns": 1.000771617868693,
+        "query_thread_cpu_ns": 1.000771000409464,
+        "lifecycle_ns": 0.9996686774411514
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_go",
+      "seed": 20261024,
+      "stratum": "positive",
+      "horizon": 36023,
+      "dispatch": {
+        "query_ns": 1.0370291390754454,
+        "query_thread_cpu_ns": 1.0370074988235438,
+        "lifecycle_ns": 1.03674952075037
+      },
+      "identical": {
+        "query_ns": 0.9914326366657868,
+        "query_thread_cpu_ns": 0.9914486746289237,
+        "lifecycle_ns": 0.9911488036800469
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_go",
+      "seed": 20261024,
+      "stratum": "negative",
+      "horizon": 77223,
+      "dispatch": {
+        "query_ns": 1.1240966887519934,
+        "query_thread_cpu_ns": 1.1240390842139703,
+        "lifecycle_ns": 1.1171113660508414
+      },
+      "identical": {
+        "query_ns": 1.0085774535581873,
+        "query_thread_cpu_ns": 1.0085559768439445,
+        "lifecycle_ns": 1.0058274774749458
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_go",
+      "seed": 20261024,
+      "stratum": "balanced",
+      "horizon": 39471,
+      "dispatch": {
+        "query_ns": 1.0580059565653885,
+        "query_thread_cpu_ns": 1.0579982930288305,
+        "lifecycle_ns": 1.0582895631553604
+      },
+      "identical": {
+        "query_ns": 1.0130350138140547,
+        "query_thread_cpu_ns": 1.012997315038668,
+        "lifecycle_ns": 1.0192625240208435
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_kegg",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "horizon": 59380,
+      "dispatch": {
+        "query_ns": 0.9672827467259533,
+        "query_thread_cpu_ns": 0.967251079675102,
+        "lifecycle_ns": 0.9682041101160794
+      },
+      "identical": {
+        "query_ns": 1.034000444232308,
+        "query_thread_cpu_ns": 1.034012368624218,
+        "lifecycle_ns": 1.03201492493434
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_kegg",
+      "seed": 20261022,
+      "stratum": "positive",
+      "horizon": 56294,
+      "dispatch": {
+        "query_ns": 0.9302588255872639,
+        "query_thread_cpu_ns": 0.9306508599052925,
+        "lifecycle_ns": 0.9316310901377203
+      },
+      "identical": {
+        "query_ns": 1.013756259855807,
+        "query_thread_cpu_ns": 1.0137379056504834,
+        "lifecycle_ns": 1.011457432820758
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_kegg",
+      "seed": 20261022,
+      "stratum": "negative",
+      "horizon": 53939,
+      "dispatch": {
+        "query_ns": 0.9248970697167351,
+        "query_thread_cpu_ns": 0.9250999838407272,
+        "lifecycle_ns": 0.9248887531883077
+      },
+      "identical": {
+        "query_ns": 1.0155307192856737,
+        "query_thread_cpu_ns": 1.015404804092217,
+        "lifecycle_ns": 1.014095956755873
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_kegg",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "horizon": 58768,
+      "dispatch": {
+        "query_ns": 0.9739127039913386,
+        "query_thread_cpu_ns": 0.9738818333302337,
+        "lifecycle_ns": 0.9734445558049021
+      },
+      "identical": {
+        "query_ns": 1.0247197315914187,
+        "query_thread_cpu_ns": 1.0247711019174732,
+        "lifecycle_ns": 1.0234254053368632
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_kegg",
+      "seed": 20261023,
+      "stratum": "uniform",
+      "horizon": 61546,
+      "dispatch": {
+        "query_ns": 0.9745053419890433,
+        "query_thread_cpu_ns": 0.974459123197684,
+        "lifecycle_ns": 0.9749244365586908
+      },
+      "identical": {
+        "query_ns": 1.0072492487337024,
+        "query_thread_cpu_ns": 1.0072225511971342,
+        "lifecycle_ns": 1.0059045056131006
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_kegg",
+      "seed": 20261023,
+      "stratum": "positive",
+      "horizon": 59075,
+      "dispatch": {
+        "query_ns": 0.9135088568087171,
+        "query_thread_cpu_ns": 0.9136525329902331,
+        "lifecycle_ns": 0.9174322382130478
+      },
+      "identical": {
+        "query_ns": 0.9736138698915253,
+        "query_thread_cpu_ns": 0.973943757053902,
+        "lifecycle_ns": 0.9757112542684707
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_kegg",
+      "seed": 20261023,
+      "stratum": "negative",
+      "horizon": 57353,
+      "dispatch": {
+        "query_ns": 0.9484353741152707,
+        "query_thread_cpu_ns": 0.9484182205321051,
+        "lifecycle_ns": 0.9497808357701489
+      },
+      "identical": {
+        "query_ns": 0.987968208031065,
+        "query_thread_cpu_ns": 0.987922515741968,
+        "lifecycle_ns": 0.9873878713237507
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_kegg",
+      "seed": 20261023,
+      "stratum": "balanced",
+      "horizon": 61980,
+      "dispatch": {
+        "query_ns": 0.9712982642443446,
+        "query_thread_cpu_ns": 0.971333417958361,
+        "lifecycle_ns": 0.9709804188229281
+      },
+      "identical": {
+        "query_ns": 1.015411606497203,
+        "query_thread_cpu_ns": 1.0154147013404413,
+        "lifecycle_ns": 1.0144478389343936
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_kegg",
+      "seed": 20261024,
+      "stratum": "uniform",
+      "horizon": 63517,
+      "dispatch": {
+        "query_ns": 0.9384477278707226,
+        "query_thread_cpu_ns": 0.9385606427240226,
+        "lifecycle_ns": 0.9418009570978965
+      },
+      "identical": {
+        "query_ns": 0.9910842044724033,
+        "query_thread_cpu_ns": 0.9910467344517888,
+        "lifecycle_ns": 0.9910421584517626
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_kegg",
+      "seed": 20261024,
+      "stratum": "positive",
+      "horizon": 61989,
+      "dispatch": {
+        "query_ns": 0.9524532249565595,
+        "query_thread_cpu_ns": 0.95220737363909,
+        "lifecycle_ns": 0.9532419167989998
+      },
+      "identical": {
+        "query_ns": 1.0020319649995086,
+        "query_thread_cpu_ns": 1.0023692818885928,
+        "lifecycle_ns": 1.002720776853314
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_kegg",
+      "seed": 20261024,
+      "stratum": "negative",
+      "horizon": 62278,
+      "dispatch": {
+        "query_ns": 0.9798273827938628,
+        "query_thread_cpu_ns": 0.979772183152676,
+        "lifecycle_ns": 0.9765851545780521
+      },
+      "identical": {
+        "query_ns": 1.0347186137468976,
+        "query_thread_cpu_ns": 1.0350633139182757,
+        "lifecycle_ns": 1.0349355984661324
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_kegg",
+      "seed": 20261024,
+      "stratum": "balanced",
+      "horizon": 61171,
+      "dispatch": {
+        "query_ns": 0.9287770558536305,
+        "query_thread_cpu_ns": 0.9287943153637674,
+        "lifecycle_ns": 0.9273562042764436
+      },
+      "identical": {
+        "query_ns": 0.9949589578644595,
+        "query_thread_cpu_ns": 0.9949529877983367,
+        "lifecycle_ns": 0.995009988145512
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_pubmed",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "horizon": 74797,
+      "dispatch": {
+        "query_ns": 1.0455443790943373,
+        "query_thread_cpu_ns": 1.0454770549925454,
+        "lifecycle_ns": 1.020147484956599
+      },
+      "identical": {
+        "query_ns": 0.990957154112689,
+        "query_thread_cpu_ns": 0.9908019531296075,
+        "lifecycle_ns": 0.9954405698253923
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_pubmed",
+      "seed": 20261022,
+      "stratum": "positive",
+      "horizon": 26966,
+      "dispatch": {
+        "query_ns": 1.022073839823154,
+        "query_thread_cpu_ns": 1.0222215812096302,
+        "lifecycle_ns": 1.0151705143497756
+      },
+      "identical": {
+        "query_ns": 1.0180379729041693,
+        "query_thread_cpu_ns": 1.0180563173848767,
+        "lifecycle_ns": 1.016375997399738
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_pubmed",
+      "seed": 20261022,
+      "stratum": "negative",
+      "horizon": 73044,
+      "dispatch": {
+        "query_ns": 1.0714100621811466,
+        "query_thread_cpu_ns": 1.0713999932384444,
+        "lifecycle_ns": 1.0595626313436513
+      },
+      "identical": {
+        "query_ns": 0.9485873302147991,
+        "query_thread_cpu_ns": 0.9486410912835294,
+        "lifecycle_ns": 0.9377631485881122
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_pubmed",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "horizon": 37946,
+      "dispatch": {
+        "query_ns": 1.0928600651751474,
+        "query_thread_cpu_ns": 1.0928239379292135,
+        "lifecycle_ns": 1.101434129198138
+      },
+      "identical": {
+        "query_ns": 1.0278593784617374,
+        "query_thread_cpu_ns": 1.0250833965016166,
+        "lifecycle_ns": 1.0443169707199007
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_pubmed",
+      "seed": 20261023,
+      "stratum": "uniform",
+      "horizon": 74020,
+      "dispatch": {
+        "query_ns": 1.097926305413139,
+        "query_thread_cpu_ns": 1.0979226719097164,
+        "lifecycle_ns": 1.0840289102678213
+      },
+      "identical": {
+        "query_ns": 1.0299541302834,
+        "query_thread_cpu_ns": 1.0299493756279405,
+        "lifecycle_ns": 1.0238469235749594
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_pubmed",
+      "seed": 20261023,
+      "stratum": "positive",
+      "horizon": 25543,
+      "dispatch": {
+        "query_ns": 1.0326770911783625,
+        "query_thread_cpu_ns": 1.0326450181937221,
+        "lifecycle_ns": 1.033351015511453
+      },
+      "identical": {
+        "query_ns": 1.005451455725835,
+        "query_thread_cpu_ns": 1.006050255468827,
+        "lifecycle_ns": 1.005023817022873
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_pubmed",
+      "seed": 20261023,
+      "stratum": "negative",
+      "horizon": 72775,
+      "dispatch": {
+        "query_ns": 1.0230165038087216,
+        "query_thread_cpu_ns": 1.0230953463726382,
+        "lifecycle_ns": 1.0029500039581989
+      },
+      "identical": {
+        "query_ns": 1.04706526005854,
+        "query_thread_cpu_ns": 1.0470349747414964,
+        "lifecycle_ns": 1.041486830823172
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_pubmed",
+      "seed": 20261023,
+      "stratum": "balanced",
+      "horizon": 37744,
+      "dispatch": {
+        "query_ns": 1.0639694959335184,
+        "query_thread_cpu_ns": 1.0639666444972424,
+        "lifecycle_ns": 1.0560745214806102
+      },
+      "identical": {
+        "query_ns": 1.0528846500015696,
+        "query_thread_cpu_ns": 1.0532031223784988,
+        "lifecycle_ns": 1.052115023893939
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_pubmed",
+      "seed": 20261024,
+      "stratum": "uniform",
+      "horizon": 70367,
+      "dispatch": {
+        "query_ns": 1.0916243925594946,
+        "query_thread_cpu_ns": 1.091607521074888,
+        "lifecycle_ns": 1.080703857627149
+      },
+      "identical": {
+        "query_ns": 1.0056394883767448,
+        "query_thread_cpu_ns": 1.0055913814330903,
+        "lifecycle_ns": 1.0035626570564495
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_pubmed",
+      "seed": 20261024,
+      "stratum": "positive",
+      "horizon": 23752,
+      "dispatch": {
+        "query_ns": 1.0215317475645787,
+        "query_thread_cpu_ns": 1.0223340145596946,
+        "lifecycle_ns": 1.0190492152969708
+      },
+      "identical": {
+        "query_ns": 1.0044576594567767,
+        "query_thread_cpu_ns": 1.0048834503697002,
+        "lifecycle_ns": 1.0078849500731917
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_pubmed",
+      "seed": 20261024,
+      "stratum": "negative",
+      "horizon": 64830,
+      "dispatch": {
+        "query_ns": 1.0751359943494307,
+        "query_thread_cpu_ns": 1.0752205940492185,
+        "lifecycle_ns": 1.0739316985014273
+      },
+      "identical": {
+        "query_ns": 0.9503240673911957,
+        "query_thread_cpu_ns": 0.9502366832500466,
+        "lifecycle_ns": 0.9556635028621736
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_pubmed",
+      "seed": 20261024,
+      "stratum": "balanced",
+      "horizon": 36771,
+      "dispatch": {
+        "query_ns": 1.0484693746045133,
+        "query_thread_cpu_ns": 1.0488838199760622,
+        "lifecycle_ns": 1.0454144911810737
+      },
+      "identical": {
+        "query_ns": 0.9915716584816061,
+        "query_thread_cpu_ns": 0.9915152712721401,
+        "lifecycle_ns": 0.995902515136075
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_yago",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "horizon": 76951,
+      "dispatch": {
+        "query_ns": 1.1472411610412507,
+        "query_thread_cpu_ns": 1.149604015074288,
+        "lifecycle_ns": 1.1322481424302016
+      },
+      "identical": {
+        "query_ns": 0.9882921108989158,
+        "query_thread_cpu_ns": 0.9887516023547871,
+        "lifecycle_ns": 0.988687689211555
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_yago",
+      "seed": 20261022,
+      "stratum": "positive",
+      "horizon": 35854,
+      "dispatch": {
+        "query_ns": 1.0406470870027529,
+        "query_thread_cpu_ns": 1.041397156084407,
+        "lifecycle_ns": 1.036119728715638
+      },
+      "identical": {
+        "query_ns": 0.9903438977806441,
+        "query_thread_cpu_ns": 0.9900733506482917,
+        "lifecycle_ns": 0.9970470657714926
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_yago",
+      "seed": 20261022,
+      "stratum": "negative",
+      "horizon": 80483,
+      "dispatch": {
+        "query_ns": 1.151094638131974,
+        "query_thread_cpu_ns": 1.1511692044193271,
+        "lifecycle_ns": 1.1400446615453141
+      },
+      "identical": {
+        "query_ns": 0.9922094425997673,
+        "query_thread_cpu_ns": 0.992234113994181,
+        "lifecycle_ns": 0.9943002208460971
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_yago",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "horizon": 47671,
+      "dispatch": {
+        "query_ns": 1.0967456305406111,
+        "query_thread_cpu_ns": 1.0964012642522256,
+        "lifecycle_ns": 1.090751761063331
+      },
+      "identical": {
+        "query_ns": 1.0117059223283733,
+        "query_thread_cpu_ns": 1.011721591708844,
+        "lifecycle_ns": 0.9996853022367114
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_yago",
+      "seed": 20261023,
+      "stratum": "uniform",
+      "horizon": 78892,
+      "dispatch": {
+        "query_ns": 1.104079690289443,
+        "query_thread_cpu_ns": 1.104039285240292,
+        "lifecycle_ns": 1.0908224068164176
+      },
+      "identical": {
+        "query_ns": 0.9998382769399068,
+        "query_thread_cpu_ns": 0.9998634370152177,
+        "lifecycle_ns": 0.9950181845529924
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_yago",
+      "seed": 20261023,
+      "stratum": "positive",
+      "horizon": 36370,
+      "dispatch": {
+        "query_ns": 1.0228343101317212,
+        "query_thread_cpu_ns": 1.0229340417461605,
+        "lifecycle_ns": 1.0137010866712544
+      },
+      "identical": {
+        "query_ns": 0.9808219947258119,
+        "query_thread_cpu_ns": 0.9808741758152661,
+        "lifecycle_ns": 0.9812445093565694
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_yago",
+      "seed": 20261023,
+      "stratum": "negative",
+      "horizon": 78567,
+      "dispatch": {
+        "query_ns": 1.1313398413054574,
+        "query_thread_cpu_ns": 1.1322551123691413,
+        "lifecycle_ns": 1.1188050543211183
+      },
+      "identical": {
+        "query_ns": 1.0025104732781704,
+        "query_thread_cpu_ns": 1.002852310025929,
+        "lifecycle_ns": 1.0019414470999262
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_yago",
+      "seed": 20261023,
+      "stratum": "balanced",
+      "horizon": 46809,
+      "dispatch": {
+        "query_ns": 1.063097954821263,
+        "query_thread_cpu_ns": 1.0630779684102625,
+        "lifecycle_ns": 1.054734418747902
+      },
+      "identical": {
+        "query_ns": 0.9927264662408366,
+        "query_thread_cpu_ns": 0.9926831453374643,
+        "lifecycle_ns": 0.9938732848806753
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_yago",
+      "seed": 20261024,
+      "stratum": "uniform",
+      "horizon": 73897,
+      "dispatch": {
+        "query_ns": 1.125438440369941,
+        "query_thread_cpu_ns": 1.125557940344001,
+        "lifecycle_ns": 1.1060751164106437
+      },
+      "identical": {
+        "query_ns": 1.0056943102335916,
+        "query_thread_cpu_ns": 1.005607619677535,
+        "lifecycle_ns": 1.0048302533822682
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_yago",
+      "seed": 20261024,
+      "stratum": "positive",
+      "horizon": 32770,
+      "dispatch": {
+        "query_ns": 1.0582109476827133,
+        "query_thread_cpu_ns": 1.059571240107267,
+        "lifecycle_ns": 1.0591667770565394
+      },
+      "identical": {
+        "query_ns": 0.9683246313166747,
+        "query_thread_cpu_ns": 0.9683420869873614,
+        "lifecycle_ns": 0.9756019049758702
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_yago",
+      "seed": 20261024,
+      "stratum": "negative",
+      "horizon": 71482,
+      "dispatch": {
+        "query_ns": 1.104027338545055,
+        "query_thread_cpu_ns": 1.1041533540900443,
+        "lifecycle_ns": 1.0942145875376246
+      },
+      "identical": {
+        "query_ns": 0.9871306151849154,
+        "query_thread_cpu_ns": 0.9871550687475057,
+        "lifecycle_ns": 0.9879189756757552
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "grail_yago",
+      "seed": 20261024,
+      "stratum": "balanced",
+      "horizon": 44926,
+      "dispatch": {
+        "query_ns": 1.0453362081292474,
+        "query_thread_cpu_ns": 1.0453520981998166,
+        "lifecycle_ns": 1.0356552963332022
+      },
+      "identical": {
+        "query_ns": 1.0116035408121564,
+        "query_thread_cpu_ns": 1.0119666740173654,
+        "lifecycle_ns": 1.004134042285377
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_agrocyc",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "horizon": 69202,
+      "dispatch": {
+        "query_ns": 1.1438166395747422,
+        "query_thread_cpu_ns": 1.1437442339481443,
+        "lifecycle_ns": 1.1401871747292938
+      },
+      "identical": {
+        "query_ns": 1.0003419660587034,
+        "query_thread_cpu_ns": 1.0003119612720826,
+        "lifecycle_ns": 1.0005976986172538
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_agrocyc",
+      "seed": 20261025,
+      "stratum": "positive",
+      "horizon": 60095,
+      "dispatch": {
+        "query_ns": 1.0462857962860008,
+        "query_thread_cpu_ns": 1.0459235729655534,
+        "lifecycle_ns": 1.0453540838048654
+      },
+      "identical": {
+        "query_ns": 1.019679541233089,
+        "query_thread_cpu_ns": 1.0192784117420897,
+        "lifecycle_ns": 1.0171362488983022
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_agrocyc",
+      "seed": 20261025,
+      "stratum": "negative",
+      "horizon": 70477,
+      "dispatch": {
+        "query_ns": 1.1327750701570907,
+        "query_thread_cpu_ns": 1.1327640342366694,
+        "lifecycle_ns": 1.1254014137054056
+      },
+      "identical": {
+        "query_ns": 1.0162047016109645,
+        "query_thread_cpu_ns": 1.0161968240308883,
+        "lifecycle_ns": 1.0156732813959592
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_agrocyc",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "horizon": 64696,
+      "dispatch": {
+        "query_ns": 1.0561548165373593,
+        "query_thread_cpu_ns": 1.0564708483199103,
+        "lifecycle_ns": 1.0552114743986223
+      },
+      "identical": {
+        "query_ns": 0.9515308122445945,
+        "query_thread_cpu_ns": 0.9515302526091958,
+        "lifecycle_ns": 0.9516323057282849
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_amaze",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "horizon": 47892,
+      "dispatch": {
+        "query_ns": 0.9434586981372028,
+        "query_thread_cpu_ns": 0.943471565485215,
+        "lifecycle_ns": 0.9463033129649393
+      },
+      "identical": {
+        "query_ns": 1.0121782559002785,
+        "query_thread_cpu_ns": 1.0126512094864075,
+        "lifecycle_ns": 1.011898596336268
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_amaze",
+      "seed": 20261025,
+      "stratum": "positive",
+      "horizon": 63622,
+      "dispatch": {
+        "query_ns": 0.9416313023172074,
+        "query_thread_cpu_ns": 0.9419525379747776,
+        "lifecycle_ns": 0.9425700766722886
+      },
+      "identical": {
+        "query_ns": 0.9839289033807763,
+        "query_thread_cpu_ns": 0.9839134473342039,
+        "lifecycle_ns": 0.9829791255887834
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_amaze",
+      "seed": 20261025,
+      "stratum": "negative",
+      "horizon": 58887,
+      "dispatch": {
+        "query_ns": 0.9685565935075056,
+        "query_thread_cpu_ns": 0.9685519817285339,
+        "lifecycle_ns": 0.9702174001374382
+      },
+      "identical": {
+        "query_ns": 0.9837478096003902,
+        "query_thread_cpu_ns": 0.9837336666218625,
+        "lifecycle_ns": 0.9838266515509547
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_amaze",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "horizon": 53632,
+      "dispatch": {
+        "query_ns": 0.9654568342873284,
+        "query_thread_cpu_ns": 0.9654679735782936,
+        "lifecycle_ns": 0.9661737124755814
+      },
+      "identical": {
+        "query_ns": 0.9513159308024575,
+        "query_thread_cpu_ns": 0.9512888675156659,
+        "lifecycle_ns": 0.9540187924869346
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_anthra",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "horizon": 71347,
+      "dispatch": {
+        "query_ns": 1.1138719947743378,
+        "query_thread_cpu_ns": 1.1139080047020884,
+        "lifecycle_ns": 1.1250218439499504
+      },
+      "identical": {
+        "query_ns": 0.9508770299676944,
+        "query_thread_cpu_ns": 0.9508672255741486,
+        "lifecycle_ns": 0.9665203177509203
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_anthra",
+      "seed": 20261025,
+      "stratum": "positive",
+      "horizon": 57003,
+      "dispatch": {
+        "query_ns": 1.1481259448684562,
+        "query_thread_cpu_ns": 1.1480414079298806,
+        "lifecycle_ns": 1.1411969993683009
+      },
+      "identical": {
+        "query_ns": 1.0452143769639417,
+        "query_thread_cpu_ns": 1.0450869871254014,
+        "lifecycle_ns": 1.0427969670612103
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_anthra",
+      "seed": 20261025,
+      "stratum": "negative",
+      "horizon": 72082,
+      "dispatch": {
+        "query_ns": 1.1293653757954099,
+        "query_thread_cpu_ns": 1.126881203466278,
+        "lifecycle_ns": 1.1249765226776365
+      },
+      "identical": {
+        "query_ns": 1.0200305884189955,
+        "query_thread_cpu_ns": 1.0159323673645189,
+        "lifecycle_ns": 1.021522475692534
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_anthra",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "horizon": 73556,
+      "dispatch": {
+        "query_ns": 1.060012999520032,
+        "query_thread_cpu_ns": 1.0597176925569602,
+        "lifecycle_ns": 1.060361755623966
+      },
+      "identical": {
+        "query_ns": 1.0005962981350904,
+        "query_thread_cpu_ns": 1.0008550796862867,
+        "lifecycle_ns": 1.0013337183320712
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_ecoo",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "horizon": 77957,
+      "dispatch": {
+        "query_ns": 1.1113750529605837,
+        "query_thread_cpu_ns": 1.11142894812828,
+        "lifecycle_ns": 1.107894374824278
+      },
+      "identical": {
+        "query_ns": 0.996186806762767,
+        "query_thread_cpu_ns": 0.9961826491651509,
+        "lifecycle_ns": 0.9954534320212671
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_ecoo",
+      "seed": 20261025,
+      "stratum": "positive",
+      "horizon": 50855,
+      "dispatch": {
+        "query_ns": 1.0360197718609605,
+        "query_thread_cpu_ns": 1.0359616401828964,
+        "lifecycle_ns": 1.0292880539008196
+      },
+      "identical": {
+        "query_ns": 0.9301323515937032,
+        "query_thread_cpu_ns": 0.9301671565049153,
+        "lifecycle_ns": 0.9321707421024277
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_ecoo",
+      "seed": 20261025,
+      "stratum": "negative",
+      "horizon": 75482,
+      "dispatch": {
+        "query_ns": 1.087368792851814,
+        "query_thread_cpu_ns": 1.0873471001064294,
+        "lifecycle_ns": 1.0850055083109011
+      },
+      "identical": {
+        "query_ns": 0.9995081251204767,
+        "query_thread_cpu_ns": 0.9995093272801823,
+        "lifecycle_ns": 1.0018152959990274
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_ecoo",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "horizon": 69894,
+      "dispatch": {
+        "query_ns": 1.0649262475739292,
+        "query_thread_cpu_ns": 1.064923149149883,
+        "lifecycle_ns": 1.0639813976692378
+      },
+      "identical": {
+        "query_ns": 0.9709863913103971,
+        "query_thread_cpu_ns": 0.9710155505281404,
+        "lifecycle_ns": 0.971334153920764
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_human",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "horizon": 72908,
+      "dispatch": {
+        "query_ns": 1.0627748208429422,
+        "query_thread_cpu_ns": 1.0628770959755338,
+        "lifecycle_ns": 1.0557287349147981
+      },
+      "identical": {
+        "query_ns": 0.9948072632147364,
+        "query_thread_cpu_ns": 0.9948249600160184,
+        "lifecycle_ns": 0.9827090708667994
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_human",
+      "seed": 20261025,
+      "stratum": "positive",
+      "horizon": 66729,
+      "dispatch": {
+        "query_ns": 1.0700206476511371,
+        "query_thread_cpu_ns": 1.0700902385119726,
+        "lifecycle_ns": 1.06261578413545
+      },
+      "identical": {
+        "query_ns": 0.9958336681172102,
+        "query_thread_cpu_ns": 0.9958777341614978,
+        "lifecycle_ns": 0.9931082799597593
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_human",
+      "seed": 20261025,
+      "stratum": "negative",
+      "horizon": 72152,
+      "dispatch": {
+        "query_ns": 1.0466002913377037,
+        "query_thread_cpu_ns": 1.0464482333966887,
+        "lifecycle_ns": 1.0448795888322298
+      },
+      "identical": {
+        "query_ns": 0.9702583238417659,
+        "query_thread_cpu_ns": 0.9699643063457069,
+        "lifecycle_ns": 0.976807782059852
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_human",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "horizon": 69053,
+      "dispatch": {
+        "query_ns": 1.0578581545562666,
+        "query_thread_cpu_ns": 1.058161100966934,
+        "lifecycle_ns": 1.0542499221998007
+      },
+      "identical": {
+        "query_ns": 0.9792226454462823,
+        "query_thread_cpu_ns": 0.9795673415166533,
+        "lifecycle_ns": 0.9853269341369442
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_mtbrv",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "horizon": 78709,
+      "dispatch": {
+        "query_ns": 1.1397925356959058,
+        "query_thread_cpu_ns": 1.139894514420607,
+        "lifecycle_ns": 1.1341862031835435
+      },
+      "identical": {
+        "query_ns": 1.0054867259052531,
+        "query_thread_cpu_ns": 1.0054727825181793,
+        "lifecycle_ns": 1.0065540535235762
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_mtbrv",
+      "seed": 20261025,
+      "stratum": "positive",
+      "horizon": 62509,
+      "dispatch": {
+        "query_ns": 1.0445456540050673,
+        "query_thread_cpu_ns": 1.0444661985262305,
+        "lifecycle_ns": 1.046499565091569
+      },
+      "identical": {
+        "query_ns": 1.0266073904438051,
+        "query_thread_cpu_ns": 1.0265168877935953,
+        "lifecycle_ns": 1.0274583203814256
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_mtbrv",
+      "seed": 20261025,
+      "stratum": "negative",
+      "horizon": 78180,
+      "dispatch": {
+        "query_ns": 1.100489809680657,
+        "query_thread_cpu_ns": 1.1006370669992533,
+        "lifecycle_ns": 1.0930383212357224
+      },
+      "identical": {
+        "query_ns": 0.9989477980706098,
+        "query_thread_cpu_ns": 0.9989470234429134,
+        "lifecycle_ns": 0.9993970566612314
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_mtbrv",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "horizon": 54752,
+      "dispatch": {
+        "query_ns": 1.0777587010912777,
+        "query_thread_cpu_ns": 1.0778136078689107,
+        "lifecycle_ns": 1.0755870660958449
+      },
+      "identical": {
+        "query_ns": 1.0154731717118697,
+        "query_thread_cpu_ns": 1.0154989871156028,
+        "lifecycle_ns": 1.014636657279711
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_nasa",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "horizon": 77788,
+      "dispatch": {
+        "query_ns": 1.12041116197644,
+        "query_thread_cpu_ns": 1.1203652467764664,
+        "lifecycle_ns": 1.1177499432152835
+      },
+      "identical": {
+        "query_ns": 0.9980490950181387,
+        "query_thread_cpu_ns": 0.9980321156620499,
+        "lifecycle_ns": 0.9960221954036675
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_nasa",
+      "seed": 20261025,
+      "stratum": "positive",
+      "horizon": 57899,
+      "dispatch": {
+        "query_ns": 1.0449751255219974,
+        "query_thread_cpu_ns": 1.0450030788492735,
+        "lifecycle_ns": 1.044052580280575
+      },
+      "identical": {
+        "query_ns": 1.0124558423022632,
+        "query_thread_cpu_ns": 1.012404566041464,
+        "lifecycle_ns": 1.013474708158441
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_nasa",
+      "seed": 20261025,
+      "stratum": "negative",
+      "horizon": 79207,
+      "dispatch": {
+        "query_ns": 1.1285177528891501,
+        "query_thread_cpu_ns": 1.1311032355642014,
+        "lifecycle_ns": 1.1249253070869951
+      },
+      "identical": {
+        "query_ns": 0.9930231635440561,
+        "query_thread_cpu_ns": 0.9930041549826856,
+        "lifecycle_ns": 0.991502097015228
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_nasa",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "horizon": 64090,
+      "dispatch": {
+        "query_ns": 1.05565919642529,
+        "query_thread_cpu_ns": 1.0544893620250022,
+        "lifecycle_ns": 1.0540704318798073
+      },
+      "identical": {
+        "query_ns": 0.9966101634666054,
+        "query_thread_cpu_ns": 0.9968539175997726,
+        "lifecycle_ns": 0.9966128378463865
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_vchocyc",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "horizon": 78315,
+      "dispatch": {
+        "query_ns": 1.1718616500655727,
+        "query_thread_cpu_ns": 1.171775795584619,
+        "lifecycle_ns": 1.166307397207203
+      },
+      "identical": {
+        "query_ns": 1.0070041092055337,
+        "query_thread_cpu_ns": 1.0072937623046774,
+        "lifecycle_ns": 1.0082606376365375
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_vchocyc",
+      "seed": 20261025,
+      "stratum": "positive",
+      "horizon": 48400,
+      "dispatch": {
+        "query_ns": 1.0394471992511614,
+        "query_thread_cpu_ns": 1.0398898433905919,
+        "lifecycle_ns": 1.037005613966834
+      },
+      "identical": {
+        "query_ns": 0.9847329890757339,
+        "query_thread_cpu_ns": 0.9851736605137571,
+        "lifecycle_ns": 0.9777675709531717
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_vchocyc",
+      "seed": 20261025,
+      "stratum": "negative",
+      "horizon": 78547,
+      "dispatch": {
+        "query_ns": 1.0969642503309025,
+        "query_thread_cpu_ns": 1.0969299773422596,
+        "lifecycle_ns": 1.0908616677320624
+      },
+      "identical": {
+        "query_ns": 1.01204904623778,
+        "query_thread_cpu_ns": 1.012088139528777,
+        "lifecycle_ns": 1.0133413086206977
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_vchocyc",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "horizon": 73273,
+      "dispatch": {
+        "query_ns": 1.0595311498907614,
+        "query_thread_cpu_ns": 1.059499460991646,
+        "lifecycle_ns": 1.0570846550720394
+      },
+      "identical": {
+        "query_ns": 0.9965109005637394,
+        "query_thread_cpu_ns": 0.9964721103380468,
+        "lifecycle_ns": 0.9965733660313105
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_xmark",
+      "seed": 20261025,
+      "stratum": "uniform",
+      "horizon": 73334,
+      "dispatch": {
+        "query_ns": 1.117051665744862,
+        "query_thread_cpu_ns": 1.116950980263209,
+        "lifecycle_ns": 1.1147606466012099
+      },
+      "identical": {
+        "query_ns": 1.0090993567191873,
+        "query_thread_cpu_ns": 1.0091573487990595,
+        "lifecycle_ns": 1.0085351994420524
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_xmark",
+      "seed": 20261025,
+      "stratum": "positive",
+      "horizon": 57876,
+      "dispatch": {
+        "query_ns": 1.055194116229473,
+        "query_thread_cpu_ns": 1.0552063278452262,
+        "lifecycle_ns": 1.055625810412014
+      },
+      "identical": {
+        "query_ns": 1.0021336456572836,
+        "query_thread_cpu_ns": 1.0018341692732458,
+        "lifecycle_ns": 1.0024812887337564
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_xmark",
+      "seed": 20261025,
+      "stratum": "negative",
+      "horizon": 61086,
+      "dispatch": {
+        "query_ns": 1.0603357943029064,
+        "query_thread_cpu_ns": 1.0603339112214356,
+        "lifecycle_ns": 1.0494601427350538
+      },
+      "identical": {
+        "query_ns": 1.0059822775942235,
+        "query_thread_cpu_ns": 1.0060089921779158,
+        "lifecycle_ns": 1.0059628491310848
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "heldout_xmark",
+      "seed": 20261025,
+      "stratum": "balanced",
+      "horizon": 62449,
+      "dispatch": {
+        "query_ns": 1.0664131560174663,
+        "query_thread_cpu_ns": 1.0667712014640374,
+        "lifecycle_ns": 1.0644760738198134
+      },
+      "identical": {
+        "query_ns": 0.9999977528214129,
+        "query_thread_cpu_ns": 0.9999425953388412,
+        "lifecycle_ns": 0.9998315008503951
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "kron_logn12",
+      "seed": 20261022,
+      "stratum": "uniform",
+      "horizon": 56638,
+      "dispatch": {
+        "query_ns": 0.9517348349359116,
+        "query_thread_cpu_ns": 0.9516669965042308,
+        "lifecycle_ns": 0.957474952271752
+      },
+      "identical": {
+        "query_ns": 0.9887632032426505,
+        "query_thread_cpu_ns": 0.9884055032146275,
+        "lifecycle_ns": 0.9880456444798593
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "kron_logn12",
+      "seed": 20261022,
+      "stratum": "positive",
+      "horizon": 55188,
+      "dispatch": {
+        "query_ns": 0.9570463534157174,
+        "query_thread_cpu_ns": 0.9570897835302689,
+        "lifecycle_ns": 0.9751219164139466
+      },
+      "identical": {
+        "query_ns": 0.9920244715198723,
+        "query_thread_cpu_ns": 0.9929162587692175,
+        "lifecycle_ns": 0.9929230156040373
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "kron_logn12",
+      "seed": 20261022,
+      "stratum": "negative",
+      "horizon": 52302,
+      "dispatch": {
+        "query_ns": 0.9565484160940918,
+        "query_thread_cpu_ns": 0.9562445511114133,
+        "lifecycle_ns": 0.964348212429764
+      },
+      "identical": {
+        "query_ns": 1.0145747340082654,
+        "query_thread_cpu_ns": 1.014200364115612,
+        "lifecycle_ns": 1.0103149227692767
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "kron_logn12",
+      "seed": 20261022,
+      "stratum": "balanced",
+      "horizon": 54705,
+      "dispatch": {
+        "query_ns": 0.9662969759948383,
+        "query_thread_cpu_ns": 0.9662738605109809,
+        "lifecycle_ns": 0.9737658858484015
+      },
+      "identical": {
+        "query_ns": 0.9921821154528951,
+        "query_thread_cpu_ns": 0.9921460105363801,
+        "lifecycle_ns": 0.9923237120123225
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "kron_logn12",
+      "seed": 20261023,
+      "stratum": "uniform",
+      "horizon": 59460,
+      "dispatch": {
+        "query_ns": 0.9569721515031453,
+        "query_thread_cpu_ns": 0.9572550094394341,
+        "lifecycle_ns": 0.9720611822593356
+      },
+      "identical": {
+        "query_ns": 0.9780270223047065,
+        "query_thread_cpu_ns": 0.9779437988874118,
+        "lifecycle_ns": 0.9749408824638928
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "kron_logn12",
+      "seed": 20261023,
+      "stratum": "positive",
+      "horizon": 61286,
+      "dispatch": {
+        "query_ns": 0.9803719038665183,
+        "query_thread_cpu_ns": 0.9827448626816035,
+        "lifecycle_ns": 0.9860007207965475
+      },
+      "identical": {
+        "query_ns": 1.0319112675019673,
+        "query_thread_cpu_ns": 1.0319220158459603,
+        "lifecycle_ns": 1.040782291348977
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "kron_logn12",
+      "seed": 20261023,
+      "stratum": "negative",
+      "horizon": 57281,
+      "dispatch": {
+        "query_ns": 0.9543669037101543,
+        "query_thread_cpu_ns": 0.9540674905688482,
+        "lifecycle_ns": 0.9631698466835972
+      },
+      "identical": {
+        "query_ns": 0.9419110911074897,
+        "query_thread_cpu_ns": 0.9422393003023802,
+        "lifecycle_ns": 0.9483299647314273
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "kron_logn12",
+      "seed": 20261023,
+      "stratum": "balanced",
+      "horizon": 55350,
+      "dispatch": {
+        "query_ns": 0.9680972285149396,
+        "query_thread_cpu_ns": 0.9680704540428158,
+        "lifecycle_ns": 0.9758914117841851
+      },
+      "identical": {
+        "query_ns": 0.9878861663846739,
+        "query_thread_cpu_ns": 0.987918847995576,
+        "lifecycle_ns": 0.9751141325880744
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "kron_logn12",
+      "seed": 20261024,
+      "stratum": "uniform",
+      "horizon": 59150,
+      "dispatch": {
+        "query_ns": 0.9802904922319923,
+        "query_thread_cpu_ns": 0.9806553916797984,
+        "lifecycle_ns": 0.9824907752895403
+      },
+      "identical": {
+        "query_ns": 1.0062672704666142,
+        "query_thread_cpu_ns": 1.0062426071531858,
+        "lifecycle_ns": 0.9993969621203278
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "kron_logn12",
+      "seed": 20261024,
+      "stratum": "positive",
+      "horizon": 58570,
+      "dispatch": {
+        "query_ns": 0.9532714646504803,
+        "query_thread_cpu_ns": 0.9533048130346702,
+        "lifecycle_ns": 0.9671141423189986
+      },
+      "identical": {
+        "query_ns": 0.9915796986020737,
+        "query_thread_cpu_ns": 0.9915856584433788,
+        "lifecycle_ns": 0.9983184189383789
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "kron_logn12",
+      "seed": 20261024,
+      "stratum": "negative",
+      "horizon": 58820,
+      "dispatch": {
+        "query_ns": 0.9548419854305974,
+        "query_thread_cpu_ns": 0.9548316823063137,
+        "lifecycle_ns": 0.9739009546194319
+      },
+      "identical": {
+        "query_ns": 1.0017522090716748,
+        "query_thread_cpu_ns": 1.0017533212276,
+        "lifecycle_ns": 1.0059366281615683
+      }
+    },
+    {
+      "tag": "native",
+      "dataset": "kron_logn12",
+      "seed": 20261024,
+      "stratum": "balanced",
+      "horizon": 59017,
+      "dispatch": {
+        "query_ns": 0.9621091893545229,
+        "query_thread_cpu_ns": 0.9618985191895679,
+        "lifecycle_ns": 0.9707163050563477
+      },
+      "identical": {
+        "query_ns": 1.0137331868411086,
+        "query_thread_cpu_ns": 1.0137141763800557,
+        "lifecycle_ns": 1.014267979187538
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_cross_chains",
+      "seed": 30004,
+      "stratum": "uniform",
+      "horizon": 16023,
+      "dispatch": {
+        "query_ns": 1.0280991456598114,
+        "query_thread_cpu_ns": 1.028194606388994,
+        "lifecycle_ns": 1.0277914750211967
+      },
+      "identical": {
+        "query_ns": 1.0017759113695215,
+        "query_thread_cpu_ns": 1.0017236805870167,
+        "lifecycle_ns": 1.0019308851284618
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_cross_chains",
+      "seed": 30004,
+      "stratum": "positive",
+      "horizon": 12851,
+      "dispatch": {
+        "query_ns": 1.0269182777093395,
+        "query_thread_cpu_ns": 1.0269190730866846,
+        "lifecycle_ns": 1.0283651030837293
+      },
+      "identical": {
+        "query_ns": 0.9995132612586617,
+        "query_thread_cpu_ns": 0.9994298594437581,
+        "lifecycle_ns": 0.998932370635722
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_cross_chains",
+      "seed": 30004,
+      "stratum": "negative",
+      "horizon": 19462,
+      "dispatch": {
+        "query_ns": 1.0083102275679,
+        "query_thread_cpu_ns": 1.0083437330410931,
+        "lifecycle_ns": 1.00764684371858
+      },
+      "identical": {
+        "query_ns": 0.9989951604482943,
+        "query_thread_cpu_ns": 0.9993672722791294,
+        "lifecycle_ns": 0.9995052596709565
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_cross_chains",
+      "seed": 30004,
+      "stratum": "balanced",
+      "horizon": 14192,
+      "dispatch": {
+        "query_ns": 1.027839114815375,
+        "query_thread_cpu_ns": 1.0278196867267306,
+        "lifecycle_ns": 1.0259675311574126
+      },
+      "identical": {
+        "query_ns": 0.9978459713740574,
+        "query_thread_cpu_ns": 0.9978416173620697,
+        "lifecycle_ns": 0.9972856015637303
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_fragmented",
+      "seed": 30001,
+      "stratum": "uniform",
+      "horizon": 48794,
+      "dispatch": {
+        "query_ns": 1.1421359248269765,
+        "query_thread_cpu_ns": 1.142153987132922,
+        "lifecycle_ns": 1.1349548988427522
+      },
+      "identical": {
+        "query_ns": 0.9826924344453101,
+        "query_thread_cpu_ns": 0.983136400343974,
+        "lifecycle_ns": 0.9858012290138857
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_fragmented",
+      "seed": 30001,
+      "stratum": "positive",
+      "horizon": 19495,
+      "dispatch": {
+        "query_ns": 1.0519707382096684,
+        "query_thread_cpu_ns": 1.0524110208375377,
+        "lifecycle_ns": 1.0493555566514687
+      },
+      "identical": {
+        "query_ns": 0.9807108107339251,
+        "query_thread_cpu_ns": 0.9810536338526663,
+        "lifecycle_ns": 0.9814203158154482
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_fragmented",
+      "seed": 30001,
+      "stratum": "negative",
+      "horizon": 46744,
+      "dispatch": {
+        "query_ns": 1.1818384935425823,
+        "query_thread_cpu_ns": 1.1824580964542206,
+        "lifecycle_ns": 1.175056775565186
+      },
+      "identical": {
+        "query_ns": 0.9888413100102716,
+        "query_thread_cpu_ns": 0.9888401524634083,
+        "lifecycle_ns": 0.9895395723747689
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_fragmented",
+      "seed": 30001,
+      "stratum": "balanced",
+      "horizon": 29171,
+      "dispatch": {
+        "query_ns": 1.0308177407136256,
+        "query_thread_cpu_ns": 1.0311184967855458,
+        "lifecycle_ns": 1.0309485285142932
+      },
+      "identical": {
+        "query_ns": 1.0008169554496384,
+        "query_thread_cpu_ns": 1.0011392877765268,
+        "lifecycle_ns": 1.0039211693412944
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_scc_aliases",
+      "seed": 30003,
+      "stratum": "uniform",
+      "horizon": 46552,
+      "dispatch": {
+        "query_ns": 1.0932686026535263,
+        "query_thread_cpu_ns": 1.0932298099631592,
+        "lifecycle_ns": 1.0801897277987864
+      },
+      "identical": {
+        "query_ns": 0.9984082004908518,
+        "query_thread_cpu_ns": 0.998365873151032,
+        "lifecycle_ns": 0.9950269808683649
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_scc_aliases",
+      "seed": 30003,
+      "stratum": "positive",
+      "horizon": 25593,
+      "dispatch": {
+        "query_ns": 1.0566859538748816,
+        "query_thread_cpu_ns": 1.0566969449662384,
+        "lifecycle_ns": 1.0513252572345577
+      },
+      "identical": {
+        "query_ns": 1.0144501308238547,
+        "query_thread_cpu_ns": 1.0144887169446628,
+        "lifecycle_ns": 1.010273825746142
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_scc_aliases",
+      "seed": 30003,
+      "stratum": "negative",
+      "horizon": 33059,
+      "dispatch": {
+        "query_ns": 1.108859880050777,
+        "query_thread_cpu_ns": 1.1087984937951254,
+        "lifecycle_ns": 1.0868173508944046
+      },
+      "identical": {
+        "query_ns": 0.9953365745397234,
+        "query_thread_cpu_ns": 0.9953138394124045,
+        "lifecycle_ns": 0.9986139019364271
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_scc_aliases",
+      "seed": 30003,
+      "stratum": "balanced",
+      "horizon": 34851,
+      "dispatch": {
+        "query_ns": 1.0446458706525203,
+        "query_thread_cpu_ns": 1.0444892462188136,
+        "lifecycle_ns": 1.0465615727768547
+      },
+      "identical": {
+        "query_ns": 0.9300445763388725,
+        "query_thread_cpu_ns": 0.9298713680083482,
+        "lifecycle_ns": 0.9323823571904104
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_shared_hubs",
+      "seed": 30002,
+      "stratum": "uniform",
+      "horizon": 34875,
+      "dispatch": {
+        "query_ns": 1.0735187197813372,
+        "query_thread_cpu_ns": 1.0735030833640347,
+        "lifecycle_ns": 1.0804807713664983
+      },
+      "identical": {
+        "query_ns": 1.0128376134578287,
+        "query_thread_cpu_ns": 1.0127582888323874,
+        "lifecycle_ns": 1.0014944589499768
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_shared_hubs",
+      "seed": 30002,
+      "stratum": "positive",
+      "horizon": 11360,
+      "dispatch": {
+        "query_ns": 1.065632054134642,
+        "query_thread_cpu_ns": 1.06563775524632,
+        "lifecycle_ns": 1.0640239116601378
+      },
+      "identical": {
+        "query_ns": 0.9944503795116992,
+        "query_thread_cpu_ns": 0.9944609278260182,
+        "lifecycle_ns": 1.007354414498106
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_shared_hubs",
+      "seed": 30002,
+      "stratum": "negative",
+      "horizon": 36928,
+      "dispatch": {
+        "query_ns": 1.0459538022558985,
+        "query_thread_cpu_ns": 1.0459707655264479,
+        "lifecycle_ns": 1.0327430391690444
+      },
+      "identical": {
+        "query_ns": 0.9862396956871557,
+        "query_thread_cpu_ns": 0.986263043916629,
+        "lifecycle_ns": 0.9873598251236656
+      }
+    },
+    {
+      "tag": "fresh",
+      "dataset": "phase30_shared_hubs",
+      "seed": 30002,
+      "stratum": "balanced",
+      "horizon": 17320,
+      "dispatch": {
+        "query_ns": 1.0316722750215672,
+        "query_thread_cpu_ns": 1.0316204526565464,
+        "lifecycle_ns": 1.0286324263272246
+      },
+      "identical": {
+        "query_ns": 0.9946486665379533,
+        "query_thread_cpu_ns": 0.9946414679203321,
+        "lifecycle_ns": 0.9886754996507217
+      }
+    },
+    {
+      "tag": "forest",
+      "dataset": "large_citeseer",
+      "seed": 20261028,
+      "stratum": "uniform",
+      "horizon": 1230194,
+      "dispatch": {
+        "query_ns": 1.0636654374047971,
+        "query_thread_cpu_ns": 1.0636144398881093,
+        "lifecycle_ns": 1.0459918509476789
+      },
+      "identical": {
+        "query_ns": 1.013647798551014,
+        "query_thread_cpu_ns": 1.0142747984321212,
+        "lifecycle_ns": 1.0184061317483089
+      }
+    },
+    {
+      "tag": "forest",
+      "dataset": "large_citeseer",
+      "seed": 20261028,
+      "stratum": "positive",
+      "horizon": 1205430,
+      "dispatch": {
+        "query_ns": 1.0144851526151006,
+        "query_thread_cpu_ns": 1.0147882425027999,
+        "lifecycle_ns": 1.0101237825274465
+      },
+      "identical": {
+        "query_ns": 0.9809918110514064,
+        "query_thread_cpu_ns": 0.980998430604402,
+        "lifecycle_ns": 1.006905556340841
+      }
+    },
+    {
+      "tag": "forest",
+      "dataset": "large_citeseer",
+      "seed": 20261028,
+      "stratum": "negative",
+      "horizon": 1116131,
+      "dispatch": {
+        "query_ns": 1.0391211489495404,
+        "query_thread_cpu_ns": 1.0416588148243728,
+        "lifecycle_ns": 1.0285505038291278
+      },
+      "identical": {
+        "query_ns": 0.9845858452287533,
+        "query_thread_cpu_ns": 0.9848867409746064,
+        "lifecycle_ns": 0.9832203611150152
+      }
+    },
+    {
+      "tag": "forest",
+      "dataset": "large_citeseer",
+      "seed": 20261028,
+      "stratum": "balanced",
+      "horizon": 1218005,
+      "dispatch": {
+        "query_ns": 1.0336369020430594,
+        "query_thread_cpu_ns": 1.034004850461787,
+        "lifecycle_ns": 1.0277791834394283
+      },
+      "identical": {
+        "query_ns": 1.0054719527525235,
+        "query_thread_cpu_ns": 1.0047116645999077,
+        "lifecycle_ns": 1.0135608742373834
+      }
+    },
+    {
+      "tag": "forest",
+      "dataset": "large_uniprot_22m",
+      "seed": 20261028,
+      "stratum": "uniform",
+      "horizon": 1218224,
+      "dispatch": {
+        "query_ns": 1.072614311443649,
+        "query_thread_cpu_ns": 1.0726189643603206,
+        "lifecycle_ns": 1.0335182482535246
+      },
+      "identical": {
+        "query_ns": 0.9805743383729002,
+        "query_thread_cpu_ns": 0.9805708395203625,
+        "lifecycle_ns": 0.9819572095184258
+      }
+    },
+    {
+      "tag": "forest",
+      "dataset": "large_uniprot_22m",
+      "seed": 20261028,
+      "stratum": "positive",
+      "horizon": 1588039,
+      "dispatch": {
+        "query_ns": 1.1177210923202197,
+        "query_thread_cpu_ns": 1.1177383823570346,
+        "lifecycle_ns": 1.0388232197478082
+      },
+      "identical": {
+        "query_ns": 0.9835596870523513,
+        "query_thread_cpu_ns": 0.9837647258139617,
+        "lifecycle_ns": 1.0009003227861912
+      }
+    },
+    {
+      "tag": "forest",
+      "dataset": "large_uniprot_22m",
+      "seed": 20261028,
+      "stratum": "negative",
+      "horizon": 1209556,
+      "dispatch": {
+        "query_ns": 1.031655865023305,
+        "query_thread_cpu_ns": 1.0316283411196907,
+        "lifecycle_ns": 1.030000377430572
+      },
+      "identical": {
+        "query_ns": 0.9887778468344388,
+        "query_thread_cpu_ns": 0.9887527647192854,
+        "lifecycle_ns": 0.9986058651170648
+      }
+    },
+    {
+      "tag": "forest",
+      "dataset": "large_uniprot_22m",
+      "seed": 20261028,
+      "stratum": "balanced",
+      "horizon": 1312500,
+      "dispatch": {
+        "query_ns": 1.0238348155845247,
+        "query_thread_cpu_ns": 1.0238386238982424,
+        "lifecycle_ns": 0.9961185769597775
+      },
+      "identical": {
+        "query_ns": 0.9823295790497133,
+        "query_thread_cpu_ns": 0.9822995295450592,
+        "lifecycle_ns": 0.9658436556401919
+      }
+    },
+    {
+      "tag": "cold",
+      "dataset": "large_citeseer",
+      "seed": 20261029,
+      "stratum": "uniform",
+      "horizon": 1,
+      "dispatch": {
+        "query_ns": 1.0134408479090615,
+        "query_thread_cpu_ns": 1.0293946777646787,
+        "lifecycle_ns": 0.9712153619779126
+      },
+      "identical": {
+        "query_ns": 1.01619704371832,
+        "query_thread_cpu_ns": 0.9991368237347517,
+        "lifecycle_ns": 0.9940074119393705
+      }
+    },
+    {
+      "tag": "cold",
+      "dataset": "large_uniprot_22m",
+      "seed": 20261029,
+      "stratum": "uniform",
+      "horizon": 1,
+      "dispatch": {
+        "query_ns": 1.0442156177017985,
+        "query_thread_cpu_ns": 1.016716774613383,
+        "lifecycle_ns": 1.0029132474181812
+      },
+      "identical": {
+        "query_ns": 1.0233901450158767,
+        "query_thread_cpu_ns": 1.0073145114932724,
+        "lifecycle_ns": 1.0019652854667553
+      }
+    }
+  ]
+}

@@ -121,7 +121,9 @@ class PartitionedTests(unittest.TestCase):
         data=self.run_graph(g,[(0,n-1),(n-1,0),(123,124),(1,1)],2*1024*1024)
         self.assertEqual(data['interval_partitions'],1)
         self.assertEqual(data['indexed_components'],n)
-        self.assertEqual(data['table_bytes'],16*n)
+        # One interval per SCC remains; its construction directory is released.
+        self.assertEqual(data['table_bytes'],8*n)
+        self.assertLess(data['retained_capacity_bytes'],40*n+1024)
 
     def test_cached_interval_residuals_all_pairs(self):
         # Unequal reachable sink blocks, with gaps on both sides, exercise

@@ -1,0 +1,54 @@
+{
+  "rebuilt_checks": {
+    "previous": {
+      "exhaustive_checks": 18432,
+      "adversarial_checks": 1440,
+      "interval_checks": 589824,
+      "interval_indexes": 9248,
+      "cross_chain_checks": 153600,
+      "forest_checks": 207360,
+      "packed_checks": 1296
+    },
+    "branchless": {
+      "exhaustive_checks": 18432,
+      "adversarial_checks": 1440,
+      "interval_checks": 589824,
+      "interval_indexes": 9248,
+      "cross_chain_checks": 153600,
+      "forest_checks": 207360,
+      "packed_checks": 1296
+    },
+    "linear4": {
+      "exhaustive_checks": 18432,
+      "adversarial_checks": 1440,
+      "interval_checks": 589824,
+      "interval_indexes": 9248,
+      "cross_chain_checks": 153600,
+      "forest_checks": 207360,
+      "packed_checks": 1296
+    },
+    "dispatch": {
+      "exhaustive_checks": 18432,
+      "adversarial_checks": 1440,
+      "interval_checks": 589824,
+      "interval_indexes": 9248,
+      "cross_chain_checks": 153600,
+      "forest_checks": 207360,
+      "packed_checks": 1296
+    },
+    "eytzinger": {
+      "exhaustive_checks": 18432,
+      "adversarial_checks": 1440,
+      "interval_checks": 589824,
+      "interval_indexes": 9248,
+      "cross_chain_checks": 153600,
+      "forest_checks": 207360,
+      "packed_checks": 1296
+    },
+    "residual": {
+      "checks": 5502440,
+      "branchless_mutant_disagreements": 693077,
+      "linear_mutant_disagreements": 578728
+    }
+  }
+}
